@@ -3,9 +3,11 @@
     text-decoration: none;
     font-weight: bold;
     font-size: 20px;
+
     color: rgba(81, 116, 112, 1);
 
   }
+
 
   .btn-primary {
     background-color: rgba(81, 116, 112, 1);
@@ -25,12 +27,36 @@
   display: none;
 }
 
+
 .nav-item a{
   font-weight: bold;
   font-size: 20px;
   color: rgba(81, 116, 112, 1);
 
 }
+  .hover-underline-animation {
+    position: relative;
+    color: rgba(81, 116, 112, 1);
+  }
+
+  .hover-underline-animation::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(81, 116, 112, 1);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+
+  .hover-underline-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
   @media only screen and (max-width: 800px){
     #full_screen {
       display: none;
@@ -54,4 +80,40 @@
       cursor: pointer;
     }
 
+
+  }
+
+  #nav-response {
+    z-index: 5;
+    background-color: rgba(241, 255, 224, 1);
+  }
+
+  #nav-response a {
+    font-weight: bold;
+    font-size: 20px;
+    color: rgba(81, 116, 112, 1);
+  }
+
+  #login-btn {
+    color: rgba(81, 116, 112, 1);
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: -800px;
+    margin-left: +50px;
+  }
+
+  #signup-btn {
+
+    color: white;
+    border: none;
+    background-color:  rgba(81, 116, 112, 1);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: -850px;
+    margin-left: +50px;
+  }
+
+  body {
+    overflow-x: hidden;
   }
