@@ -1,4 +1,8 @@
 
+.login-section{
+    width: 80%;
+    margin: 40px auto;
+}
 .center-text{
     position: relative;
     top: 45%;
@@ -76,5 +80,7 @@ input::-webkit-input-placeholder{
     .logo-image{
         width: 40vw; 
     }
-
+    .login-section{
+        width: 100%;
+    }
 }
