@@ -1,1 +1,62 @@
-<p>login works!</p>
+<section class="login-section">
+        <div class="row text-center align-items-center m-3">
+
+            <div class="col-12 col-md-8">
+                <div class="row">
+                    <div class="col-md-6 col-12 mb-5 mb-md-1">
+                        <p class="reesen-green-text-color reesen-big-lead-text center-text text-shadow">Already have an Account?</p>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <img src="../../../assets/img/carlogo1.png" alt="Car Logo" class="logo-image">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-12 col-md-4 p-5 reesen-green-background">
+                <form>
+                    <div class="mb-3">
+                        <label for="email" class="col-form-label text-light align-text-left">Email Address</label>
+                        <input type="text" class="form-control" id="email" placeholder="example@mail.com">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="col-form-label text-light align-text-left">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password123">
+                        <p class="align-text-right"><a href="" class="text-light"> Forgot Password?</a></p>
+
+                    </div>
+                </form>
+
+                <div class="mb-3">
+                    <button type="button" class="bg-white reesen-green-text-color button-style">Login</button>
+                    <h3 class="py-3"><a [routerLink]="['/register']" class="text-light">New Account? Register now! </a></h3>
+                </div>
+
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-4">
+                            <p class="white-line"></p>
+                        </div>
+                        <div class="col-4 text-light">
+                           <p> Use other methods </p>
+                        </div>
+                        <div class="col-4">
+                            <p class="white-line"></p>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="mb-3">
+                    <div class="container text-center">
+                        <img src="../../../assets/img/google.png" alt="google" style="width:40px;height:40px;margin-right: 60px;">
+                        <img src="../../../assets/img/facebook.png" alt="apple" style="width:40px;height:40px;">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+</section>

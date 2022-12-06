@@ -1,0 +1,36 @@
+.about{
+  margin-top: 20px;
+}
+.play-store{
+    background-color: #4B7869;
+    padding: 6px;
+    min-width: 200px;
+    border-radius: 8px;
+    width:max-content;
+}
+
+.outer-div{
+    width: 100%;
+    text-align: center;
+    
+}
+.inner-div{
+  display: block;
+  margin-left: 20vw;
+}
+@media only screen and (max-width: 1240px){
+    .inner-div{
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width: 440px) {
+   .play-store{
+     width: 100%;
+     margin: auto;
+
+   }
+
+
+}
+
