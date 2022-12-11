@@ -14,24 +14,28 @@
             </div>
 
             <div class="col-12 col-md-4 p-5 reesen-green-background">
-                <form>
+                <form
+                    login
+                    [formGroup]="loginForm"
+                    (ngSubmit)="login()"
+                >
                     <div class="mb-3">
                         <label for="email" class="col-form-label text-light align-text-left">Email Address</label>
-                        <input type="text" class="form-control" id="email" placeholder="example@mail.com">
+                        <input type="text" class="form-control" name="email" id="email" placeholder="example@mail.com" formControlName="email">
                     </div>
 
                     <div class="mb-3">
                         <label for="password" class="col-form-label text-light align-text-left">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password123">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password123" formControlName="password">
                         <p class="align-text-right"><a href="" class="text-light"> Forgot Password?</a></p>
 
                     </div>
-                </form>
 
                 <div class="mb-3">
-                    <button type="button" class="bg-white reesen-green-text-color button-style">Login</button>
+                    <button type="submit" class="bg-white reesen-green-text-color button-style">Login</button>
                     <h3 class="py-3"><a [routerLink]="['/register']" class="text-light">New Account? Register now! </a></h3>
                 </div>
+            </form>
 
                 <div class="mb-3">
                     <div class="row">
