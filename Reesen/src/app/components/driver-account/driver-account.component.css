@@ -1,0 +1,18 @@
+.btn-edit-info{
+    font-size: 20px;
+    background-color: #578979;
+    padding: 10px;
+    border: 2px solid #578979;
+    border-radius: 10px;
+    color: white;
+    max-width: 320px;
+}
+.btn-edit-info:hover{
+    color: rgb(231, 231, 231);
+}
+
+.text-underline{
+    width: 50%;
+    text-align: center;
+    text-decoration: underline;
+}

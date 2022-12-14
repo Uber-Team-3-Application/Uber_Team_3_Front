@@ -9,6 +9,12 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { AboutComponent } from './components/about/about.component';
 import { HomeComponent } from './components/home/home.component';
 import { FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
+import { DriverProfileComponent } from './components/driver-profile/driver-profile.component';
+import { DriverAccountComponent } from './components/driver-account/driver-account.component';
+import { DriverInboxComponent } from './components/driver-inbox/driver-inbox.component';
+import { DriverFavouriteRoutesComponent } from './components/driver-favourite-routes/driver-favourite-routes.component';
+import { DriverRideHistoryComponent } from './components/driver-ride-history/driver-ride-history.component';
+import { DriverReportsComponent } from './components/driver-reports/driver-reports.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +23,13 @@ import { FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
     LoginComponent,
     RegistrationComponent,
     AboutComponent,
-    HomeComponent
+    HomeComponent,
+    DriverProfileComponent,
+    DriverAccountComponent,
+    DriverInboxComponent,
+    DriverFavouriteRoutesComponent,
+    DriverRideHistoryComponent,
+    DriverReportsComponent
   ],
   imports: [
     BrowserModule,
