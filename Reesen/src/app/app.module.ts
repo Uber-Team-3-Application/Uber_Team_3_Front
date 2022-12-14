@@ -15,6 +15,10 @@ import { DriverInboxComponent } from './components/driver-inbox/driver-inbox.com
 import { DriverRideHistoryComponent } from './components/driver-ride-history/driver-ride-history.component';
 import { DriverReportsComponent } from './components/driver-reports/driver-reports.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DriverEditBasicInfoComponent } from './components/driver-edit-basic-info/driver-edit-basic-info.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { EditVehicleInfoComponent } from './components/edit-vehicle-info/edit-vehicle-info.component';
+import { DriverEditPasswordComponent } from './components/driver-edit-password/driver-edit-password.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import { HttpClientModule } from '@angular/common/http';
     DriverAccountComponent,
     DriverInboxComponent,
     DriverRideHistoryComponent,
-    DriverReportsComponent
+    DriverReportsComponent,
+    DriverEditBasicInfoComponent,
+    ChangePasswordComponent,
+    EditVehicleInfoComponent,
+    DriverEditPasswordComponent
   ],
   imports: [
     BrowserModule,
