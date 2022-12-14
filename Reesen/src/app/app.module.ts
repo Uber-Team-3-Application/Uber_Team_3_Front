@@ -29,7 +29,7 @@ import { DriverEditPasswordComponent } from './components/driver-edit-password/d
     RegistrationComponent,
     AboutComponent,
     HomeComponent,
-    DriverRegistrationComponent
+    DriverRegistrationComponent,
     DriverProfileComponent,
     DriverAccountComponent,
     DriverInboxComponent,
