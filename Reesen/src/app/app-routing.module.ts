@@ -9,7 +9,13 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path:'register', component:RegistrationComponent},
   {path:'home', component:HomeComponent},
-  {path:'driverProfile', component:DriverProfileComponent},
+  {path:'driverProfile', component:DriverProfileComponent, children: [
+    {path:'account', redirectTo: '', pathMatch:'full', component:DriverProfileComponent},
+    {path:'rideHistory', component:DriverProfileComponent},
+    {path:'reports', component:DriverProfileComponent},
+
+
+  ]},
   {path:'', redirectTo: '/home', pathMatch:'full'},
   {path:'**', component:HomeComponent},
   
