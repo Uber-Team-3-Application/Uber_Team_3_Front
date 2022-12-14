@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DriverEditBasicInfoComponent } from './components/driver-edit-basic-info/driver-edit-basic-info.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { EditVehicleInfoComponent } from './components/edit-vehicle-info/edit-vehicle-info.component';
+import { DriverEditPasswordComponent } from './components/driver-edit-password/driver-edit-password.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { EditVehicleInfoComponent } from './components/edit-vehicle-info/edit-ve
     DriverReportsComponent,
     DriverEditBasicInfoComponent,
     ChangePasswordComponent,
-    EditVehicleInfoComponent
+    EditVehicleInfoComponent,
+    DriverEditPasswordComponent
   ],
   imports: [
     BrowserModule,

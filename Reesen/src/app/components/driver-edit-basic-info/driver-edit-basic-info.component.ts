@@ -44,9 +44,10 @@ export class DriverEditBasicInfoComponent implements OnInit{
 
     edit():void{
        if(this.editForm.valid){
+        this.hasError = false;
         alert("Succesfully changed information!");
         this.router.navigate(['/driverProfile'])
-        this.hasError = false;
+        
 
        }else{
         this.hasError = true;
