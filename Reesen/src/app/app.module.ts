@@ -36,7 +36,7 @@ import { DriverEditPasswordComponent } from './components/driver-edit-password/d
     DriverEditBasicInfoComponent,
     ChangePasswordComponent,
     EditVehicleInfoComponent,
-    DriverEditPasswordComponent
+    DriverEditPasswordComponent,
   ],
   imports: [
     BrowserModule,
