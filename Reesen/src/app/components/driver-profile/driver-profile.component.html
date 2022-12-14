@@ -22,10 +22,6 @@
                         <span class="mx-3"><button type="button" class="choice-button bold-text" (click)="changeSelectedView('INBOX')">Inbox</button></span>
                     </div>
                     <div class="col-12">
-                        <span ><i class="bi bi-heart"></i></span>
-                        <span class="mx-3"><button type="button" class="choice-button bold-text" (click)="changeSelectedView('FAVOURITE_ROUTES')">Favourites</button></span>
-                    </div>
-                    <div class="col-12">
                         <span ><i class="bi bi-car-front"></i></span>
                         <span class="mx-3"><button type="button" class="choice-button bold-text" (click)="changeSelectedView('RIDE_HISTORY')">Ride History</button></span>
                     </div>
@@ -42,10 +38,8 @@
                 </div>
 
                 <section class="text-center pt-5">
-
                     <app-driver-account *ngIf="selectedView==='ACCOUNT'"></app-driver-account>
                     <app-driver-inbox *ngIf="selectedView==='INBOX'"></app-driver-inbox>
-                    <app-driver-favourite-routes *ngIf="selectedView==='FAVOURITE_ROUTES'"></app-driver-favourite-routes>
                     <app-driver-ride-history *ngIf="selectedView==='RIDE_HISTORY'"></app-driver-ride-history>
                     <app-driver-reports *ngIf="selectedView==='REPORTS'"></app-driver-reports>
                 </section>

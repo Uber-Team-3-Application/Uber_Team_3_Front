@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Driver } from 'src/app/models/Driver';
-import { DriverService } from 'src/app/services/driver.service';
+import { Vehicle } from 'src/app/models/Vehicle';
+import { DriverService } from 'src/app/services/driver/driver.service';
+import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-driver-account',
@@ -16,8 +18,17 @@ export class DriverAccountComponent implements OnInit{
       email: '',
       address: ''
     };
+    
+    vehicle: Vehicle = {
+        model: '',
+        vehicleType: '',
+        licenseNumber:'',
+        passengerSeats:4,
+        babyTransport: false,
+        petTransport:false
+    }
 
-    constructor(private driverService:DriverService){
+    constructor(private driverService:DriverService, private vehicleService:VehicleService){
 
     }
 
@@ -26,6 +37,11 @@ export class DriverAccountComponent implements OnInit{
       subscribe(
         (driver) =>(this.driver = driver)
         );
+
+      this.vehicleService.get(2)
+      .subscribe(
+        (vehicle) => (this.vehicle = vehicle)
+      );
     }
 
 }

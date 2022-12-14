@@ -16,7 +16,6 @@ export class DriverProfileComponent implements OnInit{
     changeSelectedView(newView:string):void{
       this.selectedView = newView;
       if(this.selectedView==="ACCOUNT") this.title = "Account";
-      else if(this.selectedView==="FAVOURITE_ROUTES") this.title = "Favourite Routes";
       else if(this.selectedView==="RIDE_HISTORY") this.title = "Ride History";
       else if(this.selectedView==="REPORTS") this.title = "Reports";
       else this.title = "Inbox";
