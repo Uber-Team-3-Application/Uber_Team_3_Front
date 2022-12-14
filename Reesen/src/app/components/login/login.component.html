@@ -19,6 +19,9 @@
                     [formGroup]="loginForm"
                     (ngSubmit)="login()"
                 >
+                <div class="alert alert-warning" role="alert" *ngIf="hasError">
+                    Username or password are incorrect
+                  </div>
                     <div class="mb-3">
                         <label for="email" class="col-form-label text-light align-text-left">Email Address</label>
                         <input type="text" class="form-control" name="email" id="email" placeholder="example@mail.com" formControlName="email">
