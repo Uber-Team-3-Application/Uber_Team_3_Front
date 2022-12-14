@@ -6,6 +6,7 @@ import { DriverProfileComponent } from './components/driver-profile/driver-profi
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import {DriverRegistrationComponent} from "./components/driver_registration/driver_registration.component";
 
 const routes: Routes = [
   {path:'login', component:LoginComponent},
@@ -19,8 +20,8 @@ const routes: Routes = [
   {path:'driverEdit', component:DriverEditBasicInfoComponent},
   {path: 'driverEditPassword', component:DriverEditPasswordComponent},
   {path:'', redirectTo: '/home', pathMatch:'full'},
+  {path: 'registerDriver', component:DriverRegistrationComponent},
   {path:'**', component:HomeComponent},
-  
 ];
 
 @NgModule({

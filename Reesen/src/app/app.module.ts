@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AboutComponent } from './components/about/about.component';
 import { HomeComponent } from './components/home/home.component';
+import {DriverRegistrationComponent} from "./components/driver_registration/driver_registration.component";
 import { FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
 import { DriverProfileComponent } from './components/driver-profile/driver-profile.component';
 import { DriverAccountComponent } from './components/driver-account/driver-account.component';
@@ -28,6 +29,7 @@ import { DriverEditPasswordComponent } from './components/driver-edit-password/d
     RegistrationComponent,
     AboutComponent,
     HomeComponent,
+    DriverRegistrationComponent
     DriverProfileComponent,
     DriverAccountComponent,
     DriverInboxComponent,
