@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DriverEditBasicInfoComponent } from './components/driver-edit-basic-info/driver-edit-basic-info.component';
 import { DriverProfileComponent } from './components/driver-profile/driver-profile.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -13,9 +14,8 @@ const routes: Routes = [
     {path:'account', redirectTo: '', pathMatch:'full', component:DriverProfileComponent},
     {path:'rideHistory', component:DriverProfileComponent},
     {path:'reports', component:DriverProfileComponent},
-
-
   ]},
+  {path:'driverEdit', component:DriverEditBasicInfoComponent},
   {path:'', redirectTo: '/home', pathMatch:'full'},
   {path:'**', component:HomeComponent},
   
