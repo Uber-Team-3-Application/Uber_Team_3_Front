@@ -2,6 +2,24 @@ body, html{
     margin: 0;
     padding: 0;
 }
+
+@font-face{
+    font-family: 'MavenProRegular';
+    src: url('assets/fonts/MavenPro-Regular.ttf');
+}
+@font-face{
+    font-family: 'MavenProBold';
+    src: url('assets/fonts/MavenPro-Bold.ttf');
+}
+@font-face{
+    font-family: 'MavenProMedium';
+    src: url('assets/fonts/MavenPro-Medium.ttf');
+}
+@font-face{
+    font-family: 'MavenProBlack';
+    src: url('assets/fonts/MavenPro-Black.ttf');
+}
+
 .reesen-nav-background {
   background-color: rgba(241, 255, 224, 1);
 }
@@ -21,4 +39,14 @@ body, html{
     font-size: 38px;
     font-weight: bold;
 }
+
+.bold-text{
+    font-weight: 600;
+}
+.font-size-26{
+    font-size: 26px;
+}
+
+@font-face { font-family: Delicious; src: url('Delicious-Roman.otf'); } 
+@font-face { font-family: Delicious; font-weight: bold; src: url('Delicious-Bold.otf');}
 
