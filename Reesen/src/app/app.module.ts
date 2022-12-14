@@ -9,6 +9,17 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { AboutComponent } from './components/about/about.component';
 import { HomeComponent } from './components/home/home.component';
 import {DriverRegistrationComponent} from "./components/driver_registration/driver_registration.component";
+import { FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
+import { DriverProfileComponent } from './components/driver-profile/driver-profile.component';
+import { DriverAccountComponent } from './components/driver-account/driver-account.component';
+import { DriverInboxComponent } from './components/driver-inbox/driver-inbox.component';
+import { DriverRideHistoryComponent } from './components/driver-ride-history/driver-ride-history.component';
+import { DriverReportsComponent } from './components/driver-reports/driver-reports.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DriverEditBasicInfoComponent } from './components/driver-edit-basic-info/driver-edit-basic-info.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { EditVehicleInfoComponent } from './components/edit-vehicle-info/edit-vehicle-info.component';
+import { DriverEditPasswordComponent } from './components/driver-edit-password/driver-edit-password.component';
 
 @NgModule({
   declarations: [
@@ -19,10 +30,22 @@ import {DriverRegistrationComponent} from "./components/driver_registration/driv
     AboutComponent,
     HomeComponent,
     DriverRegistrationComponent
+    DriverProfileComponent,
+    DriverAccountComponent,
+    DriverInboxComponent,
+    DriverRideHistoryComponent,
+    DriverReportsComponent,
+    DriverEditBasicInfoComponent,
+    ChangePasswordComponent,
+    EditVehicleInfoComponent,
+    DriverEditPasswordComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,13 +8,13 @@
   </div>
   <div class="col-6 text-center  nav-items">
     <span class="m-3 hover-underline-animation"><a [routerLink]="['/']">Home</a></span>
-    <span class="m-3 hover-underline-animation"><a href="#">Profile</a></span>
+    <span class="m-3 hover-underline-animation"><a [routerLink]="['/driverProfile']">Profile</a></span>
     <span class="m-3 hover-underline-animation"><a [routerLink]="['/']">Contact</a></span>
   </div>
   <div class="col-3 text-end nav-items" id="left">
     <span class="text-right m-3 hover-underline-animation"><a [routerLink]="['/login']">Log In</a></span>
-    <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-      <a [routerLink]="['/register']">Sign Up</a>
+    <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" [routerLink]="['/register']">
+    Sign up
     </button>
   </div>
 </div>
@@ -32,11 +32,10 @@
   </div>
 </div>
 
-
 <div class="w3-sidebar w3-bar-block w3-border-right" id="nav-response" *ngIf="isShown">
   <a [routerLink]="['/']" class="w3-bar-item w3-button">Home</a>
-  <a href="#" class="w3-bar-item w3-button">Profile</a>
+  <a [routerLink]="['/driverProfile']" class="w3-bar-item w3-button">Profile</a>
   <a [routerLink]="['/']" class="w3-bar-item w3-button">Contact</a>
   <button class="btn btn-primary" id="login-btn" [routerLink]="['/login']">Log In</button>
-  <button class="btn btn-primary" id="signup-btn">Sign Up</button>
+  <button class="btn btn-primary" id="signup-btn" [routerLink]="['/register']">Sign Up</button>
 </div>
