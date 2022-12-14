@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../models/User';
+import { Driver } from '../models/Driver';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,7 +9,7 @@ export class DriverService {
   constructor() { }
 
 
-  getDriver(driverId:number):Observable<User>{
-    
+  getDriver(driverId:number):Observable<Driver>{
+    return this.http.get<
   }
 }
