@@ -6,8 +6,5 @@ export interface Driver{
     profilePicture:string;
     telephoneNumber:string;
     email:string;
-    password?:string;
-    isBlocked?:boolean;
-    isActive?:boolean;
     address:string;
 }

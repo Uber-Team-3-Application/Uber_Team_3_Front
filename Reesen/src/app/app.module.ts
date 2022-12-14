@@ -15,6 +15,7 @@ import { DriverInboxComponent } from './components/driver-inbox/driver-inbox.com
 import { DriverFavouriteRoutesComponent } from './components/driver-favourite-routes/driver-favourite-routes.component';
 import { DriverRideHistoryComponent } from './components/driver-ride-history/driver-ride-history.component';
 import { DriverReportsComponent } from './components/driver-reports/driver-reports.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { DriverReportsComponent } from './components/driver-reports/driver-repor
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
