@@ -1,0 +1,146 @@
+.register-section{
+  width: 70%;
+  margin: 40px auto;
+}
+
+.card-title {
+  color:#48786d;
+  font-style: italic;
+  font-weight: bold;
+
+}
+
+.register-container{
+  box-shadow: 3px 5px 15px rgb(129, 129, 129);
+  border-radius: 15px;
+  padding-right: 11px;
+}
+
+.spec{
+  background-color:#48786d;
+  border-radius: 15px 0px 0px 15px;
+}
+
+.label-reg{
+  text-align: left;
+  color:#48786d;
+}
+
+.space{
+  margin: 20px auto;
+  width: 80%;
+}
+
+.reg-lbl{
+  text-align: center;
+  color:#48786d;
+}
+
+.methods{
+  text-align: center;
+  margin-top: 15px;
+}
+
+.line{
+  border-bottom: 2px solid #48786d;
+  position: relative;
+  top:12px;
+  width: 100%;
+}
+
+.signup{
+  color:white;
+  align-content: center;
+  margin-top: 15px;
+  width: 70%;
+  height: 50px;
+  background-color:#48786d;
+  border-radius: 8px;
+  border: 1px transparent;
+  font-weight: 500;
+  font-size: 16px;
+  text-transform: uppercase;
+  box-shadow: 2px 2px 5px rgb(91, 91, 91);
+}
+
+.choose{
+  color:white;
+  background-color:#9b9b9b;
+  height: 50px;
+  margin-top: 7px;
+  padding:3px 20px;
+  border-radius: 8px;
+  border: 1px transparent;
+  font-weight: 500;
+  font-size: 15px;
+  box-shadow: 2px 2px 5px rgb(129, 129, 129);
+}
+
+.pics{
+  margin-bottom: 15px;
+}
+
+input{
+  background-color: transparent;
+  color: #899391;
+  border-color: #89908e;
+  border-bottom: 2px solid;
+}
+input:hover::-webkit-input-placeholder{
+  opacity: 1;
+}
+
+.join-us{
+  color: white;
+  font-size: 25px;
+  text-decoration: double;
+  text-shadow: 2px 2px 5px rgb(29, 28, 28);
+}
+
+.logo-image{
+  width: 14vw;
+  height:auto;
+}
+
+#driver-login {
+  padding: 20px;
+}
+
+.card {
+  border-color: #4B7869;
+}
+
+#register-button {
+  background: #4B7869;
+}
+
+
+.check-button {
+  text-align: left;
+  color:#48786d;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.center {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 800px) {
+  .logo-image{
+    width: 20vw;
+  }
+  .register-container{
+    width: 100%;
+  }
+
+
+
+  }
