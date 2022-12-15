@@ -1,0 +1,125 @@
+body {
+    background-color: #578979
+}
+
+.profile-section{
+    margin-left: 150px;
+    justify-content: center;
+    text-align: center;
+}
+
+.menu{
+    margin: 20px;
+    align-content: center;
+    background-color: white;
+    box-shadow: 3px 5px 5px rgb(0, 0, 0);
+    border-radius: 15px;
+    padding-right: 11px;
+}
+
+.profile{
+    margin: 20px;
+    background-color: white;
+    align-content: center;
+    box-shadow: 3px 5px 5px rgb(0, 0, 0);
+    border-radius: 15px;
+    padding-right: 11px;
+}
+
+.profile-picture{
+    width: 120px;
+    margin-top: 30px;
+}
+
+.log-out{
+    color:white;
+    margin-top: 20px;
+    background-color: rgb(179, 179, 179); 
+    padding:6px 26px;
+    border-radius: 8px;
+    border: 1px transparent;
+    font-weight: 500;
+    font-size: 16px;
+    box-shadow: 2px 2px 5px rgb(91, 91, 91);
+    font-style: italic;
+    font-style: oblique;
+}
+
+.menu-img{
+    width: 30px;
+    margin: 10px;
+}
+
+.menu-grid{
+    margin-top: 70px;
+    margin-bottom: 105px;
+    justify-content: center;
+    text-align: left;
+}
+
+.menu-txt{
+    color: #578979;
+    margin-top: 12px;
+    font-weight: 600;
+}
+
+.btn{
+    color:white;
+    margin-top: 25px;
+    background-color:#48786d; 
+    padding:6px 26px;
+    border-radius: 8px;
+    border: 1px transparent;
+    font-weight: 500;
+    font-size: 16px;
+    box-shadow: 2px 2px 5px rgb(91, 91, 91);
+}
+
+.info-txt{
+    color: #578979;
+    margin-top: 12px;
+    font-weight: 600;
+    margin: 20px;
+    text-align: left;
+}
+
+h1{
+    color: #578979;
+    font-weight: 600;
+    font-size: 25px;
+    padding: 5px;
+    margin-top: 20px;
+}
+
+hr{
+    color: #578979;
+    height: 2px;
+    border: #578979;
+}
+
+.info{
+    margin-left: 15%;
+    width: 70%;
+}
+input{
+    background-color: transparent;
+    color: #578979;
+    border-color: #578979;
+    border: none;
+    border-bottom: 1px solid;
+    font-size: 15px;
+    font-family:'Times New Roman', Times, serif;
+    margin-right: 15%;
+    min-width: 250px;
+}
+
+.dsaf{
+    margin-top: 20px;
+}
+.names{
+    color: #578979;
+    font-weight: 600;
+    font-size: 25px;
+    display: inline;
+    padding: 5px;
+}

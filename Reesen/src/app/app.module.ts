@@ -8,6 +8,10 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AboutComponent } from './components/about/about.component';
 import { HomeComponent } from './components/home/home.component';
+
+
+import { PassengerProfileEditComponent } from './components/passenger profile edit/passenger_profile-edit.component';
+import { PassengerProfileComponent } from './components/passenger profile/passenger_profile.component';
 import {DriverRegistrationComponent} from "./components/driver_registration/driver_registration.component";
 import { FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
 import { DriverProfileComponent } from './components/driver-profile/driver-profile.component';
@@ -22,6 +26,8 @@ import { EditVehicleInfoComponent } from './components/edit-vehicle-info/edit-ve
 import { DriverEditPasswordComponent } from './components/driver-edit-password/driver-edit-password.component';
 import { DriverInfoRegistrationComponent } from './components/driver_registration/driver-info-registration/driver-info-registration.component';
 import { DriverVehicleRegistrationComponent } from './components/driver_registration/driver-vehicle-registration/driver-vehicle-registration.component';
+import { MapComponent } from './components/map/map.component';
+import { SelectVehicleTypeComponent } from './components/select-vehicle-type/select-vehicle-type.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +37,8 @@ import { DriverVehicleRegistrationComponent } from './components/driver_registra
     RegistrationComponent,
     AboutComponent,
     HomeComponent,
+    PassengerProfileEditComponent,
+    PassengerProfileComponent,
     DriverRegistrationComponent,
     DriverProfileComponent,
     DriverAccountComponent,
@@ -43,6 +51,8 @@ import { DriverVehicleRegistrationComponent } from './components/driver_registra
     DriverEditPasswordComponent,
     DriverInfoRegistrationComponent,
     DriverVehicleRegistrationComponent,
+    MapComponent,
+    SelectVehicleTypeComponent,
   ],
   imports: [
     BrowserModule,

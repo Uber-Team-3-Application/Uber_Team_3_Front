@@ -1,0 +1,91 @@
+*{
+    color: #578979;
+}
+
+.map-container {
+    width: 98%;
+    height: 72vh;
+    margin: 10px auto 0 auto;
+}
+  
+.map-frame {
+    border: 2px solid black;
+    border-bottom: 0px solid transparent;
+    height: 100%;
+}
+  
+#map {
+    height: 100%;
+ }
+ 
+ .overlay{
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    z-index: 9;
+    width: 98%;
+    height: 160px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(180deg, rgba(255,255,255,0.1) 10%, rgba(124,181,177,0.54) 52%, rgba(87,137,112,1) 100%, rgba(255,255,255,1) 100%);    z-index: 9;
+
+ }
+
+ .ride-information{
+    width: 98%;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    margin: 0 auto;
+
+}
+.ride-information-form{
+    width: 40%;
+    margin: 0 auto;
+}
+
+.ride-button{
+    padding: 14px;
+    font-size: 20px;
+    color: #578979;
+    background-color: white;
+    border: 2px solid #578979;
+    border-radius: 4px;
+    transition:.3s ease-in-out;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.ride-button:hover{
+    color: white;
+    background-color: #578979;
+    border: 2px solid white;
+    transition:.3s ease-in-out;
+}
+
+input[type="text"]{
+    color: #578979;
+    font-size: 18px;
+}
+
+label{
+    font-size: 16px;
+    padding-bottom: 6px;
+}
+
+
+.open-vehicle-type{
+    width: 40px;
+    height: 40px; 
+    margin-right: 20px;
+    transition:.3s ease-in-out;
+}
+.open-vehicle-type:hover{
+    cursor: pointer;
+    background-color: rgba(25, 92, 81, 0.2);
+    border-radius: 30px;
+    transition: .3s ease-in-out;
+}

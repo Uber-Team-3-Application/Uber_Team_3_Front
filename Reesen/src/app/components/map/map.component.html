@@ -1,0 +1,53 @@
+<div class="map-container">
+    <div class="map-frame">
+      <div id="map"></div>
+    
+  </div>
+</div>
+<div *ngIf="!showGetRide" class="overlay">
+  <span><button class="ride-button" type="button" (click)="getRide()"> {{rideButtonText}}</button></span>    
+</div>
+
+<div *ngIf="showGetRide" class="ride-information p-5">
+  <form
+    ride
+    [formGroup]="getRideForm"
+    (ngSubmit)="getRide()"
+    class="ride-information-form"
+    
+  >
+    <div class="row text-center form-group p-3">
+      <div class="col-12">
+        <label for="departure" >From</label>
+      </div>
+
+      <div class="col-12">
+        <input type="text" class="form-control" placeholder="Radnicka 3, Novi Sad" name="departure" formControlName="departure" id="departure">
+      </div>
+    </div>
+    <div class="row text-center form-group p-3">
+      <div class="col-12">
+        <label for="destination" >To</label>
+      </div>
+
+      <div class="col-12">
+        <input type="text" class="form-control" placeholder="Laze Teleckog 12, Novi Sad" name="destination" formControlName="destination" id="destionation">
+
+      </div>
+    </div>
+    <div class="row text-center form-group p-3">
+      <div class="col-12">
+        <img src="../../../assets/img/plus.png" alt="" class="open-vehicle-type" (click)="openVehicleTypeComponent()"><span>Select vehicle type</span>
+      </div>
+    </div>
+    <div class="row text-center form-group p-3 vehicle-type" *ngIf="showVehicleType">
+      <app-select-vehicle-type></app-select-vehicle-type>
+    </div>
+
+    <div class="row text-center">
+      <span><button class="ride-button" type="submit" (click)="getRide()"> {{rideButtonText}}</button></span>   
+    </div> 
+  </form>
+</div>
+
+  
