@@ -23,6 +23,8 @@ export class MapComponent implements AfterViewInit{
   isFormValid:boolean = true;
   isRideInfoOpened:boolean = false;
 
+  markers = new Array();
+
   getRideForm = new FormGroup({
     departure: new FormControl('', [Validators.required, Validators.minLength(3)]),
     destination : new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -49,6 +51,7 @@ export class MapComponent implements AfterViewInit{
       }
     );
     tiles.addTo(this.map);
+
 
   }
 
@@ -113,10 +116,6 @@ export class MapComponent implements AfterViewInit{
 
   route():void{
     
-    this.map.eachLayer((l) =>{
-      if( l instanceof L.Marker )
-        console.log(l);
-    });
     //L.Routing.control({
    //   waypoints:[L.latLng(2, 2), L.latLng(2, 2)]
     //}).addTo(this.map);
@@ -134,7 +133,6 @@ export class MapComponent implements AfterViewInit{
         }
       );
         const mp = new L.Marker([lat, lng]).addTo(this.map);
-        alert(mp.getLatLng());
     });
   }
 
