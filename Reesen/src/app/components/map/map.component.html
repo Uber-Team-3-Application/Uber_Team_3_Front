@@ -41,7 +41,15 @@
       </div>
     </div>
     <div class="row text-center form-group p-3 vehicle-type" *ngIf="showVehicleType">
-      <app-select-vehicle-type></app-select-vehicle-type>
+      <div class="row">
+        <!--TODO NG FOR KROZ TIPOVE IZ BAZE I ONDA SE KREIRAJU DIVOVI-->
+        <div class="col-12" *ngFor="let type of vehicleTypes">
+            <p>{{type.name}}</p>
+            <p>{{type.pricePerKm}}</p>
+            <p>{{type.id}}</p>
+    
+        </div>
+    </div>
     </div>
 
     <div class="row text-center">

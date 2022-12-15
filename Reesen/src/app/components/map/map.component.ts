@@ -3,6 +3,8 @@ import * as L from 'leaflet';
 import { MapService } from 'src/app/services/map/map.service';
 import 'leaflet-routing-machine'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { VehicleType } from 'src/app/models/Vehicle';
+import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-map',
@@ -15,15 +17,16 @@ export class MapComponent implements AfterViewInit{
   rideButtonText: string = 'Get Ride info';
   showGetRide: boolean = false;
   showVehicleType: boolean = false;
+  vehicleTypes: VehicleType[];
+
   getRideForm = new FormGroup({
     departure: new FormControl('', [Validators.required]),
     destination : new FormControl('', [Validators.required]),
-    vehicleType: new FormControl('', []),
     babyTransport: new FormControl(false),
     petTransport: new FormControl(false)
   });
 
-  constructor(private mapService: MapService){}
+  constructor(private mapService: MapService, private vehicleService: VehicleService){}
 
   private initMap():void{
     this.map = L.map('map', {
@@ -50,12 +53,19 @@ export class MapComponent implements AfterViewInit{
   }
 
   ngAfterViewInit(): void {
+
+
     let DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
     });
 
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
+
+    this.vehicleService.getVehicleTypes()
+                        .subscribe(
+                          (vehicleTypes) => (this.vehicleTypes = vehicleTypes)
+                        );
   }
 
   search():void{
