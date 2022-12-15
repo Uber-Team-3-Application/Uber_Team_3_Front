@@ -2,6 +2,8 @@ import { AfterViewInit, Component } from '@angular/core';
 import * as L from 'leaflet';
 import { MapService } from 'src/app/services/map/map.service';
 import 'leaflet-routing-machine'
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -10,13 +12,26 @@ import 'leaflet-routing-machine'
 export class MapComponent implements AfterViewInit{
 
   private map:any;
+  rideButtonText: string = 'Get Ride info';
+  showGetRide: boolean = false;
+  showVehicleType: boolean = false;
+  getRideForm = new FormGroup({
+    departure: new FormControl('', [Validators.required]),
+    destination : new FormControl('', [Validators.required]),
+    vehicleType: new FormControl('', []),
+    babyTransport: new FormControl(false),
+    petTransport: new FormControl(false)
+  });
+
   constructor(private mapService: MapService){}
 
   private initMap():void{
     this.map = L.map('map', {
       center: [45.2396, 19.8227],
-      zoom: 13,
+      zoom: 16,
     });
+
+   
 
     const tiles = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -28,6 +43,10 @@ export class MapComponent implements AfterViewInit{
       }
     );
     tiles.addTo(this.map);
+
+    //this.search();
+    //this.addMarker();
+    this.registerOnClick();
   }
 
   ngAfterViewInit(): void {
@@ -38,4 +57,59 @@ export class MapComponent implements AfterViewInit{
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
   }
+
+  search():void{
+    this.mapService.search('Radnicka 19, Novi Sad').subscribe(
+      {
+        next: (result) =>{
+          console.log(result);
+          L.marker([result[0].lat, result[0].lon])
+            .addTo(this.map)
+            .bindPopup('Pozdrav iz Radnicke 19')
+            .openPopup();
+        },
+        error:() =>{}
+
+      }
+    );
+  }
+
+
+  addMarker():void{
+    const lat: number = 45.25;
+    const lon: number = 19.8228;
+    L.marker([lat, lon])
+      .addTo(this.map)
+        .bindPopup('Trenutno ste hier')
+        .openPopup();
+  }
+
+  route():void{
+      
+  }
+
+  registerOnClick(): void{
+    this.map.on('click', (e:any) =>{
+      const coord = e.latlng;
+      const lat = coord.lat;
+      const lng = coord.lng;
+      this.mapService.reverseSearch(lat, lng).
+      subscribe(
+        (res) => {console.log(res.display_name);
+        }
+      );
+        const mp = new L.Marker([lat, lng]).addTo(this.map);
+        alert(mp.getLatLng());
+    });
+  }
+  getRide():void{
+      this.showGetRide = !this.showGetRide;
+  }
+
+
+
+  openVehicleTypeComponent():void{
+    this.showVehicleType = !this.showVehicleType; 
+  }
+
 }
