@@ -5,7 +5,7 @@
   </div>
 </div>
 <div *ngIf="!showGetRide" class="overlay">
-  <span><button class="ride-button" type="button" (click)="openGetRide()"> {{rideButtonText}}</button></span>    
+  <span><button class="ride-button my-button" type="button" (click)="openGetRide()"> {{rideButtonText}}</button></span>    
 </div>
 
 <div *ngIf="showGetRide" class="ride-information p-5">
@@ -16,6 +16,9 @@
     class="ride-information-form"
     
   >
+  <div class="d-flex flex-row-reverse">
+    <span><button class="button-cancel my-button" (click)="closeRideInfo()">X</button></span>  
+  </div>
     <div class="row text-center form-group p-3">
       <div class="col-12">
         <label for="departure" >From</label>
@@ -31,7 +34,7 @@
       </div>
 
       <div class="col-12">
-        <input type="text" class="form-control" placeholder="Laze Teleckog 12, Novi Sad" name="destination" formControlName="destination" id="destionation">
+        <input type="text" class="form-control" placeholder="Laze Teleckog 12, Novi Sad" name="destination" formControlName="destination" id="destination">
 
       </div>
     </div>
@@ -92,7 +95,9 @@
       <p>Please enter valid data, and select a Vehicle type!</p>
     </div>
     <div class="row text-center">
-      <span><button class="ride-button" type="submit" (click)="getRide()"> {{rideButtonText}}</button></span>   
+        <span><button class="my-button ride-button" type="submit" (click)="getRide()"> {{rideButtonText}}</button></span> 
+ 
+      
     </div> 
   </form>
 </div>

@@ -53,16 +53,33 @@
     margin: 0 auto;
 }
 
-.ride-button{
+.my-button{
     padding: 14px;
     font-size: 20px;
-    color: #578979;
-    background-color: white;
-    border: 2px solid #578979;
+   
     border-radius: 4px;
     transition:.3s ease-in-out;
     font-weight: 600;
     text-transform: uppercase;
+}
+.ride-button{
+    color: #578979;
+    border: 2px solid #578979;
+    background-color: white;
+}
+.button-cancel{
+    color: red;
+    background-color: white;
+    border:2px solid transparent;
+    
+    padding: 10px 22px;
+    transition: .3s ease-in-out;
+}
+.button-cancel:hover{
+    color: white;
+    background-color: red;
+    border: 2px solid black;
+    transition: .3s ease-in-out;
 }
 
 .ride-button:hover{

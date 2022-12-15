@@ -94,6 +94,10 @@ export class MapComponent implements AfterViewInit{
     
   }
 
+  closeRideInfo():void{
+    this.showGetRide = false;
+  }
+
 
 
   addMarker():void{
