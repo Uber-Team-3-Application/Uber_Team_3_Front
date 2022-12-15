@@ -7,6 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { PassengerProfileComponent } from './components/passenger profile/passenger_profile.component';
 import { PassengerProfileEditComponent } from './components/passenger profile edit/passenger_profile-edit.component';
+
 import { RegistrationComponent } from './components/registration/registration.component';
 import {DriverRegistrationComponent} from "./components/driver_registration/driver_registration.component";
 
