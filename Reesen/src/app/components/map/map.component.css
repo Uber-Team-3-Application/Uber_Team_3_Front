@@ -1,7 +1,7 @@
 .map-container {
     width: 98%;
     height: 80vh;
-    margin: 20px auto;
+    margin: 10px auto;
     z-index: -1;
 }
   
@@ -49,5 +49,6 @@
 .ride-button:hover{
     color: white;
     background-color: #578979;
+    border: 2px solid white;
     transition:.3s ease-in-out;
 }
