@@ -41,16 +41,30 @@
       </div>
     </div>
     <div class="row text-center form-group p-3 vehicle-type" *ngIf="showVehicleType">
-      <div class="row">
-        <!--TODO NG FOR KROZ TIPOVE IZ BAZE I ONDA SE KREIRAJU DIVOVI-->
-        <div class="col-12" *ngFor="let type of vehicleTypes">
-            <p>{{type.name}}</p>
-            <p>{{type.pricePerKm}}</p>
-            <p>{{type.id}}</p>
-    
+        <div class="row">
+          <!--TODO NG FOR KROZ TIPOVE IZ BAZE I ONDA SE KREIRAJU DIVOVI-->
+          <div class="col-12" *ngFor="let type of vehicleTypes">
+              <p>{{type.name}}</p>
+              <p>{{type.pricePerKm}}</p>
+              <p>{{type.id}}</p>
+      
+          </div>
         </div>
     </div>
+    <div class="row p-3 text-center">
+      <div class="col-6">
+        <input type="checkbox" class="form-check-input" id="babyTransport" name="babyTransport" formControlName="babyTransport">
+        <label for="babyTransport" class="form-check-label px-3">Baby transport</label>
+
+      </div>
+      <div class="col-6">
+        <input type="checkbox" class="form-check-input" id="petTransport" name="petTransport" formControlName="petTransport">
+        <label for="petTransport" class="form-check-label px-3">Pet transport</label>
+      </div>
+
     </div>
+
+      
 
     <div class="row text-center">
       <span><button class="ride-button" type="submit" (click)="getRide()"> {{rideButtonText}}</button></span>   
