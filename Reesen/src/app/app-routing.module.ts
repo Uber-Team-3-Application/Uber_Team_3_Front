@@ -5,6 +5,7 @@ import { DriverEditPasswordComponent } from './components/driver-edit-password/d
 import { DriverProfileComponent } from './components/driver-profile/driver-profile.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { PassengerProfileComponent } from './components/passenger profile/passenger_profile.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import {DriverRegistrationComponent} from "./components/driver_registration/driver_registration.component";
 
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path:'register', component:RegistrationComponent},
   {path:'home', component:HomeComponent},
+  {path:'passenger_profile', component:PassengerProfileComponent},
   {path:'driverProfile', component:DriverProfileComponent, children: [
     {path:'account', redirectTo: '', pathMatch:'full', component:DriverProfileComponent},
     {path:'rideHistory', component:DriverProfileComponent},
