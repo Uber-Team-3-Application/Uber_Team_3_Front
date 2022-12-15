@@ -16,6 +16,11 @@ export class DriverProfileComponent implements OnInit{
     ngOnInit():void{
       this.selectedView = "ACCOUNT";
       this.title = "Account"
+
+      this.setDriverName();
+    }
+
+    private setDriverName():void{
       this.driverService.get(2)
       .subscribe(
         (driver) => (this.driver = driver)
