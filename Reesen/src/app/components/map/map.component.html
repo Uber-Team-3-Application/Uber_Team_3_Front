@@ -5,7 +5,7 @@
   </div>
 </div>
 <div *ngIf="!showGetRide" class="overlay">
-  <span><button class="ride-button" type="button" (click)="getRide()"> {{rideButtonText}}</button></span>    
+  <span><button class="ride-button" type="button" (click)="openGetRide()"> {{rideButtonText}}</button></span>    
 </div>
 
 <div *ngIf="showGetRide" class="ride-information p-5">
@@ -40,16 +40,40 @@
         <img src="../../../assets/img/plus.png" alt="" class="open-vehicle-type" (click)="openVehicleTypeComponent()"><span>Select vehicle type</span>
       </div>
     </div>
-    <div class="row text-center form-group p-3 vehicle-type" *ngIf="showVehicleType">
-        <div class="row">
+    <div class="text-center alert-primary p-3" role="alert" *ngIf="typeSelected">
+        <h2 class="succesfully-selected-type-text">Succesfully selected type: {{selectedVehicleName}} </h2>
+    </div>
+    <div class="row text-center form-group vehicle-type" *ngIf="showVehicleType">
           <!--TODO NG FOR KROZ TIPOVE IZ BAZE I ONDA SE KREIRAJU DIVOVI-->
-          <div class="col-12" *ngFor="let type of vehicleTypes">
-              <p>{{type.name}}</p>
-              <p>{{type.pricePerKm}}</p>
-              <p>{{type.id}}</p>
+            <button class="vehicle-type-item p-3" type="button" (click)="selectVehicleType(type)" *ngFor="let type of vehicleTypes">
+              <div class="row">
+                <div class="col-12 py-3">
+                  <div class="row">
+                    <div class="col-6">
+                      <span>Type</span>
+                    </div>
+                    <div class="col-6">
+                      <span>{{type.name}}</span>
+                    </div>
+                  </div>
       
-          </div>
-        </div>
+                </div>
+                <div class="col-12 py-2">
+                  <div class="row">
+                    <div class="col-6">
+                      <span class="text-left ml-auto">Price per km</span>
+                    </div>
+                    <div class="col-6">
+                      <span>{{type.pricePerKm}} (RSD)</span>
+                    </div>
+                  </div>
+
+                </div>
+            
+              </div>
+            </button>
+
+      
     </div>
     <div class="row p-3 text-center">
       <div class="col-6">
@@ -64,8 +88,9 @@
 
     </div>
 
-      
-
+    <div class="alert alert-danger" role="alert" *ngIf="!isFormValid">
+      <p>Please enter valid data, and select a Vehicle type!</p>
+    </div>
     <div class="row text-center">
       <span><button class="ride-button" type="submit" (click)="getRide()"> {{rideButtonText}}</button></span>   
     </div> 
