@@ -34,7 +34,7 @@ import { DriverEditPasswordComponent } from './components/driver-edit-password/d
     AboutComponent,
     HomeComponent,
     PassengerProfileEditComponent,
-    PassengerProfileComponent
+    PassengerProfileComponent,
     DriverRegistrationComponent,
     DriverProfileComponent,
     DriverAccountComponent,
