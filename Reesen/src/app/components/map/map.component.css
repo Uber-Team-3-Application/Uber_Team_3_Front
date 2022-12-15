@@ -1,15 +1,53 @@
 .map-container {
-   width: 90%;
-   min-height: 500px;
-   margin: 20px auto;
- }
+    width: 98%;
+    height: 80vh;
+    margin: 20px auto;
+    z-index: -1;
+}
   
-  .map-frame {
+.map-frame {
     border: 2px solid black;
     height: 100%;
-  }
+    z-index: -1;
+}
   
-  #map {
+#map {
+    z-index: -1;
     height: 100%;
-  }
+ }
+ 
+ #ride{
+  z-index: 10;  
+  position:absolute;
+  top: 80vh;
+  left: 44vw;
   
+ }
+ .overlay{
+    width: 98%;
+    position: absolute;
+    top: 58.9vh;
+    left: 1vw;
+    min-height: 30vh;
+    background: linear-gradient(180deg, rgba(255,255,255,0.1) 16%, rgba(124,181,177,0.54) 47%, rgba(87,137,112,1) 100%, rgba(255,255,255,1) 100%);    z-index: 9;
+
+ }
+
+
+.ride-button{
+    padding: 14px;
+    font-size: 20px;
+    color: #578979;
+    background-color: white;
+    border: 2px solid #578979;
+    border-radius: 4px;
+    transition:.3s ease-in-out;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.ride-button:hover{
+    color: white;
+    background-color: #578979;
+    transition:.3s ease-in-out;
+}
