@@ -20,6 +20,8 @@ import { DriverEditBasicInfoComponent } from './components/driver-edit-basic-inf
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { EditVehicleInfoComponent } from './components/edit-vehicle-info/edit-vehicle-info.component';
 import { DriverEditPasswordComponent } from './components/driver-edit-password/driver-edit-password.component';
+import { DriverInfoRegistrationComponent } from './components/driver_registration/driver-info-registration/driver-info-registration.component';
+import { DriverVehicleRegistrationComponent } from './components/driver_registration/driver-vehicle-registration/driver-vehicle-registration.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { DriverEditPasswordComponent } from './components/driver-edit-password/d
     ChangePasswordComponent,
     EditVehicleInfoComponent,
     DriverEditPasswordComponent,
+    DriverInfoRegistrationComponent,
+    DriverVehicleRegistrationComponent,
   ],
   imports: [
     BrowserModule,

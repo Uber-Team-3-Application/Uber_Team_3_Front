@@ -1,4 +1,5 @@
 import {Component}  from "@angular/core";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-driver_registration',
@@ -7,5 +8,7 @@ import {Component}  from "@angular/core";
 })
 
 export class DriverRegistrationComponent {
+
+
 
 }
