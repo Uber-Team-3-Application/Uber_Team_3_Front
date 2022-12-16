@@ -5,7 +5,7 @@
   </div>
 </div>
 <div *ngIf="!showGetRide" class="overlay">
-  <span><button class="ride-button" type="button" (click)="getRide()"> {{rideButtonText}}</button></span>    
+  <span><button class="ride-button my-button" type="button" (click)="openGetRide()"> {{rideButtonText}}</button></span>    
 </div>
 
 <div *ngIf="showGetRide" class="ride-information p-5">
@@ -16,6 +16,9 @@
     class="ride-information-form"
     
   >
+  <div class="d-flex flex-row-reverse">
+    <span><button class="button-cancel my-button" (click)="closeRideInfo()">X</button></span>  
+  </div>
     <div class="row text-center form-group p-3">
       <div class="col-12">
         <label for="departure" >From</label>
@@ -31,7 +34,7 @@
       </div>
 
       <div class="col-12">
-        <input type="text" class="form-control" placeholder="Laze Teleckog 12, Novi Sad" name="destination" formControlName="destination" id="destionation">
+        <input type="text" class="form-control" placeholder="Laze Teleckog 12, Novi Sad" name="destination" formControlName="destination" id="destination">
 
       </div>
     </div>
@@ -40,12 +43,61 @@
         <img src="../../../assets/img/plus.png" alt="" class="open-vehicle-type" (click)="openVehicleTypeComponent()"><span>Select vehicle type</span>
       </div>
     </div>
-    <div class="row text-center form-group p-3 vehicle-type" *ngIf="showVehicleType">
-      <app-select-vehicle-type></app-select-vehicle-type>
+    <div class="text-center alert-primary p-3" role="alert" *ngIf="typeSelected">
+        <h2 class="succesfully-selected-type-text">Succesfully selected type: {{selectedVehicleName}} </h2>
+    </div>
+    <div class="row text-center form-group vehicle-type" *ngIf="showVehicleType">
+          <!--TODO NG FOR KROZ TIPOVE IZ BAZE I ONDA SE KREIRAJU DIVOVI-->
+            <button class="vehicle-type-item p-3" type="button" (click)="selectVehicleType(type)" *ngFor="let type of vehicleTypes">
+              <div class="row">
+                <div class="col-12 py-3">
+                  <div class="row">
+                    <div class="col-6">
+                      <span>Type</span>
+                    </div>
+                    <div class="col-6">
+                      <span>{{type.name}}</span>
+                    </div>
+                  </div>
+      
+                </div>
+                <div class="col-12 py-2">
+                  <div class="row">
+                    <div class="col-6">
+                      <span class="text-left ml-auto">Price per km</span>
+                    </div>
+                    <div class="col-6">
+                      <span>{{type.pricePerKm}} (RSD)</span>
+                    </div>
+                  </div>
+
+                </div>
+            
+              </div>
+            </button>
+
+      
+    </div>
+    <div class="row p-3 text-center">
+      <div class="col-6">
+        <input type="checkbox" class="form-check-input" id="babyTransport" name="babyTransport" formControlName="babyTransport">
+        <label for="babyTransport" class="form-check-label px-3">Baby transport</label>
+
+      </div>
+      <div class="col-6">
+        <input type="checkbox" class="form-check-input" id="petTransport" name="petTransport" formControlName="petTransport">
+        <label for="petTransport" class="form-check-label px-3">Pet transport</label>
+      </div>
+
     </div>
 
+    <div class="alert alert-danger" role="alert" *ngIf="!isFormValid">
+      <p>Please enter valid data, and select a Vehicle type!</p>
+    </div>
     <div class="row text-center">
-      <span><button class="ride-button" type="submit" (click)="getRide()"> {{rideButtonText}}</button></span>   
+        <span><button class="my-button ride-button" type="submit" (click)="getRide()"> {{rideButtonText}}</button></span> 
+ 
+      
     </div> 
   </form>
 </div>
