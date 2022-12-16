@@ -1,46 +1,81 @@
 <body>
     <section class="profile-section">
         <div class="row">
-            <div class="col-3 menu">
-              <img src="assets/img/avatar.png" class="profile-picture">
-              <h1>Marko Markovic</h1>
-              <button class="log-out">Log Out</button>
-              <div class="row menu-grid">
-                <div class="col-md-auto"><img src="assets/img/inbox.png" class="menu-img"></div>
-                <div class="col-6 menu-txt"><p>Inbox</p></div>
-                <div class="w-100"></div>
-                <div class="col-md-auto"><img src="assets/img/heart.png" class="menu-img"></div>
-                <div class="col-6 menu-txt"><p>Favorite routes</p></div>
-                <div class="w-100"></div>
-                <div class="col-md-auto"><img src="assets/img/history.png" class="menu-img"></div>
-                <div class="col-6 menu-txt"><p>Ride history</p></div>
-                <div class="w-100"></div>
-                <div class="col-md-auto"><img src="assets/img/report.png" class="menu-img"></div>
-                <div class="col-6 menu-txt"><p>Report</p></div>
-              </div>
+          <div class="col-3 menu">
+            <img src="assets/img/avatar.png" class="profile-picture" id="profilePicture">
+            <section class="dsaf">
+            <h1 id="name" class="names">{{passenger.name}}</h1><h1 id="surname" class="names">{{passenger.surname}}</h1>
+          </section>
+            <button class="log-out">Log Out</button>
+            <div class="row menu-grid">
+              <div class="col-md-auto"><img src="assets/img/inbox.png" class="menu-img"></div>
+              <div class="col-6 menu-txt"><p>Inbox</p></div>
+              <div class="w-100"></div>
+              <div class="col-md-auto"><img src="assets/img/heart.png" class="menu-img"></div>
+              <div class="col-6 menu-txt"><p>Favorite routes</p></div>
+              <div class="w-100"></div>
+              <div class="col-md-auto"><img src="assets/img/history.png" class="menu-img"></div>
+              <div class="col-6 menu-txt"><p>Ride history</p></div>
+              <div class="w-100"></div>
+              <div class="col-md-auto"><img src="assets/img/report.png" class="menu-img"></div>
+              <div class="col-6 menu-txt"><p>Report</p></div>
             </div>
+          </div>
             <div class="col-md-auto" >
                 <br>
             </div>
             <div class="col-7 profile">
-                <h1>My Account</h1>
+                <h1>Edit Account</h1>
                 <div class="row">
                     <div class="col">
                     <hr>
                     </div>
                     <div class="col menu-txt">
-                    Basic info
+                    Basic information
                     </div>
                     <div class="col">
                     <hr>
                     </div>
+              </div>
+              <form class="info"
+                edit
+                [formGroup]="editForm"
+                (ngSubmit)="edit()"
+            >
+              <div class="row">
+                <div class="col info-txt">
+                    First name:
+                </div>
+                <div class="col info-txt">
+                    <input type="text" 
+                    formControlName="name" 
+                    name="name" 
+                    id="passengerEditName"
+                    [(ngModel)]="passenger.name">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col info-txt">
+                    Last name:
+                </div>
+                <div class="col info-txt">
+                    <input type="text"
+                    formControlName="surname" 
+                    name="surname" 
+                    id="passengerEditSurname"
+                    [(ngModel)]="passenger.surname">
+                </div>
               </div>
               <div class="row">
                 <div class="col info-txt">
                     Phone number:
                 </div>
                 <div class="col info-txt">
-                    <input type="text">
+                  <input type="text" 
+                  formControlName="phoneNumber" 
+                  name="phoneNumber" 
+                  id="passengerEditPhoneNumber"
+                  [(ngModel)]="passenger.telephoneNumber">
                 </div>
               </div>
               <div class="row">
@@ -48,7 +83,11 @@
                     Email address:
                 </div>
                 <div class="col info-txt">
-                  <input type="text">
+                  <input type="text" 
+                        formControlName="email" 
+                        name="email" 
+                        id="passengerEditEmail" 
+                        [(ngModel)]="passenger.email">
                 </div>
               </div>
               <div class="row">
@@ -56,17 +95,22 @@
                     Home address:
                 </div>
                 <div class="col info-txt">
-                  <input type="text">
+                  <input type="text" 
+                        formControlName="address" 
+                        name="address" 
+                        id="passengerEditAddress"
+                         [(ngModel)]="passenger.address">
                 </div>
               </div>
               <div class="row">
                 <div class="col">
-                    <button class="btn">Save</button>
+                    <button type="submit" class="confirmation-button btn">Save</button>
                 </div>
                 <div class="col">
-                    <button class="btn">Cancel</button>
+                    <button class="btn" [routerLink]="['/passenger_profile']">Cancel</button>
                 </div>
               </div>
+            </form>
             </div>
           </div>
     </section>

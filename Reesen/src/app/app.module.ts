@@ -25,6 +25,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { EditVehicleInfoComponent } from './components/edit-vehicle-info/edit-vehicle-info.component';
 import { DriverEditPasswordComponent } from './components/driver-edit-password/driver-edit-password.component';
 import { MapComponent } from './components/map/map.component';
+import { DriverEditVehicleInfoComponent } from './components/driver-edit-vehicle-info/driver-edit-vehicle-info.component';
+
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { MapComponent } from './components/map/map.component';
     EditVehicleInfoComponent,
     DriverEditPasswordComponent,
     MapComponent,
+    DriverEditVehicleInfoComponent,
   ],
   imports: [
     BrowserModule,

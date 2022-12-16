@@ -1,0 +1,57 @@
+.edit-vehicle{
+
+    width: 60%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #578979;
+    color: white;
+    border-radius: 8px;
+}
+
+.form-group{
+    padding: 14px;
+}
+.form-check{
+    margin-left: 16px;
+}
+
+.form-control{
+    margin-top: 10px;
+    padding: 6px;
+    padding-left: 8px;
+}
+
+.my-button{
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 6px;
+    margin: 20px 14px;
+    width: 130px;
+    height: 50px;
+    font-weight: 600;
+    transition: .1s ease-in-out;
+
+}
+
+.my-button:hover{
+    font-size: 18px;
+    transition: .1s ease-in-out;
+}
+
+.accept-button{
+    color: #578979;
+    
+}
+
+.accept-button:hover{
+    color: #314a42;
+
+}
+
+.cancel-button{
+    color: white;
+    background-color: red;
+}
+.cancel-button:hover{
+    color: black;
+}

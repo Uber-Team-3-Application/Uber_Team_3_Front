@@ -42,7 +42,7 @@ body {
     font-size: 16px;
     box-shadow: 2px 2px 5px rgb(91, 91, 91);
     font-style: italic;
-    font-style: oblique;
+    font-weight: 500;
 }
 
 .menu-img{
@@ -51,7 +51,7 @@ body {
 }
 
 .menu-grid{
-    margin-top: 90px;
+    margin-top: 70px;
     margin-bottom: 70px;
     justify-content: center;
     text-align: left;
@@ -80,15 +80,59 @@ body {
     margin-top: 12px;
     font-weight: 600;
     margin: 20px;
+    text-align: left;
 }
 
 h1{
     color: #578979;
     font-weight: 600;
+    font-size: 25px;
+    padding: 5px;
+    margin-top: 20px;
 }
 
 hr{
     color: #578979;
-    border-top: 5px;
+    height: 2px;
     border: #578979;
+}
+
+.card-img{
+    height: 200px;
+    width: 400px;
+}
+
+.payment-btn{
+    width: 260px;
+    color:white;
+    background-color: rgb(179, 179, 179); 
+    padding:6px 26px;
+    border-radius: 8px;
+    border: 1px transparent;
+    font-weight: 500;
+    font-size: 16px;
+    box-shadow: 2px 2px 5px rgb(91, 91, 91);
+    font-style: italic;
+    font-style: oblique;
+    margin-bottom: 10px;
+}
+
+.info{
+    margin-left: 17%;
+    width: 75%;
+}
+
+.btns{
+    margin-left: 10%;
+    width: 80%;
+}
+.names{
+    color: #578979;
+    font-weight: 600;
+    font-size: 25px;
+    display: inline;
+    padding: 5px;
+}
+.dsaf{
+    margin-top: 20px;
 }
