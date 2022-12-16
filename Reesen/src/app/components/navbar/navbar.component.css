@@ -1,6 +1,6 @@
 
 
-  .nav-items span a {
+ span a {
     text-decoration: none;
     font-weight: bold;
     font-size: 20px;
@@ -85,11 +85,13 @@
   }
 
   #nav-response {
-    z-index: 5;
+    position: absolute;
+    z-index: 500;
     background-color: rgba(241, 255, 224, 1);
   }
 
   #nav-response a {
+
     font-weight: bold;
     font-size: 20px;
     color: rgba(81, 116, 112, 1);
@@ -116,5 +118,8 @@
   }
 
   body {
-    overflow-x: hidden;
+    overflow: hidden;
   }
+
+
+

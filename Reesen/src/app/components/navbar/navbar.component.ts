@@ -8,6 +8,7 @@ import {Component, ElementRef, ViewChild} from '@angular/core';
 export class NavbarComponent {
   isShown: boolean = false;
 
+
   constructor() {
   }
 

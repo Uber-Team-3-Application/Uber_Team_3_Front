@@ -31,7 +31,7 @@ export class MapComponent implements AfterViewInit{
       zoom: 16,
     });
 
-   
+
 
     const tiles = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -40,6 +40,7 @@ export class MapComponent implements AfterViewInit{
         minZoom: 3,
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+
       }
     );
     tiles.addTo(this.map);
@@ -56,6 +57,7 @@ export class MapComponent implements AfterViewInit{
 
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
+
   }
 
   search():void{
@@ -85,7 +87,7 @@ export class MapComponent implements AfterViewInit{
   }
 
   route():void{
-      
+
   }
 
   registerOnClick(): void{
@@ -109,7 +111,7 @@ export class MapComponent implements AfterViewInit{
 
 
   openVehicleTypeComponent():void{
-    this.showVehicleType = !this.showVehicleType; 
+    this.showVehicleType = !this.showVehicleType;
   }
 
 }

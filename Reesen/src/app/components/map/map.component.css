@@ -7,17 +7,17 @@
     height: 72vh;
     margin: 10px auto 0 auto;
 }
-  
+
 .map-frame {
     border: 2px solid black;
     border-bottom: 0px solid transparent;
     height: 100%;
 }
-  
+
 #map {
     height: 100%;
  }
- 
+
  .overlay{
     border-left: 2px solid black;
     border-right: 2px solid black;
@@ -79,7 +79,7 @@ label{
 
 .open-vehicle-type{
     width: 40px;
-    height: 40px; 
+    height: 40px;
     margin-right: 20px;
     transition:.3s ease-in-out;
 }

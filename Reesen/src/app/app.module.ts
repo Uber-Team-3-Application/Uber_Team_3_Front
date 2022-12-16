@@ -28,6 +28,9 @@ import { DriverInfoRegistrationComponent } from './components/driver_registratio
 import { DriverVehicleRegistrationComponent } from './components/driver_registration/driver-vehicle-registration/driver-vehicle-registration.component';
 import { MapComponent } from './components/map/map.component';
 import { SelectVehicleTypeComponent } from './components/select-vehicle-type/select-vehicle-type.component';
+import { DriverNavbarComponent } from './components/navbar/driver-navbar/driver-navbar.component';
+import { PassengerNavbarComponent } from './components/navbar/passenger-navbar/passenger-navbar.component';
+import { AdminNavbarComponent } from './components/navbar/admin-navbar/admin-navbar.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +56,9 @@ import { SelectVehicleTypeComponent } from './components/select-vehicle-type/sel
     DriverVehicleRegistrationComponent,
     MapComponent,
     SelectVehicleTypeComponent,
+    DriverNavbarComponent,
+    PassengerNavbarComponent,
+    AdminNavbarComponent,
   ],
   imports: [
     BrowserModule,
