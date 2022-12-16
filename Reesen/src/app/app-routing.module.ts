@@ -10,6 +10,7 @@ import { PassengerProfileEditComponent } from './components/passenger profile ed
 
 import { RegistrationComponent } from './components/registration/registration.component';
 import {DriverRegistrationComponent} from "./components/driver_registration/driver_registration.component";
+import { DriverEditVehicleInfoComponent } from './components/driver-edit-vehicle-info/driver-edit-vehicle-info.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent},
@@ -23,6 +24,7 @@ const routes: Routes = [
     {path:'reports', component:DriverProfileComponent},
   ]},
   {path:'driverEdit', component:DriverEditBasicInfoComponent},
+  {path:'driverEditVehicle', component:DriverEditVehicleInfoComponent},
   {path: 'driverEditPassword', component:DriverEditPasswordComponent},
   {path:'', redirectTo: '/home', pathMatch:'full'},
   {path: 'registerDriver', component:DriverRegistrationComponent},
