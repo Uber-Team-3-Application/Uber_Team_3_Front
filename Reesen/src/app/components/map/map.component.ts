@@ -80,18 +80,21 @@ export class MapComponent implements AfterViewInit{
 
 
 
-  search(address: string){
+  search(address: string, isSecond:boolean = false){
     this.mapService.search(address).subscribe(
       {
         next: (result) =>{
-          L.marker([result[0].lat, result[0].lon])
-          .addTo(this.map)
-          .bindPopup(address)
-          .openPopup();
-          
+          this.markers.push(result[0]);
+          if(isSecond)
+          {
+            let departure = this.markers[0];
+            let destination = this.markers[1];
+            L.Routing.control({
+                  waypoints:[L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)]
+                }).addTo(this.map);
+          }
         },
         error:() =>{}
-
       }
     );
     
@@ -111,14 +114,17 @@ export class MapComponent implements AfterViewInit{
         .bindPopup('Trenutno ste hier')
         .openPopup();
   }
-
+  
 
 
   route():void{
     
-    //L.Routing.control({
-   //   waypoints:[L.latLng(2, 2), L.latLng(2, 2)]
-    //}).addTo(this.map);
+    let departure = this.markers[0];
+    let destination = this.markers[1];
+    console.log(departure.lon);
+    // L.Routing.control({
+    //   waypoints:[L.latLng(2, 2), L.latLng(2, 2)]
+    // }).addTo(this.map);
     
   }
 
@@ -141,6 +147,14 @@ export class MapComponent implements AfterViewInit{
     this.showGetRide = true;
 
   }
+
+  deleteMarkers():void{
+    this.map.eachLayer(function(layer){
+      if(layer instanceof L.Marker){
+        this.map.removeLayer(layer);
+      }
+    });
+  }
   getRide():void{
     
       
@@ -153,12 +167,12 @@ export class MapComponent implements AfterViewInit{
       return;
     }
     this.isFormValid = true;
+
+    this.deleteMarkers();
    
-    
     this.search(this.getRideForm.value.departure);
-    this.search(this.getRideForm.value.destination);
+    this.search(this.getRideForm.value.destination, true);
     document.getElementById("map").focus();
-    this.route();
     this.showGetRide = false;
 
 
