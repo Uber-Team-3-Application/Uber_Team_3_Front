@@ -22,8 +22,10 @@ export class MapComponent implements AfterViewInit{
   selectedVehicleName: String = '';
   isFormValid:boolean = true;
   isRideInfoOpened:boolean = false;
+  layers = new L.FeatureGroup();  
 
   markers = new Array();
+
 
   getRideForm = new FormGroup({
     departure: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -118,18 +120,6 @@ export class MapComponent implements AfterViewInit{
   }
   
 
-
-  route():void{
-    
-    let departure = this.markers[0];
-    let destination = this.markers[1];
-    console.log(departure.lon);
-    // L.Routing.control({
-    //   waypoints:[L.latLng(2, 2), L.latLng(2, 2)]
-    // }).addTo(this.map);
-    
-  }
-
   registerOnClick(): void{
     this.map.on('click', (e:any) =>{
       const coord = e.latlng;
@@ -151,11 +141,21 @@ export class MapComponent implements AfterViewInit{
   }
 
   deleteMarkers():void{
-    this.map.eachLayer(function(layer){
-      if(layer instanceof L.Marker){
-        this.map.removeLayer(layer);
-      }
-    });
+    
+
+    this.map.eachLayer(
+      (layer) =>
+      {
+        if (layer.options.waypoints && layer.options.waypoints.length) {
+          this.map.removeLayer(layer);
+         }
+      });
+    this.markers.length = 0;
+
+    // for(let i=0;i<this.markers.length;i++){
+    //   this.map.removeLayer(this.markers[i]);
+    // }
+    // this.markers.length = 0;
   }
   getRide():void{
     
