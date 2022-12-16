@@ -92,6 +92,8 @@ export class MapComponent implements AfterViewInit{
             L.Routing.control({
                   waypoints:[L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)]
                 }).addTo(this.map);
+            let bounds = L.latLngBounds(this.markers);
+            this.map.fitBounds(bounds);
           }
         },
         error:() =>{}
