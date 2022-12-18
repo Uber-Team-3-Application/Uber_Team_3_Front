@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, OnInit, Component } from '@angular/core';
-import { DriverService } from 'src/app/services/driver/driver.service';
+import { DriverService } from '../services/driver.service';
 import { Driver } from 'src/app/models/Driver';
 @Component({
   selector: 'app-driver-profile',

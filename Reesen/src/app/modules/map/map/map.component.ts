@@ -1,10 +1,10 @@
 import { AfterViewInit, Component } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
-import { MapService } from 'src/app/services/map/map.service';
+import { MapService } from '../map.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { VehicleType } from 'src/app/models/Vehicle';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
+import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
 
 @Component({
   selector: 'app-map',

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Vehicle, VehicleType } from 'src/app/models/Vehicle';
-import { DriverService } from 'src/app/services/driver/driver.service';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
+import { DriverService } from '../services/driver.service';
+import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
 
 @Component({
   selector: 'app-driver-edit-vehicle-info',

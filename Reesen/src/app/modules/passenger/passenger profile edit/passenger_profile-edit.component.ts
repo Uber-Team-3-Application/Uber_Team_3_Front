@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Passenger } from 'src/app/models/Passenger';
-import { PassengerService } from 'src/app/services/passenger/passenger.service';
+import { PassengerService } from '../passenger.service';
 
 @Component({
   selector: 'app-passenger_profile-edit',

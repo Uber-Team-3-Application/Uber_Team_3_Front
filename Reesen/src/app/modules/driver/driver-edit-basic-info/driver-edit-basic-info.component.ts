@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Driver } from 'src/app/models/Driver';
-import { DriverService } from 'src/app/services/driver/driver.service';
+import { DriverService } from '../services/driver.service';
 
 @Component({
   selector: 'app-driver-edit-basic-info',
