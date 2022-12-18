@@ -1,6 +1,15 @@
+<div id="full-screen">
   <span class="m-3 hover-underline-animation"><a [routerLink]="['/']">Home</a></span>
   <span class="m-3 hover-underline-animation"><a [routerLink]="['/driverProfile']">Profile</a></span>
   <span class="m-3 hover-underline-animation"><a [routerLink]="['/rideHistory']">Ride history</a></span>
   <span class="m-3 hover-underline-animation"><a [routerLink]="['']">Reports</a></span>
   <span class="m-3 hover-underline-animation"><a [routerLink]="['']">Support</a></span>
+</div>
 
+<div id="response">
+  <a [routerLink]="['/']" class="w3-bar-item w3-button">Home</a>
+  <a [routerLink]="['/']" class="w3-bar-item w3-button">Profile</a>
+  <a [routerLink]="['/']" class="w3-bar-item w3-button">Contact</a>
+  <a [routerLink]="['/']" class="w3-bar-item w3-button">Ride History</a>
+  <button class="btn btn-primary" id="login-btn" [routerLink]="['/login']">Log out</button>
+</div>

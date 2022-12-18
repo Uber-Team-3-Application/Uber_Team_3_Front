@@ -13,17 +13,15 @@
           </div>
 
           <div class="col-8" id="driver-login">
-            <form id="form">
-              <app-driver-info-registration></app-driver-info-registration>
-              <br>
-              <app-driver-vehicle-registration></app-driver-vehicle-registration>
-            <div class="row">
-              <div class="col"></div>
-              <div class="col center"><button type="submit" class="signup">Register Driver</button></div>
-              <div class="col"></div>
-            </div>
-            </form>
-          </div>
+            <app-driver-info-registration
+              (statusChanged) = "changeState($event)"
+              *ngIf="currentState">
+            </app-driver-info-registration>
+            <app-driver-vehicle-registration
+              (statusChanged) = "changeState($event)"
+              *ngIf="!currentState">
+            </app-driver-vehicle-registration>
+      </div>
     </div>
   </div>
 </section>

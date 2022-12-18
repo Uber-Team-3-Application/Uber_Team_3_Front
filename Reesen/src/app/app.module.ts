@@ -31,6 +31,7 @@ import { SelectVehicleTypeComponent } from './components/select-vehicle-type/sel
 import { DriverNavbarComponent } from './components/navbar/driver-navbar/driver-navbar.component';
 import { PassengerNavbarComponent } from './components/navbar/passenger-navbar/passenger-navbar.component';
 import { AdminNavbarComponent } from './components/navbar/admin-navbar/admin-navbar.component';
+import { UnregisteredUserNavbarComponent } from './components/navbar/unregistered-user-navbar/unregistered-user-navbar.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { AdminNavbarComponent } from './components/navbar/admin-navbar/admin-nav
     DriverNavbarComponent,
     PassengerNavbarComponent,
     AdminNavbarComponent,
+    UnregisteredUserNavbarComponent,
   ],
   imports: [
     BrowserModule,

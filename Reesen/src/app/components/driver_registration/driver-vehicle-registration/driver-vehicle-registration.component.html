@@ -1,4 +1,6 @@
-<div class="vehicle-register">
+<form
+  [formGroup]="createVehicleForm"
+  (ngSubmit)="registerVehicle()" >
   <div class="card border-3">
     <div class="card-body">
       <h5 class="card-title">Driver’s Vehicle Info</h5>
@@ -6,11 +8,11 @@
         <div class="col">
           <div class="mb-3 space">
             <label for="model" class="label-reg">Model</label>
-            <input type="text" class="form-control" id="model" placeholder="Audi A3">
+            <input type="text" class="form-control" id="model" formControlName="model" placeholder="Audi A3">
           </div>
           <div class="mb-3 space">
             <label for="registrationNumber" class="label-reg">Registration Number</label>
-            <input type="text" class="form-control" id="registrationNumber" placeholder="SM666CF">
+            <input type="text" class="form-control" id="registrationNumber"  formControlName="registrationNumber" placeholder="SM666CF">
           </div>
           <div class="form-check mb-3 space">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -49,4 +51,11 @@
       </div>
     </div>
   </div>
-</div>
+
+  <div class="row">
+    <div class="col"></div>
+    <div class="col"><button (click)="goBack()" class="signup"><< Back</button></div>
+    <div class="col"><button type="submit" class="signup">Register</button></div>
+  </div>
+
+</form>

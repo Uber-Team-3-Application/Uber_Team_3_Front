@@ -7,4 +7,5 @@ export interface Driver{
     telephoneNumber:string;
     email:string;
     address:string;
+    password?:string
 }
