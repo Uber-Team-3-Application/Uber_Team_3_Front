@@ -152,10 +152,6 @@ export class MapComponent implements AfterViewInit{
       });
     this.markers.length = 0;
 
-    // for(let i=0;i<this.markers.length;i++){
-    //   this.map.removeLayer(this.markers[i]);
-    // }
-    // this.markers.length = 0;
   }
   getRide():void{
     
