@@ -14,6 +14,7 @@ import { VehicleService } from 'src/app/modules/driver/services/vehicle.service'
 export class MapComponent implements AfterViewInit{
 
   private map:any;
+  private currentRoute: L.Routing.Control | null = null;
   rideButtonText: string = 'Get Ride info';
   showGetRide: boolean = false;
   showVehicleType: boolean = false;
@@ -22,7 +23,6 @@ export class MapComponent implements AfterViewInit{
   selectedVehicleName: String = '';
   isFormValid:boolean = true;
   isRideInfoOpened:boolean = false;
-  layers = new L.FeatureGroup();  
 
   markers = new Array();
 
@@ -91,16 +91,20 @@ export class MapComponent implements AfterViewInit{
           {
             let departure = this.markers[0];
             let destination = this.markers[1];
-            L.Routing.control({
+            let route = L.Routing.control({
                   waypoints:[L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)]
                 }).addTo(this.map);
             let bounds = L.latLngBounds(this.markers);
             this.map.fitBounds(bounds);
+            this.currentRoute = route;
           }
         },
         error:() =>{}
       }
     );
+    if(this.currentRoute != null){
+      this.map.removeControl(this.currentRoute);
+    }
     
   }
 
