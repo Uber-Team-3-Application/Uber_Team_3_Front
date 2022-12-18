@@ -4,6 +4,24 @@
     
   </div>
 </div>
+  <div class="alert alert-success ride-info-popup p-3" role="alert" *ngIf="rideAssumption.estimatedCost != 0 && rideAssumption.estimatedTimeInMinutes != 0">
+    <div class="d-flex flex-row-reverse">
+      <button class="modified-button-cancel my-button" (click)="rideAssumption.estimatedCost=0">X</button>
+    </div>
+    <div class="row text-left">
+      <h2 class="text-center my-3 text-dark">Ride Information:</h2>
+      <div class="col-12 p-2 mx-3 text-dark">
+        Estimated Time in Minutes: {{rideAssumption.estimatedTimeInMinutes}}
+      </div>
+      <div class="col-12 p-2 mx-3 text-dark">
+        
+        Total Cost: {{rideAssumption.estimatedCost}}
+      </div>
+    </div>
+  </div>
+
+
+
 <div *ngIf="!showGetRide" class="overlay">
   <span><button class="ride-button my-button" type="button" (click)="openGetRide()"> {{rideButtonText}}</button></span>    
 </div>
