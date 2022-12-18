@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/auth/authentication.service';
-
+import { AuthenticationService } from 'src/app/modules/auth/authentication.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
