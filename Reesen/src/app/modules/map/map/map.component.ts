@@ -51,7 +51,7 @@ export class MapComponent implements AfterViewInit{
 
   private initMap():void{
     this.map = L.map('map', {
-      center: [45.2396, 19.8227],
+      center: [45.249101856630546, 19.848034],
       zoom: 16,
     });
 
@@ -208,6 +208,12 @@ export class MapComponent implements AfterViewInit{
   openGetRide():void{
 
     this.showGetRide = true;
+
+  }
+
+  clearMap():void{
+    this.deleteMarkers();
+    this.map.removeControl(this.currentRoute);
 
   }
 
