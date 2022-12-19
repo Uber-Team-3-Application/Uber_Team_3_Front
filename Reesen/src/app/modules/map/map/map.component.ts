@@ -4,7 +4,12 @@ import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { VehicleType } from 'src/app/models/Vehicle';
+import { Location } from 'src/app/models/Location';
 import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
+import { UserService } from '../../unregistered-user/user.service';
+import { RideInfo, RideInfoBody } from 'src/app/models/Ride';
+import { greenCar } from '../icons/icons';
+
 
 @Component({
   selector: 'app-map',
@@ -14,15 +19,21 @@ import { VehicleService } from 'src/app/modules/driver/services/vehicle.service'
 export class MapComponent implements AfterViewInit{
 
   private map:any;
+  private currentRoute: L.Routing.Control | null = null;
   rideButtonText: string = 'Get Ride info';
   showGetRide: boolean = false;
   showVehicleType: boolean = false;
   vehicleTypes: VehicleType[];
   typeSelected: boolean = false;
-  selectedVehicleName: String = '';
+  selectedVehicleName: string = '';
   isFormValid:boolean = true;
   isRideInfoOpened:boolean = false;
-  layers = new L.FeatureGroup();  
+  rideAssumption: RideInfo = {
+    estimatedTimeInMinutes: 0,
+    estimatedCost: 0
+  }
+
+  vehicleLocations: Location[];
 
   markers = new Array();
 
@@ -34,11 +45,13 @@ export class MapComponent implements AfterViewInit{
     petTransport: new FormControl(false)
   });
 
-  constructor(private mapService: MapService, private vehicleService: VehicleService){}
+  constructor(private mapService: MapService, 
+    private vehicleService: VehicleService,
+    private userService: UserService){}
 
   private initMap():void{
     this.map = L.map('map', {
-      center: [45.2396, 19.8227],
+      center: [45.249101856630546, 19.848034],
       zoom: 16,
     });
 
@@ -77,6 +90,19 @@ export class MapComponent implements AfterViewInit{
                         .subscribe(
                           (vehicleTypes) => (this.vehicleTypes = vehicleTypes)
                         );
+                        
+    this.vehicleService.getAllLocations()
+                        .subscribe(
+                          (locations) => {
+                            this.vehicleLocations = locations;
+                            for(let location of this.vehicleLocations){
+                              console.log(location);
+                              L.marker([location.latitude, location.longitude], {icon:greenCar}).addTo(this.map);
+                            }
+                          }
+                        );
+
+
   }
 
 
@@ -91,21 +117,66 @@ export class MapComponent implements AfterViewInit{
           {
             let departure = this.markers[0];
             let destination = this.markers[1];
-            L.Routing.control({
-                  waypoints:[L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)]
+            let route = L.Routing.control({
+                  waypoints:[L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)],
+                  show:false,
                 }).addTo(this.map);
             let bounds = L.latLngBounds(this.markers);
             this.map.fitBounds(bounds);
+            this.currentRoute = route;
+              
+
+            this.getRideAssumptions();
           }
         },
         error:() =>{}
       }
     );
+    if(this.currentRoute != null){
+      this.map.removeControl(this.currentRoute);
+    }
     
   }
 
   closeRideInfo():void{
     this.showGetRide = false;
+  }
+
+  getRideAssumptions():void{
+
+    const selectedLocations = new Array<Location>();
+    let depLoc: Location = {
+        address: this.getRideForm.value.departure,
+        latitude: this.markers[0].lat,
+        longitude: this.markers[0].lon  
+    };
+    let destLoc: Location = {
+      address: this.getRideForm.value.destination,
+      latitude: this.markers[1].lat,
+      longitude: this.markers[1].lon 
+      
+    };
+    selectedLocations.push(depLoc);
+    selectedLocations.push(destLoc);
+    let type = "KOMBI";
+    if(this.selectedVehicleName === "STANDARD"){
+        type = "STANDARDNO";
+    }
+    else if(this.selectedVehicleName === "LUXURY"){
+      type = "LUKSUZNO";
+    }
+     const rideInfo: RideInfoBody = {
+      locations: selectedLocations,
+      vehicleType:type,
+      babyTransport: this.getRideForm.value.babyTransport,
+      petTransport: this.getRideForm.value.petTransport
+    
+    };
+    this.userService.getRideAssumption(rideInfo)
+      .subscribe(
+        (info) => {this.rideAssumption = info;}
+      );
+    
   }
 
 
@@ -140,6 +211,12 @@ export class MapComponent implements AfterViewInit{
 
   }
 
+  clearMap():void{
+    this.deleteMarkers();
+    this.map.removeControl(this.currentRoute);
+
+  }
+
   deleteMarkers():void{
     
 
@@ -171,10 +248,8 @@ export class MapComponent implements AfterViewInit{
     this.search(this.getRideForm.value.departure);
     this.search(this.getRideForm.value.destination, true);
     document.getElementById("map").focus();
+
     this.showGetRide = false;
-
-
-
   }
 
   openVehicleTypeComponent():void{

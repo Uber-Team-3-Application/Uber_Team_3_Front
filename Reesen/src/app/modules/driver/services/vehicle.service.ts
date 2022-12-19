@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environment/environment';
 import { Vehicle, VehicleType } from 'src/app/models/Vehicle';
+import { Location } from 'src/app/models/Location';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +19,11 @@ export class VehicleService {
 
   getVehicleTypes():Observable<VehicleType[]>{
     return this.http.get<VehicleType[]>(environment.apiHost + 'api/vehicle/types');
+  }
+
+
+  getAllLocations():Observable<Location[]>{
+    return this.http.get<Location[]>(environment.apiHost + 'api/vehicle/vehicle-locations');
   }
 
 }

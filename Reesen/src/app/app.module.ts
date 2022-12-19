@@ -10,6 +10,7 @@ import { PassengerModule } from './modules/passenger/passenger.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { DriverModule } from './modules/driver/driver.module';
+import { UserModule } from './modules/unregistered-user/user.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { DriverModule } from './modules/driver/driver.module';
     PassengerModule,
     AdminModule,
     AuthModule,
-    DriverModule
+    DriverModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

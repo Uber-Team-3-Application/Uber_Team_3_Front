@@ -67,6 +67,22 @@
     border: 2px solid #578979;
     background-color: white;
 }
+
+.modified-button-cancel{
+    color: red;
+    background-color: transparent;
+    border:2px solid transparent;
+    
+    padding: 10px 22px;
+    transition: .3s ease-in-out;
+}
+.modified-button-cancel:hover{
+    color: white;
+    background-color: red;
+    border: 2px solid black;
+    transition: .3s ease-in-out;
+}
+
 .button-cancel{
     color: red;
     background-color: white;
@@ -80,6 +96,24 @@
     background-color: red;
     border: 2px solid black;
     transition: .3s ease-in-out;
+}
+
+
+.ride-info-popup{
+    position: absolute;
+    border: 2px solid black;
+    z-index: 502;
+    top: 26vh;
+    left: 36vw;
+    font: bold;
+    color: black;
+
+}
+
+.ride-info-info{
+    border: 2px solid #578979;
+    width: fit-content;
+    margin: 10px auto;
 }
 
 .ride-button:hover{
@@ -135,6 +169,11 @@ label{
 }
 
 @media only screen and (max-width: 800px) {
+    .ride-info-popup{
+        left: 4vw;
+        top: 10vh;
+
+    }
     .ride-information-form{
         width: 100%;
     }
