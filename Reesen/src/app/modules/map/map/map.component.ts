@@ -8,6 +8,7 @@ import { Location } from 'src/app/models/Location';
 import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
 import { UserService } from '../../unregistered-user/user.service';
 import { RideInfo, RideInfoBody } from 'src/app/models/Ride';
+import { greenCar } from '../icons/icons';
 
 
 @Component({
@@ -31,6 +32,8 @@ export class MapComponent implements AfterViewInit{
     estimatedTimeInMinutes: 0,
     estimatedCost: 0
   }
+
+  vehicleLocations: Location[];
 
   markers = new Array();
 
@@ -87,6 +90,19 @@ export class MapComponent implements AfterViewInit{
                         .subscribe(
                           (vehicleTypes) => (this.vehicleTypes = vehicleTypes)
                         );
+                        
+    this.vehicleService.getAllLocations()
+                        .subscribe(
+                          (locations) => {
+                            this.vehicleLocations = locations;
+                            for(let location of this.vehicleLocations){
+                              console.log(location);
+                              L.marker([location.latitude, location.longitude], {icon:greenCar}).addTo(this.map);
+                            }
+                          }
+                        );
+
+
   }
 
 
