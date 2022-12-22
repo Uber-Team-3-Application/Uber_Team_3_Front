@@ -1,0 +1,50 @@
+<section class="driver-profile p-5 round-edges">
+    <div class="row gap-5">
+        <div class="col-md-5 col-12 p-4 bg-white round-edges">
+            <div class="row text-center">
+                <div class="col-12 pt-5">
+                    <img src="../../../assets/img/avatar.png" alt="avatar" class="rounded-circle img-avatar">
+                </div>
+                <div class="col-12 pt-3">
+                    <h1 class="bold-text">{{driver.name}} {{driver.surname}}</h1> 
+                </div>
+                <div class="col-12 pt-3">
+                    <button class="btn btn-outline-secondary px-4 py-3 bold-text" type="button">Logout</button>
+                </div>
+            </div>
+                <div class="row mx-5 pt-5 font-size-26">
+                    <div class="col-12">
+                        <span ><i class="bi bi-person"></i></span>
+                        <span class=""><button type="button" class="choice-button bold-text" (click)="changeSelectedView('ACCOUNT')" [routerLink]="['account']">Account</button></span>
+                    </div>
+                    <div class="col-12">
+                        <span ><i class="bi bi-inbox"></i></span>
+                        <span class=""><button type="button" class="choice-button bold-text" (click)="changeSelectedView('INBOX')">Inbox</button></span>
+                    </div>
+                    <div class="col-12">
+                        <span ><i class="bi bi-car-front"></i></span>
+                        <span class=""><button type="button" class="choice-button bold-text" (click)="changeSelectedView('RIDE_HISTORY')" [routerLink]="['rideHistory']">Ride History</button></span>
+                    </div>
+                    <div class="col-12">
+                        <span ><i class="bi bi-graph-up"></i></span>
+                        <span class=""><button type="button" class="choice-button bold-text" (click)="changeSelectedView('REPORTS')" [routerLink]="['reports']">Reports</button></span>
+                    </div>
+                </div>
+            
+        </div>
+        <div class="col-md-6 col-12 p-4 bg-white round-edges">
+                <div class="row title text-center">
+                    <h1 [(ngModel)]="title">{{title}}</h1>
+                </div>
+
+                <section class="text-center pt-5">
+                    <app-driver-account *ngIf="selectedView==='ACCOUNT'"></app-driver-account>
+                    <app-driver-inbox *ngIf="selectedView==='INBOX'"></app-driver-inbox>
+                    <app-driver-ride-history *ngIf="selectedView==='RIDE_HISTORY'"></app-driver-ride-history>
+                    <app-driver-reports *ngIf="selectedView==='REPORTS'"></app-driver-reports>
+                    <!-- ADD DOCUMENTS HIA' <app-driver-reports *ngIf="selectedView==='REPORTS'"></app-driver-reports> -->
+                </section>
+        </div>
+    </div>
+
+</section>

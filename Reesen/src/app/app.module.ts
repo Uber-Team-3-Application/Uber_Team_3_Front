@@ -3,71 +3,32 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegistrationComponent } from './components/registration/registration.component';
-import { AboutComponent } from './components/about/about.component';
-import { HomeComponent } from './components/home/home.component';
-
-
-import { PassengerProfileEditComponent } from './components/passenger profile edit/passenger_profile-edit.component';
-import { PassengerProfileComponent } from './components/passenger profile/passenger_profile.component';
-import {DriverRegistrationComponent} from "./components/driver_registration/driver_registration.component";
 import { FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
-import { DriverProfileComponent } from './components/driver-profile/driver-profile.component';
-import { DriverAccountComponent } from './components/driver-account/driver-account.component';
-import { DriverInboxComponent } from './components/driver-inbox/driver-inbox.component';
-import { DriverRideHistoryComponent } from './components/driver-ride-history/driver-ride-history.component';
-import { DriverReportsComponent } from './components/driver-reports/driver-reports.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DriverEditBasicInfoComponent } from './components/driver-edit-basic-info/driver-edit-basic-info.component';
-import { ChangePasswordComponent } from './components/change-password/change-password.component';
-import { EditVehicleInfoComponent } from './components/edit-vehicle-info/edit-vehicle-info.component';
-import { DriverEditPasswordComponent } from './components/driver-edit-password/driver-edit-password.component';
-import { DriverInfoRegistrationComponent } from './components/driver_registration/driver-info-registration/driver-info-registration.component';
-import { DriverVehicleRegistrationComponent } from './components/driver_registration/driver-vehicle-registration/driver-vehicle-registration.component';
-import { MapComponent } from './components/map/map.component';
-import { SelectVehicleTypeComponent } from './components/select-vehicle-type/select-vehicle-type.component';
-import { DriverNavbarComponent } from './components/navbar/driver-navbar/driver-navbar.component';
-import { PassengerNavbarComponent } from './components/navbar/passenger-navbar/passenger-navbar.component';
-import { AdminNavbarComponent } from './components/navbar/admin-navbar/admin-navbar.component';
-import { UnregisteredUserNavbarComponent } from './components/navbar/unregistered-user-navbar/unregistered-user-navbar.component';
+import { LayoutModule } from './modules/layout/layout.module';
+import { PassengerModule } from './modules/passenger/passenger.module';
+import { AdminModule } from './modules/admin/admin.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { DriverModule } from './modules/driver/driver.module';
+import { UserModule } from './modules/unregistered-user/user.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    LoginComponent,
-    RegistrationComponent,
-    AboutComponent,
-    HomeComponent,
-    PassengerProfileEditComponent,
-    PassengerProfileComponent,
-    DriverRegistrationComponent,
-    DriverProfileComponent,
-    DriverAccountComponent,
-    DriverInboxComponent,
-    DriverRideHistoryComponent,
-    DriverReportsComponent,
-    DriverEditBasicInfoComponent,
-    ChangePasswordComponent,
-    EditVehicleInfoComponent,
-    DriverEditPasswordComponent,
-    DriverInfoRegistrationComponent,
-    DriverVehicleRegistrationComponent,
-    MapComponent,
-    SelectVehicleTypeComponent,
-    DriverNavbarComponent,
-    PassengerNavbarComponent,
-    AdminNavbarComponent,
-    UnregisteredUserNavbarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    LayoutModule,
+    PassengerModule,
+    AdminModule,
+    AuthModule,
+    DriverModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

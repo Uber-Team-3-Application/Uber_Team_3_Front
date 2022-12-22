@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DriverEditBasicInfoComponent } from './components/driver-edit-basic-info/driver-edit-basic-info.component';
-import { DriverEditPasswordComponent } from './components/driver-edit-password/driver-edit-password.component';
-import { DriverProfileComponent } from './components/driver-profile/driver-profile.component';
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { PassengerProfileComponent } from './components/passenger profile/passenger_profile.component';
-import { PassengerProfileEditComponent } from './components/passenger profile edit/passenger_profile-edit.component';
+import { DriverEditBasicInfoComponent } from './modules/driver/driver-edit-basic-info/driver-edit-basic-info.component';
+import { DriverEditPasswordComponent } from './modules/driver/driver-edit-password/driver-edit-password.component';
+import { DriverProfileComponent } from './modules/driver/driver-profile/driver-profile.component';
+import { HomeComponent } from './modules/layout/home/home.component';
+import { LoginComponent } from './modules/auth/login/login.component';
+import { PassengerProfileComponent } from './modules/passenger/passenger profile/passenger_profile.component';
+import { PassengerProfileEditComponent } from './modules/passenger/passenger profile edit/passenger_profile-edit.component';
 
-import { RegistrationComponent } from './components/registration/registration.component';
-import {DriverRegistrationComponent} from "./components/driver_registration/driver_registration.component";
+import { RegistrationComponent } from './modules/passenger/registration/registration.component';
+import {DriverRegistrationComponent} from "./modules/admin/driver_registration/driver_registration.component";
+import { DriverEditVehicleInfoComponent } from './modules/driver/driver-edit-vehicle-info/driver-edit-vehicle-info.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent},
@@ -23,6 +24,7 @@ const routes: Routes = [
     {path:'reports', component:DriverProfileComponent},
   ]},
   {path:'driverEdit', component:DriverEditBasicInfoComponent},
+  {path:'driverEditVehicle', component:DriverEditVehicleInfoComponent},
   {path: 'driverEditPassword', component:DriverEditPasswordComponent},
   {path:'', redirectTo: '/home', pathMatch:'full'},
   {path: 'registerDriver', component:DriverRegistrationComponent},

@@ -1,0 +1,49 @@
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Vehicle, VehicleType } from 'src/app/models/Vehicle';
+import { DriverService } from '../services/driver.service';
+import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
+
+@Component({
+  selector: 'app-driver-edit-vehicle-info',
+  templateUrl: './driver-edit-vehicle-info.component.html',
+  styleUrls: ['./driver-edit-vehicle-info.component.css']
+})
+export class DriverEditVehicleInfoComponent implements OnInit{
+
+  editVehicleForm = new FormGroup({
+    model:new FormControl('', [Validators.required, Validators.minLength(5)]),
+    type: new FormControl('STANDARD', []),
+    registration: new FormControl('',[ Validators.minLength(7), Validators.maxLength(9)]),
+    numberOfSeats: new FormControl('2', []),
+    babyTransport: new FormControl(false, []),
+    petTransport: new FormControl(false, [])
+  });
+  vehicle: Vehicle;
+  hasError: boolean = false;
+
+  constructor(private driverService: DriverService, private router: Router){
+
+  }
+  ngOnInit(): void {
+    this.driverService.getDriversVehicle(2)
+    .subscribe(
+      (vehicle) => {this.vehicle = vehicle}
+    );
+  }
+
+
+    editVehicle():void{
+        if(this.editVehicleForm.valid){
+            this.hasError = false;
+        }else{
+          this.hasError = true;
+        }
+    }
+
+
+    navigateBack():void{
+        this.router.navigateByUrl("/driverProfile");
+    }
+}
