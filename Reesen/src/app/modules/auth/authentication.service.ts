@@ -16,8 +16,13 @@ export class AuthenticationService {
     skip:'true',
   })
 
+  user$ = new BehaviorSubject(null);
+  userState$ = this.user$.asObservable();
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {
+    this.user$.next(this.getRole());
+   }
+
 
   login(auth:any):Observable<Token>{
     return this.http.post<Token>(environment.apiHost + 'api/user/login', auth, {
@@ -35,15 +40,25 @@ export class AuthenticationService {
   }
 
   isLoggedIn(): boolean{
+    if(localStorage.getItem('user') != null) return true;
+
     return false;
   }
 
   getRole():any{
     if(this.isLoggedIn()){
-      return 'role';
+      const accessToken: any = localStorage.getItem('user');
+      const helper = new JwtHelperService();
+      const role = helper.decodeToken(accessToken).role[0].authority;
+      return role;
     }
     return null;
   }
+
+  setUser(): void{
+    this.user$.next(this.getRole());
+  }
+
 
 
 }
