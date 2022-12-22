@@ -6,4 +6,5 @@ export interface Passenger{
     telephoneNumber:string;
     email:string;
     address:string;
+    password:string;
 }

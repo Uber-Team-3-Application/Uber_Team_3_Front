@@ -14,7 +14,8 @@ export class PassengerProfileComponent implements OnInit {
     profilePicture: '',
     telephoneNumber: '',
     email: '',
-    address: ''
+    address: '',
+    password: ''
   };
   
 
