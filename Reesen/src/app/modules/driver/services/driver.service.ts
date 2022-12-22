@@ -4,11 +4,16 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
 import { Driver } from 'src/app/models/Driver';
 import { Vehicle } from 'src/app/models/Vehicle';
+import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class DriverService {
 
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    skip:'true',
+  })
   constructor(private http: HttpClient) { }
 
   saveDriver(newDriver: any) : Observable<any> {
@@ -16,7 +21,11 @@ export class DriverService {
   }
 
   get(driverId:number):Observable<Driver>{
-    return this.http.get<Driver>(environment.apiHost+'api/driver/' + driverId);
+    return this.http.get<Driver>(environment.apiHost+'api/driver/' + driverId,
+    {
+      headers: this.headers
+    }
+    );
 
   }
 
