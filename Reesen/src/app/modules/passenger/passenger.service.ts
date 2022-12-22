@@ -19,4 +19,8 @@ export class PassengerService {
   getAll():Observable<Passenger[]>{
     return this.http.get<Passenger[]>(environment.apiHost + '/api/passenger');
   }
+
+  save(newPassenger: any) : Observable<any> {
+      return this.http.post<string>(environment.apiHost + "api/passenger", newPassenger)
+    }
 }
