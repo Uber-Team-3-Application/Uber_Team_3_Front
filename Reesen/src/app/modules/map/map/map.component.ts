@@ -229,6 +229,10 @@ export class MapComponent implements AfterViewInit{
   clearMap():void{
     this.deleteMarkers();
     this.map.removeControl(this.currentRoute);
+    this.getRideForm.patchValue(
+      {departure: "",
+      destination: ""}
+    );
 
   }
 
@@ -265,6 +269,10 @@ export class MapComponent implements AfterViewInit{
     document.getElementById("map").focus();
 
     this.showGetRide = false;
+    this.getRideForm.patchValue(
+      {departure: "",
+      destination: ""}
+    );
   }
 
   openVehicleTypeComponent():void{
