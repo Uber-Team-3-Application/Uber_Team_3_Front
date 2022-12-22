@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PassengerProfileEditComponent } from './passenger_profile-edit.component';
+import { PassengerProfileEditComponent } from './passenger-profile-edit.component';
 
 describe('PassengerProfileEditComponent', () => {
   let component: PassengerProfileEditComponent;

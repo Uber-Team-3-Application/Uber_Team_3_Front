@@ -4,7 +4,7 @@
     
   </div>
 </div>
-  <div class="alert alert-success ride-info-popup p-3" role="alert" *ngIf="rideAssumption.estimatedCost != 0 && rideAssumption.estimatedTimeInMinutes != 0">
+  <div class="alert alert-success ride-info-popup p-3" role="alert" *ngIf="rideAssumption.estimatedCost !== 0 && rideAssumption.estimatedTimeInMinutes !== 0">
     <div class="d-flex flex-row-reverse">
       <button class="modified-button-cancel my-button" (click)="rideAssumption.estimatedCost=0">X</button>
     </div>

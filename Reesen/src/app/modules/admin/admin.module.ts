@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DriverRegistrationComponent } from './driver_registration/driver_registration.component';
+import { DriverRegistrationComponent } from './driver-registration/driver-registration.component';
 import { DriverInfoRegistrationComponent } from './driver-info-registration/driver-info-registration.component';
 import { DriverVehicleRegistrationComponent } from './driver-vehicle-registration/driver-vehicle-registration.component';
 import { ReactiveFormsModule } from '@angular/forms';

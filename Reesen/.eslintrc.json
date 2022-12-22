@@ -30,7 +30,8 @@
             "prefix": "app",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "no-var":2
       }
     },
     {

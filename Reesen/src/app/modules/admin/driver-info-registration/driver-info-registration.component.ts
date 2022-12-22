@@ -6,7 +6,7 @@ import {Driver} from "../../../models/Driver";
 @Component({
   selector: 'app-driver-info-registration',
   templateUrl: './driver-info-registration.component.html',
-  styleUrls: ['../driver_registration/driver_registration.component.css']
+  styleUrls: ['../driver-registration/driver-registration.component.css']
 })
 export class DriverInfoRegistrationComponent {
 
@@ -28,7 +28,7 @@ export class DriverInfoRegistrationComponent {
   registerDriver() {
     if (this.createDriverForm.valid) {
       this.statusChanged.emit(false);
-      let driver: Driver = {
+      const driver: Driver = {
         name : this.createDriverForm.value.firstName,
         surname : this.createDriverForm.value.lastName,
         profilePicture : "",
