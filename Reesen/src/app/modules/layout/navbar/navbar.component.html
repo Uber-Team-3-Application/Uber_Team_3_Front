@@ -6,13 +6,21 @@
   <div class="col-3">
     <a href="#"><img class="logo" src="assets/img/logo.png"></a>
   </div>
+
   <div class="col-6 text-center  nav-items">
-    <span class="m-3 hover-underline-animation"><a [routerLink]="['/']">Home</a></span>
-    <span class="m-3 hover-underline-animation"><a [routerLink]="['/driverProfile']">Profile</a></span>
-    <span class="m-3 hover-underline-animation"><a [routerLink]="['/']">Contact</a></span>
+    <!-- PRIKAZATI U ZAVISNOSTI OD TOKENA -->
+    <app-driver-navbar></app-driver-navbar>
+<!--    <app-passenger-navbar></app-passenger-navbar>-->
+<!--    <app-unregistered-user-navbar></app-unregistered-user-navbar>-->
+<!--    <app-admin-navbar></app-admin-navbar>-->
   </div>
+
   <div class="col-3 text-end nav-items" id="left">
+    <!-- prikazati neregeistrovanom/neulogovanom -->
     <span class="text-right m-3 hover-underline-animation"><a [routerLink]="['/login']">Log In</a></span>
+    <!-- prikazati ulogovanom -->
+<!--    <span class="text-right m-3 hover-underline-animation"><a [routerLink]="['/login']">Log Out</a></span>-->
+    <!-- prikazati neregeistrovanom/neulogovanom -->
     <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" [routerLink]="['/register']">
     Sign up
     </button>
@@ -32,10 +40,10 @@
   </div>
 </div>
 
-<div class="w3-sidebar w3-bar-block w3-border-right" id="nav-response" *ngIf="isShown">
-  <a [routerLink]="['/']" class="w3-bar-item w3-button">Home</a>
-  <a [routerLink]="['/driverProfile']" class="w3-bar-item w3-button">Profile</a>
-  <a [routerLink]="['/']" class="w3-bar-item w3-button">Contact</a>
-  <button class="btn btn-primary" id="login-btn" [routerLink]="['/login']">Log In</button>
-  <button class="btn btn-primary" id="signup-btn" [routerLink]="['/register']">Sign Up</button>
+
+<div class="w3-sidebar w3-bar-block w3-border-left" id="nav-response" *ngIf="isShown">
+  <app-driver-navbar></app-driver-navbar>
+<!--  <app-passenger-navbar></app-passenger-navbar>-->
+<!--  <app-unregistered-user-navbar></app-unregistered-user-navbar>-->
+<!--  <app-admin-navbar></app-admin-navbar>-->
 </div>

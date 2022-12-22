@@ -1,4 +1,7 @@
-import {Component}  from "@angular/core";
+import {Component, Input, ViewChild} from "@angular/core";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {DriverService} from "../../services/driver/driver.service";
+import {flush} from "@angular/core/testing";
 
 @Component({
   selector: 'app-driver_registration',
@@ -7,5 +10,10 @@ import {Component}  from "@angular/core";
 })
 
 export class DriverRegistrationComponent {
+  currentState: boolean = true;
+
+  changeState(event :boolean) {
+    this.currentState = event;
+  }
 
 }

@@ -1,0 +1,61 @@
+<form
+  [formGroup]="createVehicleForm"
+  (ngSubmit)="registerVehicle()" >
+  <div class="card border-3">
+    <div class="card-body">
+      <h5 class="card-title">Driver’s Vehicle Info</h5>
+      <div class="row">
+        <div class="col">
+          <div class="mb-3 space">
+            <label for="model" class="label-reg">Model</label>
+            <input type="text" class="form-control" id="model" formControlName="model" placeholder="Audi A3">
+          </div>
+          <div class="mb-3 space">
+            <label for="registrationNumber" class="label-reg">Registration Number</label>
+            <input type="text" class="form-control" id="registrationNumber"  formControlName="registrationNumber" placeholder="SM666CF">
+          </div>
+          <div class="form-check mb-3 space">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label check-button" for="flexCheckDefault">
+              Baby Transport
+            </label>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="mb-3 space">
+            <label class="label-reg">Type</label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected value="luxury">LUXURY</option>
+              <option value="standard">STANDARD</option>
+              <option value="van">VAN</option>
+            </select>
+          </div>
+          <div class="mb-3 space">
+            <label class="label-reg">Number of seats</label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected value="1" id="option">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+          <div class="form-check mb-3 space">
+            <input class="form-check-input" type="checkbox" value="">
+            <label class="form-check-label check-button" for="flexCheckDefault">
+              Pet transport
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col"></div>
+    <div class="col"><button (click)="goBack()" class="signup"><< Back</button></div>
+    <div class="col"><button type="submit" class="signup">Register</button></div>
+  </div>
+
+</form>

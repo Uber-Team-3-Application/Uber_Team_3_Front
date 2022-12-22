@@ -1,6 +1,6 @@
 
 
-  .nav-items span a {
+ span a {
     text-decoration: none;
     font-weight: bold;
     font-size: 20px;
@@ -58,10 +58,20 @@
     transform-origin: bottom left;
   }
 
+  #response {
+    display: none;
+  }
+
   @media only screen and (max-width: 800px){
     #full_screen {
       display: none;
     }
+
+    #full-screen {
+      display: none;
+    }
+
+
     #responsive {
       display: block;
     }
@@ -81,15 +91,21 @@
       cursor: pointer;
     }
 
+    #response {
+      display: block;
+    }
+
 
   }
 
   #nav-response {
-    z-index: 5;
+    position: absolute;
+    z-index: 500;
     background-color: rgba(241, 255, 224, 1);
   }
 
-  #nav-response a {
+  #response a {
+
     font-weight: bold;
     font-size: 20px;
     color: rgba(81, 116, 112, 1);
@@ -116,5 +132,8 @@
   }
 
   body {
-    overflow-x: hidden;
+    overflow: hidden;
   }
+
+
+

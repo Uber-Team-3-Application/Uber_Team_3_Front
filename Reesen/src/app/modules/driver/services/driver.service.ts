@@ -11,10 +11,13 @@ export class DriverService {
 
   constructor(private http: HttpClient) { }
 
+  saveDriver(newDriver: any) : Observable<any> {
+    return this.http.post<string>(environment.apiHost + "api/driver", newDriver)
+  }
 
   get(driverId:number):Observable<Driver>{
     return this.http.get<Driver>(environment.apiHost+'api/driver/' + driverId);
-    
+
   }
 
   getAll():Observable<Driver[]>{

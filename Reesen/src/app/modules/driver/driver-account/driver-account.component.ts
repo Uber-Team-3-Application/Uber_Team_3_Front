@@ -16,9 +16,10 @@ export class DriverAccountComponent implements OnInit{
       profilePicture: '',
       telephoneNumber: '',
       email: '',
-      address: ''
+      address: '',
+      password: ''
     };
-    
+
     vehicle: Vehicle = {
         model: '',
         vehicleType: '',
