@@ -9,8 +9,8 @@ import { Driver } from 'src/app/models/Driver';
 export class DriverProfileComponent implements OnInit{
     title:string;
     selectedView:string;
-    firstName: String = "Pera";
-    lastName: String = "Peric";
+    firstName: string = "Pera";
+    lastName: string = "Peric";
     driver:Driver;
 
     ngOnInit():void{

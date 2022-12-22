@@ -3,9 +3,9 @@ import { Passenger } from 'src/app/models/Passenger';
 import { PassengerService } from '../passenger.service';
 
 @Component({
-  selector: 'app-passenger_profile',
-  templateUrl: './passenger_profile.component.html',
-  styleUrls: ['./passenger_profile.component.css']
+  selector: 'app-passenger-profile',
+  templateUrl: './passenger-profile.component.html',
+  styleUrls: ['./passenger-profile.component.css']
 })
 export class PassengerProfileComponent implements OnInit {
   passenger:Passenger = {

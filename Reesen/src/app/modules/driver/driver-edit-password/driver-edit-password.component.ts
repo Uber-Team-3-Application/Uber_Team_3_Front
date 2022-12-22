@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './driver-edit-password.component.html',
   styleUrls: ['./driver-edit-password.component.css']
 })
-export class DriverEditPasswordComponent implements OnInit{
+export class DriverEditPasswordComponent{
 
   editPasswordForm = new FormGroup({
     oldPassword: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -20,9 +20,6 @@ export class DriverEditPasswordComponent implements OnInit{
 
   }
 
-  ngOnInit(): void {
-    
-  }
   hasError:boolean = false;
   
   edit():void{

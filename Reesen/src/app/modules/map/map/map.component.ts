@@ -79,7 +79,7 @@ export class MapComponent implements AfterViewInit{
   ngAfterViewInit(): void {
 
 
-    let DefaultIcon = L.icon({
+    const DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
     });
 
@@ -96,7 +96,7 @@ export class MapComponent implements AfterViewInit{
                         .subscribe(
                           (locations) => {
                             this.vehicleLocations = locations;
-                            for(let location of this.vehicleLocations){
+                            for(const location of this.vehicleLocations){
                               console.log(location);
                               L.marker([location.latitude, location.longitude], {icon:greenCar}).addTo(this.map);
                             }
@@ -105,9 +105,6 @@ export class MapComponent implements AfterViewInit{
 
 
   }
-
-
-
 
   search(address: string, isSecond:boolean = false){
     this.mapService.search(address).subscribe(
@@ -118,13 +115,13 @@ export class MapComponent implements AfterViewInit{
           }
           if(isSecond)
           {
-            let departure = this.markers[0];
-            let destination = this.markers[1];
-            let route = L.Routing.control({
+            const departure = this.markers[0];
+            const destination = this.markers[1];
+            const route = L.Routing.control({
                   waypoints:[L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)],
                   show:false,
                 }).addTo(this.map);
-            let bounds = L.latLngBounds(this.markers);
+            const bounds = L.latLngBounds(this.markers);
             this.map.fitBounds(bounds);
             this.currentRoute = route;
               
@@ -132,7 +129,7 @@ export class MapComponent implements AfterViewInit{
             this.getRideAssumptions();
           }
         },
-        error:() =>{}
+        error:() =>{ console.log("Mistakes were made..");}
       }
     );
     if(this.currentRoute != null){
@@ -148,12 +145,12 @@ export class MapComponent implements AfterViewInit{
   getRideAssumptions():void{
 
     const selectedLocations = new Array<Location>();
-    let depLoc: Location = {
+    const depLoc: Location = {
         address: this.getRideForm.value.departure,
         latitude: this.markers[0].lat,
         longitude: this.markers[0].lon  
     };
-    let destLoc: Location = {
+    const destLoc: Location = {
       address: this.getRideForm.value.destination,
       latitude: this.markers[1].lat,
       longitude: this.markers[1].lon 
@@ -232,6 +229,10 @@ export class MapComponent implements AfterViewInit{
   clearMap():void{
     this.deleteMarkers();
     this.map.removeControl(this.currentRoute);
+    this.getRideForm.patchValue(
+      {departure: "",
+      destination: ""}
+    );
 
   }
 
@@ -268,6 +269,10 @@ export class MapComponent implements AfterViewInit{
     document.getElementById("map").focus();
 
     this.showGetRide = false;
+    this.getRideForm.patchValue(
+      {departure: "",
+      destination: ""}
+    );
   }
 
   openVehicleTypeComponent():void{

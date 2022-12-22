@@ -16,7 +16,7 @@ export class LoginComponent{
     );
     hasError:boolean = false;
 
-    constructor(){}
+    constructor(private router:Router, private authenticationService: AuthenticationService){}
 
     login(){
       if(!this.loginForm.valid) {this.hasError = true; return;}

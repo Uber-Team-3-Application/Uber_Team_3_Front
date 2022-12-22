@@ -4,7 +4,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 @Component({
   selector: 'app-driver-vehicle-registration',
   templateUrl: './driver-vehicle-registration.component.html',
-  styleUrls: ['../driver_registration/driver_registration.component.css']
+  styleUrls: ['../driver-registration/driver-registration.component.css']
 })
 export class DriverVehicleRegistrationComponent {
   @Output() statusChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -19,8 +19,8 @@ export class DriverVehicleRegistrationComponent {
   goBack() {
     this.statusChanged.emit(true);
   }
-
-  registerVehicle() {
-
+  registerVehicle():void{
+    console.log("Register vehicle!");
   }
+
 }

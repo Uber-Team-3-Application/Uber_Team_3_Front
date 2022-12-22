@@ -5,9 +5,9 @@ import { Passenger } from 'src/app/models/Passenger';
 import { PassengerService } from '../passenger.service';
 
 @Component({
-  selector: 'app-passenger_profile-edit',
-  templateUrl: './passenger_profile-edit.component.html',
-  styleUrls: ['./passenger_profile-edit.component.css']
+  selector: 'app-passenger-profile-edit',
+  templateUrl: './passenger-profile-edit.component.html',
+  styleUrls: ['./passenger-profile-edit.component.css']
 })
 export class PassengerProfileEditComponent implements OnInit{
   editForm = new FormGroup({
@@ -18,7 +18,7 @@ export class PassengerProfileEditComponent implements OnInit{
     surname: new FormControl('', [Validators.required, Validators.minLength(3)])
       
   });
-  hasError: boolean = false;
+  hasError: boolean;
   passenger:Passenger = {
     name: '',
     surname: '',
