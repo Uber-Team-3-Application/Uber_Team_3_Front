@@ -1,6 +1,6 @@
 import {Component, Input, ViewChild} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {DriverService} from "../../services/driver/driver.service";
+import { DriverService } from "../../driver/services/driver.service";
 import {flush} from "@angular/core/testing";
 
 @Component({

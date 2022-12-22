@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {DriverService} from "../../../services/driver/driver.service";
+import { DriverService } from 'src/app/modules/driver/services/driver.service';
 import {Driver} from "../../../models/Driver";
 
 @Component({
   selector: 'app-driver-info-registration',
   templateUrl: './driver-info-registration.component.html',
-  styleUrls: ['../driver_registration.component.css']
+  styleUrls: ['../driver_registration/driver_registration.component.css']
 })
 export class DriverInfoRegistrationComponent {
 
