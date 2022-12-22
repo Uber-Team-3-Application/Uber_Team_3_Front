@@ -85,6 +85,7 @@ export class MapComponent implements AfterViewInit{
 
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
+    this.registerOnClick();
 
     this.vehicleService.getVehicleTypes()
                         .subscribe(
@@ -112,7 +113,9 @@ export class MapComponent implements AfterViewInit{
     this.mapService.search(address).subscribe(
       {
         next: (result) =>{
-          this.markers.push(result[0]);
+          if(this.markers.length != 2){
+            this.markers.push(result[0]);
+          }
           if(isSecond)
           {
             let departure = this.markers[0];
@@ -180,29 +183,44 @@ export class MapComponent implements AfterViewInit{
   }
 
 
-
-  addMarker():void{
-    const lat: number = 45.25;
-    const lon: number = 19.8228;
-    L.marker([lat, lon])
-      .addTo(this.map)
-        .bindPopup('Trenutno ste hier')
-        .openPopup();
-  }
-  
-
   registerOnClick(): void{
-    this.map.on('click', (e:any) =>{
-      const coord = e.latlng;
-      const lat = coord.lat;
-      const lng = coord.lng;
-      this.mapService.reverseSearch(lat, lng).
-      subscribe(
-        (res) => {console.log(res.display_name);
-        }
-      );
-        const mp = new L.Marker([lat, lng]).addTo(this.map);
-    });
+
+      this.map.on('click', (e:any) =>{
+          if(this.showGetRide && this.markers.length != 2){
+            const coord = e.latlng;
+            const lat = coord.lat;
+            const lng = coord.lng;
+            this.mapService.reverseSearch(lat, lng).
+            subscribe(
+              (res) => {
+                  if(this.markers.length != 2){
+                    this.markers.push(new L.Marker([lat, lng]));
+                  }
+                  if(this.markers.length == 1 && this.getRideForm.value.departure == ""){
+                    this.getRideForm.patchValue({
+                      departure:  res.display_name
+                    });
+                  }
+                  else{
+                    if(this.getRideForm.value.destination == ""){
+                      this.getRideForm.patchValue({
+                        destination:  res.display_name
+                      });
+                    }
+                  }
+              }
+            );
+          }
+          if(!this.showGetRide){
+            alert("Click on the get ride button first!");
+          }
+          if(this.markers.length == 2){
+            alert("Already selected 2 locations!");
+          }
+
+      });
+    
+    
   }
 
   openGetRide():void{
