@@ -2,7 +2,9 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import { DriverService } from 'src/app/modules/driver/services/driver.service';
 import {Driver} from "../../../models/Driver";
+import * as _ from 'lodash';
 
+// vezbe 7
 @Component({
   selector: 'app-driver-info-registration',
   templateUrl: './driver-info-registration.component.html',
@@ -21,7 +23,6 @@ export class DriverInfoRegistrationComponent {
     passwordRepeat: new FormControl(),
     address: new FormControl()
   });
-
 
   constructor(private driveService: DriverService) {}
 
@@ -43,5 +44,6 @@ export class DriverInfoRegistrationComponent {
       });
     }
   }
+
 
 }
