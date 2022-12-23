@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Token } from '@angular/compiler';
+import { Token } from './model/token';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
 import {JwtHelperService} from '@auth0/angular-jwt'
