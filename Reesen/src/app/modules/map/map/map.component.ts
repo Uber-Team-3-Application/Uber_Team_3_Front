@@ -107,13 +107,14 @@ export class MapComponent implements AfterViewInit{
   }
 
   search(address: string, isSecond:boolean = false){
+
     this.mapService.search(address).subscribe(
       {
         next: (result) =>{
           if(this.markers.length != 2){
             this.markers.push(result[0]);
           }
-          if(isSecond)
+          if(isSecond && this.markers.length == 2)
           {
             const departure = this.markers[0];
             const destination = this.markers[1];
@@ -190,10 +191,8 @@ export class MapComponent implements AfterViewInit{
             this.mapService.reverseSearch(lat, lng).
             subscribe(
               (res) => {
-                  if(this.markers.length != 2){
-                    this.markers.push(new L.Marker([lat, lng]));
-                  }
-                  if(this.markers.length == 1 && this.getRideForm.value.departure == ""){
+                
+                  if((this.markers.length != 2 && this.getRideForm.value.departure == "")){
                     this.getRideForm.patchValue({
                       departure:  res.display_name
                     });
@@ -251,7 +250,7 @@ export class MapComponent implements AfterViewInit{
   }
   getRide():void{
     
-      
+  
     if(!this.getRideForm.valid){
       this.isFormValid = false;
       return;
@@ -269,10 +268,7 @@ export class MapComponent implements AfterViewInit{
     document.getElementById("map").focus();
 
     this.showGetRide = false;
-    this.getRideForm.patchValue(
-      {departure: "",
-      destination: ""}
-    );
+
   }
 
   openVehicleTypeComponent():void{

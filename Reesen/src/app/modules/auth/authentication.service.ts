@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Token } from '@angular/compiler';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
 import {JwtHelperService} from '@auth0/angular-jwt'
+import { Token } from '@angular/compiler';
 
 
 @Injectable({
@@ -14,10 +14,15 @@ export class AuthenticationService {
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
     skip:'true',
-  })
+  });
 
+  user$ = new BehaviorSubject(null);
+  userState$ = this.user$.asObservable();
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {
+    this.user$.next(this.getRole());
+   }
+
 
   login(auth:any):Observable<Token>{
     return this.http.post<Token>(environment.apiHost + 'api/user/login', auth, {
@@ -35,15 +40,26 @@ export class AuthenticationService {
   }
 
   isLoggedIn(): boolean{
+    if(localStorage.getItem('user') != null) return true;
+
     return false;
   }
 
   getRole():any{
     if(this.isLoggedIn()){
-      return 'role';
+      const accessToken: string = localStorage.getItem('user');
+      const helper = new JwtHelperService();
+  
+      const role = helper.decodeToken(accessToken).role[0].authority;
+      return role;
     }
     return null;
   }
+
+  setUser(): void{
+    this.user$.next(this.getRole());
+  }
+
 
 
 }

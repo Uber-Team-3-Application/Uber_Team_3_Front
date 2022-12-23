@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { DriverModule } from './modules/driver/driver.module';
 import { UserModule } from './modules/unregistered-user/user.module';
-
+import {Interceptor} from './modules/auth/interceptor/interceptor'
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { UserModule } from './modules/unregistered-user/user.module';
     DriverModule,
     UserModule
   ],
-  providers: [],
+  providers: [
+    {  provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

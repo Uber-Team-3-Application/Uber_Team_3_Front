@@ -9,19 +9,19 @@
 
   <div class="col-6 text-center  nav-items">
     <!-- PRIKAZATI U ZAVISNOSTI OD TOKENA -->
-    <app-driver-navbar></app-driver-navbar>
-<!--    <app-passenger-navbar></app-passenger-navbar>-->
-<!--    <app-unregistered-user-navbar></app-unregistered-user-navbar>-->
-<!--    <app-admin-navbar></app-admin-navbar>-->
+    <app-driver-navbar *ngIf="role === 'DRIVER'"></app-driver-navbar>
+   <app-passenger-navbar *ngIf="role === 'PASSENGER'"></app-passenger-navbar>
+   <app-unregistered-user-navbar *ngIf="role === null"></app-unregistered-user-navbar>
+   <app-admin-navbar *ngIf="role === 'ADMIN'"></app-admin-navbar>
   </div>
 
   <div class="col-3 text-end nav-items" id="left">
     <!-- prikazati neregeistrovanom/neulogovanom -->
-    <span class="text-right m-3 hover-underline-animation"><a [routerLink]="['/login']">Log In</a></span>
+    <span class="text-right m-3 hover-underline-animation"><a [routerLink]="['/login']" *ngIf="role === null">Log In</a></span>
     <!-- prikazati ulogovanom -->
-<!--    <span class="text-right m-3 hover-underline-animation"><a [routerLink]="['/login']">Log Out</a></span>-->
+   <span class="text-right m-3" *ngIf="role !== null"><button class="logout-button" type="button" (click)="logout()">Log Out</button></span>
     <!-- prikazati neregeistrovanom/neulogovanom -->
-    <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" [routerLink]="['/register']">
+    <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" [routerLink]="['/register']" *ngIf="role === null">
     Sign up
     </button>
   </div>

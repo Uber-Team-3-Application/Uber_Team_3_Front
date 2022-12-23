@@ -11,9 +11,13 @@ import { PassengerProfileEditComponent } from './modules/passenger/passenger-pro
 import { RegistrationComponent } from './modules/passenger/registration/registration.component';
 import {DriverRegistrationComponent} from "./modules/admin/driver-registration/driver-registration.component";
 import { DriverEditVehicleInfoComponent } from './modules/driver/driver-edit-vehicle-info/driver-edit-vehicle-info.component';
+import { LoginGuard } from './modules/auth/guard/login.guard';
 
 const routes: Routes = [
-  {path:'login', component:LoginComponent},
+  {path:'login', component:LoginComponent,
+  canActivate: [LoginGuard],
+  loadChildren: () =>
+    import('../app/modules/auth/auth.module').then((m) => m.AuthModule),},
   {path:'register', component:RegistrationComponent},
   {path:'home', component:HomeComponent},
   {path:'passenger_profile', component:PassengerProfileComponent},
