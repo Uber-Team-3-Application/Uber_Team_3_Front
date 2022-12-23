@@ -31,7 +31,7 @@ export class LoginComponent{
 
         next: (result) => {
           localStorage.setItem('user', JSON.stringify(result["token"]));
-          localStorage.setItem('refreshToken', JSON.stringify(result["refrshToken"]));
+          localStorage.setItem('refreshToken', JSON.stringify(result["refreshToken"]));
           this.authenticationService.setUser();
           this.router.navigate(['/']);
 
