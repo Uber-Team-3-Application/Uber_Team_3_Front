@@ -53,7 +53,7 @@
                         </div>
                         <div class="mb-3 space">
                             <label for="passwordRepet" class="label-reg ">Choose a profile picture</label>
-                            <button class="choose">Choose a photo</button>
+                            <input type="file" (change)="handleUpload($event)"/>
                         </div>
                     </div>
                 

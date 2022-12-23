@@ -34,7 +34,7 @@ export class PassengerProfileEditComponent implements OnInit{
 
   ngOnInit(): void {
     
-    this.passengerService.get(3)
+    this.passengerService.get(7)
     .subscribe(
       (passenger) => (this.passenger = passenger)
     );

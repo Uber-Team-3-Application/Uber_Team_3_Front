@@ -20,6 +20,7 @@ export class RegistrationComponent {
     repeatedPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
   hasError: boolean;
+  avatarBase64: string = "";
 
   constructor(private passengerService: PassengerService, private router: Router){
     
@@ -40,7 +41,7 @@ export class RegistrationComponent {
       const passenger: Passenger = {
         name : this.registerForm.value.name,
         surname : this.registerForm.value.surname,
-        profilePicture : "",
+        profilePicture : this.avatarBase64,
         telephoneNumber : this.registerForm.value.phoneNumber,
         email : this.registerForm.value.email,
         address : this.registerForm.value.address,
@@ -55,5 +56,14 @@ export class RegistrationComponent {
       this.hasError = true;
      }
      
+  }
+
+  handleUpload(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+        this.avatarBase64 = reader.result.toString();
+    };
   }
 }
