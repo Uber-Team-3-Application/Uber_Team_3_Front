@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DriverRegistrationComponent } from './driver-registration/driver-registration.component';
 import { DriverInfoRegistrationComponent } from './driver-info-registration/driver-info-registration.component';
 import { DriverVehicleRegistrationComponent } from './driver-vehicle-registration/driver-vehicle-registration.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ReactiveFormsModule
+    
   ],
   exports: [ DriverRegistrationComponent]
 })
