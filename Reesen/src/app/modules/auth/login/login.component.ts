@@ -30,7 +30,8 @@ export class LoginComponent{
       this.authenticationService.login(loginInfo).subscribe({
 
         next: (result) => {
-          localStorage.setItem('user', JSON.stringify(result));
+          localStorage.setItem('user', JSON.stringify(result["token"]));
+          localStorage.setItem('refreshToken', JSON.stringify(result["refrshToken"]));
           this.authenticationService.setUser();
           this.router.navigate(['/']);
 

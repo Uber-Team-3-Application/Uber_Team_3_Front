@@ -21,11 +21,7 @@ export class DriverService {
   }
 
   get(driverId:number):Observable<Driver>{
-    return this.http.get<Driver>(environment.apiHost+'api/driver/' + driverId,
-    {
-      headers: this.headers
-    }
-    );
+    return this.http.get<Driver>(environment.apiHost+'api/driver/' + driverId);
 
   }
 

@@ -17,15 +17,19 @@ export class NavbarComponent implements OnInit{
 
 
   logout(): void{
+    localStorage.removeItem('user');
+    localStorage.removeItem('refreshToken');
+      this.authenticationService.setUser();
+      this.router.navigate(['/']);
     
-    this.authenticationService.logout().subscribe({
-      next: (res) => {
-        localStorage.removeItem('user');
-        this.authenticationService.setUser();
-        this.router.navigate(['/']);
-      },
-      error: () => {},
-    });
+    // this.authenticationService.logout().subscribe({
+    //   next: (res) => {
+    //     localStorage.removeItem('user');
+    //     this.authenticationService.setUser();
+    //     this.router.navigate(['/']);
+    //   },
+    //   error: () => {},
+    // });
   }
 
   ngOnInit(): void {
