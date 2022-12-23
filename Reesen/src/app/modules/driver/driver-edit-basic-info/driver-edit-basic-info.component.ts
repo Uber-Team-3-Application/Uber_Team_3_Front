@@ -34,7 +34,7 @@ export class DriverEditBasicInfoComponent implements OnInit{
 
     ngOnInit(): void {
       
-      this.driverService.get(2)
+      this.driverService.get(1)
       .subscribe(
         (driver) => (this.driver = driver)
       );

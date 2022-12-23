@@ -24,6 +24,10 @@ export class DriverInfoRegistrationComponent {
     address: new FormControl()
   });
 
+
+  avatarBase64: string = "";
+
+
   constructor(private driveService: DriverService) {}
 
   registerDriver() {
@@ -32,7 +36,7 @@ export class DriverInfoRegistrationComponent {
       const driver: Driver = {
         name : this.createDriverForm.value.firstName,
         surname : this.createDriverForm.value.lastName,
-        profilePicture : "",
+        profilePicture : this.avatarBase64,
         telephoneNumber : this.createDriverForm.value.phone,
         email : this.createDriverForm.value.email,
         address : this.createDriverForm.value.address,
@@ -43,6 +47,16 @@ export class DriverInfoRegistrationComponent {
         console.log(res);
       });
     }
+  }
+
+  
+  handleUpload(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+        this.avatarBase64 = reader.result.toString();
+    };
   }
 
 
