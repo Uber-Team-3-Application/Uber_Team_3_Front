@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, OnInit, Component } from '@angular/core';
 import { DriverService } from '../services/driver.service';
 import { Driver } from 'src/app/models/Driver';
+import jwt_decode from 'jwt-decode';
+import { TokenDecoderService } from '../../auth/token/token-decoder.service';
 @Component({
   selector: 'app-driver-profile',
   templateUrl: './driver-profile.component.html',
@@ -21,13 +23,17 @@ export class DriverProfileComponent implements OnInit{
     }
 
     private setDriverName():void{
-      this.driverService.get(1)
+      const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
+
+      this.driverService.get(tokenInfo.id)
       .subscribe(
         (driver) => (this.driver = driver)
       );
     }
 
-    constructor(private driverService:DriverService){
+  
+
+    constructor(private driverService:DriverService, private tokenDecoder: TokenDecoderService){
 
     }
     changeSelectedView(newView:string):void{

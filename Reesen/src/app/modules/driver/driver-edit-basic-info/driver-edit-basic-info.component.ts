@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Driver } from 'src/app/models/Driver';
+import { TokenDecoderService } from '../../auth/token/token-decoder.service';
 import { DriverService } from '../services/driver.service';
 
 @Component({
@@ -28,13 +29,13 @@ export class DriverEditBasicInfoComponent implements OnInit{
       email: '',
       address: ''
     };
-    constructor(private driverService: DriverService, private router: Router){
+    constructor(private driverService: DriverService, private router: Router, private tokenDecoder: TokenDecoderService){
       
     }
 
     ngOnInit(): void {
-      
-      this.driverService.get(1)
+      const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
+      this.driverService.get(tokenInfo.id)
       .subscribe(
         (driver) => (this.driver = driver)
       );
