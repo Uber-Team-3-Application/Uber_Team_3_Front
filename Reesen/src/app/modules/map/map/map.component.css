@@ -172,11 +172,7 @@ label{
 }
 
 @media only screen and (max-width: 800px) {
-    .ride-info-popup{
-        left: 4vw;
-        top: 10vh;
 
-    }
     .ride-information-form{
         width: 100%;
     }
