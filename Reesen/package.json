@@ -22,6 +22,7 @@
     "@asymmetrik/ngx-leaflet": "^15.0.1",
     "@auth0/angular-jwt": "^5.1.2",
     "bootstrap-icons": "^1.10.2",
+    "jwt-decode": "^3.1.2",
     "leaflet": "^1.9.3",
     "leaflet-routing-machine": "^3.2.12",
     "lodash": "^4.17.21",
