@@ -105,12 +105,10 @@
 
 
 .ride-info-popup{
-    position: absolute;
+    width: 98%;
     border: 2px solid black;
-    z-index: 502;
-    top: 26vh;
-    left: 36vw;
     font: bold;
+    margin: 0 auto;
     color: black;
 
 }
@@ -118,7 +116,7 @@
 .ride-info-info{
     border: 2px solid #578979;
     width: fit-content;
-    margin: 10px auto;
+    margin: 0 auto;
 }
 
 .ride-button:hover{
