@@ -11,5 +11,5 @@
   <a [routerLink]="['/']" class="w3-bar-item w3-button">Profile</a>
   <a [routerLink]="['/']" class="w3-bar-item w3-button">Contact</a>
   <a [routerLink]="['/']" class="w3-bar-item w3-button">Ride History</a>
-  <button class="btn btn-primary" id="login-btn" [routerLink]="['/login']">Log out</button>
+  <button class="btn btn-primary" id="login-btn" (click)="logout()">Log out</button>
 </div>

@@ -4,11 +4,11 @@ import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { VehicleType } from 'src/app/models/Vehicle';
-import { Location } from 'src/app/models/Location';
+import { Location, VehicleLocationWithAvailibility } from 'src/app/models/Location';
 import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
 import { UserService } from '../../unregistered-user/user.service';
 import { RideInfo, RideInfoBody } from 'src/app/models/Ride';
-import { greenCar } from '../icons/icons';
+import { greenCar, redCar } from '../icons/icons';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class MapComponent implements AfterViewInit{
     estimatedCost: 0
   }
 
-  vehicleLocations: Location[];
+  vehicleLocations: VehicleLocationWithAvailibility[];
 
   markers = new Array();
 
@@ -98,7 +98,11 @@ export class MapComponent implements AfterViewInit{
                             this.vehicleLocations = locations;
                             for(const location of this.vehicleLocations){
                               console.log(location);
-                              L.marker([location.latitude, location.longitude], {icon:greenCar}).addTo(this.map);
+                              if(location.available === true){
+                                L.marker([location.latitude, location.longitude], {icon:greenCar}).addTo(this.map);
+                              }else{
+                                L.marker([location.latitude, location.longitude], {icon:redCar}).addTo(this.map);
+                              }
                             }
                           }
                         );
@@ -107,13 +111,14 @@ export class MapComponent implements AfterViewInit{
   }
 
   search(address: string, isSecond:boolean = false){
+
     this.mapService.search(address).subscribe(
       {
         next: (result) =>{
           if(this.markers.length != 2){
             this.markers.push(result[0]);
           }
-          if(isSecond)
+          if(isSecond && this.markers.length == 2)
           {
             const departure = this.markers[0];
             const destination = this.markers[1];
@@ -190,10 +195,8 @@ export class MapComponent implements AfterViewInit{
             this.mapService.reverseSearch(lat, lng).
             subscribe(
               (res) => {
-                  if(this.markers.length != 2){
-                    this.markers.push(new L.Marker([lat, lng]));
-                  }
-                  if(this.markers.length == 1 && this.getRideForm.value.departure == ""){
+                
+                  if((this.markers.length != 2 && this.getRideForm.value.departure == "")){
                     this.getRideForm.patchValue({
                       departure:  res.display_name
                     });
@@ -251,7 +254,7 @@ export class MapComponent implements AfterViewInit{
   }
   getRide():void{
     
-      
+  
     if(!this.getRideForm.valid){
       this.isFormValid = false;
       return;
@@ -261,18 +264,19 @@ export class MapComponent implements AfterViewInit{
       return;
     }
     this.isFormValid = true;
+    if(this.getRideForm.value.departure === this.getRideForm.value.destination){
+      alert("Destination and departure must be different!");
+      return;
+    }
 
     this.deleteMarkers();
-   
+
     this.search(this.getRideForm.value.departure);
     this.search(this.getRideForm.value.destination, true);
     document.getElementById("map").focus();
 
     this.showGetRide = false;
-    this.getRideForm.patchValue(
-      {departure: "",
-      destination: ""}
-    );
+
   }
 
   openVehicleTypeComponent():void{

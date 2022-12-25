@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Vehicle, VehicleType } from 'src/app/models/Vehicle';
 import { DriverService } from '../services/driver.service';
 import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
+import { TokenDecoderService } from '../../auth/token/token-decoder.service';
 
 @Component({
   selector: 'app-driver-edit-vehicle-info',
@@ -23,11 +24,12 @@ export class DriverEditVehicleInfoComponent implements OnInit{
   vehicle: Vehicle;
   hasError: boolean = false;
 
-  constructor(private driverService: DriverService, private router: Router){
+  constructor(private driverService: DriverService, private router: Router, private tokenDecoder: TokenDecoderService){
 
   }
   ngOnInit(): void {
-    this.driverService.getDriversVehicle(2)
+    const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
+    this.driverService.getDriversVehicle(tokenInfo.id)
     .subscribe(
       (vehicle) => {this.vehicle = vehicle}
     );

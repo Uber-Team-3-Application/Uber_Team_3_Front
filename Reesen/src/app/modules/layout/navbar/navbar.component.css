@@ -10,6 +10,24 @@
   }
 
 
+  .logout-button{
+    font-size: 18px;
+    color: rgba(81, 116, 112, 1);
+    background-color: transparent;
+    margin-right: 10px;
+    padding: 0px 16px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border:2px solid transparent;
+    font-weight: 600;
+    transition: .3s ease-in-out;
+  }
+  .logout-button:hover{
+    color: rgb(254, 0, 0);
+    border: 2px solid black;
+    transition: .3s ease-in-out;
+  }
+
   .btn-primary {
     background-color: rgba(81, 116, 112, 1);
     border-color:  rgba(81, 116, 112, 1);

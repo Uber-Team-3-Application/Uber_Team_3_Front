@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Passenger } from 'src/app/models/Passenger';
+import { TokenDecoderService } from '../../auth/token/token-decoder.service';
 import { PassengerService } from '../passenger.service';
 
 @Component({
@@ -20,12 +21,13 @@ export class PassengerProfileComponent implements OnInit {
   };
   
 
-  constructor(private passengerService:PassengerService){
+  constructor(private passengerService:PassengerService, private tokenDecoder: TokenDecoderService){
 
   }
 
   ngOnInit():void{
-    this.passengerService.get(3).
+    const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
+    this.passengerService.get(tokenInfo.id).
     subscribe(
       (passenger) =>(this.passenger = passenger)
       );

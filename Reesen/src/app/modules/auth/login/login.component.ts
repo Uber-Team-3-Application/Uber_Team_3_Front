@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -26,6 +27,22 @@ export class LoginComponent{
         email: this.loginForm.value.email,
         password:this.loginForm.value.password
       }
+      this.authenticationService.login(loginInfo).subscribe({
+
+        next: (result) => {
+          localStorage.setItem('user', JSON.stringify(result["token"]));
+          localStorage.setItem('refreshToken', JSON.stringify(result["refreshToken"]));
+          this.authenticationService.setUser();
+          this.router.navigate(['/']);
+
+        },
+        error : (error) =>{
+          if(error instanceof HttpErrorResponse){
+            this.hasError = true;
+          }
+        }
+
+      });
       
     }
 }

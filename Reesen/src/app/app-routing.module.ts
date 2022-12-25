@@ -13,9 +13,13 @@ import {DriverRegistrationComponent} from "./modules/admin/driver-registration/d
 import { DriverEditVehicleInfoComponent } from './modules/driver/driver-edit-vehicle-info/driver-edit-vehicle-info.component';
 import { ActivationpageComponent } from './modules/passenger/activation-page/activationpage.component';
 import { ActivationComponent } from './modules/passenger/activation-wait/activation.component';
+import { LoginGuard } from './modules/auth/guard/login.guard';
 
 const routes: Routes = [
-  {path:'login', component:LoginComponent},
+  {path:'login', component:LoginComponent,
+  canActivate: [LoginGuard],
+  loadChildren: () =>
+    import('../app/modules/auth/auth.module').then((m) => m.AuthModule),},
   {path:'register', component:RegistrationComponent},
   {path:'activationPage', component:ActivationpageComponent},
   {path:'activation', component:ActivationComponent},
