@@ -14,7 +14,7 @@ export class UsersInfoComponent implements OnInit{
   tableSizes = [3, 5, 15, 25, 50];
   search: string;
   totalEntries: number = 0;
-  selectedPage: number = 0;
+  selectedPage: number = 1;
   page:number = 1;
   constructor(private userService: UserService){
     
@@ -48,10 +48,12 @@ export class UsersInfoComponent implements OnInit{
 
   onTableSizeChange(event: any): void {
     this.selectedShowNumber = event.target.value;
+    this.page = 1;
     this.fetchUsers(this.page);
   }
 
   changeTotalUsersPerPage(): void{
+    console.log(this.selectedShowNumber);
     this.userService.getUsers(0, this.selectedShowNumber)
     .subscribe(
       (users) => {this.users = users.results; console.log(this.users)}

@@ -7,8 +7,13 @@
                 </label>
                 <label>
                     <select name="dtBasicExample_length" id="select" (change)="changeTotalUsersPerPage()"
-                        class="form-select" aria-label="Select how many users to show per page">
-                        <option *ngFor="let size of tableSizes" [ngValue]="size">{{size}}</option>
+                        class="form-select" aria-label="Select how many users to show per page" [(ngModel)]="selectedShowNumber">
+                        <option>3</option>
+                        <option>5</option>
+                        <option>10</option>
+                        <option>15</option>
+                        <option>25</option>
+                        <option>50</option>
 
                     </select> 
                     
