@@ -17,7 +17,8 @@ import { UsersInfoComponent } from './users-info/users-info.component';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
     
   ],
   exports: [ DriverRegistrationComponent, UsersInfoComponent]

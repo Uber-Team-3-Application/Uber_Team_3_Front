@@ -1,0 +1,39 @@
+.table-properties{
+    width: 80%;
+    margin: 20px auto;
+}
+.pr{
+    margin-right: 20px;
+}
+
+.thead-properties{
+    color: white;
+    background-color: #4B7869;
+}
+tr th, tr td{
+    padding: 20px 10px 20px 10px;
+}
+tbody tr:hover{
+    cursor: pointer;
+    color: #1a4d3d;
+}
+tbody{
+    color: #4B7869;
+    font-weight: 500;
+}
+tr td:nth-child(1){
+    font-weight: 600;
+    padding: 20px;
+}
+tbody:nth-child(2n + 1){
+    background-color: rgba(25, 130, 81, 0.3);
+}
+
+
+@media only screen and (max-width: 800px) {
+    .table-properties{
+        width: 100%;
+        margin: 20px 0;
+    }
+
+}
