@@ -62,7 +62,7 @@ export class UsersInfoComponent implements OnInit{
   }
 
   displayUserInfo(user: User):void{
-    this.router.navigate(['users/' + user.id])
+    this.router.navigate(['users/' + user.id + '/' + user.role])
   }
 
 }

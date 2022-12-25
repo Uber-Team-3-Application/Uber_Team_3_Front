@@ -35,7 +35,7 @@ const routes: Routes = [
   {path:'', redirectTo: '/home', pathMatch:'full'},
   {path: 'registerDriver', component:DriverRegistrationComponent},
   {path: 'users', component: UsersInfoComponent},
-  {path: 'users/:id', component: UserDetailsComponent},
+  {path: 'users/:id/:role', component: UserDetailsComponent},
   {path:'**', component:HomeComponent},
 ];
 

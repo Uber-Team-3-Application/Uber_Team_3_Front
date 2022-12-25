@@ -1,0 +1,10 @@
+.red-text{
+    color: red;
+    font-weight: 600;
+}
+.green-text{
+    color: rgb(25, 93, 25);
+}
+*{
+    color: #4B7869;
+}
