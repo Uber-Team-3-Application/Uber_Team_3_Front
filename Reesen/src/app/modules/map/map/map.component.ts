@@ -4,11 +4,11 @@ import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { VehicleType } from 'src/app/models/Vehicle';
-import { Location } from 'src/app/models/Location';
+import { Location, VehicleLocationWithAvailibility } from 'src/app/models/Location';
 import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
 import { UserService } from '../../unregistered-user/user.service';
 import { RideInfo, RideInfoBody } from 'src/app/models/Ride';
-import { greenCar } from '../icons/icons';
+import { greenCar, redCar } from '../icons/icons';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class MapComponent implements AfterViewInit{
     estimatedCost: 0
   }
 
-  vehicleLocations: Location[];
+  vehicleLocations: VehicleLocationWithAvailibility[];
 
   markers = new Array();
 
@@ -98,7 +98,11 @@ export class MapComponent implements AfterViewInit{
                             this.vehicleLocations = locations;
                             for(const location of this.vehicleLocations){
                               console.log(location);
-                              L.marker([location.latitude, location.longitude], {icon:greenCar}).addTo(this.map);
+                              if(location.available === true){
+                                L.marker([location.latitude, location.longitude], {icon:greenCar}).addTo(this.map);
+                              }else{
+                                L.marker([location.latitude, location.longitude], {icon:redCar}).addTo(this.map);
+                              }
                             }
                           }
                         );
