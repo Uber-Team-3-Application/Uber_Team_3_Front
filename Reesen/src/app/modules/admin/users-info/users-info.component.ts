@@ -10,30 +10,45 @@ import { User } from 'src/app/models/User';
 export class UsersInfoComponent implements OnInit{
 
   users: User[];
-  selectedShowNumber: number = 5;
+  selectedShowNumber: number = 3;
+  tableSizes = [3, 5, 15, 25, 50];
   search: string;
   totalEntries: number = 0;
   selectedPage: number = 0;
+  page:number = 1;
   constructor(private userService: UserService){
     
   }
 
   ngOnInit(): void {
     
-    this.userService.getUsers(this.selectedPage, this.selectedShowNumber)
-        .subscribe(
-          (users) => {this.users = users.results; console.log(this.users)}
-        );
-
+    this.fetchUsers(this.selectedPage);
     this.userService.getTotalNumberOfUsers()
           .subscribe(
-            (total) => (this.totalEntries = total)
+            (total) => {this.totalEntries = total;}
           );
   
   }
 
+  fetchUsers(selPage: number): void{
+    this.userService.getUsers(selPage - 1, this.selectedShowNumber)
+        .subscribe(
+          users => {this.users = users.results; console.log(this.users)}
+        );
+  }
+
   onSearchChange(): void{
     
+  }
+
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.fetchUsers(this.page);
+  }
+
+  onTableSizeChange(event: any): void {
+    this.selectedShowNumber = event.target.value;
+    this.fetchUsers(this.page);
   }
 
   changeTotalUsersPerPage(): void{
