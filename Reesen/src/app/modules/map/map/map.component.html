@@ -4,39 +4,38 @@
     
   </div>
 </div>
-  <div class="alert alert-success ride-info-popup p-3" role="alert" *ngIf="rideAssumption.estimatedCost !== 0 && rideAssumption.estimatedTimeInMinutes != 0">
-    <div class="d-flex flex-row-reverse">
-      <button class="modified-button-cancel my-button" (click)="rideAssumption.estimatedCost=0">X</button>
-    </div>
-    <div class="row">
-      <h2 class="text-center my-3 text-dark">Ride Information:</h2>
-      <div class="ride-info-info text-left">
-        <div class="col-12 p-2 mx-3 text-dark">
-            <strong>Start Station:</strong> {{this.getRideForm.value.departure}}
-        </div>
-        <div class="col-12 p-2 mx-3 text-dark">
-          <strong>End Station:</strong> {{this.getRideForm.value.destination}}
-        </div>
-        <div class="col-12 p-2 mx-3 text-dark">
-          <strong>Vehicle Type:</strong> {{selectedVehicleName}}
-        </div>
-        <div class="col-12 p-2 mx-3 text-dark">
-          <strong>Estimated Travel Time:</strong> {{rideAssumption.estimatedTimeInMinutes}} <strong> min</strong>
-        </div>
-        <div class="col-12 p-2 mx-3 text-dark">
-          <strong>Total Cost:</strong> {{rideAssumption.estimatedCost}} <strong> (RSD)</strong>
-        </div>
-      
-        <div class="col-12 p-2 mx-3 text-dark">
-          <p><strong>Baby Transport:</strong> {{this.getRideForm.value.babyTransport}} </p>
-          <p><strong>Pet Transport:</strong> {{this.getRideForm.value.petTransport}} </p>
-        </div>
+<div class="alert ride-info-popup p-3" role="alert" *ngIf="rideAssumption.estimatedCost !== 0 && rideAssumption.estimatedTimeInMinutes != 0">
+  <div class="d-flex flex-row-reverse">
+    <button class="modified-button-cancel my-button" (click)="rideAssumption.estimatedCost=0">X</button>
+  </div>
+  <div class="row">
+    <h2 class="text-center my-3 text-dark">Ride Information:</h2>
+    <div class="ride-info-info text-left">
+      <div class="col-12 p-2 mx-3 text-dark">
+          <strong>Start Station:</strong> {{this.getRideForm.value.departure}}
+      </div>
+      <div class="col-12 p-2 mx-3 text-dark">
+        <strong>End Station:</strong> {{this.getRideForm.value.destination}}
+      </div>
+      <div class="col-12 p-2 mx-3 text-dark">
+        <strong>Vehicle Type:</strong> {{selectedVehicleName}}
+      </div>
+      <div class="col-12 p-2 mx-3 text-dark">
+        <strong>Estimated Travel Time:</strong> {{rideAssumption.estimatedTimeInMinutes}} <strong> min</strong>
+      </div>
+      <div class="col-12 p-2 mx-3 text-dark">
+        <strong>Total Cost:</strong> {{rideAssumption.estimatedCost}} <strong> (RSD)</strong>
+      </div>
+    
+      <div class="col-12 p-2 mx-3 text-dark">
+        <p><strong>Baby Transport:</strong> {{this.getRideForm.value.babyTransport}} </p>
+        <p><strong>Pet Transport:</strong> {{this.getRideForm.value.petTransport}} </p>
       </div>
     </div>
   </div>
+</div>
 
-
-
+  
 <div *ngIf="!showGetRide" class="overlay">
   <span><button class="ride-button my-button" type="button" (click)="openGetRide()"> {{rideButtonText}}</button></span>  
   <span><button class="ride-button my-button mx-3" type="button" (click)="clearMap()"> Clear Map</button></span>   
@@ -46,7 +45,6 @@
   <form
     ride
     [formGroup]="getRideForm"
-    (ngSubmit)="getRide()"
     class="ride-information-form"
     
   >

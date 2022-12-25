@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Passenger } from 'src/app/models/Passenger';
+import { TokenDecoderService } from '../../auth/token/token-decoder.service';
 import { PassengerService } from '../passenger.service';
 
 @Component({
@@ -28,13 +29,14 @@ export class PassengerProfileEditComponent implements OnInit{
     address: '',
     password: ''
   };
-  constructor(private passengerService: PassengerService, private router: Router){
+  constructor(private passengerService: PassengerService, private router: Router, private tokenDecoder: TokenDecoderService){
     
   }
 
   ngOnInit(): void {
+    const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
     
-    this.passengerService.get(7)
+    this.passengerService.get(tokenInfo.id)
     .subscribe(
       (passenger) => (this.passenger = passenger)
     );

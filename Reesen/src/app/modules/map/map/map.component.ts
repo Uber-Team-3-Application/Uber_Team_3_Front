@@ -261,6 +261,10 @@ export class MapComponent implements AfterViewInit{
       return;
     }
     this.isFormValid = true;
+    if(this.getRideForm.value.departure === this.getRideForm.value.destination){
+      alert("Destination and departure must be different!");
+      return;
+    }
 
     this.deleteMarkers();
 
