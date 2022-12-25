@@ -27,10 +27,10 @@ export class PassengerProfileEditComponent implements OnInit{
     telephoneNumber: '',
     email: '',
     address: '',
-    password: ''
-  };
-  constructor(private passengerService: PassengerService, private router: Router, private tokenDecoder: TokenDecoderService){
-    
+    password: '',
+    active: true
+  }
+  constructor(private passengerService: PassengerService, private router: Router, private tokenDecoder: TokenDecoderService){  
   }
 
   ngOnInit(): void {
@@ -42,7 +42,6 @@ export class PassengerProfileEditComponent implements OnInit{
     );
 
   }
-
 
   edit():void{
      if(this.editForm.valid){
