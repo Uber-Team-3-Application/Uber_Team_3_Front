@@ -11,10 +11,14 @@ import { PassengerProfileEditComponent } from './modules/passenger/passenger-pro
 import { RegistrationComponent } from './modules/passenger/registration/registration.component';
 import {DriverRegistrationComponent} from "./modules/admin/driver-registration/driver-registration.component";
 import { DriverEditVehicleInfoComponent } from './modules/driver/driver-edit-vehicle-info/driver-edit-vehicle-info.component';
+import { ActivationpageComponent } from './modules/passenger/activation-page/activationpage.component';
+import { ActivationComponent } from './modules/passenger/activation-wait/activation.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path:'register', component:RegistrationComponent},
+  {path:'activationPage', component:ActivationpageComponent},
+  {path:'activation', component:ActivationComponent},
   {path:'home', component:HomeComponent},
   {path:'passenger_profile', component:PassengerProfileComponent},
   {path:'passenger_profile-edit', component:PassengerProfileEditComponent},

@@ -26,8 +26,9 @@ export class PassengerProfileEditComponent implements OnInit{
     telephoneNumber: '',
     email: '',
     address: '',
-    password: ''
-  };
+    password: '',
+    active: true
+  }
   constructor(private passengerService: PassengerService, private router: Router){
     
   }

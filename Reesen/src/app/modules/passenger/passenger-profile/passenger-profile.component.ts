@@ -15,7 +15,8 @@ export class PassengerProfileComponent implements OnInit {
     telephoneNumber: '',
     email: '',
     address: '',
-    password: ''
+    password: '',
+    active: true
   };
   
 
