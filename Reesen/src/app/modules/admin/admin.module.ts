@@ -4,6 +4,7 @@ import { DriverRegistrationComponent } from './driver-registration/driver-regist
 import { DriverInfoRegistrationComponent } from './driver-info-registration/driver-info-registration.component';
 import { DriverVehicleRegistrationComponent } from './driver-vehicle-registration/driver-vehicle-registration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UsersInfoComponent } from './users-info/users-info.component';
 
 
 
@@ -11,13 +12,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     DriverRegistrationComponent,
     DriverInfoRegistrationComponent,
-    DriverVehicleRegistrationComponent
+    DriverVehicleRegistrationComponent,
+    UsersInfoComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule
     
   ],
-  exports: [ DriverRegistrationComponent]
+  exports: [ DriverRegistrationComponent, UsersInfoComponent]
 })
 export class AdminModule { }
