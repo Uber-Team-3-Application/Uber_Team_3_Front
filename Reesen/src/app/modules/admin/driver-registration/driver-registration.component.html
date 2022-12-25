@@ -15,11 +15,14 @@
           <div class="col-8" id="driver-login">
             <app-driver-info-registration
               (statusChanged) = "changeState($event)"
-              *ngIf="currentState">
+              *ngIf="currentState"
+              (driver) = "setDriver($event)"
+              >
             </app-driver-info-registration>
             <app-driver-vehicle-registration
               (statusChanged) = "changeState($event)"
-              *ngIf="!currentState">
+              *ngIf="!currentState"
+            (vehicle)="setVehicle($event)">
             </app-driver-vehicle-registration>
       </div>
     </div>

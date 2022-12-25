@@ -20,6 +20,10 @@ export class DriverService {
     return this.http.post<string>(environment.apiHost + "api/driver", newDriver)
   }
 
+  addVehicleToTheDriver(driverId: number, vehicle: Vehicle) : Observable<Vehicle>{
+    return this.http.post<Vehicle>(environment.apiHost + "api/driver/" + driverId + "vehicle", vehicle);
+  }
+
   get(driverId:number):Observable<Driver>{
     return this.http.get<Driver>(environment.apiHost+'api/driver/' + driverId);
 
