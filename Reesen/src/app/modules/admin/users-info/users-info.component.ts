@@ -1,6 +1,7 @@
 import { OnInit, Component } from '@angular/core';
 import { UserService } from '../../unregistered-user/user.service';
 import { User } from 'src/app/models/User';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-info',
@@ -16,7 +17,7 @@ export class UsersInfoComponent implements OnInit{
   totalEntries: number = 0;
   selectedPage: number = 1;
   page:number = 1;
-  constructor(private userService: UserService){
+  constructor(private userService: UserService, private router: Router){
     
   }
 
@@ -60,5 +61,8 @@ export class UsersInfoComponent implements OnInit{
     );
   }
 
+  displayUserInfo(user: User):void{
+    this.router.navigate(['users/' + user.id])
+  }
 
 }

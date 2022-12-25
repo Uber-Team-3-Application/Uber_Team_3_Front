@@ -13,6 +13,7 @@ import {DriverRegistrationComponent} from "./modules/admin/driver-registration/d
 import { DriverEditVehicleInfoComponent } from './modules/driver/driver-edit-vehicle-info/driver-edit-vehicle-info.component';
 import { LoginGuard } from './modules/auth/guard/login.guard';
 import { UsersInfoComponent } from './modules/admin/users-info/users-info.component';
+import { UserDetailsComponent } from './modules/admin/user-details/user-details.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent,
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path:'', redirectTo: '/home', pathMatch:'full'},
   {path: 'registerDriver', component:DriverRegistrationComponent},
   {path: 'users', component: UsersInfoComponent},
+  {path: 'users/:id', component: UserDetailsComponent},
   {path:'**', component:HomeComponent},
 ];
 

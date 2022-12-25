@@ -6,19 +6,22 @@ import { DriverVehicleRegistrationComponent } from './driver-vehicle-registratio
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsersInfoComponent } from './users-info/users-info.component';
 import {NgxPaginationModule} from 'ngx-pagination';
-
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { UserDetailsComponent } from './user-details/user-details.component';
 @NgModule({
   declarations: [
     DriverRegistrationComponent,
     DriverInfoRegistrationComponent,
     DriverVehicleRegistrationComponent,
-    UsersInfoComponent
+    UsersInfoComponent,
+    UserDetailsComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    AppRoutingModule
   ],
   exports: [ DriverRegistrationComponent, UsersInfoComponent]
 })

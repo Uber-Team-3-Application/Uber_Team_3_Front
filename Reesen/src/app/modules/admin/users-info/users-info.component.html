@@ -1,3 +1,4 @@
+
 <div class="container">
     <div class="row table-properties">
         <div class="col-md-6">
@@ -5,7 +6,8 @@
                 <label class="pr mt-5">
                     Show
                 </label>
-                <label>
+                
+                <label class="pr">
                     <select name="dtBasicExample_length" id="select" (change)="changeTotalUsersPerPage()"
                         class="form-select" aria-label="Select how many users to show per page" [(ngModel)]="selectedShowNumber">
                         <option>3</option>
@@ -17,6 +19,9 @@
 
                     </select> 
                     
+                </label>
+                <label class="pr mt-5">
+                    Click on a row to show information!
                 </label>
             </div>
         </div>
@@ -53,7 +58,9 @@
                     currentPage: page,
                     totalItems: totalEntries
                   };
-                  ">
+                  "
+                  (click)="displayUserInfo(user)"
+                  >
                 <td>{{user.id}}</td>
                 <td>{{user.name}}</td>
                 <td>{{user.surname}}</td>
