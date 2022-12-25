@@ -42,14 +42,14 @@ export class DriverInfoRegistrationComponent {
         address : this.createDriverForm.value.address,
         password : this.createDriverForm.value.password
       };
-      console.log(driver);
-      this.driveService.saveDriver(driver).subscribe((res: any) => {
-        console.log(res);
-      });
+      // console.log(driver);
+      // this.driveService.saveDriver(driver).subscribe((res: any) => {
+      //   console.log(res);
+      // });
     }
   }
 
-  
+
   handleUpload(event) {
     const file = event.target.files[0];
     const reader = new FileReader();

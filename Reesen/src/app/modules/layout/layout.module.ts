@@ -9,6 +9,7 @@ import { DriverNavbarComponent } from './navbar/driver-navbar/driver-navbar.comp
 import { PassengerNavbarComponent } from './navbar/passenger-navbar/passenger-navbar.component';
 import { AdminNavbarComponent } from './navbar/admin-navbar/admin-navbar.component';
 import { UnregisteredUserNavbarComponent } from './navbar/unregistered-user-navbar/unregistered-user-navbar.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 
 
@@ -20,13 +21,15 @@ import { UnregisteredUserNavbarComponent } from './navbar/unregistered-user-navb
     DriverNavbarComponent,
     PassengerNavbarComponent,
     AdminNavbarComponent,
-    UnregisteredUserNavbarComponent
+    UnregisteredUserNavbarComponent,
   ],
   imports: [
     CommonModule,
     AppRoutingModule,
-    MapModule
+    MapModule,
+    MatSlideToggleModule
+
   ],
-  exports: [AboutComponent, HomeComponent, NavbarComponent]
+  exports: [AboutComponent, HomeComponent, NavbarComponent, MatSlideToggleModule]
 })
 export class LayoutModule { }

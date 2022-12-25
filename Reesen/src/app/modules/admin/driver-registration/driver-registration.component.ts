@@ -9,7 +9,7 @@ import { DriverService } from "../../driver/services/driver.service";
 })
 
 export class DriverRegistrationComponent {
-  currentState: boolean;
+  currentState: boolean = true;
 
   changeState(event :boolean) {
     this.currentState = event;

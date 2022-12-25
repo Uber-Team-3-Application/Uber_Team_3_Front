@@ -20,6 +20,7 @@ export class MapComponent implements AfterViewInit{
 
   private map:any;
   private currentRoute: L.Routing.Control | null = null;
+  isDriver: boolean = false;
   rideButtonText: string = 'Get Ride info';
   showGetRide: boolean = false;
   showVehicleType: boolean = false;
@@ -54,6 +55,7 @@ export class MapComponent implements AfterViewInit{
       center: [45.249101856630546, 19.848034],
       zoom: 16,
     });
+
 
 
     const tiles = L.tileLayer(
