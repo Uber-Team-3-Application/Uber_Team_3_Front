@@ -20,5 +20,13 @@ export class UserService {
   sendEmail(emailInfo: EmailInfo):Observable<EmailInfo>{
     return this.http.post<EmailInfo>(environment.apiHost + "api/user/", emailInfo);
   }
+  updatePassword(id:number, newPassword:string, oldPassword:string): Observable<void>{
+      return this.http.put<void>(environment.apiHost + "api/user/" + id + "/changePassword",
+      {
+        new_password: newPassword,
+        old_password: oldPassword
+      });
+  }
 
+  
 }
