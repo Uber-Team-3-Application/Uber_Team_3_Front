@@ -40,8 +40,8 @@ export class DriverService {
     let retVal = {
       isActive : isActive
     }
-    console.log({"isActive": isActive})
-    return this.http.put<string>(environment.apiHost + 'api/driver/'+ driverId + '/activity', {"isActive" : isActive});
+    console.log({"active": isActive})
+    return this.http.put<string>(environment.apiHost + 'api/driver/'+ driverId + '/activity', {"active" : isActive});
   }
 
   edit(driver: Driver, id:number): Observable<Driver>{
