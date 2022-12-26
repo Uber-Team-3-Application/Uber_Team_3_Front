@@ -18,7 +18,6 @@ export class UsersInfoComponent implements OnInit{
   selectedPage: number = 1;
   page:number = 1;
   sortDirection: number = -1;
-  selectedRole: string = "ALL";
   constructor(private userService: UserService, private router: Router){
     
   }
@@ -38,19 +37,6 @@ export class UsersInfoComponent implements OnInit{
         .subscribe(
           users => {this.users = users.results; console.log(this.users)}
         );
-  }
-
-  fetchUsersByRole(selPage: number): void{
-
-    this.userService.getUsersByRole(selPage - 1, this.selectedShowNumber, this.selectedRole)
-        .subscribe(
-          users => {this.users = users.results; console.log(this.users)}
-        );
-  }
-
-  changeUserType(){
-    console.log(this.selectedShowNumber);
-    this.fetchUsersByRole(this.page);
   }
 
   onSearchChange(): void{
