@@ -35,8 +35,8 @@ export class DriverEditPasswordComponent{
       const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
       this.userService.updatePassword(tokenInfo.id, this.editPasswordForm.value.newPassword, this.editPasswordForm.value.oldPassword)
                         .subscribe();
-      //alert('Succesfully edited password!');
-      //this.router.navigate(['/driverProfile']);
+      alert('Succesfully edited password!');
+      this.router.navigate(['/driverProfile']);
     }else{
       this.hasError = true;
     }
