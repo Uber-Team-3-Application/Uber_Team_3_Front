@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { TokenDecoderService } from '../../auth/token/token-decoder.service';
+import { Driver } from 'src/app/models/Driver';
+import { UserService } from '../../unregistered-user/user.service';
 
 @Component({
   selector: 'app-driver-edit-password',
@@ -16,7 +18,9 @@ export class DriverEditPasswordComponent{
     repeatNewPassword: new FormControl('', [Validators.required, Validators.minLength(4)]),
   });
 
-  constructor(private router: Router){
+  constructor(private router: Router,
+              private userService: UserService,
+              private tokenDecoder: TokenDecoderService){
 
   }
 
@@ -24,8 +28,15 @@ export class DriverEditPasswordComponent{
   
   edit():void{
     if(this.editPasswordForm.valid){
-      alert('Succesfully edited password!');
-      this.router.navigate(['/driverProfile']);
+      if(this.editPasswordForm.value.newPassword !== this.editPasswordForm.value.repeatNewPassword){
+        alert("Passwords dont match!");
+        return;
+      }
+      const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
+      this.userService.updatePassword(tokenInfo.id, this.editPasswordForm.value.newPassword, this.editPasswordForm.value.oldPassword)
+                        .subscribe();
+      //alert('Succesfully edited password!');
+      //this.router.navigate(['/driverProfile']);
     }else{
       this.hasError = true;
     }
