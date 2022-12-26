@@ -40,7 +40,38 @@ export class UsersInfoComponent implements OnInit{
   }
 
   onSearchChange(): void{
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("search");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("userTable");
+    tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+    for (let i = 0; i < this.users.length; i++) {
+      
+        if (this.userContains(this.users[i], filter)) {
+            tr[i + 1].style.display = "";
+          } 
+          else {
+            tr[i + 1].style.display = "none";
+          }
+    }
     
+  
+  }
+  userContains(user: User, text: string): boolean{
+
+    if (user.id.toString().toUpperCase().includes(text)) return true;
+    if (user.name.toUpperCase().includes(text)) return true;
+    if (user.surname.toUpperCase().includes(text)) return true;
+    if (user.telephoneNumber.toUpperCase().includes(text)) return true;
+    if (user.email.toUpperCase().includes(text)) return true;
+    if (user.address.toUpperCase().includes(text)) return true;
+    let userBlocked = user.blocked + "";
+    if (userBlocked.toUpperCase().includes(text)) return true;
+    if (user.role.toUpperCase().includes(text)) return true;
+
+    return false;
   }
 
   onTableDataChange(event: any) {
@@ -62,11 +93,11 @@ export class UsersInfoComponent implements OnInit{
     );
   }
 
-  displayUserInfo(user: User):void{
+  displayUserInfo(user: User): void{
     this.router.navigate(['users/' + user.id + '/' + user.role])
   }
 
-  sortTable(column): void {
+  sortTable(column: number) : void {
     this.sortDirection = this.sortDirection * (-1);
     var table, rows, switching, i, x, y, shouldSwitch;
     table = document.getElementById("userTable");
