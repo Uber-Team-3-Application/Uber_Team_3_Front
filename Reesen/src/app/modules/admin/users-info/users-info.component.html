@@ -37,17 +37,25 @@
 </div>
 
 <div class="table-responsive">
-    <table class="table table-hover table-properties table-bordered">
+    <table class="table table-hover table-properties table-bordered" id="userTable">
         <thead class="thead-properties">
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Surname</th>
-            <th scope="col">Telephone Number</th>
-            <th scope="col">Email Address</th>
-            <th scope="col">Home Address</th>
-            <th scope="col">Blocked</th>
-            <th scope="col">Role</th>
+            <th scope="col" (click)="sortTable(0)" 
+            data-toggle="tooltip" data-placement="top" title="Sort by ID">#</th>
+            <th scope="col" (click)="sortTable(1)" 
+            data-toggle="tooltip" data-placement="top" title="Sort by Name">Name</th>
+            <th scope="col" (click)="sortTable(2)"
+            data-toggle="tooltip" data-placement="top" title="Sort by Surname">Surname</th>
+            <th scope="col" (click)="sortTable(3)"
+            data-toggle="tooltip" data-placement="top" title="Sort by Telephone Number">Telephone Number</th>
+            <th scope="col" (click)="sortTable(4)"
+            data-toggle="tooltip" data-placement="top" title="Sort by Email">Email Address</th>
+            <th scope="col" (click)="sortTable(5)"
+            data-toggle="tooltip" data-placement="top" title="Sort by Address">Home Address</th>
+            <th scope="col"(click)="sortTable(6)"
+            data-toggle="tooltip" data-placement="top" title="Sort by Blocked">Blocked</th>
+            <th scope="col" (click)="sortTable(7)"
+            data-toggle="tooltip" data-placement="top" title="Sort by Role">Role</th>
         </tr>
         </thead>
         <tbody>
@@ -60,6 +68,7 @@
                   };
                   "
                   (click)="displayUserInfo(user)"
+                  data-toggle="tooltip" data-placement="top" title="Click to view my info"
                   >
                 <td>{{user.id}}</td>
                 <td>{{user.name}}</td>

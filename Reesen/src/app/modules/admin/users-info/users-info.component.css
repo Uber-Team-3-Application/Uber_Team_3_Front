@@ -10,6 +10,10 @@
     color: white;
     background-color: #4B7869;
 }
+th:hover{
+    color: wheat;
+    cursor: pointer;
+}
 tr th, tr td{
     padding: 20px 10px 20px 10px;
 }
