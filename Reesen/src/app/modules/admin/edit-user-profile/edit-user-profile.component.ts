@@ -138,6 +138,8 @@ export class EditUserProfileComponent implements OnInit{
         blocked: this.editForm.value.blocked,
         address : this.editForm.value.address,
         password : null,
+        isConfirmedEmail:true,
+        amountOfMoney:500
       };
       return passenger;
     }

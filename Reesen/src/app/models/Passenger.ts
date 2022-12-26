@@ -9,4 +9,6 @@ export interface Passenger{
     password:string;
     blocked?:boolean;
     active?:boolean;
+    isConfirmedEmail?:boolean;
+    amountOfMoney?:number;
 }
