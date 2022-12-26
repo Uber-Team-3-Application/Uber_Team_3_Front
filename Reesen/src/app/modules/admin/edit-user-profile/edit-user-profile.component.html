@@ -34,7 +34,9 @@
                   <label for="name"><p class="mb-0">Name</p></label>
                 </div>
                 <div class="col-sm-9">
-                  <input type="text" name="name" id="name" formControlName="name">
+                  <input type="text" name="name" id="name" 
+                  formControlName="name" class="form-control-edit"
+                  [(ngModel)]="user.name"> 
                 </div>
               </div>
               <hr>
@@ -43,7 +45,9 @@
                     <label for="surname"><p class="mb-0">Surname</p></label>
                   </div>
                   <div class="col-sm-9">
-                    <input type="text" name="surname" id="surname" formControlName="surname">
+                    <input type="text" name="surname" id="surname" 
+                    formControlName="surname" class="form-control-edit"
+                    [(ngModel)]="user.surname">
                   </div>
               </div>
               <hr>
@@ -52,16 +56,20 @@
                     <label for="email"><p class="mb-0">Email</p></label>
                   </div>
                   <div class="col-sm-9">
-                    <input type="email" name="email" id="email" formControlName="email">
+                    <input type="email" name="email" id="email" 
+                    formControlName="email" class="form-control-edit"
+                    [(ngModel)]="user.email">
                   </div>
               </div>
               <hr>
               <div class="row">
                 <div class="col-sm-3">
-                    <label for="mobile"><p class="mb-0">Mobile</p></label>
+                    <label for="phoneNumber"><p class="mb-0">Phone number</p></label>
                   </div>
                   <div class="col-sm-9">
-                    <input type="text" name="mobile" id="mobile" formControlName="mobile">
+                    <input type="text" name="phoneNumber" id="phoneNumber" 
+                    formControlName="phoneNumber" class="form-control-edit"
+                    [(ngModel)]="user.telephoneNumber">
                   </div>
               </div>
               <hr>
@@ -70,7 +78,9 @@
                     <label for="address"><p class="mb-0">Address</p></label>
                   </div>
                   <div class="col-sm-9">
-                    <input type="text" name="address" id="address" formControlName="address">
+                    <input type="text" name="address" id="address" 
+                    formControlName="address" class="form-control-edit"
+                    [(ngModel)]="user.address">
                   </div>
               </div>
               <hr>
@@ -79,15 +89,16 @@
                     <label for="blocked"><p class="mb-0">Blocked</p></label>
                   </div>
                   <div class="col-sm-9">
-                    
-                    <input type="checkbox" name="blocked" id="blocked" formControlName="blocked">
+                    <input type="checkbox" name="blocked" 
+                    id="blocked" formControlName="blocked"
+                    [(ngModel)]="user.blocked">
                   </div>
               </div>
             </div>
           </div>
          <div class="row d-flex flex-row-reverse">
             <div class="col-md-3 col-6">
-                <button id="save" class="reesen-button confirmation-button">
+                <button type="submit" id="save" class="reesen-button confirmation-button">
                     SAVE
                 </button>
             </div>

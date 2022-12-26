@@ -23,4 +23,8 @@ export class PassengerService {
   save(newPassenger: any) : Observable<any> {
       return this.http.post<string>(environment.apiHost + "api/passenger", newPassenger)
     }
+
+  edit(passenger: Passenger, id:number): Observable<Passenger>{
+    return this.http.put<Passenger>(environment.apiHost + "api/passenger/" + id, passenger)
+  }
 }

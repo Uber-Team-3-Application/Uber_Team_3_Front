@@ -59,6 +59,14 @@
     color: #578979;
 
 }
+.form-control-edit{
+    width: 70%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #3d5b51;
+}
+
 
 
 
