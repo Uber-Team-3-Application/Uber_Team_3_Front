@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
+import { EmailInfo } from 'src/app/models/Email';
 import { RideInfo, RideInfoBody } from 'src/app/models/Ride';
 import { PageUsers } from 'src/app/models/User';
 
@@ -15,7 +16,17 @@ export class UserService {
 
   getRideAssumption(rideInfoBody: RideInfoBody):Observable<RideInfo>{
     return this.http.post<RideInfo>(environment.apiHost + "api/unregisteredUser/", rideInfoBody);
+  }
 
+  sendEmail(emailInfo: EmailInfo):Observable<EmailInfo>{
+    return this.http.post<EmailInfo>(environment.apiHost + "api/user/", emailInfo);
+  }
+  updatePassword(id:number, newPassword:string, oldPassword:string): Observable<void>{
+      return this.http.put<void>(environment.apiHost + "api/user/" + id + "/changePassword",
+      {
+        new_password: newPassword,
+        old_password: oldPassword
+      });
   }
   getUsers(page: number, size:number): Observable<PageUsers>{
     let params = new HttpParams();
@@ -51,4 +62,5 @@ export class UserService {
     return this.http.get<boolean>(environment.apiHost + "api/user/" + id + "/is-blocked");
 
   }
+
 }

@@ -1,0 +1,221 @@
+<style>
+  .img{
+    width: 20%; 
+    height:auto;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+
+.btn{
+    color:white;
+    margin-top: 7px;
+    width: 16%;
+    background-color:#48786d; 
+    padding:6px;
+    border-radius: 8px;
+    border: 1px transparent;
+    font-weight: 500;
+    font-size: 16px;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 5px rgb(91, 91, 91);
+    margin-bottom: 10px;
+}
+
+input{
+    background-color: transparent;
+    color: #899391;
+    border-color: #89908e;
+    border-bottom: 2px solid;
+    width: 16%;
+    text-align: center;
+    margin-left: 42%;
+    margin-right: 42%;
+}
+
+.container{
+    box-shadow: 3px 5px 15px rgb(129, 129, 129);
+    border-radius: 15px;
+    padding: 11px;
+    width: 60%;
+    margin-top: 10px;
+}
+
+.lbl{
+    text-align: center;
+    color:#48786d;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .paperplane {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    background-color: #50befa;
+    border-radius:50%;
+  }
+  
+  .plane {
+    position: absolute;
+    left:100px;
+    top:75px;
+    animation: move 3s linear infinite;
+  }
+  
+  @keyframes move {
+    0% {transform: translateY(0) rotateX(0);}
+    25% {transform: translateY(-30px) rotateX(40deg);}
+    50% {transform: rotateX(0) translateY(0);}
+    75% {transform: rotateX(-40deg) translateY(30px);}
+    100% {transform: rotateX(0) translateY(0);}
+  }
+  
+  .wingRight {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 22.5px solid transparent;
+    border-right: 12.5px solid transparent;
+    border-bottom: 115px solid white;
+    transform: rotate(61deg); 
+    z-index:4;
+  }
+  
+  .bottom {
+    position: relative;
+    width: 0;
+    height: 0;
+    border-left: 12.5px solid transparent;
+    border-right: 12.5px solid transparent;
+    border-bottom: 25.5px solid #676d70;
+    top: 71px;
+    transform: rotate(-5deg);
+    left:-52.5px;
+    z-index:3;
+  }
+  
+  .top {
+    position:absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 30px solid #c1c7c9;
+    top: 65px;
+    transform: rotate(5deg);
+    left:-60px;
+    z-index:1;
+  }
+  
+  .middle {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 135px solid #c1c7c9;
+    top: -13.5px;
+    transform: rotate(72deg);
+    left:-7.5px;
+    z-index:2;
+  }
+  
+  .wingLeft {
+    position: absolute; 
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-bottom: 135px solid white;
+    transform: rotate(78deg) skewY(-35deg); 
+    left:-18.5px;
+    z-index:3;
+    top:-30px;
+  }
+  
+  .clouds {
+    position: absolute;
+    top:50px;
+    left:100px;
+  }
+  
+  @keyframes cloud {  
+    from{ 
+      left:-150px; 
+    }
+    to{ 
+      left: 400px; 
+    }
+  }
+  
+  .cloudOne, .cloudTwo, .cloudThree {
+    position: absolute;
+    width: 50px;
+    height: 25px;
+    background-color: #fff;
+    border-radius:100px 100px 0 0;
+  }
+  
+  .cloudOne {
+    top:0;
+    left:0;
+    animation: cloud 3s linear infinite reverse;
+  }
+  
+  .cloudTwo {
+    top:50px;
+    left:100px;
+    animation: cloud 2.5s linear infinite reverse;
+  }
+  
+  .cloudThree {
+    top:250px;
+    left:50px;
+    animation: cloud 2.8s linear infinite reverse;
+  }
+  
+  .cloudOne:before, .cloudTwo:before, .cloudThree:before {
+    content:"";
+    position: absolute;
+    width: 25px;
+    height: 12.5px;
+    background-color: #fff;
+    border-radius:100px 100px 0 0;
+    left:-20px;
+    top:12.5px;
+    box-shadow: 65px 0 #fff;
+  }
+  .plane{
+    width: 50%;
+  }
+</style>
+<div class="container">
+    <div class="row text-center">
+        <div class="paperplane text-center">
+            <div class="plane">
+              <div class="wingRight"></div>
+              <div class="wingLeft"></div>
+              <div class="bottom"></div>
+              <div class="top"></div>
+              <div class="middle"></div>
+            </div>
+             <div class="clouds">
+              <div class="cloudOne"></div>
+              <div class="cloudTwo"></div>
+              <div class="cloudThree"></div>
+            </div>
+        </div>
+        <h1 class="text-center lbl">Verify your email</h1>
+        <p class="text-center lbl">Thanks for signing up for the Reesen app. Please click Confirm button for<br>account activation to start ordering rides!</p>
+        <form>
+            <a href='{{activationHtml}}' target="_blank" class="btn text-center">confirm email</a>
+        </form>
+    </div>
+  </div>

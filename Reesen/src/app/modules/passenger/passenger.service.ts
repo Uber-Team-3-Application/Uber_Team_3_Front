@@ -9,11 +9,17 @@ import { Passenger } from 'src/app/models/Passenger';
 export class PassengerService {
 
   constructor(private http: HttpClient) { }
+    
+  activatePassenger(email: string): Observable<Passenger> {
+    return this.http.get<Passenger>(environment.apiHost+'api/passenger/activate/' + email);
+  }
 
+  findByEmail(email: string): Observable<Passenger> {
+    return this.http.get<Passenger>(environment.apiHost+'api/passenger/' + email);
+  }
 
   get(passengerId:number):Observable<Passenger>{
     return this.http.get<Passenger>(environment.apiHost+'api/passenger/' + passengerId);
-    
   }
 
   getAll():Observable<Passenger[]>{
@@ -27,4 +33,5 @@ export class PassengerService {
   edit(passenger: Passenger, id:number): Observable<Passenger>{
     return this.http.put<Passenger>(environment.apiHost + "api/passenger/" + id, passenger)
   }
+
 }

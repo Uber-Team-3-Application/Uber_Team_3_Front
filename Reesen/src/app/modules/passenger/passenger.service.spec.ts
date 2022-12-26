@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { PassengerService } from './passenger.service';
 
-describe('DriverService', () => {
+describe('PassengerService', () => {
   let service: PassengerService;
 
   beforeEach(() => {

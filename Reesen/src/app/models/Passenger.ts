@@ -8,4 +8,5 @@ export interface Passenger{
     address:string;
     password:string;
     blocked?:boolean;
+    active:boolean;
 }
