@@ -41,6 +41,7 @@
     font-weight: 600;
     font-size: 22px;
     padding: 10px 16px;
+    min-width: 150px;
     text-transform: uppercase;
 }
 .cancel-button{
@@ -54,7 +55,7 @@
 }
 .confirmation-button{
     background-color: white;
-    border: 2px solid #578979;
+    border: 2px solid black;
     color: #578979;
 
 }

@@ -19,71 +19,79 @@
           
         </div>
         <div class="col-lg-8">
-            <form>
+            <form
+            editProfile
+        [formGroup]="editForm"
+        (ngSubmit)="editProfile()"
+            >
           <div class="card mb-4 border-black">
             <div class="card-body">
+                <div class="row text-center mb-3">
+                    <h1>User Information</h1>
+                </div>
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Full Name</p>
+                  <label for="name"><p class="mb-0">Name</p></label>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{user.name}} {{user.surname}}</p>
+                  <input type="text" name="name" id="name" formControlName="name">
                 </div>
               </div>
               <hr>
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Email</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{user.email}}</p>
-                </div>
+                    <label for="surname"><p class="mb-0">Surname</p></label>
+                  </div>
+                  <div class="col-sm-9">
+                    <input type="text" name="surname" id="surname" formControlName="surname">
+                  </div>
               </div>
               <hr>
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Mobile</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{user.telephoneNumber}}</p>
-                </div>
+                    <label for="email"><p class="mb-0">Email</p></label>
+                  </div>
+                  <div class="col-sm-9">
+                    <input type="email" name="email" id="email" formControlName="email">
+                  </div>
               </div>
               <hr>
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Address</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{user.address}}</p>
-                </div>
+                    <label for="mobile"><p class="mb-0">Mobile</p></label>
+                  </div>
+                  <div class="col-sm-9">
+                    <input type="text" name="mobile" id="mobile" formControlName="mobile">
+                  </div>
               </div>
               <hr>
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Account status</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="mb-0 red-text">The user is blocked!</p>
-                </div>
+                    <label for="address"><p class="mb-0">Address</p></label>
+                  </div>
+                  <div class="col-sm-9">
+                    <input type="text" name="address" id="address" formControlName="address">
+                  </div>
               </div>
-              <div class="row" >
+              <hr>
+              <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Account status</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="mb-0 green-text">The user is active</p>
-                </div>
+                    <label for="blocked"><p class="mb-0">Blocked</p></label>
+                  </div>
+                  <div class="col-sm-9">
+                    
+                    <input type="checkbox" name="blocked" id="blocked" formControlName="blocked">
+                  </div>
               </div>
-              
             </div>
           </div>
          <div class="row d-flex flex-row-reverse">
-            <div class="col-2">
+            <div class="col-md-3 col-6">
                 <button id="save" class="reesen-button confirmation-button">
                     SAVE
                 </button>
             </div>
-            <div class="col-2">
+            <div class="col-md-3 col-6">
                 <button id="cancel" class="reesen-button cancel-button" (click)="goBack()">
                     CANCEL
                 </button>

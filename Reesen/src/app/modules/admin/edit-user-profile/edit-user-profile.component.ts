@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { DriverService } from '../../driver/services/driver.service';
@@ -20,6 +21,16 @@ export class EditUserProfileComponent implements OnInit{
     private driverService: DriverService,
     private router: Router){}
 
+    editForm = new FormGroup({
+      phoneNumber: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(13)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      address: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      surname: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      repeatedPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
+    });
+    hasError: boolean;
     ngOnInit(): void {
       this.id = this.route.snapshot.paramMap.get('id');
       this.role = this.route.snapshot.paramMap.get('role');
@@ -62,5 +73,10 @@ export class EditUserProfileComponent implements OnInit{
 
     goBack():void{
       this.router.navigate(['users/' + this.id + '/' + this.role])
+    }
+
+    editProfile():void{
+      
+      this.goBack();
     }
 }
