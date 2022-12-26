@@ -46,15 +46,26 @@ export class EditUserProfileComponent implements OnInit{
         
         this.driverService.get(this.numId)
           .subscribe(
-            (res) => {this.user = res;}
+            (res) => {this.user = res;
+              this.userService.getUserIsBlocked(this.numId)
+                .subscribe(
+                (blocked) =>{ this.user.blocked = blocked; console.log(blocked);}
+                )
+            }
           )
       }
       else{
         this.passengerService.get(this.numId)
           .subscribe(
-            (res) => {this.user = res;}
+            (res) => {this.user = res;
+              this.userService.getUserIsBlocked(this.numId)
+                .subscribe(
+                (blocked) =>{ this.user.blocked = blocked; console.log(blocked);}
+                )
+            }
           )
       }
+      
     }
   
     getDriver(id:number): void{
@@ -63,6 +74,7 @@ export class EditUserProfileComponent implements OnInit{
             (driver) => {this.user = driver; 
               console.log(this.user);
               this.avatarBase64 = this.user.profilePicture;
+              
             }
           );
     }

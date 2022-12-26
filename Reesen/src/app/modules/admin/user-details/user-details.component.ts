@@ -15,18 +15,20 @@ export class UserDetailsComponent implements OnInit{
   id: string;
   role: string;
   user: User;
+  numId: number;
   constructor(private route: ActivatedRoute, 
     private passengerService: PassengerService,
     private driverService: DriverService,
-    private router: Router){}
+    private router: Router,
+    private userService: UserService){}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.role = this.route.snapshot.paramMap.get('role');
-    let numId: number = +this.id;
+    this.numId = +this.id;
     if(this.role === 'DRIVER'){
-      this.getDriver(numId);
-    }else this.getPassenger(numId);
+      this.getDriver(this.numId);
+    }else this.getPassenger( this.numId);
 
   }
 
@@ -35,6 +37,11 @@ export class UserDetailsComponent implements OnInit{
         .subscribe(
           (driver) => {this.user = driver; 
             console.log(this.user);
+
+            this.userService.getUserIsBlocked(this.numId)
+                .subscribe(
+                (blocked) =>{ this.user.blocked = blocked; console.log(blocked);}
+                )
           }
         );
   }
@@ -42,7 +49,13 @@ export class UserDetailsComponent implements OnInit{
   getPassenger(id:number): void{
     this.passengerService.get(id)
         .subscribe(
-          (passenger) => {this.user = passenger;console.log(this.user);}
+          (passenger) => {this.user = passenger;console.log(this.user);
+            this.userService.getUserIsBlocked(this.numId)
+                .subscribe(
+                (blocked) =>{ this.user.blocked = blocked; console.log(blocked);}
+                )
+          
+          }
         );
   }
 
