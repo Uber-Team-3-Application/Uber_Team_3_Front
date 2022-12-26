@@ -9,8 +9,12 @@
 
   }
 
+ #matslide {
+   color: #314a42;
+   font-weight: bold;
+ }
 
-  .logout-button{
+ .logout-button{
     font-size: 18px;
     color: rgba(81, 116, 112, 1);
     background-color: transparent;

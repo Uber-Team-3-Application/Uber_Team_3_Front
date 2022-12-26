@@ -1,7 +1,7 @@
 <div class="map-container">
     <div class="map-frame">
       <div id="map"></div>
-    
+
   </div>
 </div>
 <div class="alert ride-info-popup p-3" role="alert" *ngIf="rideAssumption.estimatedCost !== 0 && rideAssumption.estimatedTimeInMinutes != 0">
@@ -26,7 +26,7 @@
       <div class="col-12 p-2 mx-3 text-dark">
         <strong>Total Cost:</strong> {{rideAssumption.estimatedCost}} <strong> (RSD)</strong>
       </div>
-    
+
       <div class="col-12 p-2 mx-3 text-dark">
         <p><strong>Baby Transport:</strong> {{this.getRideForm.value.babyTransport}} </p>
         <p><strong>Pet Transport:</strong> {{this.getRideForm.value.petTransport}} </p>
@@ -35,10 +35,10 @@
   </div>
 </div>
 
-  
+
 <div *ngIf="!showGetRide" class="overlay">
-  <span><button class="ride-button my-button" type="button" (click)="openGetRide()"> {{rideButtonText}}</button></span>  
-  <span><button class="ride-button my-button mx-3" type="button" (click)="clearMap()"> Clear Map</button></span>   
+  <span><button class="ride-button my-button" type="button" (click)="openGetRide()"> {{rideButtonText}}</button></span>
+  <span><button class="ride-button my-button mx-3" type="button" (click)="clearMap()"> Clear Map</button></span>
 </div>
 
 <div *ngIf="showGetRide" class="ride-information p-5">
@@ -46,10 +46,10 @@
     ride
     [formGroup]="getRideForm"
     class="ride-information-form"
-    
+
   >
   <div class="d-flex flex-row-reverse">
-    <span><button class="button-cancel my-button" (click)="closeRideInfo()">X</button></span>  
+    <span><button class="button-cancel my-button" (click)="closeRideInfo()">X</button></span>
   </div>
     <div class="row text-center form-group p-3">
       <div class="col-12">
@@ -91,7 +91,7 @@
                       <span>{{type.name}}</span>
                     </div>
                   </div>
-      
+
                 </div>
                 <div class="col-12 py-2">
                   <div class="row">
@@ -104,11 +104,11 @@
                   </div>
 
                 </div>
-            
+
               </div>
             </button>
 
-      
+
     </div>
     <div class="row p-3 text-center">
       <div class="col-6">
@@ -127,11 +127,10 @@
       <p>Please enter valid data, and select a Vehicle type!</p>
     </div>
     <div class="row text-center">
-        <span><button class="my-button ride-button" type="submit" (click)="getRide()"> {{rideButtonText}}</button></span> 
- 
-      
-    </div> 
+        <span><button class="my-button ride-button" type="submit" (click)="getRide()"> {{rideButtonText}}</button></span>
+
+
+    </div>
   </form>
 </div>
 
-  

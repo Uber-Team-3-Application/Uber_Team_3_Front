@@ -20,6 +20,7 @@ export class MapComponent implements AfterViewInit{
 
   private map:any;
   private currentRoute: L.Routing.Control | null = null;
+  isDriver: boolean = false;
   rideButtonText: string = 'Get Ride info';
   showGetRide: boolean = false;
   showVehicleType: boolean = false;
@@ -45,7 +46,7 @@ export class MapComponent implements AfterViewInit{
     petTransport: new FormControl(false)
   });
 
-  constructor(private mapService: MapService, 
+  constructor(private mapService: MapService,
     private vehicleService: VehicleService,
     private userService: UserService){}
 
@@ -55,7 +56,8 @@ export class MapComponent implements AfterViewInit{
       zoom: 16,
     });
 
-   
+
+
     const tiles = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       {
@@ -91,7 +93,7 @@ export class MapComponent implements AfterViewInit{
                         .subscribe(
                           (vehicleTypes) => (this.vehicleTypes = vehicleTypes)
                         );
-                        
+
     this.vehicleService.getAllLocations()
                         .subscribe(
                           (locations) => {
@@ -129,7 +131,7 @@ export class MapComponent implements AfterViewInit{
             const bounds = L.latLngBounds(this.markers);
             this.map.fitBounds(bounds);
             this.currentRoute = route;
-              
+
 
             this.getRideAssumptions();
           }
@@ -140,7 +142,7 @@ export class MapComponent implements AfterViewInit{
     if(this.currentRoute != null){
       this.map.removeControl(this.currentRoute);
     }
-    
+
   }
 
   closeRideInfo():void{
@@ -153,13 +155,13 @@ export class MapComponent implements AfterViewInit{
     const depLoc: Location = {
         address: this.getRideForm.value.departure,
         latitude: this.markers[0].lat,
-        longitude: this.markers[0].lon  
+        longitude: this.markers[0].lon
     };
     const destLoc: Location = {
       address: this.getRideForm.value.destination,
       latitude: this.markers[1].lat,
-      longitude: this.markers[1].lon 
-      
+      longitude: this.markers[1].lon
+
     };
     selectedLocations.push(depLoc);
     selectedLocations.push(destLoc);
@@ -175,13 +177,14 @@ export class MapComponent implements AfterViewInit{
       vehicleType:type,
       babyTransport: this.getRideForm.value.babyTransport,
       petTransport: this.getRideForm.value.petTransport
-    
+
     };
+    console.log(rideInfo)
     this.userService.getRideAssumption(rideInfo)
       .subscribe(
         (info) => {this.rideAssumption = info;}
       );
-    
+
   }
 
 
@@ -195,7 +198,7 @@ export class MapComponent implements AfterViewInit{
             this.mapService.reverseSearch(lat, lng).
             subscribe(
               (res) => {
-                
+
                   if((this.markers.length != 2 && this.getRideForm.value.departure == "")){
                     this.getRideForm.patchValue({
                       departure:  res.display_name
@@ -219,8 +222,8 @@ export class MapComponent implements AfterViewInit{
           }
 
       });
-    
-    
+
+
   }
 
   openGetRide():void{
@@ -240,7 +243,7 @@ export class MapComponent implements AfterViewInit{
   }
 
   deleteMarkers():void{
-    
+
 
     this.map.eachLayer(
       (layer) =>
@@ -253,8 +256,8 @@ export class MapComponent implements AfterViewInit{
 
   }
   getRide():void{
-    
-  
+
+
     if(!this.getRideForm.valid){
       this.isFormValid = false;
       return;
@@ -280,7 +283,7 @@ export class MapComponent implements AfterViewInit{
   }
 
   openVehicleTypeComponent():void{
-    this.showVehicleType = !this.showVehicleType; 
+    this.showVehicleType = !this.showVehicleType;
     this.typeSelected = false;
   }
 

@@ -3,7 +3,9 @@ import {FormControl, FormGroup} from "@angular/forms";
 import { DriverService } from 'src/app/modules/driver/services/driver.service';
 import {Driver} from "../../../models/Driver";
 import * as _ from 'lodash';
+import {Vehicle} from "../../../models/Vehicle";
 
+// vezbe 7
 @Component({
   selector: 'app-driver-info-registration',
   templateUrl: './driver-info-registration.component.html',
@@ -12,6 +14,7 @@ import * as _ from 'lodash';
 export class DriverInfoRegistrationComponent {
 
   @Output() statusChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output()  driver : EventEmitter<Driver> = new EventEmitter<Driver>();
 
   createDriverForm = new FormGroup({
     firstName: new FormControl(),
@@ -26,12 +29,11 @@ export class DriverInfoRegistrationComponent {
 
   avatarBase64: string = "";
 
-  constructor(private driveService: DriverService) {}
 
   registerDriver() {
-    if (this.createDriverForm.valid) {
+    // if (this.createDriverForm.valid) {
       this.statusChanged.emit(false);
-      const driver: Driver = {
+      const new_driver: Driver = {
         name : this.createDriverForm.value.firstName,
         surname : this.createDriverForm.value.lastName,
         profilePicture : this.avatarBase64,
@@ -40,14 +42,11 @@ export class DriverInfoRegistrationComponent {
         address : this.createDriverForm.value.address,
         password : this.createDriverForm.value.password
       };
-      console.log(driver);
-      this.driveService.saveDriver(driver).subscribe((res: any) => {
-        console.log(res);
-      });
-    }
+      this.driver.emit(new_driver);
+
   }
 
-  
+
   handleUpload(event) {
     const file = event.target.files[0];
     const reader = new FileReader();

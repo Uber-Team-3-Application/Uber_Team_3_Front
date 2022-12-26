@@ -1,6 +1,8 @@
-import {Component, Input, ViewChild} from "@angular/core";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import { DriverService } from "../../driver/services/driver.service";
+import {Component} from "@angular/core";
+import {DriverService} from "../../driver/services/driver.service";
+import {Driver} from "../../../models/Driver";
+import {Location} from "../../../models/Location";
+import {Vehicle} from "../../../models/Vehicle";
 
 @Component({
   selector: 'app-driver-registration',
@@ -9,10 +11,41 @@ import { DriverService } from "../../driver/services/driver.service";
 })
 
 export class DriverRegistrationComponent {
-  currentState: boolean;
+  currentState: boolean = true;
+  driver: Driver;
+  vehicle : Vehicle;
+
+
+  constructor(private driveService: DriverService) {}
 
   changeState(event :boolean) {
     this.currentState = event;
+  }
+
+  setDriver($event: Driver) {
+    this.driver = $event;
+  }
+
+  setVehicle($event : Vehicle) {
+    this.vehicle = $event;
+    this.vehicle.currentLocation = {
+      address: "Bulevar oslobodjenja 46",
+      latitude: 45.267136,
+      longitude: 19.833549
+    };
+    this.registerDriverAndVehicle()
+  }w
+
+  registerDriverAndVehicle() {
+    this.driveService.saveDriver(this.driver).subscribe((res: Driver) => {
+      console.log(res)
+      this.driveService.addVehicleToTheDriver(res.id, this.vehicle).subscribe((res2: any) => {
+        console.log(res2);
+      });
+    });
+
+
+
   }
 
 }

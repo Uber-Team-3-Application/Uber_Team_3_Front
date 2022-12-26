@@ -39,7 +39,9 @@
               <input type="password" class="form-control" formControlName="passwordRepeat" id="passwordRepeat" placeholder="Password123">
             </div>
             <div class="mb-3 space">
-              <input type="file" (change)="handleUpload($event)" id="selectAvatar"/>
+              <label class="custom-file-upload">
+                <input type="file" (change)="handleUpload($event)" id="selectAvatar"/> Choose photo
+              </label>
             </div>
           </div>
         </div>

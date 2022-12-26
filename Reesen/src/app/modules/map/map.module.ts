@@ -13,8 +13,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  exports:[MapComponent]
+    exports: [MapComponent]
 })
 export class MapModule { }

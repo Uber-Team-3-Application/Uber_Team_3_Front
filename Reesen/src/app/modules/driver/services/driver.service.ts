@@ -16,8 +16,12 @@ export class DriverService {
   })
   constructor(private http: HttpClient) { }
 
-  saveDriver(newDriver: any) : Observable<any> {
-    return this.http.post<string>(environment.apiHost + "api/driver", newDriver)
+  saveDriver(newDriver: any) : Observable<Driver> {
+    return this.http.post<Driver>(environment.apiHost + "api/driver", newDriver)
+  }
+
+  addVehicleToTheDriver(driverId: number, vehicle: Vehicle) : Observable<Vehicle>{
+    return this.http.post<Vehicle>(environment.apiHost + "api/driver/" + driverId + "/vehicle", vehicle);
   }
 
   get(driverId:number):Observable<Driver>{
@@ -32,8 +36,12 @@ export class DriverService {
     return this.http.get<Vehicle>(environment.apiHost + 'api/driver/' + driverId + '/vehicle');
   }
 
-  changeActivity(driverId: number, isActive: boolean): Observable<string>{
-      return this.http.post<string>(environment.apiHost + 'api/driver/' + driverId + "/activity", {'isActive':isActive});
+  changeActivity(driverId: number, isActive: boolean){
+    let retVal = {
+      isActive : isActive
+    }
+    console.log({"isActive": isActive})
+    return this.http.put<string>(environment.apiHost + 'api/driver/'+ driverId + '/activity', {"isActive" : isActive});
   }
 
   edit(driver: Driver, id:number): Observable<Driver>{

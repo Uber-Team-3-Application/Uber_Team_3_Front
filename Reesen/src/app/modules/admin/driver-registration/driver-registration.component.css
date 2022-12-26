@@ -133,6 +133,24 @@ input:hover::-webkit-input-placeholder{
   justify-content: center;
 }
 
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  cursor: pointer;
+  color:white;
+  background-color:#9b9b9b;
+  height: 50px;
+  margin-top: 7px;
+  padding:3px 20px;
+  border-radius: 8px;
+  border: 1px transparent;
+  font-weight: 500;
+  font-size: 15px;
+  box-shadow: 2px 2px 5px rgb(129, 129, 129);
+}
+
 @media only screen and (max-width: 800px) {
   .logo-image{
     width: 20vw;

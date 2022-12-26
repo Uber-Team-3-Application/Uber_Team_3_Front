@@ -16,7 +16,7 @@
             <input type="text" class="form-control" id="registrationNumber"  formControlName="registrationNumber" placeholder="SM666CF">
           </div>
           <div class="form-check mb-3 space">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="flexCheckDefault">
             <label class="form-check-label check-button" for="flexCheckDefault">
               Baby Transport
             </label>
@@ -26,7 +26,7 @@
         <div class="col">
           <div class="mb-3 space">
             <label class="label-reg">Type</label>
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select" aria-label="Default select example" formControlName="vehicleType">
               <option selected value="luxury">LUXURY</option>
               <option value="standard">STANDARD</option>
               <option value="van">VAN</option>
@@ -34,7 +34,7 @@
           </div>
           <div class="mb-3 space">
             <label class="label-reg">Number of seats</label>
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select" aria-label="Default select example" formControlName="seatsNumber">
               <option selected value="1" id="option">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -43,7 +43,7 @@
             </select>
           </div>
           <div class="form-check mb-3 space">
-            <input class="form-check-input" type="checkbox" value="" id="petTransport">
+            <input class="form-check-input" type="checkbox" value="" id="petTransport" formControlName="petTransport">
             <label class="form-check-label check-button" for="petTransport">
               Pet transport
             </label>

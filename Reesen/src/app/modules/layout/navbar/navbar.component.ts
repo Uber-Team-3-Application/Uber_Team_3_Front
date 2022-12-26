@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../auth/authentication.service';
+import {MatSlideToggle} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-navbar',
@@ -21,7 +22,7 @@ export class NavbarComponent implements OnInit{
     localStorage.removeItem('refreshToken');
     this.authenticationService.setUser();
     this.router.navigate(['/']);
-    
+
   }
 
   ngOnInit(): void {
