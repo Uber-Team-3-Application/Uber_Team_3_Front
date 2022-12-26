@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "@ng-bootstrap/ng-bootstrap": "^14.0.0",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.2",
-    "bootstrap-sass": "^3.4.3"
+    "bootstrap-sass": "^3.4.3",
+    "ngx-pagination": "^6.0.3"
   }
 }

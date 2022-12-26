@@ -7,5 +7,6 @@ export interface Passenger{
     email:string;
     address:string;
     password:string;
+    blocked?:boolean;
     active:boolean;
 }

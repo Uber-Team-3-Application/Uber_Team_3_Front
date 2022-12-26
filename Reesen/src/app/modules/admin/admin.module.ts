@@ -4,20 +4,27 @@ import { DriverRegistrationComponent } from './driver-registration/driver-regist
 import { DriverInfoRegistrationComponent } from './driver-info-registration/driver-info-registration.component';
 import { DriverVehicleRegistrationComponent } from './driver-vehicle-registration/driver-vehicle-registration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
-
+import { UsersInfoComponent } from './users-info/users-info.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { EditUserProfileComponent } from './edit-user-profile/edit-user-profile.component';
 @NgModule({
   declarations: [
     DriverRegistrationComponent,
     DriverInfoRegistrationComponent,
-    DriverVehicleRegistrationComponent
+    DriverVehicleRegistrationComponent,
+    UsersInfoComponent,
+    UserDetailsComponent,
+    EditUserProfileComponent
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
-    
+    ReactiveFormsModule,
+    FormsModule,
+    NgxPaginationModule,
+    AppRoutingModule
   ],
-  exports: [ DriverRegistrationComponent]
+  exports: [ DriverRegistrationComponent, UsersInfoComponent]
 })
 export class AdminModule { }

@@ -35,7 +35,11 @@ export class DriverService {
   changeActivity(driverId: number, isActive: boolean): Observable<string>{
       return this.http.post<string>(environment.apiHost + 'api/driver/' + driverId + "/activity", {'isActive':isActive});
   }
-  
+
+  edit(driver: Driver, id:number): Observable<Driver>{
+    return this.http.put<Driver>(environment.apiHost + "api/driver/" + id, driver)
+  }
+
 }
 
 

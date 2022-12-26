@@ -27,6 +27,8 @@
     "leaflet": "^1.9.3",
     "leaflet-routing-machine": "^3.2.12",
     "lodash": "^4.17.21",
+    "ng-bootstrap": "^0.46.0",
+    "ngx-pagination": "^5.1.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
