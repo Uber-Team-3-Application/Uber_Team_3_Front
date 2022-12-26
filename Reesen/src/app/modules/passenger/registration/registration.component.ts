@@ -43,10 +43,6 @@ export class RegistrationComponent {
      if(this.registerForm.valid){
       this.hasError = false;
       alert("Succesfully registrated!");
-      
-     }else{
-      this.hasError = true;
-      alert("ne valja")
       const passenger: Passenger = {
         name : this.registerForm.value.name,
         surname : this.registerForm.value.surname,
@@ -57,12 +53,6 @@ export class RegistrationComponent {
         password : this.registerForm.value.password,
         active : false
       };
-      const passId = 3;
-      console.log(passenger);
-      this.passengerService.save(passenger).subscribe((res: any) => {
-       console.log(res);
-      });
-      const activationHtml = "http://localhost:4200/activationPage?passengerId=" + passId;
       const htmlString = `<html><head><style>
     
     .btn{
@@ -124,17 +114,25 @@ export class RegistrationComponent {
             <p class="text-center lbl">This email was sent to you by Reesen Inc. You are receiving this email because you registred on our website. If this wasn't you, please ignore this mail.</p>
       </div>
       </html>`;
-
-      const emailInfo: EmailInfo = {
-        to: "karolinatrambolina@gmail.com",
-        subject:"Reesen - Account activation",
-        message: htmlString.replace('{{activationHtml}}', activationHtml)
-      };
-      this.userService.sendEmail(emailInfo)
-        .subscribe(
-          (info) => {this.email = info;}
-        );
-        this.router.navigate(['/activation'])
+      this.passengerService.save(passenger).subscribe((pass: any) => {
+       console.log(pass);
+       this.passengerService.activatePassenger(pass.id).subscribe((html: any) => {
+        console.log(html);
+        const emailInfo: EmailInfo = {
+          to: "karolinatrambolina@gmail.com",
+          subject:"Reesen - Account activation",
+          message: htmlString.replace('{{activationHtml}}', "http://localhost:4200/activationPage?token=" + html)
+        };
+        this.userService.sendEmail(emailInfo)
+          .subscribe(
+            (info) => {this.email = info;}
+          );
+          this.router.navigate(['/activation'])
+       });
+      });
+     }else{
+      this.hasError = true;
+      alert("ne valja")
      }
   }
 
