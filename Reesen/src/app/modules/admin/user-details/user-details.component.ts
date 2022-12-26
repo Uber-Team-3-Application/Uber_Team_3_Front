@@ -42,13 +42,16 @@ export class UserDetailsComponent implements OnInit{
   getPassenger(id:number): void{
     this.passengerService.get(id)
         .subscribe(
-          (passenger) => {this.user = passenger;console.log(this.user)}
+          (passenger) => {this.user = passenger;console.log(this.user);}
         );
   }
 
 
   editUserProfile():void{ 
-    this.router.navigate(['users/' + this.id + '/' + this.role + '/edit'])
+    this.router.navigate(['users/' + this.id + '/' + this.role + '/edit']);
   }
 
+  goBack():void{
+    this.router.navigate(['users/']);
+  }
 }

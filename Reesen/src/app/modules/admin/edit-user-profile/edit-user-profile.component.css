@@ -1,0 +1,66 @@
+.red-text{
+    color: red;
+    font-weight: 600;
+}
+.green-text{
+    color: rgb(25, 93, 25);
+}
+*{
+    color: #4B7869;
+}
+
+.custom-button{
+    width: 100%;
+    color: #4B7869;
+    background-color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 22px;
+    padding: 20px;
+    border: 2px solid #212f2a;
+    
+    transition: .3s ease-in-out;
+}
+.custom-button:hover{
+    color: white;
+    background-color: #5cb798;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+}
+
+.border-black{
+    border:2px solid #212f2a;
+}
+.max-width{
+    width: 100%;
+    text-align: center;
+}
+
+.reesen-button{
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 22px;
+    padding: 10px 16px;
+    text-transform: uppercase;
+}
+.cancel-button{
+    background-color: red;
+    color: white;
+
+}
+
+.cancel-button:hover{
+    color: rgb(211, 214, 244);
+}
+.confirmation-button{
+    background-color: white;
+    border: 2px solid #578979;
+    color: #578979;
+
+}
+
+
+
+.confirmation-button:hover{
+    color: #3d5b51;
+}
