@@ -5,7 +5,10 @@
 .pr{
     margin-right: 20px;
 }
-
+.border-container{
+    border: 2px solid #1a4d3d;
+    margin: 20px auto;
+}
 .thead-properties{
     color: white;
     background-color: #4B7869;

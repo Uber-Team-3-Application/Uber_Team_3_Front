@@ -1,7 +1,7 @@
 
-<div class="container">
+<div class="container border-container">
     <div class="row table-properties">
-        <div class="col-md-6">
+        <div class="col-md-3">
             <div class="bs-select">
                 <label class="pr mt-5">
                     Show
@@ -20,13 +20,27 @@
                     </select> 
                     
                 </label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="bs-select">
                 <label class="pr mt-5">
-                    Click on a row to show information!
+                    Type:
+                </label>
+                
+                <label class="pr">
+                    <select name="dtBasicExample_length" id="select" (change)="changeUserType()"
+                        class="form-select" aria-label="Select user role" [(ngModel)]="selectedRole">
+                        <option>ALL</option>
+                        <option>DRIVER</option>
+                        <option>PASSENGER</option>
+                    </select> 
+                    
                 </label>
             </div>
         </div>
 
-        <div class="col-6 d-flex flex-row-reverse"><div>
+        <div class="col-4 d-flex flex-row-reverse"><div>
             <label class="pr mt-5">Search</label>
             <label>
                 <input type="search" class="form-control form-control-sm" 
@@ -53,9 +67,9 @@
             <th scope="col" (click)="sortTable(5)"
             data-toggle="tooltip" data-placement="top" title="Sort by Address">Home Address</th>
             <th scope="col"(click)="sortTable(6)"
-            data-toggle="tooltip" data-placement="top" title="Sort by Blocked">Blocked</th>
+            data-toggle="tooltip" data-placement="top" title="Sort by Blocked" *ngIf="users[0].blocked != null">Blocked</th>
             <th scope="col" (click)="sortTable(7)"
-            data-toggle="tooltip" data-placement="top" title="Sort by Role">Role</th>
+            data-toggle="tooltip" data-placement="top" title="Sort by Role" *ngIf="users[0].role != null">Role</th>
         </tr>
         </thead>
         <tbody>
@@ -76,8 +90,8 @@
                 <td>{{user.telephoneNumber}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.address}}</td>
-                <td>{{user.blocked}}</td>
-                <td>{{user.role}}</td>
+                <td *ngIf="user.blocked != null">{{user.blocked}}</td>
+                <td *ngIf="user.blocked != null">{{user.role}}</td>
             </tr>
             
         </tbody>

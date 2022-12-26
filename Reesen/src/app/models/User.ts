@@ -11,6 +11,8 @@ export interface User{
     isActive?:boolean;
     address:string;
     role?:string;
+    isConfirmedEmail?: boolean,
+    amountOfMoney?: number,
 }
 export interface PageUsers{
     totalCount: number;

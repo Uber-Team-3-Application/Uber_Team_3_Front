@@ -25,6 +25,19 @@ export class UserService {
       params:params
     });
   }
+  getUsersByRole(page:number, size:number, role: string): Observable<PageUsers>{
+    let params = new HttpParams();
+    params = params.append('page', page);
+    params = params.append('size', size);
+    if(role === "DRIVER")
+      return this.http.get<PageUsers>(environment.apiHost + "api/driver", {
+        params:params
+      });
+    else
+    return this.http.get<PageUsers>(environment.apiHost + "api/passenger", {
+      params:params
+    });
+  }
 
   getTotalNumberOfUsers(): Observable<number>{
     return this.http.get<number>(environment.apiHost + "api/user/number-of-users");
