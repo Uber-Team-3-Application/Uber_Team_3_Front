@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/modules/auth/authentication.service';
+import {DriverService} from "../../../driver/services/driver.service";
+import {TokenDecoderService} from "../../../auth/token/token-decoder.service";
 
 @Component({
   selector: 'app-driver-navbar',
@@ -8,7 +10,9 @@ import { AuthenticationService } from 'src/app/modules/auth/authentication.servi
   styleUrls: ['../navbar.component.css']
 })
 export class DriverNavbarComponent implements OnInit{
-  constructor(private authService: AuthenticationService, private router: Router) {}
+  active : boolean = true;
+  constructor(private authService: AuthenticationService, private router: Router, private driverService : DriverService,
+              private tokenService : TokenDecoderService) {}
 
   ngOnInit(): void {}
 
@@ -21,5 +25,11 @@ export class DriverNavbarComponent implements OnInit{
       },
       error: (error) => {},
     });
+  }
+
+  changeStatus() {
+    this.active = !this.active;
+    const driverId = this.tokenService.getDecodedAccesToken().id;
+    this.driverService.changeActivity(driverId, this.active);
   }
 }

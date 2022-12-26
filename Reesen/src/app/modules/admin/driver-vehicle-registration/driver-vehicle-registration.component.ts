@@ -15,12 +15,10 @@ export class DriverVehicleRegistrationComponent {
   createVehicleForm = new FormGroup({
     model: new FormControl(),
     registrationNumber: new FormControl(),
-    flexCheckDefault : new FormControl(),
     vehicleType : new FormControl(),
     seatsNumber : new FormControl(),
     petTransport : new FormControl(false),
-    babyTransport : new FormControl(false)
-
+    flexCheckDefault : new FormControl(false),
   });
 
   goBack() {
@@ -35,7 +33,7 @@ export class DriverVehicleRegistrationComponent {
         vehicleType: this.createVehicleForm.value.vehicleType.toString().toUpperCase(),
         model: this.createVehicleForm.value.model,
         licenseNumber: this.createVehicleForm.value.registrationNumber,
-        passengerSeats: this.createVehicleForm.value.seatsNumber,
+        passengerSeats: parseInt(this.createVehicleForm.value.seatsNumber),
         babyTransport: this.createVehicleForm.value.flexCheckDefault,
         petTransport: this.createVehicleForm.value.petTransport
       }

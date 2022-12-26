@@ -31,7 +31,7 @@ export class DriverInfoRegistrationComponent {
 
 
   registerDriver() {
-    if (this.createDriverForm.valid) {
+    // if (this.createDriverForm.valid) {
       this.statusChanged.emit(false);
       const new_driver: Driver = {
         name : this.createDriverForm.value.firstName,
@@ -43,11 +43,7 @@ export class DriverInfoRegistrationComponent {
         password : this.createDriverForm.value.password
       };
       this.driver.emit(new_driver);
-      // console.log(driver);
-      // this.driveService.saveDriver(driver).subscribe((res: any) => {
-      //   console.log(res);
-      // });
-    }
+
   }
 
 
