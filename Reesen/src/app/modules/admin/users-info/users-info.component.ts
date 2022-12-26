@@ -95,7 +95,7 @@ export class UsersInfoComponent implements OnInit{
   }
 
   displayUserInfo(user: User): void{
-    this.router.navigate(['users/' + user.id + '/' + user.role])
+    this.router.navigate(['users/' + user.id + '/' + user.role]);
   }
 
   sortTable(column: number) : void {

@@ -8,3 +8,26 @@
 *{
     color: #4B7869;
 }
+
+.custom-button{
+    width: 100%;
+    padding: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 22px;
+    border: 2px solid #212f2a;
+    border-radius: 10px;
+    transition: .3s ease-in-out;
+}
+.custom-button:hover{
+    color: white;
+    background-color: #60a389;
+    border-color: white;
+    transition: .3s ease-in-out;
+}
+.border-black{
+    border:2px solid #212f2a;
+}
+.max-width{
+    width: 100%;
+}

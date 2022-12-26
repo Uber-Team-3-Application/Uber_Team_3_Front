@@ -8,13 +8,15 @@ import { UsersInfoComponent } from './users-info/users-info.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { EditUserProfileComponent } from './edit-user-profile/edit-user-profile.component';
 @NgModule({
   declarations: [
     DriverRegistrationComponent,
     DriverInfoRegistrationComponent,
     DriverVehicleRegistrationComponent,
     UsersInfoComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    EditUserProfileComponent
   ],
   imports: [
     CommonModule,

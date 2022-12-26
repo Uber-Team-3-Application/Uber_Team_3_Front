@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { DriverService } from '../../driver/services/driver.service';
 import { PassengerService } from '../../passenger/passenger.service';
@@ -17,7 +17,8 @@ export class UserDetailsComponent implements OnInit{
   user: User;
   constructor(private route: ActivatedRoute, 
     private passengerService: PassengerService,
-    private driverService: DriverService){}
+    private driverService: DriverService,
+    private router: Router){}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -26,12 +27,15 @@ export class UserDetailsComponent implements OnInit{
     if(this.role === 'DRIVER'){
       this.getDriver(numId);
     }else this.getPassenger(numId);
+
   }
 
   getDriver(id:number): void{
     this.driverService.get(id)
         .subscribe(
-          (driver) => {this.user = driver; console.log(this.user);}
+          (driver) => {this.user = driver; 
+            console.log(this.user);
+          }
         );
   }
 
@@ -40,6 +44,11 @@ export class UserDetailsComponent implements OnInit{
         .subscribe(
           (passenger) => {this.user = passenger;console.log(this.user)}
         );
+  }
+
+
+  editUserProfile():void{ 
+    this.router.navigate(['users/' + this.id + '/' + this.role + '/edit'])
   }
 
 }
