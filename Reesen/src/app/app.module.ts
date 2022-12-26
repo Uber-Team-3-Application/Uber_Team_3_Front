@@ -12,7 +12,6 @@ import { AuthModule } from './modules/auth/auth.module';
 import { DriverModule } from './modules/driver/driver.module';
 import { UserModule } from './modules/unregistered-user/user.module';
 import {Interceptor} from './modules/auth/interceptor/interceptor'
-
 @NgModule({
   declarations: [
     AppComponent,

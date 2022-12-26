@@ -7,5 +7,8 @@ export interface Passenger{
     email:string;
     address:string;
     password:string;
-    active:boolean;
+    blocked?:boolean;
+    active?:boolean;
+    isConfirmedEmail?:boolean;
+    amountOfMoney?:number;
 }

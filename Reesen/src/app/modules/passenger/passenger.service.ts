@@ -10,8 +10,12 @@ export class PassengerService {
 
   constructor(private http: HttpClient) { }
     
-  activatePassenger(email: string): Observable<Passenger> {
-    return this.http.get<Passenger>(environment.apiHost+'api/passenger/activate/' + email);
+  activatePassenger(id: number): Observable<String> {
+    return this.http.get<String>(environment.apiHost+'api/passenger/activate/' + id);
+  }
+
+  activatePassengerAccount(id: number) {
+    this.http.get<String>(environment.apiHost+'api/passenger/activate/account' + id);
   }
 
   findByEmail(email: string): Observable<Passenger> {
@@ -29,5 +33,9 @@ export class PassengerService {
   save(newPassenger: any) : Observable<any> {
       return this.http.post<string>(environment.apiHost + "api/passenger", newPassenger)
     }
+
+  edit(passenger: Passenger, id:number): Observable<Passenger>{
+    return this.http.put<Passenger>(environment.apiHost + "api/passenger/" + id, passenger)
+  }
 
 }

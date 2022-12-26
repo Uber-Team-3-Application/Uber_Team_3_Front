@@ -7,7 +7,14 @@ export interface User{
     telephoneNumber:string;
     email:string;
     password?:string;
-    isBlocked?:boolean;
+    blocked?:boolean;
     isActive?:boolean;
     address:string;
+    role?:string;
+    isConfirmedEmail?: boolean,
+    amountOfMoney?: number,
+}
+export interface PageUsers{
+    totalCount: number;
+    results: User[];
 }
