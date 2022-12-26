@@ -6,6 +6,7 @@ import { Passenger } from 'src/app/models/Passenger';
 import { User } from 'src/app/models/User';
 import { DriverService } from '../../driver/services/driver.service';
 import { PassengerService } from '../../passenger/passenger.service';
+import { UserService } from '../../unregistered-user/user.service';
 
 @Component({
   selector: 'app-edit-user-profile',
@@ -21,7 +22,8 @@ export class EditUserProfileComponent implements OnInit{
   constructor(private route: ActivatedRoute, 
     private passengerService: PassengerService,
     private driverService: DriverService,
-    private router: Router){}
+    private router: Router,
+    private userService: UserService){}
 
     editForm = new FormGroup({
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(13)]),
@@ -102,6 +104,10 @@ export class EditUserProfileComponent implements OnInit{
             console.log(res);
           });
         }
+        if(this.editForm.value.blocked == true){
+          this.userService.blockUser(this.numId)
+              .subscribe((res) => (console.log(res)));
+        }
         
         alert("Succesfully edited profile!");
         this.goBack();
@@ -117,6 +123,7 @@ export class EditUserProfileComponent implements OnInit{
         profilePicture : this.avatarBase64,
         telephoneNumber : this.editForm.value.phoneNumber,
         email : this.editForm.value.email,
+        blocked: this.editForm.value.blocked,
         address : this.editForm.value.address,
         password : null,
       };
@@ -131,6 +138,7 @@ export class EditUserProfileComponent implements OnInit{
         telephoneNumber : this.editForm.value.phoneNumber,
         email : this.editForm.value.email,
         address : this.editForm.value.address,
+        blocked: this.editForm.value.blocked,
         password : null,
       };
       return driver;

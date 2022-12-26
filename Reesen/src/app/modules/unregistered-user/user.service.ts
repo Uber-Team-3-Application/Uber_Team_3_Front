@@ -42,4 +42,8 @@ export class UserService {
   getTotalNumberOfUsers(): Observable<number>{
     return this.http.get<number>(environment.apiHost + "api/user/number-of-users");
   }
+
+  blockUser(id: number): Observable<any>{
+    return this.http.put(environment.apiHost + "api/user/" + id + "/block", null);
+  }
 }
