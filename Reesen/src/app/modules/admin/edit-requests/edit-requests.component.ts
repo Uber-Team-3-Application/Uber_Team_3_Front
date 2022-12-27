@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DriverEditBasicInfoRequest, DriverEditVehicleRequest } from 'src/app/models/Driver';
 import { DriverService } from '../../driver/services/driver.service';
@@ -8,7 +8,7 @@ import { DriverService } from '../../driver/services/driver.service';
   templateUrl: './edit-requests.component.html',
   styleUrls: ['./edit-requests.component.css']
 })
-export class EditRequestsComponent implements OnInit{
+export class EditRequestsComponent {
 
   vehicleRequests: DriverEditVehicleRequest[];
   profileRequests: DriverEditBasicInfoRequest[];
@@ -35,26 +35,33 @@ export class EditRequestsComponent implements OnInit{
 
   loadProfileRequests(): void{
     this.driverService.getProfileEditRequests()
-        .subscribe(
-          (res) => {this.profileRequests = res;console.log(res);}
-        );
+        .subscribe({
+          next: (result) => {
+            this.profileRequests = result;
+            console.log(result);
+          },
+          error: (error) => {
+            this.profileRequests = [];
+            console.log(error);
+          }
+       });
   }
   loadVehicleRequests(): void{
     this.driverService.getVehicleEditRequests()
-        .subscribe(
-          (res) => {this.vehicleRequests = res;console.log(res);}
-        );
+        .subscribe({
+          next: 
+          (result) => {
+            this.vehicleRequests = result;
+            console.log(result);
+          },
+          error: (error) =>{ this.vehicleRequests = [];}
+        });
   }
 
   goBack():void{
     this.router.navigate(['users']);
   }
-
   
-  ngOnInit(): void {
-    
-  }
-
   acceptVehicleRequest(vehicle: DriverEditVehicleRequest){
         
 
@@ -63,7 +70,11 @@ export class EditRequestsComponent implements OnInit{
   declineVehicleRequest(vehicle: DriverEditVehicleRequest){
     this.driverService.declineVehicleEditRequest(vehicle.id)
         .subscribe(
-          (res) => {this.showVehicleRequests();}
+            {
+              next:
+              (res) =>{ this.loadVehicleRequests();},
+              error: (error) =>{ this.loadVehicleRequests(); }
+            }
         );
   }
 
@@ -75,7 +86,11 @@ export class EditRequestsComponent implements OnInit{
   declineProfileRequest(profile: DriverEditBasicInfoRequest){
     this.driverService.declineProfileEditRequest(profile.id)
         .subscribe(
-          (res) => {this.showProfileRequests();}
+          {
+            next:
+            (res) =>{ this.loadProfileRequests();},
+            error: (error) =>{ this.loadProfileRequests(); }
+          }
         );
       
   }
