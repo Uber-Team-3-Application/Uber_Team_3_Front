@@ -15,6 +15,25 @@
     height: 100px;
 }
 
+.custom-button{
+    width: 100%;
+    color: #4B7869;
+    background-color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 22px;
+    padding: 20px;
+    border: 2px solid #212f2a;
+    
+    transition: .3s ease-in-out;
+}
+.custom-button:hover{
+    color: white;
+    background-color: #5cb798;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+}
+
 .reesen-button{
     border-radius: 6px;
     font-weight: 600;

@@ -21,6 +21,7 @@ export class DriverEditBasicInfoComponent implements OnInit{
         
     });
     hasError: boolean = false;
+    avatarBase64: string = "";
     driver:Driver = {
       name: '',
       surname: '',
@@ -41,11 +42,25 @@ export class DriverEditBasicInfoComponent implements OnInit{
       );
 
     }
+    handleUpload(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+          this.avatarBase64 = reader.result.toString();
+          this.driver.profilePicture = this.avatarBase64;
+      };
+    }
 
 
     edit():void{
        if(this.editForm.valid){
         this.hasError = false;
+        const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
+        this.driverService.edit(this.driver, tokenInfo.id)
+            .subscribe(
+              (res) =>{console.log(res);}
+            )
         alert("Succesfully changed information!");
         this.router.navigate(['/driverProfile'])
         
