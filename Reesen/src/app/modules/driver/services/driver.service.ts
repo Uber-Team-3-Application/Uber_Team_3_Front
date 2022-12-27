@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
-import { Driver } from 'src/app/models/Driver';
+import { Driver, DriverActivityDTO } from 'src/app/models/Driver';
 import { Vehicle } from 'src/app/models/Vehicle';
 import { HttpHeaders } from '@angular/common/http';
 @Injectable({
@@ -37,11 +37,10 @@ export class DriverService {
   }
 
   changeActivity(driverId: number, isActive: boolean){
-    let retVal = {
-      isActive : isActive
-    }
-    console.log({"active": isActive})
-    return this.http.put<string>(environment.apiHost + 'api/driver/'+ driverId + '/activity', {"active" : isActive});
+    let driverActivityDTO: DriverActivityDTO = {
+      active:isActive
+    };
+    return this.http.post(environment.apiHost + 'api/driver/'+ driverId + '/activity', driverActivityDTO);
   }
 
   edit(driver: Driver, id:number): Observable<Driver>{

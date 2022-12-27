@@ -30,6 +30,7 @@ export class DriverNavbarComponent implements OnInit{
   changeStatus() {
     this.active = !this.active;
     const driverId = this.tokenService.getDecodedAccesToken().id;
-    this.driverService.changeActivity(driverId, this.active);
+    this.driverService.changeActivity(driverId, this.active)
+          .subscribe();
   }
 }
