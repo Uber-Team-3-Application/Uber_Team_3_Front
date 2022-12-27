@@ -64,7 +64,14 @@ export class EditRequestsComponent {
   
   acceptVehicleRequest(vehicle: DriverEditVehicleRequest){
         
-
+    this.driverService.acceptVehicleEditRequest(vehicle.id)
+          .subscribe(
+            {
+              next:
+              (res) =>{ this.loadVehicleRequests();},
+              error: (error) =>{ this.loadVehicleRequests(); }
+            }
+          );
   }
 
   declineVehicleRequest(vehicle: DriverEditVehicleRequest){
@@ -80,7 +87,14 @@ export class EditRequestsComponent {
 
 
   acceptProfileRequest(profile: DriverEditBasicInfoRequest){
-
+      this.driverService.acceptProfileEditRequest(profile.id)
+          .subscribe(
+            {
+              next:
+              (res) =>{ this.loadProfileRequests();},
+              error: (error) =>{ this.loadProfileRequests(); }
+            }
+          );
   }
 
   declineProfileRequest(profile: DriverEditBasicInfoRequest){
