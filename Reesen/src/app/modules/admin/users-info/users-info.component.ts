@@ -34,7 +34,7 @@ export class UsersInfoComponent implements OnInit{
           );
     this.driverService.getTotalEditRequests()
         .subscribe(
-          (total) =>{this.totalRequests = total + 2;}
+          (total) =>{this.totalRequests = total;}
         )
   }
 
@@ -151,6 +151,7 @@ export class UsersInfoComponent implements OnInit{
 
   showDriverEditRequests(): void {
     if(this.totalRequests == 0) {alert("No requests to show!");return;}
+    this.router.navigate(['users/edit-requests']);
 
   }
 

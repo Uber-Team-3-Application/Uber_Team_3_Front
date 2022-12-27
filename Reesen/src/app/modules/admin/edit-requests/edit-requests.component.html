@@ -1,0 +1,24 @@
+<section class="max-width mt-5 p-5 reesen-background">
+    <h1 class="text-center mb-3">Choose type of request to show</h1>
+    <div class="row text-center">
+        <div class="col-md-6 col-12">
+            <button type="button" class="reesen-button confirmation-button" (click)="showProfileRequests()">Show Profile edit requests</button>
+        </div>
+        <div class="col-md-6 col-12">
+            <button type="button" class="reesen-button confirmation-button" (click)="showVehicleRequests()">Show Vehicle edit requests</button>
+        </div>
+    </div>
+
+    <div class="profile-requests text-center" *ngIf="profileClicked">
+        <div *ngIf="profileRequests.length == 0">No requests to show!</div>
+        <div class="row" *ngFor="let profile of profileRequests">
+            
+        </div>
+    </div>
+    <div class="vehicle-requests text-center" *ngIf="vehicleClicked">
+        <div *ngIf="vehicleRequests.length == 0">No requests to show!</div>
+        <div class="row"  *ngFor="let vehicle of vehicleRequests">
+        </div>
+    </div>
+
+</section>

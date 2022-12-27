@@ -18,6 +18,7 @@ import { UsersInfoComponent } from './modules/admin/users-info/users-info.compon
 import { UserDetailsComponent } from './modules/admin/user-details/user-details.component';
 import { EditUserProfileComponent } from './modules/admin/edit-user-profile/edit-user-profile.component';
 import { EditDriverVehicleComponent } from './modules/admin/edit-driver-vehicle/edit-driver-vehicle.component';
+import { EditRequestsComponent } from './modules/admin/edit-requests/edit-requests.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent,
@@ -44,6 +45,7 @@ const routes: Routes = [
   {path: 'users/:id/:role', component: UserDetailsComponent},
   {path: 'users/:id/:role/edit', component: EditUserProfileComponent},
   {path: 'users/:id/:role/edit-vehicle', component: EditDriverVehicleComponent},
+  {path: 'users/edit-requests', component: EditRequestsComponent},
   {path:'**', component:HomeComponent},
 ];
 

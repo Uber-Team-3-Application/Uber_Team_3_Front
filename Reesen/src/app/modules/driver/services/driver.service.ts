@@ -2,9 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
-import { Driver, DriverActivityDTO } from 'src/app/models/Driver';
+import { Driver, DriverActivityDTO, DriverEditVehicleRequest, DriverEditBasicInfoRequest } from 'src/app/models/Driver';
 import { Vehicle } from 'src/app/models/Vehicle';
 import { HttpHeaders } from '@angular/common/http';
+import { User } from 'src/app/models/User';
 @Injectable({
   providedIn: 'root'
 })
@@ -56,6 +57,13 @@ export class DriverService {
     return this.http.get<number>(environment.apiHost + "api/driver/total-edit-requests");
   }
 
+  getProfileEditRequests(): Observable<DriverEditBasicInfoRequest[]>{
+    return this.http.get<DriverEditBasicInfoRequest[]>(environment.apiHost + "api/driver/profile-edit-requests");
+  }
+
+  getVehicleEditRequests(): Observable<DriverEditVehicleRequest[]>{
+    return this.http.get<DriverEditVehicleRequest[]>(environment.apiHost + "api/driver/profile-edit-requests");
+  }
 }
 
 
