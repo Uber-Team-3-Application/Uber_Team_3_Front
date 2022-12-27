@@ -10,6 +10,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { EditUserProfileComponent } from './edit-user-profile/edit-user-profile.component';
 import { EditDriverVehicleComponent } from './edit-driver-vehicle/edit-driver-vehicle.component';
+
 @NgModule({
   declarations: [
     DriverRegistrationComponent,

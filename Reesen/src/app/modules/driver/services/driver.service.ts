@@ -52,6 +52,10 @@ export class DriverService {
 
   }
 
+  getTotalEditRequests(): Observable<number>{
+    return this.http.get<number>(environment.apiHost + "api/driver/total-edit-requests");
+  }
+
 }
 
 

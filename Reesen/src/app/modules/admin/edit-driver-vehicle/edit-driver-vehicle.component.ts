@@ -49,8 +49,6 @@ export class EditDriverVehicleComponent implements OnInit{
           .subscribe(
             (res) => {this.vehicle = res;}
           )
-  
-    
   }
 
   goBack():void{

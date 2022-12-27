@@ -2,6 +2,7 @@ import { OnInit, Component } from '@angular/core';
 import { UserService } from '../../unregistered-user/user.service';
 import { User } from 'src/app/models/User';
 import { Router } from '@angular/router';
+import { DriverService } from '../../driver/services/driver.service';
 
 @Component({
   selector: 'app-users-info',
@@ -18,7 +19,9 @@ export class UsersInfoComponent implements OnInit{
   selectedPage: number = 1;
   page:number = 1;
   sortDirection: number = -1;
-  constructor(private userService: UserService, private router: Router){
+  totalRequests: number = 0;
+  constructor(private userService: UserService, private router: Router,
+              private driverService: DriverService){
     
   }
 
@@ -29,7 +32,10 @@ export class UsersInfoComponent implements OnInit{
           .subscribe(
             (total) => {this.totalEntries = total;}
           );
-  
+    this.driverService.getTotalEditRequests()
+        .subscribe(
+          (total) =>{this.totalRequests = total + 2;}
+        )
   }
 
   fetchUsers(selPage: number): void{
@@ -142,6 +148,11 @@ export class UsersInfoComponent implements OnInit{
     }
   }
   
+
+  showDriverEditRequests(): void {
+    if(this.totalRequests == 0) {alert("No requests to show!");return;}
+
+  }
 
 
 }
