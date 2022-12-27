@@ -37,6 +37,27 @@ tr:nth-child(2n){
     background-color: rgba(25, 130, 81, 0.3);
 }
 
+.edit-req-btn{
+    color: #1a4d3d;
+    background-color: transparent;
+    border: 2px solid #1a4d3d;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 18px;
+    transition: .3s ease-in-out;
+
+}
+.edit-req-btn:hover{
+    color: white;
+    background-color: #4B7869;
+}
+
+.text-red{
+    color:red;
+    margin-right: 10px;
+    transition: .3s ease-in-out;
+}
 
 @media only screen and (max-width: 800px) {
     .table-properties{

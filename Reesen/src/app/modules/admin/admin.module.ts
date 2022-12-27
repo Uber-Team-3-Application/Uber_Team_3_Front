@@ -10,6 +10,8 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { EditUserProfileComponent } from './edit-user-profile/edit-user-profile.component';
 import { EditDriverVehicleComponent } from './edit-driver-vehicle/edit-driver-vehicle.component';
+import { EditRequestsComponent } from './edit-requests/edit-requests.component';
+
 @NgModule({
   declarations: [
     DriverRegistrationComponent,
@@ -18,7 +20,8 @@ import { EditDriverVehicleComponent } from './edit-driver-vehicle/edit-driver-ve
     UsersInfoComponent,
     UserDetailsComponent,
     EditUserProfileComponent,
-    EditDriverVehicleComponent
+    EditDriverVehicleComponent,
+    EditRequestsComponent
   ],
   imports: [
     CommonModule,

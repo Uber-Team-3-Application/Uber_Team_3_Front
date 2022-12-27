@@ -1,0 +1,106 @@
+.max-width{
+    width: 90%;
+    margin: 20px auto;
+}
+.edit-req-btn{
+    color: #1a4d3d;
+    background-color: transparent;
+    border: 2px solid #1a4d3d;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 18px;
+    transition: .3s ease-in-out;
+
+}
+.edit-req-btn:hover{
+    color: white;
+    background-color: #4B7869;
+}
+
+.text-red{
+    color:red;
+    margin-right: 10px;
+    transition: .3s ease-in-out;
+}
+.reesen-background{
+    background-color: rgb(249, 249, 249);
+}
+.reesen-button{
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 16px;
+    text-transform: uppercase;
+}
+
+.accept-decline{
+    padding: 16px;
+    font-size: 16px;
+    text-transform: capitalize;
+}
+.confirmation-button{
+    background-color: white;
+    border: 2px solid black;
+    color: #578979;
+
+}
+.confirmation-button:hover{
+    color: #1a4d3d;
+}
+
+.cancel-button{
+    background-color: red;
+    color: white;
+
+}
+
+.cancel-button:hover{
+    color: rgb(211, 214, 244);
+}
+
+.table-properties{
+    width: 80%;
+    margin: 20px auto;
+}
+.pr{
+    margin-right: 20px;
+}
+.border-container{
+    border: 2px solid #1a4d3d;
+    margin: 20px auto;
+}
+.thead-properties{
+    color: white;
+    background-color: #4B7869;
+}
+th:hover{
+    color: wheat;
+    cursor: pointer;
+}
+tr th, tr td{
+    padding: 20px 10px 20px 10px;
+}
+tbody tr:hover{
+    color: #1a4d3d;
+}
+tbody{
+    color: #4B7869;
+    font-weight: 500;
+
+}
+tr td:nth-child(1){
+    font-weight: 600;
+    padding: 20px;
+}
+tr:nth-child(2n){
+    background-color: rgba(25, 130, 81, 0.3);
+}
+
+@media only screen and (max-width: 800px) {
+    .max-width{
+        width: 100%;
+        margin: 20px 0;
+    }
+
+}

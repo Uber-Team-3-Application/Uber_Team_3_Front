@@ -2,9 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
-import { Driver, DriverActivityDTO } from 'src/app/models/Driver';
+import { Driver, DriverActivityDTO, DriverEditVehicleRequest, DriverEditBasicInfoRequest } from 'src/app/models/Driver';
 import { Vehicle } from 'src/app/models/Vehicle';
 import { HttpHeaders } from '@angular/common/http';
+import { User } from 'src/app/models/User';
 @Injectable({
   providedIn: 'root'
 })
@@ -52,6 +53,37 @@ export class DriverService {
 
   }
 
+  getTotalEditRequests(): Observable<number>{
+    return this.http.get<number>(environment.apiHost + "api/driver/total-edit-requests");
+  }
+
+  getProfileEditRequests(): Observable<DriverEditBasicInfoRequest[]>{
+    return this.http.get<DriverEditBasicInfoRequest[]>(environment.apiHost + "api/driver/profile-edit-requests");
+  }
+
+  getVehicleEditRequests(): Observable<DriverEditVehicleRequest[]>{
+    return this.http.get<DriverEditVehicleRequest[]>(environment.apiHost + "api/driver/vehicle-edit-requests");
+  }
+
+  declineVehicleEditRequest(id: number):Observable<String>{
+      return this.http.delete<String>(environment.apiHost + "api/driver/" + id + "/decline-vehicle-edit-request");
+
+  }
+
+  declineProfileEditRequest(id: number):Observable<String>{
+    return this.http.delete<String>(environment.apiHost + "api/driver/" + id + "/decline-profile-edit-request");
+
+  }
+
+  acceptVehicleEditRequest(id: number):Observable<String>{
+    return this.http.put<String>(environment.apiHost + "api/driver/" + id + "/accept-vehicle-edit-request", {});
+
+}
+
+ acceptProfileEditRequest(id: number):Observable<String>{
+  return this.http.put<String>(environment.apiHost + "api/driver/" + id + "/accept-profile-edit-request", {});
+
+}
 }
 
 
