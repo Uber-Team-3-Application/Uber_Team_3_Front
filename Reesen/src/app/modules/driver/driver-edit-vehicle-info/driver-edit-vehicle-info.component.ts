@@ -16,7 +16,7 @@ export class DriverEditVehicleInfoComponent implements OnInit{
   editVehicleForm = new FormGroup({
     model:new FormControl('', [Validators.required, Validators.minLength(5)]),
     type: new FormControl('STANDARD', []),
-    registration: new FormControl('',[ Validators.minLength(7), Validators.maxLength(9)]),
+    registration: new FormControl('',[ Validators.required, Validators.minLength(7), Validators.maxLength(9)]),
     numberOfSeats: new FormControl('2', []),
     babyTransport: new FormControl(false, []),
     petTransport: new FormControl(false, [])
@@ -24,7 +24,10 @@ export class DriverEditVehicleInfoComponent implements OnInit{
   vehicle: Vehicle;
   hasError: boolean = false;
 
-  constructor(private driverService: DriverService, private router: Router, private tokenDecoder: TokenDecoderService){
+  constructor(private driverService: DriverService, 
+    private router: Router, 
+    private tokenDecoder: TokenDecoderService,
+    private vehicleService: VehicleService){
 
   }
   ngOnInit(): void {
@@ -39,6 +42,13 @@ export class DriverEditVehicleInfoComponent implements OnInit{
     editVehicle():void{
         if(this.editVehicleForm.valid){
             this.hasError = false;
+            const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
+            this.vehicleService.edit(this.vehicle, tokenInfo.id)
+                .subscribe(
+                  (res) => {console.log(res);}
+                );
+            alert("Vehicle edited successfully!");
+            this.navigateBack();
         }else{
           this.hasError = true;
         }
