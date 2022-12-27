@@ -56,18 +56,28 @@ export class EditRequestsComponent implements OnInit{
   }
 
   acceptVehicleRequest(vehicle: DriverEditVehicleRequest){
+        
 
   }
+
   declineVehicleRequest(vehicle: DriverEditVehicleRequest){
-    
+    this.driverService.declineVehicleEditRequest(vehicle.id)
+        .subscribe(
+          (res) => {this.showVehicleRequests();}
+        );
   }
 
 
   acceptProfileRequest(profile: DriverEditBasicInfoRequest){
 
   }
-  declineProfileequest(profile: DriverEditBasicInfoRequest){
-    
+
+  declineProfileRequest(profile: DriverEditBasicInfoRequest){
+    this.driverService.declineProfileEditRequest(profile.id)
+        .subscribe(
+          (res) => {this.showProfileRequests();}
+        );
+      
   }
 }
 

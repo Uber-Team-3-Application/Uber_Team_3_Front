@@ -64,6 +64,16 @@ export class DriverService {
   getVehicleEditRequests(): Observable<DriverEditVehicleRequest[]>{
     return this.http.get<DriverEditVehicleRequest[]>(environment.apiHost + "api/driver/vehicle-edit-requests");
   }
+
+  declineVehicleEditRequest(id: number):Observable<String>{
+      return this.http.delete<String>(environment.apiHost + "api/driver/" + id + "/decline-vehicle-edit-request");
+
+  }
+
+  declineProfileEditRequest(id: number):Observable<String>{
+    return this.http.delete<String>(environment.apiHost + "api/driver/" + id + "/decline-profile-edit-request");
+
+  }
 }
 
 

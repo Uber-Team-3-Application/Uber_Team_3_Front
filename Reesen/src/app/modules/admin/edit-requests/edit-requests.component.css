@@ -29,9 +29,8 @@
 .reesen-button{
     border-radius: 6px;
     font-weight: 600;
-    font-size: 20px;
-    padding: 10px 16px;
-    min-width: 150px;
+    font-size: 16px;
+    padding: 16px;
     text-transform: uppercase;
 }
 

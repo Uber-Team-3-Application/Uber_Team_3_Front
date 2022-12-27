@@ -21,7 +21,8 @@
                 <th scope="col">Telephone Number</th>
                 <th scope="col">Email Address</th>
                 <th scope="col" >Home Address</th>
-                <th scope="col" >Accept/decline</th>
+                <th scope="col" >Accept</th>
+                <th scope="col" >Decline</th>
             </tr>
             </thead>
             <tbody>
@@ -36,14 +37,12 @@
                     <td>{{profile.telephoneNumber}}</td>
                     <td>{{profile.email}}</td>
                     <td>{{profile.address}}</td>
-                    <td><div class="row">
-                        <div class="col-6">
-                            <button class="confirmation-button accept-decline" (click)="acceptProfileRequest(profile)">Accept</button>
-                        </div>
-                        <div class="col-6">
-                            <button class="cancel-button accept-decline" (click)="declineProfileequest(profile)">Decline</button>
-                        </div>
-                    </div></td>
+                    <td><button class="confirmation-button accept-decline" (click)="acceptProfileRequest(profile)">Accept</button>
+                    </td>
+                    <td>
+                        <button class="cancel-button accept-decline" (click)="declineProfileRequest(profile)">Decline</button>
+
+                    </td>
                 </tr>
                 
             </tbody>
@@ -62,7 +61,8 @@
                 <th scope="col">Number Of Seats</th>
                 <th scope="col">Baby accessible</th>
                 <th scope="col">Pet accessible</th>
-                <th scope="col" >Accept/decline</th>
+                <th scope="col" >Accept</th>
+                <th scope="col" >Decline</th>
             </tr>
             </thead>
             <tbody>
@@ -77,14 +77,14 @@
                     <td>{{profile.vnumberOfSeats}}</td>
                     <td>{{profile.visBabyAccessible}}</td>
                     <td>{{profile.visPetAccessible}}</td>
-                    <td><div class="row">
-                        <div class="col-6">
-                            <button class="confirmation-button accept-decline" (click)="acceptVehicleRequest(profile)">Accept</button>
-                        </div>
-                        <div class="col-6">
-                            <button class="cancel-button accept-decline" (click)="declineVehicleRequest(profile)">Decline</button>
-                        </div>
-                    </div></td>
+                    <td><button class="confirmation-button accept-decline" (click)="acceptVehicleRequest(profile)">Accept</button>
+                    </td>
+                    <td>
+                        <button class="cancel-button accept-decline" (click)="declineVehicleRequest(profile)">Decline</button>
+
+                    </td>
+                   
+
                 </tr>
                 
             </tbody>
