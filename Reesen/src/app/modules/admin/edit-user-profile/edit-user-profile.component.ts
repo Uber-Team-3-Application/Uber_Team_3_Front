@@ -177,6 +177,7 @@ export class EditUserProfileComponent implements OnInit{
       this.remarks.push(newNote);
       this.userService.createRemark(this.numId, value)
           .subscribe();
+      noteInput.value = "";
     }
 
 }
