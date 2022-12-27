@@ -34,10 +34,16 @@ export class EditRequestsComponent implements OnInit{
   }
 
   loadProfileRequests(): void{
-
+    this.driverService.getProfileEditRequests()
+        .subscribe(
+          (res) => {this.profileRequests = res;console.log(res);}
+        );
   }
   loadVehicleRequests(): void{
-
+    this.driverService.getVehicleEditRequests()
+        .subscribe(
+          (res) => {this.vehicleRequests = res;console.log(res);}
+        );
   }
 
   goBack():void{

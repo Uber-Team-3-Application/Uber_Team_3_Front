@@ -31,7 +31,7 @@ export interface DriverEditVehicleRequest{
     driverId?:number;
     vModel:string;
     vRegistrationPlate:string;
-    vNumberOfSeats:string;
+    vNumberOfSeats:number;
     vIsBabyAccessible:boolean;
     vIsPetAccessible:boolean;
 

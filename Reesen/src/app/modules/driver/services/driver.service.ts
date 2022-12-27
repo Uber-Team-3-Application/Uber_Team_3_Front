@@ -62,7 +62,7 @@ export class DriverService {
   }
 
   getVehicleEditRequests(): Observable<DriverEditVehicleRequest[]>{
-    return this.http.get<DriverEditVehicleRequest[]>(environment.apiHost + "api/driver/profile-edit-requests");
+    return this.http.get<DriverEditVehicleRequest[]>(environment.apiHost + "api/driver/vehicle-edit-requests");
   }
 }
 
