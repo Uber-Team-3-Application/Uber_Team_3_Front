@@ -14,7 +14,10 @@ export class DriverNavbarComponent implements OnInit{
   constructor(private authService: AuthenticationService, private router: Router, private driverService : DriverService,
               private tokenService : TokenDecoderService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let driverId = this.tokenService.getDecodedAccesToken().id;
+    this.driverService.changeActivity(driverId, true).subscribe();
+  }
 
   logout(): void{
     this.authService.logout().subscribe({
@@ -30,7 +33,7 @@ export class DriverNavbarComponent implements OnInit{
   changeStatus() {
     this.active = !this.active;
     const driverId = this.tokenService.getDecodedAccesToken().id;
-    this.driverService.changeActivity(driverId, this.active)
-          .subscribe();
+    this.driverService.changeActivity(driverId, this.active).subscribe();
   }
+
 }
