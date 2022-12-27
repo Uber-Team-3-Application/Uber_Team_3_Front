@@ -17,6 +17,7 @@ import { LoginGuard } from './modules/auth/guard/login.guard';
 import { UsersInfoComponent } from './modules/admin/users-info/users-info.component';
 import { UserDetailsComponent } from './modules/admin/user-details/user-details.component';
 import { EditUserProfileComponent } from './modules/admin/edit-user-profile/edit-user-profile.component';
+import { EditDriverVehicleComponent } from './modules/admin/edit-driver-vehicle/edit-driver-vehicle.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent,
@@ -42,6 +43,7 @@ const routes: Routes = [
   {path: 'users', component: UsersInfoComponent},
   {path: 'users/:id/:role', component: UserDetailsComponent},
   {path: 'users/:id/:role/edit', component: EditUserProfileComponent},
+  {path: 'users/:id/:role/edit-vehicle', component: EditDriverVehicleComponent},
   {path:'**', component:HomeComponent},
 ];
 

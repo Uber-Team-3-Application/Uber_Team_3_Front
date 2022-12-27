@@ -64,6 +64,11 @@ export class UserDetailsComponent implements OnInit{
     this.router.navigate(['users/' + this.id + '/' + this.role + '/edit']);
   }
 
+  editVehicleInfo():void{
+    this.router.navigate(['users/' + this.id  + '/' + this.role + '/edit-vehicle']);
+     
+  }
+
   goBack():void{
     this.router.navigate(['users/']);
   }
