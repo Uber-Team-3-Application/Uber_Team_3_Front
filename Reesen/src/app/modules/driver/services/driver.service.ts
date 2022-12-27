@@ -47,6 +47,11 @@ export class DriverService {
     return this.http.put<Driver>(environment.apiHost + "api/driver/" + id, driver)
   }
 
+  editAsAdmin(driver: Driver, id:number): Observable<Driver>{
+    return this.http.put<Driver>(environment.apiHost + "api/driver/" + id + "/admin", driver)
+
+  }
+
 }
 
 

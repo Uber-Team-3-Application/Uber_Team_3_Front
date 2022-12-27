@@ -9,6 +9,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { EditUserProfileComponent } from './edit-user-profile/edit-user-profile.component';
+import { EditDriverVehicleComponent } from './edit-driver-vehicle/edit-driver-vehicle.component';
 @NgModule({
   declarations: [
     DriverRegistrationComponent,
@@ -16,7 +17,8 @@ import { EditUserProfileComponent } from './edit-user-profile/edit-user-profile.
     DriverVehicleRegistrationComponent,
     UsersInfoComponent,
     UserDetailsComponent,
-    EditUserProfileComponent
+    EditUserProfileComponent,
+    EditDriverVehicleComponent
   ],
   imports: [
     CommonModule,

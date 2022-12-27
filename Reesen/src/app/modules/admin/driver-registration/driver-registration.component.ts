@@ -3,6 +3,7 @@ import {DriverService} from "../../driver/services/driver.service";
 import {Driver} from "../../../models/Driver";
 import {Location} from "../../../models/Location";
 import {Vehicle} from "../../../models/Vehicle";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-driver-registration',
@@ -16,7 +17,8 @@ export class DriverRegistrationComponent {
   vehicle : Vehicle;
 
 
-  constructor(private driveService: DriverService) {}
+  constructor(private driveService: DriverService,
+            private router: Router) {}
 
   changeState(event :boolean) {
     this.currentState = event;
@@ -43,8 +45,9 @@ export class DriverRegistrationComponent {
         console.log(res2);
       });
     });
+    alert("Succesfully registered a new driver!");
 
-
+    this.router.navigate(['/'])
 
   }
 

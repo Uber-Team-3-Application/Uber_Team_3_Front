@@ -26,4 +26,12 @@ export class VehicleService {
     return this.http.get<VehicleLocationWithAvailibility[]>(environment.apiHost + 'api/vehicle/vehicle-locations');
   }
 
+  edit(vehicle: Vehicle, id:number): Observable<Vehicle>{
+    return this.http.put<Vehicle>(environment.apiHost + "api/driver/" + id + "/vehicle", vehicle);
+  }
+
+  editAsAdmin(vehicle: Vehicle, id:number): Observable<Vehicle>{
+    return this.http.put<Vehicle>(environment.apiHost + "api/driver/" + id + "/vehicle-admin", vehicle);
+  }
+
 }

@@ -15,10 +15,14 @@
           <div class="mb-3 max-width">
             <button type="button" class="custom-button" (click)="editUserProfile()">Edit Profile</button>
           </div>
+          <div class="mb-3 max-width">
+            <button type="button" class="custom-button" (click)="editVehicleInfo()" *ngIf="role==='DRIVER'">Edit Vehicle</button>
+          </div>
           
         </div>
         <div class="col-lg-8">
           <div class="card mb-4 border-black">
+            <h1 class="text-center mb-3">Basic Info</h1>
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-3">

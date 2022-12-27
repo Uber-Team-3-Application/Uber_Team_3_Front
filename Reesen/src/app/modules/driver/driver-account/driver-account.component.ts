@@ -43,7 +43,7 @@ export class DriverAccountComponent implements OnInit{
 
       this.vehicleService.get(tokenInfo.id)
       .subscribe(
-        (vehicle) => (this.vehicle = vehicle)
+        (vehicle) => {this.vehicle = vehicle;console.log(vehicle)}
       );
     }
 
