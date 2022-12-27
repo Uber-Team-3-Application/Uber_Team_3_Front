@@ -172,6 +172,7 @@ export class EditUserProfileComponent implements OnInit{
       if(value.trim().length < 3) return;
       const newNote: Remark ={
         message: value,
+        date: new Date(),
       }
       this.remarks.push(newNote);
       this.userService.createRemark(this.numId, value)

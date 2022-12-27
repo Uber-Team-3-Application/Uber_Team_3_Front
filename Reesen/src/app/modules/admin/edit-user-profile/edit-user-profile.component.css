@@ -78,13 +78,34 @@
 .remark-text{
     font-size: 16px;
     color: white;
-    background-color: rgba(255, 255, 255, 0.1);
     text-align: left;
     font-weight: 500;
-    padding: 6px 6px 6px 12px;
-    border: 1px solid white;
+
+}
+.remark-border{
+    border: 2px solid black;
+    padding: 10px;
+    
+    transition: .3s ease-in-out;
 }
 
+.notes-display{
+    max-height: 250px;
+    overflow: auto;
+    padding: 20px;
+    margin: 20px auto;
+    border-bottom: 2px solid white;
+}
+
+.remark-border:hover{
+    background-color: #212f2a;
+    color: red;
+    transition: .3s ease-in-out;
+}
+.remark-date{
+    font-size: 16px;
+    color: white;
+}
 
 
 .confirmation-button:hover{
@@ -93,6 +114,12 @@
 
 #addNote{
     min-width: 60%;
+}
+@media only screen and (max-width: 1400px) {
+    #addNoteBtn{
+        margin: 20px auto;
+    }
+
 }
 
 @media only screen and (max-width: 800px) {
@@ -103,7 +130,7 @@
     }
     #addNoteBtn{
         width: 80%;
-        margin: 0 auto;
+        margin: 0px auto;
     }
 
 }
