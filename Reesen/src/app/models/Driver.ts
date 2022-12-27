@@ -29,10 +29,10 @@ export interface DriverEditBasicInfoRequest{
 export interface DriverEditVehicleRequest{
     id?:number;
     driverId?:number;
-    vModel:string;
-    vRegistrationPlate:string;
-    vNumberOfSeats:number;
-    vIsBabyAccessible:boolean;
-    vIsPetAccessible:boolean;
+    vmodel:string;
+    vregistrationPlate:string;
+    vnumberOfSeats:number;
+    visBabyAccessible:boolean;
+    visPetAccessible:boolean;
 
 }

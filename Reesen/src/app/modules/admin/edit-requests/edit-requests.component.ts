@@ -54,4 +54,20 @@ export class EditRequestsComponent implements OnInit{
   ngOnInit(): void {
     
   }
+
+  acceptVehicleRequest(vehicle: DriverEditVehicleRequest){
+
+  }
+  declineVehicleRequest(vehicle: DriverEditVehicleRequest){
+    
+  }
+
+
+  acceptProfileRequest(profile: DriverEditBasicInfoRequest){
+
+  }
+  declineProfileequest(profile: DriverEditBasicInfoRequest){
+    
+  }
 }
+

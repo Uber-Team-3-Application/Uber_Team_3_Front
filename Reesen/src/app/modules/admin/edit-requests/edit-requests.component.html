@@ -1,5 +1,5 @@
 <section class="max-width mt-5 p-5 reesen-background">
-    <h1 class="text-center mb-3">Choose type of request to show</h1>
+    <h1 class="text-center mb-5">Choose type of request to show</h1>
     <div class="row text-center">
         <div class="col-md-6 col-12">
             <button type="button" class="reesen-button confirmation-button" (click)="showProfileRequests()">Show Profile edit requests</button>
@@ -9,16 +9,87 @@
         </div>
     </div>
 
-    <div class="profile-requests text-center" *ngIf="profileClicked">
+    <div class="profile-requests text-center table-responsive" *ngIf="profileClicked">
         <div *ngIf="profileRequests.length == 0">No requests to show!</div>
-        <div class="row" *ngFor="let profile of profileRequests">
-            
-        </div>
+        <table class="table table-hover table-properties table-bordered overflow-auto" id="userTable" *ngIf="profileRequests.length > 0">
+            <thead class="thead-properties">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" >Driver Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Telephone Number</th>
+                <th scope="col">Email Address</th>
+                <th scope="col" >Home Address</th>
+                <th scope="col" >Accept/decline</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr 
+                *ngFor="
+                let profile of profileRequests"
+                      >
+                    <td>{{profile.id}}</td>
+                    <td>{{profile.driverId}}</td>
+                    <td>{{profile.name}}</td>
+                    <td>{{profile.surname}}</td>
+                    <td>{{profile.telephoneNumber}}</td>
+                    <td>{{profile.email}}</td>
+                    <td>{{profile.address}}</td>
+                    <td><div class="row">
+                        <div class="col-6">
+                            <button class="confirmation-button accept-decline" (click)="acceptProfileRequest(profile)">Accept</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="cancel-button accept-decline" (click)="declineProfileequest(profile)">Decline</button>
+                        </div>
+                    </div></td>
+                </tr>
+                
+            </tbody>
+    
+        </table>
     </div>
-    <div class="vehicle-requests text-center" *ngIf="vehicleClicked">
+    <div class="vehicle-requests text-center table-responsive" *ngIf="vehicleClicked">
         <div *ngIf="vehicleRequests.length == 0">No requests to show!</div>
-        <div class="row"  *ngFor="let vehicle of vehicleRequests">
-        </div>
+        <table class="table table-hover table-properties table-bordered" id="userTable" *ngIf="vehicleRequests.length > 0">
+            <thead class="thead-properties">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" >Driver Id</th>
+                <th scope="col">Model</th>
+                <th scope="col">Registration Plate</th>
+                <th scope="col">Number Of Seats</th>
+                <th scope="col">Baby accessible</th>
+                <th scope="col">Pet accessible</th>
+                <th scope="col" >Accept/decline</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr 
+                *ngFor="
+                let profile of vehicleRequests"
+                      >
+                    <td>{{profile.id}}</td>
+                    <td>{{profile.driverId}}</td>
+                    <td>{{profile.vmodel}}</td>
+                    <td>{{profile.vregistrationPlate}}</td>
+                    <td>{{profile.vnumberOfSeats}}</td>
+                    <td>{{profile.visBabyAccessible}}</td>
+                    <td>{{profile.visPetAccessible}}</td>
+                    <td><div class="row">
+                        <div class="col-6">
+                            <button class="confirmation-button accept-decline" (click)="acceptVehicleRequest(profile)">Accept</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="cancel-button accept-decline" (click)="declineVehicleRequest(profile)">Decline</button>
+                        </div>
+                    </div></td>
+                </tr>
+                
+            </tbody>
+    
+        </table>
     </div>
 
 </section>
