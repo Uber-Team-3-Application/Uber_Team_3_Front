@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
 import { EmailInfo } from 'src/app/models/Email';
+import { PageRemark, Remark } from 'src/app/models/Remark';
 import { RideInfo, RideInfoBody } from 'src/app/models/Ride';
 import { PageUsers } from 'src/app/models/User';
 
@@ -63,4 +64,14 @@ export class UserService {
 
   }
 
+  createRemark(userId: number, message: string): Observable<Remark>{
+    return this.http.post<Remark>(environment.apiHost + "api/user/" + userId + "/note", message);
+  }
+  getRemarks(userId: number, page: number, size: number): Observable<PageRemark>{
+    let params = new HttpParams();
+    params = params.append('page', page);
+    params = params.append('size', size);
+    return this.http.get<PageRemark>(environment.apiHost + "api/user/" + userId + "/note",
+    {params:params});
+  }
 }

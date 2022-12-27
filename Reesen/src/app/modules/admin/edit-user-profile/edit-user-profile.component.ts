@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Driver } from 'src/app/models/Driver';
 import { Passenger } from 'src/app/models/Passenger';
+import { Remark } from 'src/app/models/Remark';
 import { User } from 'src/app/models/User';
 import { DriverService } from '../../driver/services/driver.service';
 import { PassengerService } from '../../passenger/passenger.service';
@@ -34,6 +35,9 @@ export class EditUserProfileComponent implements OnInit{
       blocked: new FormControl(false, [])
     });
     hasError: boolean;
+
+    remarks: Remark[];
+
     ngOnInit(): void {
       this.id = this.route.snapshot.paramMap.get('id');
       this.role = this.route.snapshot.paramMap.get('role');
@@ -65,6 +69,10 @@ export class EditUserProfileComponent implements OnInit{
             }
           )
       }
+      this.userService.getRemarks(this.numId, 0, 5)
+          .subscribe(
+            (remarkPage) => {this.remarks =remarkPage.results;console.log(remarkPage);}
+          )
       
     }
   
@@ -156,6 +164,18 @@ export class EditUserProfileComponent implements OnInit{
         password : null,
       };
       return driver;
+    }
+
+    addNote():void {
+      let noteInput = document.getElementById("addNote") as HTMLInputElement;
+      let value = noteInput.value;
+      if(value.trim().length < 3) return;
+      const newNote: Remark ={
+        message: value,
+      }
+      this.remarks.push(newNote);
+      this.userService.createRemark(this.numId, value)
+          .subscribe();
     }
 
 }

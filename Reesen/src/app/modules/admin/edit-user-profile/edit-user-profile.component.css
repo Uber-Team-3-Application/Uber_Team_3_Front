@@ -67,9 +67,43 @@
     border-bottom: 1px solid #3d5b51;
 }
 
+.notes-p{
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    border-bottom: 2px solid white;
+}
+.remark-text{
+    font-size: 16px;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    text-align: left;
+    font-weight: 500;
+    padding: 6px 6px 6px 12px;
+    border: 1px solid white;
+}
 
 
 
 .confirmation-button:hover{
     color: #3d5b51;
+}
+
+#addNote{
+    min-width: 60%;
+}
+
+@media only screen and (max-width: 800px) {
+
+    #addNote{
+        width: 100%;
+        margin: 20px auto;
+    }
+    #addNoteBtn{
+        width: 80%;
+        margin: 0 auto;
+    }
+
 }

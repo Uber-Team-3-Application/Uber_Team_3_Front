@@ -12,9 +12,13 @@
               
             </div>
           </div>
-          <div class="mb-3 max-width">
+          <div class="max-width">
             <label for="file" class="custom-button">Select Image</label>
-            <input type="file" id="file" class="custom-button" style="visibility: hidden;" (change)="handleUpload($event)">
+            <input type="file" id="file" style="visibility: hidden;" (change)="handleUpload($event)">
+                <p class="notes-p">Notes</p>
+                <div *ngFor="let note of remarks">
+                  <p class="remark-text">{{note.message}}</p>
+                </div>
           </div>
           
         </div>
@@ -92,6 +96,12 @@
                     <input type="checkbox" name="blocked" 
                     id="blocked" formControlName="blocked"
                     [(ngModel)]="user.blocked">
+                  </div>
+              </div>
+              <div class="row my-3">
+                  <div class="col-sm-9 text-center">
+                    <input type="text" name="addNote" id="addNote" class="mx-4 py-3">
+                    <button type="button" id="addNoteBtn" class="reesen-button confirmation-button" (click)="addNote()">Add Note </button>
                   </div>
               </div>
             </div>
