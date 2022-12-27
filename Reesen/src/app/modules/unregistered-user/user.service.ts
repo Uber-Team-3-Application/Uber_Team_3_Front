@@ -58,6 +58,10 @@ export class UserService {
   blockUser(id: number): Observable<void>{
     return this.http.put<void>(environment.apiHost + "api/user/" + id + "/block", null);
   }
+  unblockUser(id: number): Observable<void>{
+    return this.http.put<void>(environment.apiHost + "api/user/" + id + "/unblock", null);
+  }
+
 
   getUserIsBlocked(id: number): Observable<boolean>{
     return this.http.get<boolean>(environment.apiHost + "api/user/" + id + "/is-blocked");

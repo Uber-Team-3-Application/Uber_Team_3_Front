@@ -127,6 +127,9 @@ export class EditUserProfileComponent implements OnInit{
         if(this.editForm.value.blocked == true){
           this.userService.blockUser(this.numId)
               .subscribe((res) => (console.log(res)));
+        }else{
+          this.userService.unblockUser(this.numId)
+              .subscribe((res) => {console.log(res);})
         }
         
         alert("Succesfully edited profile!");
