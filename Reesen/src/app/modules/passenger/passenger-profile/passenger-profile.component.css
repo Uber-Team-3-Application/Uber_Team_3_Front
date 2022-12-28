@@ -7,7 +7,10 @@ body {
     justify-content: center;
     text-align: center;
 }
-
+.img-avatar{
+    width: 150px;
+    height: 150px;
+}
 .menu{
     margin: 20px;
     align-content: center;
@@ -19,6 +22,7 @@ body {
 
 .profile{
     margin: 20px;
+
     background-color: white;
     align-content: center;
     box-shadow: 3px 5px 5px rgb(0, 0, 0);
@@ -135,4 +139,12 @@ hr{
 }
 .dsaf{
     margin-top: 20px;
+}
+
+@media only screen and (max-width: 800px) {
+
+    .profile-section{
+        margin: 20px 0;
+        width: 90%;
+    }
 }

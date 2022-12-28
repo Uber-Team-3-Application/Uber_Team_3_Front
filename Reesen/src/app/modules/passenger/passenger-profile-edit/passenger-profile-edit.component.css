@@ -5,9 +5,14 @@ body {
 .profile-section{
     margin-left: 150px;
     justify-content: center;
-    text-align: center;
+    text-align:
+     center;
 }
 
+.img-avatar{
+    width: 150px;
+    height: 150px;
+}
 .menu{
     margin: 20px;
     align-content: center;

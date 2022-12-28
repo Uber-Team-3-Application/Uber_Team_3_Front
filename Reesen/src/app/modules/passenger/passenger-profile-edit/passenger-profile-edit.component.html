@@ -2,7 +2,7 @@
     <section class="profile-section">
         <div class="row">
           <div class="col-3 menu">
-            <img [src]="passenger.profilePicture" *ngIf="passenger.profilePicture != 'profilna'" class="profile-picture" id="profilePicture">
+            <img [src]="passenger.profilePicture" *ngIf="passenger.profilePicture != 'profilna'" class="img-avatar rounded-circle" id="profilePicture">
             <div class="text-center my-5 red-text" *ngIf="passenger.profilePicture == 'profilna'">User doesnt have a profile picture!</div>
 
             <section class="dsaf">
