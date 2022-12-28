@@ -34,5 +34,6 @@ export interface DriverEditVehicleRequest{
     vnumberOfSeats:number;
     visBabyAccessible:boolean;
     visPetAccessible:boolean;
+    vtype:string;
 
 }

@@ -61,6 +61,7 @@
                 <th scope="col">Number Of Seats</th>
                 <th scope="col">Baby accessible</th>
                 <th scope="col">Pet accessible</th>
+                <th scope="col">Vehicle Type</th>
                 <th scope="col" >Accept</th>
                 <th scope="col" >Decline</th>
             </tr>
@@ -77,6 +78,7 @@
                     <td>{{profile.vnumberOfSeats}}</td>
                     <td>{{profile.visBabyAccessible}}</td>
                     <td>{{profile.visPetAccessible}}</td>
+                    <td>{{profile.vtype}}</td>
                     <td><button class="confirmation-button accept-decline" (click)="acceptVehicleRequest(profile)">Accept</button>
                     </td>
                     <td>
