@@ -10,12 +10,13 @@ export class PassengerService {
 
   constructor(private http: HttpClient) { }
     
-  activatePassenger(id: number): Observable<String> {
-    return this.http.get<String>(environment.apiHost+'api/passenger/activate/' + id);
+  activatePassenger(id: number): Observable<any> {
+    console.log(id)
+    return this.http.get<any>(environment.apiHost+'api/passenger/activate/' + id);
   }
 
-  activatePassengerAccount(id: number) {
-    this.http.get<String>(environment.apiHost+'api/passenger/activate/account' + id);
+  activatePassengerAccount(id: number): Observable<any>{
+    return this.http.get<String>(environment.apiHost+'api/passenger/activate/account' + id);
   }
 
   findByEmail(email: string): Observable<Passenger> {
