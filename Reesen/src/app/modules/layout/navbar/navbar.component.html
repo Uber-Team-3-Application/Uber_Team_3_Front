@@ -22,7 +22,8 @@
     <!-- prikazati ulogovanom -->
    <span class="text-right m-3" *ngIf="role !== null"><button class="logout-button" type="button" id="logout-button" (click)="logout()">Log Out</button></span>
     <!-- prikazati neregeistrovanom/neulogovanom -->
-    <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" [routerLink]="['/register']" *ngIf="role === null">
+    <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"
+            [routerLink]="['/register']" *ngIf="role === null">
     Sign up
     </button>
   </div>

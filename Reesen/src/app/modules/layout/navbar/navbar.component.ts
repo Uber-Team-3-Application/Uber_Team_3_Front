@@ -1,7 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../auth/authentication.service';
-import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {DriverService} from "../../driver/services/driver.service";
+import {TokenDecoderService} from "../../auth/token/token-decoder.service";
 
 @Component({
   selector: 'app-navbar',
@@ -13,11 +14,16 @@ export class NavbarComponent implements OnInit{
   role: any;
 
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) {
+  constructor(private authenticationService: AuthenticationService, private router: Router,
+              private driverService : DriverService,  private tokenService : TokenDecoderService) {
   }
 
 
   logout(): void{
+    if (this.role == 'DRIVER') {
+      const driverId = this.tokenService.getDecodedAccesToken().id;
+      this.driverService.changeActivity(driverId, false).subscribe();
+    }
     localStorage.removeItem('user');
     localStorage.removeItem('refreshToken');
     this.authenticationService.setUser();
@@ -34,6 +40,7 @@ export class NavbarComponent implements OnInit{
   showSideBar() {
     this.isShown = ! this.isShown;
   }
+
 
 
 }

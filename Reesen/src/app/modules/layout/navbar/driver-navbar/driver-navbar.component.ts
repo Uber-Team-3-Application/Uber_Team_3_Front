@@ -20,6 +20,8 @@ export class DriverNavbarComponent implements OnInit{
   }
 
   logout(): void{
+    let driverId = this.tokenService.getDecodedAccesToken().id;
+    this.driverService.changeActivity(driverId, false).subscribe();
     this.authService.logout().subscribe({
       next: (result) => {
         localStorage.removeItem('user');
