@@ -20,14 +20,16 @@ export class PassengerProfileEditComponent implements OnInit{
       
   });
   hasError: boolean;
+  avatarBase64: string = "";
   passenger:Passenger = {
     name: '',
     surname: '',
     profilePicture: '',
     telephoneNumber: '',
+    password: '',
     email: '',
     address: '',
-    password: '',
+    isConfirmedEmail:true,
     active: true
   }
   constructor(private passengerService: PassengerService, private router: Router, private tokenDecoder: TokenDecoderService){  
@@ -38,14 +40,29 @@ export class PassengerProfileEditComponent implements OnInit{
     
     this.passengerService.get(tokenInfo.id)
     .subscribe(
-      (passenger) => (this.passenger = passenger)
+      (passenger) => {this.passenger = passenger; console.log(this.passenger.password)}
     );
 
+  }
+
+  handleUpload(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+        this.avatarBase64 = reader.result.toString();
+        this.passenger.profilePicture = this.avatarBase64;
+    };
   }
 
   edit():void{
      if(this.editForm.valid){
       this.hasError = false;
+      const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
+      this.passengerService.edit(this.passenger, tokenInfo.id)
+          .subscribe(
+            (res) => {console.log(res);}
+          )
       alert("Succesfully changed information!");
       this.router.navigate(['/passenger_profile'])
       

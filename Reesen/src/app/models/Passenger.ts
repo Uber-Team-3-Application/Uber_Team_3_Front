@@ -6,7 +6,7 @@ export interface Passenger{
     telephoneNumber:string;
     email:string;
     address:string;
-    password:string;
+    password?:string;
     blocked?:boolean;
     active?:boolean;
     isConfirmedEmail?:boolean;

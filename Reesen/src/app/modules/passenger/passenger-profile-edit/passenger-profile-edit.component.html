@@ -2,9 +2,12 @@
     <section class="profile-section">
         <div class="row">
           <div class="col-3 menu">
-            <img [src]="passenger.profilePicture" class="profile-picture" id="profilePicture">
+            <img [src]="passenger.profilePicture" *ngIf="passenger.profilePicture != 'profilna'" class="profile-picture" id="profilePicture">
+            <div class="text-center my-5 red-text" *ngIf="passenger.profilePicture == 'profilna'">User doesnt have a profile picture!</div>
+
             <section class="dsaf">
             <h1 id="name" class="names">{{passenger.name}}</h1><h1 id="surname" class="names">{{passenger.surname}}</h1>
+            
           </section>
             <button class="log-out">Log Out</button>
             <div class="row menu-grid">
@@ -101,6 +104,10 @@
                         id="passengerEditAddress"
                          [(ngModel)]="passenger.address">
                 </div>
+              </div>
+              <div class="row">
+                <label for="file" class="custom-button">Select Image</label>
+                <input type="file" id="file" style="visibility: hidden;" (change)="handleUpload($event)">
               </div>
               <div class="row">
                 <div class="col">

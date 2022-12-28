@@ -7,6 +7,7 @@ import { PassengerProfileEditComponent } from './passenger-profile-edit/passenge
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivationComponent } from './activation-wait/activation.component';
+import { PassengerProfileEditPasswordComponent } from './passenger-profile-edit-password/passenger-profile-edit-password.component';
 
 
 
@@ -15,7 +16,8 @@ import { ActivationComponent } from './activation-wait/activation.component';
     RegistrationComponent,
     PassengerProfileComponent,
     PassengerProfileEditComponent,
-    ActivationComponent
+    ActivationComponent,
+    PassengerProfileEditPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -23,6 +25,7 @@ import { ActivationComponent } from './activation-wait/activation.component';
     RouterModule,
     ReactiveFormsModule
   ],
-  exports: [RegistrationComponent, PassengerProfileComponent, PassengerProfileEditComponent, ActivationComponent]
+  exports: [RegistrationComponent, PassengerProfileComponent, 
+    PassengerProfileEditComponent, ActivationComponent, PassengerProfileEditPasswordComponent]
 })
 export class PassengerModule { }

@@ -19,6 +19,7 @@ import { UserDetailsComponent } from './modules/admin/user-details/user-details.
 import { EditUserProfileComponent } from './modules/admin/edit-user-profile/edit-user-profile.component';
 import { EditDriverVehicleComponent } from './modules/admin/edit-driver-vehicle/edit-driver-vehicle.component';
 import { EditRequestsComponent } from './modules/admin/edit-requests/edit-requests.component';
+import { PassengerProfileEditPasswordComponent } from './modules/passenger/passenger-profile-edit-password/passenger-profile-edit-password.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent,
@@ -39,6 +40,7 @@ const routes: Routes = [
   {path:'driverEdit', component:DriverEditBasicInfoComponent},
   {path:'driverEditVehicle', component:DriverEditVehicleInfoComponent},
   {path: 'driverEditPassword', component:DriverEditPasswordComponent},
+  {path: 'passenger_profile-edit-password', component: PassengerProfileEditPasswordComponent},
   {path:'', redirectTo: '/home', pathMatch:'full'},
   {path: 'registerDriver', component:DriverRegistrationComponent},
   {path: 'users', component: UsersInfoComponent},
