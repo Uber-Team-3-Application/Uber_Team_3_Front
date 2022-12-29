@@ -116,7 +116,7 @@ export class EditUserProfileComponent implements OnInit{
         this.hasError = false;
         
         if(this.role === "DRIVER"){
-          this.driverService.edit(this.getDriverFromForm(), this.numId).subscribe((res: any) => {
+          this.driverService.editAsAdmin(this.getDriverFromForm(), this.numId).subscribe((res: any) => {
             console.log(res);
           });
         }else{
@@ -125,9 +125,12 @@ export class EditUserProfileComponent implements OnInit{
           });
         }
         if(this.editForm.value.blocked == true){
+          console.log("Blokiranje");
           this.userService.blockUser(this.numId)
               .subscribe((res) => (console.log(res)));
         }else{
+          console.log("Odblokiranje");
+
           this.userService.unblockUser(this.numId)
               .subscribe((res) => {console.log(res);})
         }
