@@ -1,0 +1,85 @@
+.driver-ride-history{
+  background-color:#578979 ;
+  width: 90%;
+  margin: 40px auto;
+  color: #578979;
+}
+.round-edges{
+  border: 2px solid #578979;
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+}
+
+td {
+  padding: 10px;
+}
+
+#responsive {
+  display: none;
+}
+
+@media screen and (max-width: 1200px) {
+
+  #full_screen {
+    display: none;
+  }
+
+  #responsive {
+    display: block;
+    align-content: center;
+  }
+
+  table {
+    table-layout: fixed;
+    width: 100%;
+  }
+
+}
+
+.example-container {
+  width: 500px;
+  height: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+#mySidebar {
+  width: 300px;
+  z-index: 500;
+}
+
+.example-sidenav {
+  padding: 20px;
+}
+
+#input_search {
+  width: 400px;
+  padding-top: 10px;
+
+}
+
+#filter_btn {
+  cursor: pointer;
+  padding-top: 7px;
+  padding-left: 10px;
+  padding-right: 30px;;
+}
+
+
+.w3-teal {
+  padding: 10px ;
+  background-color: white !important;
+}
+
+#search-addon {
+  cursor: pointer;
+}
