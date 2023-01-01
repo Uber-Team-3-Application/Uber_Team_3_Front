@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/modules/auth/authentication.service';
 import {DriverService} from "../../../driver/services/driver.service";
@@ -11,6 +11,8 @@ import {TokenDecoderService} from "../../../auth/token/token-decoder.service";
 })
 export class DriverNavbarComponent implements OnInit{
   active : boolean = true;
+  @Output() isSideBarActive: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor(private authService: AuthenticationService, private router: Router, private driverService : DriverService,
               private tokenService : TokenDecoderService) {}
 
@@ -30,6 +32,10 @@ export class DriverNavbarComponent implements OnInit{
       },
       error: (error) => {},
     });
+  }
+
+  changeSideBarActivity() {
+    this.isSideBarActive.emit(false);
   }
 
   changeStatus() {
