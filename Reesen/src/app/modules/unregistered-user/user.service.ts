@@ -5,13 +5,12 @@ import { environment } from 'src/app/environment/environment';
 import { EmailInfo } from 'src/app/models/Email';
 import { PageRemark, Remark } from 'src/app/models/Remark';
 import { RideInfo, RideInfoBody } from 'src/app/models/Ride';
-import { PageUsers } from 'src/app/models/User';
+import { PageUsers, User } from 'src/app/models/User';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +19,7 @@ export class UserService {
   }
 
   sendEmail(emailInfo: EmailInfo):Observable<EmailInfo>{
-    return this.http.post<EmailInfo>(environment.apiHost + "api/user/", emailInfo);
+    return this.http.post<EmailInfo>(environment.apiHost + "api/user/mail", emailInfo);
   }
   updatePassword(id:number, newPassword:string, oldPassword:string): Observable<void>{
       return this.http.put<void>(environment.apiHost + "api/user/" + id + "/changePassword",
@@ -78,4 +77,16 @@ export class UserService {
     return this.http.get<PageRemark>(environment.apiHost + "api/user/" + userId + "/note",
     {params:params});
   }
+  resetPassword(resetPasswordDTO: any, userId: number) {
+    this.http.put<String>(environment.apiHost+'user/' + userId + '/resetPassword', resetPasswordDTO);
+  }
+
+  resetPasswordLink(userId: number) {
+    return this.http.get<String>(environment.apiHost+'user/' + userId + '/resetPassword');
+  }
+
+  findByEmail(email: any): Observable<any>{
+    return this.http.get<User>(environment.apiHost+'user/email?email=' + email);
+  }
+
 }

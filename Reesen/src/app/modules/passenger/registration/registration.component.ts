@@ -40,6 +40,7 @@ export class RegistrationComponent {
       alert("Passwords don't match");
       return;
     }
+    console.log(this.registerForm)
      if(this.registerForm.valid){
       this.hasError = false;
       alert("Succesfully registrated!");
@@ -116,19 +117,21 @@ export class RegistrationComponent {
       </html>`;
       this.passengerService.save(passenger).subscribe((pass: any) => {
        console.log(pass);
-       this.passengerService.activatePassenger(pass.id).subscribe((html: any) => {
+       //this.passengerService.activatePassenger(pass.id).subscribe((html: any) => {
+        const html = 'mNBGYIOLmnbvsdghKMNbasvdi'
         console.log(html);
-        const emailInfo: EmailInfo = {
-          to: "karolinatrambolina@gmail.com",
-          subject:"Reesen - Account activation",
-          message: htmlString.replace('{{activationHtml}}', "http://localhost:4200/activationPage?token=" + html)
-        };
-        this.userService.sendEmail(emailInfo)
-          .subscribe(
-            (info) => {this.email = info;}
-          );
-          this.router.navigate(['/activation'])
-       });
+
+      // });
+      const emailInfo: EmailInfo = {
+        to: "karolinatrambolina@gmail.com",
+        subject:"Reesen - Account activation",
+        message: htmlString.replace('{{activationHtml}}', "http://localhost:4200/activationPage?token=")
+      };
+      this.userService.sendEmail(emailInfo)
+        .subscribe(
+          (info) => {this.email = info;}
+        );
+        this.router.navigate(['/activation'])
       });
      }else{
       this.hasError = true;

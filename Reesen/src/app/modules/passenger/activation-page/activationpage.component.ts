@@ -16,7 +16,9 @@ export class ActivationpageComponent implements OnInit{
     ngOnInit() {
       this.token = this.route.snapshot.queryParams['token'];
       this.decodedToken = jwt_decode(this.token);
-      this.passengerService.activatePassengerAccount(this.decodedToken.passengerId);
+      this.passengerService.activatePassengerAccount(this.decodedToken.passengerId).subscribe(
+        (info) => {}
+      );
     }
     goToLogin() {
       this.router.navigate(['/login']);

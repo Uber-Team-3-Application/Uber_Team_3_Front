@@ -7,7 +7,6 @@ import { HomeComponent } from './modules/layout/home/home.component';
 import { LoginComponent } from './modules/auth/login/login.component';
 import { PassengerProfileComponent } from './modules/passenger/passenger-profile/passenger-profile.component';
 import { PassengerProfileEditComponent } from './modules/passenger/passenger-profile-edit/passenger-profile-edit.component';
-
 import { RegistrationComponent } from './modules/passenger/registration/registration.component';
 import {DriverRegistrationComponent} from "./modules/admin/driver-registration/driver-registration.component";
 import { DriverEditVehicleInfoComponent } from './modules/driver/driver-edit-vehicle-info/driver-edit-vehicle-info.component';
@@ -21,6 +20,7 @@ import { EditDriverVehicleComponent } from './modules/admin/edit-driver-vehicle/
 import { EditRequestsComponent } from './modules/admin/edit-requests/edit-requests.component';
 import { PassengerProfileEditPasswordComponent } from './modules/passenger/passenger-profile-edit-password/passenger-profile-edit-password.component';
 import {DriverRideHistoryComponent} from "./modules/driver/driver-ride-history/driver-ride-history.component";
+import { ResetPasswordComponent } from './modules/unregistered-user/reset-password/resetPassword.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent,
@@ -28,6 +28,7 @@ const routes: Routes = [
   loadChildren: () =>
     import('../app/modules/auth/auth.module').then((m) => m.AuthModule),},
   {path:'register', component:RegistrationComponent},
+  {path:'resetPassword', component:ResetPasswordComponent},
   {path:'activationPage', component:ActivationpageComponent},
   {path:'activation', component:ActivationComponent},
   {path:'home', component:HomeComponent},
