@@ -13,3 +13,9 @@ export interface VehicleLocationWithAvailibility{
     latitude:number,
     longitude:number,
 }
+
+export interface Route {
+  id?:number,
+  departure:Location,
+  destination:Location
+}
