@@ -10,6 +10,7 @@ import { PassengerNavbarComponent } from './navbar/passenger-navbar/passenger-na
 import { AdminNavbarComponent } from './navbar/admin-navbar/admin-navbar.component';
 import { UnregisteredUserNavbarComponent } from './navbar/unregistered-user-navbar/unregistered-user-navbar.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { FilterRideSidebarComponent } from './filter-ride-sidebar/filter-ride-sidebar.component';
 
 
 
@@ -22,6 +23,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     PassengerNavbarComponent,
     AdminNavbarComponent,
     UnregisteredUserNavbarComponent,
+    FilterRideSidebarComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,6 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     MatSlideToggleModule
 
   ],
-  exports: [AboutComponent, HomeComponent, NavbarComponent, MatSlideToggleModule]
+    exports: [AboutComponent, HomeComponent, NavbarComponent, MatSlideToggleModule, FilterRideSidebarComponent]
 })
 export class LayoutModule { }
