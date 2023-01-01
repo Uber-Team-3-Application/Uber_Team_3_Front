@@ -36,7 +36,7 @@ export class DriverRegistrationComponent {
       longitude: 19.833549
     };
     this.registerDriverAndVehicle()
-  }w
+  }
 
   registerDriverAndVehicle() {
     this.driveService.saveDriver(this.driver).subscribe((res: Driver) => {
