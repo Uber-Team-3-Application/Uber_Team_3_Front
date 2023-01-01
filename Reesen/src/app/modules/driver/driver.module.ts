@@ -11,7 +11,11 @@ import { DriverRideHistoryComponent } from './driver-ride-history/driver-ride-hi
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-
+import {MatCardModule} from "@angular/material/card";
+import { DriverCardHistoryComponent } from './driver-card-history/driver-card-history.component';
+import { DriverCardHistoryResponsiveComponent } from './driver-card-history-responsive/driver-card-history-responsive.component';
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {LayoutModule} from "../layout/layout.module";
 
 
 @NgModule({
@@ -23,13 +27,20 @@ import { HttpClientModule } from '@angular/common/http';
               DriverProfileComponent,
               DriverReportsComponent,
               DriverRideHistoryComponent,
+              DriverCardHistoryComponent,
+              DriverCardHistoryResponsiveComponent,
+
             ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatCardModule,
+    MatSidenavModule,
+    LayoutModule,
+
   ],
   exports:[DriverAccountComponent,
     DriverEditBasicInfoComponent,
