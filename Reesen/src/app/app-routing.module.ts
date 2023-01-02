@@ -21,6 +21,7 @@ import { EditRequestsComponent } from './modules/admin/edit-requests/edit-reques
 import { PassengerProfileEditPasswordComponent } from './modules/passenger/passenger-profile-edit-password/passenger-profile-edit-password.component';
 import {DriverRideHistoryComponent} from "./modules/driver/driver-ride-history/driver-ride-history.component";
 import { ResetPasswordComponent } from './modules/unregistered-user/reset-password/resetPassword.component';
+import { UserRideHistoryComponent } from './modules/admin/user-ride-history/user-ride-history.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent,
@@ -51,6 +52,7 @@ const routes: Routes = [
   {path: 'users/:id/:role/edit', component: EditUserProfileComponent},
   {path: 'users/:id/:role/edit-vehicle', component: EditDriverVehicleComponent},
   {path: 'users/edit-requests', component: EditRequestsComponent},
+  {path: 'users/:id/:role/ride-history', component: UserRideHistoryComponent},
   {path:'**', component:HomeComponent},
 ];
 

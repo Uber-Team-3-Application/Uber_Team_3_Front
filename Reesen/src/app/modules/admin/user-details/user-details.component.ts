@@ -59,6 +59,9 @@ export class UserDetailsComponent implements OnInit{
         );
   }
 
+  showUserRideHistory():void{
+    this.router.navigate(['users/' + this.id + '/' + this.role + '/ride-history'])
+  }
 
   editUserProfile():void{ 
     this.router.navigate(['users/' + this.id + '/' + this.role + '/edit']);
