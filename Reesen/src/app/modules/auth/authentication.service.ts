@@ -40,16 +40,14 @@ export class AuthenticationService {
   }
 
   isLoggedIn(): boolean{
-    if(localStorage.getItem('user') != null) return true;
-
-    return false;
+    return localStorage.getItem('user') != null;
   }
 
   getRole():any{
     if(this.isLoggedIn()){
       const accessToken: string = localStorage.getItem('user');
       const helper = new JwtHelperService();
-  
+
       const role = helper.decodeToken(accessToken).role[0].authority;
       return role;
     }
@@ -59,7 +57,6 @@ export class AuthenticationService {
   setUser(): void{
     this.user$.next(this.getRole());
   }
-
 
 
 }

@@ -42,5 +42,7 @@ export class NavbarComponent implements OnInit{
   }
 
 
-
+  changeSideBarActivity($event: boolean) {
+    this.isShown = $event;
+  }
 }

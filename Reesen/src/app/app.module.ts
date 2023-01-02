@@ -27,7 +27,9 @@ import {Interceptor} from './modules/auth/interceptor/interceptor'
     AdminModule,
     AuthModule,
     DriverModule,
-    UserModule
+    UserModule,
+
+
   ],
   providers: [
     {  provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },],

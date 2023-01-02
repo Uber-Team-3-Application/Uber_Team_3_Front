@@ -44,7 +44,9 @@
 
 
 <div class="w3-sidebar w3-bar-block w3-border-left" id="nav-response" *ngIf="isShown">
-  <app-driver-navbar></app-driver-navbar>
+  <app-driver-navbar
+    (isSideBarActive) = "changeSideBarActivity($event)">
+  </app-driver-navbar>
 <!--  <app-passenger-navbar></app-passenger-navbar>-->
 <!--  <app-unregistered-user-navbar></app-unregistered-user-navbar>-->
 <!--  <app-admin-navbar></app-admin-navbar>-->

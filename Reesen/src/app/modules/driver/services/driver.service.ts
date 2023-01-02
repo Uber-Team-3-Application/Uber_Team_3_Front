@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
@@ -6,6 +6,7 @@ import { Driver, DriverActivityDTO, DriverEditVehicleRequest, DriverEditBasicInf
 import { Vehicle } from 'src/app/models/Vehicle';
 import { HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/models/User';
+import {RidePaginated} from "../../../models/Ride";
 @Injectable({
   providedIn: 'root'
 })
@@ -82,8 +83,20 @@ export class DriverService {
 
  acceptProfileEditRequest(id: number):Observable<String>{
   return this.http.put<String>(environment.apiHost + "api/driver/" + id + "/accept-profile-edit-request", {});
-
 }
+
+  getRidesOfSpecificDriver(id: number, sort?:string) : Observable<RidePaginated> {
+
+    let queryParams = new HttpParams();
+    if (sort != null) {
+      queryParams = queryParams.append("sort", sort);
+    }
+    console.log(queryParams)
+    return this.http.get<RidePaginated>(environment.apiHost + "api/driver/" + id + "/ride", {
+      params: queryParams
+    });
+  }
+
 }
 
 
