@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<div id="full_screen">
+<div class="row pt-4 pb-1" style="background-color: rgba(241, 255, 224, 1);">
+  <div class="col-3">
+    <a href="#"><img class="logo" src="assets/img/logo.png"></a>
+  </div>
+
+  <div class="col-6 text-center  nav-items">
+    <!-- PRIKAZATI U ZAVISNOSTI OD TOKENA -->
+    <app-driver-navbar *ngIf="role === 'DRIVER'"></app-driver-navbar>
+   <app-passenger-navbar *ngIf="role === 'PASSENGER'"></app-passenger-navbar>
+   <app-unregistered-user-navbar *ngIf="role === null"></app-unregistered-user-navbar>
+   <app-admin-navbar *ngIf="role === 'ADMIN'"></app-admin-navbar>
+  </div>
+
+
+  <div class="col-3 text-end nav-items" id="left">
+    <!-- prikazati neregeistrovanom/neulogovanom -->
+    <span class="text-right m-3 hover-underline-animation" style="display: inline"><a [routerLink]="['/login']" *ngIf="role === null">Log In</a></span>
+    <!-- prikazati ulogovanom -->
+   <span class="text-right m-3" *ngIf="role !== null"><button class="logout-button" type="button" id="logout-button" (click)="logout()">Log Out</button></span>
+    <!-- prikazati neregeistrovanom/neulogovanom -->
+    <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"
+            [routerLink]="['/register']" *ngIf="role === null">
+    Sign up
+    </button>
+  </div>
+</div>
+</div>
+
+<div id="responsive">
+  <div class="row pt-4 pb-1" style="background-color: rgba(241, 255, 224, 1);">
+    <div class="col-8">
+      <button class="btn" (click)="showSideBar()" *ngIf="!isShown" ><i class="fa fa-bars"></i></button>
+      <button class="btn" (click)="showSideBar()" *ngIf="isShown"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+    <div class="col-4">
+      <img class="logo" src="assets/img/logo.png">
+    </div>
+  </div>
+</div>
+
+
+<div class="w3-sidebar w3-bar-block w3-border-left" id="nav-response" *ngIf="isShown">
+  <app-driver-navbar
+    (isSideBarActive) = "changeSideBarActivity($event)">
+  </app-driver-navbar>
+<!--  <app-passenger-navbar></app-passenger-navbar>-->
+<!--  <app-unregistered-user-navbar></app-unregistered-user-navbar>-->
+<!--  <app-admin-navbar></app-admin-navbar>-->
+</div>

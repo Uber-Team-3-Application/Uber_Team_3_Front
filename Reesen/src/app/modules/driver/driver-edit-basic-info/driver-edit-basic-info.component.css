@@ -1,0 +1,61 @@
+.edit-driver{
+    background-color:#578979 ;
+    width: 90%;
+    margin: 40px auto;
+    color: #578979;
+    font-size: 16px;
+}
+.round-edges{
+    border: 2px solid #578979;
+    border-radius: 10px;
+}
+
+.img-avatar{
+    width: 150px;
+    height: 150px;
+}
+
+.custom-button{
+    width: 100%;
+    color: #4B7869;
+    background-color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 22px;
+    padding: 20px;
+    border: 2px solid #212f2a;
+    
+    transition: .3s ease-in-out;
+}
+.custom-button:hover{
+    color: white;
+    background-color: #5cb798;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+}
+
+.reesen-button{
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 22px;
+    padding: 10px 16px;
+    text-transform: uppercase;
+}
+.confirmation-button{
+    background-color: white;
+    border: 2px solid #578979;
+    color: #578979;
+
+}
+.cancel-button{
+    background-color: red;
+    color: white;
+
+}
+.cancel-button:hover{
+    color: rgb(211, 214, 244);
+}
+
+.confirmation-button:hover{
+    color: #3d5b51;
+}

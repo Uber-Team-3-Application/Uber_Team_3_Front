@@ -1,0 +1,91 @@
+<body>
+    <section class="profile-section">
+        <div class="row">
+            <div class="col-12 col-md-3 menu">
+              <img [src]="passenger.profilePicture" class="img-avatar rounded-circle mt-3" id="profilePicture">
+              <section class="dsaf">
+              <h1 id="name" class="names">{{passenger.name}}</h1><h1 id="surname" class="names">{{passenger.surname}}</h1>
+            </section>
+              <button class="log-out">Log Out</button>
+              <div class="row menu-grid">
+                <div class="col-md-auto"><img src="assets/img/inbox.png" class="menu-img"></div>
+                <div class="col-6 menu-txt"><p>Inbox</p></div>
+                <div class="w-100"></div>
+                <div class="col-md-auto"><img src="assets/img/heart.png" class="menu-img"></div>
+                <div class="col-6 menu-txt"><p>Favorite routes</p></div>
+                <div class="w-100"></div>
+                <div class="col-md-auto"><img src="assets/img/history.png" class="menu-img"></div>
+                <div class="col-6 menu-txt"><p>Ride history</p></div>
+                <div class="w-100"></div>
+                <div class="col-md-auto"><img src="assets/img/report.png" class="menu-img"></div>
+                <div class="col-6 menu-txt"><p>Report</p></div>
+              </div>
+            </div>
+            <div class="col-md-auto" >
+                <br>
+            </div>
+            <div class="col-md-7 col-12 profile">
+                <h1>My Account</h1>
+                <div class="row">
+                    <div class="col">
+                    <hr>
+                    </div>
+                    <div class="col menu-txt">
+                    Basic information
+                    </div>
+                    <div class="col">
+                    <hr>
+                    </div>
+              </div>
+              <section class="info">
+              <div class="row">
+                <div class="col info-txt">
+                    Phone number:
+                </div>
+                <div class="col info-txt text-right" id="phoneNumber">
+                    {{passenger.telephoneNumber}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col info-txt">
+                    Email address:
+                </div>
+                <div class="col info-txt" id="emailAddress">
+                  {{passenger.email}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col info-txt">
+                    Home address:
+                </div>
+                <div class="col info-txt" id="homeAddress">
+                  {{passenger.address}}
+                </div>
+              </div>
+            </section>
+              <div class="row btns">
+                <div class="col">
+                    <button class="btn" [routerLink]="['/passenger_profile-edit']">Edit information</button>
+                </div>
+                <div class="col">
+                    <button class="btn" [routerLink]="['/passenger_profile-edit-password']">Change password</button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                <hr>
+                </div>
+                <div class="col menu-txt">
+                Payments
+                </div>
+                <div class="col">
+                <hr>
+                </div>
+          </div>
+          <div class="col-md-auto"><img src="assets/img/card.png" class="card-img"></div>
+          <button class="payment-btn">+ Add payment</button>
+            </div>
+          </div>
+    </section>
+</body>

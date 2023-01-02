@@ -1,0 +1,42 @@
+.driver-profile{
+    background-color:#578979 ;
+    width: 90%;
+    margin: 40px auto;
+    color: #578979;
+}
+.round-edges{
+    border: 2px solid #578979;
+    border-radius: 10px;
+}
+
+.img-avatar{
+    width: 150px;
+    height: 150px;
+}
+
+.bold-text{
+    font-weight: 600;
+}
+.font-size-26{
+    font-size: 26px;
+}
+
+.choice-button{
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    padding: 6px 16px;
+    margin: 10px 0px 0px 30px;
+    color: #578979;
+}
+
+.choice-button:hover{
+    color: #3f5d53;
+}
+
+.text-center{
+    width: 100%;
+    text-align: center;
+}
+
+

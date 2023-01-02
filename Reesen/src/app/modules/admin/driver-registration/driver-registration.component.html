@@ -1,0 +1,31 @@
+<section class="register-section">
+  <div class="register-container">
+    <div class="row">
+          <div class="col-4 spec center" id="header-logo">
+            <div class="row text-center">
+              <div class="col center reesen-big-lead-text join-us">
+                Register<br>a Driver
+              </div>
+              <div class="col center">
+                <img src="../../../assets/img/carlogo2.png" alt="Car Logo" class="logo-image">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-8" id="driver-login">
+            <app-driver-info-registration
+              (statusChanged) = "changeState($event)"
+              *ngIf="currentState"
+              (driver) = "setDriver($event)"
+              >
+            </app-driver-info-registration>
+            <app-driver-vehicle-registration
+              (statusChanged) = "changeState($event)"
+              *ngIf="!currentState"
+            (vehicle)="setVehicle($event)">
+            </app-driver-vehicle-registration>
+      </div>
+    </div>
+  </div>
+</section>
+

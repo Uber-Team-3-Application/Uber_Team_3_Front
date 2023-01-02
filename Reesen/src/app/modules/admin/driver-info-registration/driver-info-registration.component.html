@@ -1,0 +1,57 @@
+ <form id="form"
+        [formGroup]="createDriverForm"
+        (ngSubmit)="registerDriver()">
+    <div class="card border-3">
+      <div class="card-body">
+        <h5 class="card-title">Driver Info</h5>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3 space">
+              <label for="firstName" class="label-reg">First Name</label>
+              <input type="text" class="form-control" formControlName="firstName" id="firstName" placeholder="Bob">
+            </div>
+            <div class="mb-3 space">
+              <label for="email" class="label-reg">Email Address</label>
+              <input type="text" class="form-control" id="email" formControlName="email" placeholder="example@mail.com">
+            </div>
+            <div class="mb-3 space">
+              <label for="password" class="label-reg ">Password</label>
+              <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password123">
+            </div>
+            <div class="mb-3 space">
+              <label for="address" class="label-reg ">Address</label>
+              <input type="text" class="form-control" id="address" formControlName="address" placeholder="Home Address 123">
+            </div>
+          </div>
+
+
+          <div class="col">
+            <div class="mb-3 space">
+              <label for="lastName" class="label-reg">Last Name</label>
+              <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Ross">
+            </div>
+            <div class="mb-3 space">
+              <label for="phone" class="label-reg">Phone number</label>
+              <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="+381600000000">
+            </div>
+            <div class="mb-3 space">
+              <label for="passwordRepeat" class="label-reg ">Repeat password</label>
+              <input type="password" class="form-control" formControlName="passwordRepeat" id="passwordRepeat" placeholder="Password123">
+            </div>
+            <div class="mb-3 space">
+              <label class="custom-file-upload">
+                <input type="file" (change)="handleUpload($event)" id="selectAvatar"/> Choose photo
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"><button type="submit" class="signup">>> Next</button></div>
+    </div>
+  </form>
+

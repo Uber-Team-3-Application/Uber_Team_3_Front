@@ -1,0 +1,113 @@
+<section class="edit-driver text-center round-edges p-5">
+    <form
+        edit
+        [formGroup]="editForm"
+        (ngSubmit)="edit()"
+    >
+        <div class="row text-center" >
+            <div class="col-md-3 col-12 text-center mt-5">
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <img [src]="driver.profilePicture" alt="avatar" class="rounded-circle img-avatar">
+
+                    </div>
+                    <div class="col-12 pt-4 mt-3">
+                        <label for="file" class="custom-button">Select Image</label>
+                        <input type="file" id="file" style="visibility: hidden;" (change)="handleUpload($event)">
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-9 col-12 bg-white round-edges py-5">
+                <h1>Account</h1>
+                <h3> Basic information</h3>
+
+                <div class="row text-center pt-4">
+                    <div class="col-6">
+                        <label for="driverEditName">Name</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" 
+                        formControlName="name" 
+                        name="name" 
+                        id="driverEditName"
+                        [(ngModel)]="driver.name">
+
+                    </div>
+                </div>
+
+                <div class="row text-center pt-4">
+                    <div class="col-6">
+                        <label for="driverEditSurname">Surname</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" 
+                        formControlName="surname" 
+                        name="surname" 
+                        id="driverEditSurname"
+                        [(ngModel)]="driver.surname">
+
+                    </div>
+                </div>
+                <div class="row text-center pt-4">
+                    <div class="col-6">
+                        <label for="driverEditPhoneNumber">Phone Number</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" 
+                        formControlName="phoneNumber" 
+                        name="phoneNumber" 
+                        id="driverEditPhoneNumber"
+                        [(ngModel)]="driver.telephoneNumber">
+
+                    </div>
+                </div>
+                <div class="row text-center pt-4">
+                    <div class="col-6">
+                        <label for="driverEditEmail">Email Address</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" 
+                        formControlName="email" 
+                        name="email" 
+                        id="driverEditEmail" 
+                        [(ngModel)]="driver.email">
+
+                    </div>
+                </div>
+
+                <div class="row text-center py-4">
+                    <div class="col-6">
+                        <label for="driverEditAddress">Address</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" 
+                        formControlName="address" 
+                        name="address" 
+                        id="driverEditAddress"
+                         [(ngModel)]="driver.address">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="alert alert-danger" role="alert" *ngIf="hasError === true">
+                        Please fill out every field correctly.
+                      </div>
+                  </div>
+
+            </div>
+            
+        </div>
+        <div class="row pt-3">
+            <div class="col-md-8 col-4"></div>
+            <div class="col-md-2 col-4">
+                <button type="submit" class="confirmation-button reesen-button" >accept</button>
+            </div>
+            <div class="col-md-2 col-4">
+                <button
+                class="cancel-button reesen-button" 
+                [routerLink]="['/driverProfile']" type="button">cancel</button>
+            </div>
+        </div>
+    </form>
+</section>

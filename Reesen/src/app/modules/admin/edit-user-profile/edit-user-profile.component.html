@@ -1,0 +1,129 @@
+<section style="background-color: #4B7869;" class="m-5">
+    <div class="container py-5">
+  
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img [src]="user.profilePicture" *ngIf="user.profilePicture != 'profilna'" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+              <div class="text-center my-5 red-text" *ngIf="user.profilePicture == 'profilna'">User doesnt have a profile picture!</div>
+              <h5 class="my-3">{{user.name}} {{user.surname}}</h5>
+              
+            </div>
+          </div>
+          <div class="max-width">
+            <label for="file" class="custom-button">Select Image</label>
+            <input type="file" id="file" style="visibility: hidden;" (change)="handleUpload($event)">
+                 <p class="notes-p ">Notes</p>
+                 <div class="notes-display" *ngIf="remarks.length !== 0">
+                    <div *ngFor="let note of remarks" class="remark-border mb-3">
+                      <p class="remark-date">{{note.date.toLocaleString()}}</p>
+                      <p class="remark-text">{{note.message}}</p>
+                    </div>
+                 </div>
+          </div>
+          
+        </div>
+        <div class="col-lg-8">
+            <form
+            editProfile
+        [formGroup]="editForm"
+        (ngSubmit)="editProfile()"
+            >
+          <div class="card mb-4 border-black">
+            <div class="card-body">
+                <div class="row text-center mb-3">
+                    <h1>User Information</h1>
+                </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <label for="name"><p class="mb-0">Name</p></label>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" name="name" id="name" 
+                  formControlName="name" class="form-control-edit"
+                  [(ngModel)]="user.name"> 
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                    <label for="surname"><p class="mb-0">Surname</p></label>
+                  </div>
+                  <div class="col-sm-9">
+                    <input type="text" name="surname" id="surname" 
+                    formControlName="surname" class="form-control-edit"
+                    [(ngModel)]="user.surname">
+                  </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                    <label for="email"><p class="mb-0">Email</p></label>
+                  </div>
+                  <div class="col-sm-9">
+                    <input type="email" name="email" id="email" 
+                    formControlName="email" class="form-control-edit"
+                    [(ngModel)]="user.email">
+                  </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                    <label for="phoneNumber"><p class="mb-0">Phone number</p></label>
+                  </div>
+                  <div class="col-sm-9">
+                    <input type="text" name="phoneNumber" id="phoneNumber" 
+                    formControlName="phoneNumber" class="form-control-edit"
+                    [(ngModel)]="user.telephoneNumber">
+                  </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                    <label for="address"><p class="mb-0">Address</p></label>
+                  </div>
+                  <div class="col-sm-9">
+                    <input type="text" name="address" id="address" 
+                    formControlName="address" class="form-control-edit"
+                    [(ngModel)]="user.address">
+                  </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                    <label for="blocked"><p class="mb-0">Blocked</p></label>
+                  </div>
+                  <div class="col-sm-9">
+                    <input type="checkbox" name="blocked" 
+                    id="blocked" formControlName="blocked"
+                    [(ngModel)]="user.blocked">
+                  </div>
+              </div>
+              <div class="row my-3">
+                  <div class="col-sm-9 text-center">
+                    <input type="text" name="addNote" id="addNote" class="mx-4 py-3">
+                    <button type="button" id="addNoteBtn" class="reesen-button confirmation-button" (click)="addNote()">Add Note </button>
+                  </div>
+              </div>
+            </div>
+          </div>
+         <div class="row d-flex flex-row-reverse">
+            <div class="col-md-3 col-6">
+                <button type="submit" id="save" class="reesen-button confirmation-button">
+                    SAVE
+                </button>
+            </div>
+            <div class="col-md-3 col-6">
+                <button id="cancel" class="reesen-button cancel-button" (click)="goBack()">
+                    CANCEL
+                </button>
+            </div>
+         </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </section>
+

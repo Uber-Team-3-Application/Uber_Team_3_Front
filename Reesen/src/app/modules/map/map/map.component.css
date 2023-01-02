@@ -1,0 +1,189 @@
+*{
+    color: #578979;
+}
+
+.map-container {
+    width: 98%;
+    height: 72vh;
+    margin: 10px auto 0 auto;
+    z-index: 10;
+}
+
+.map-frame {
+    border: 2px solid black;
+    border-bottom: 0px solid transparent;
+    height: 100%;
+    z-index: 10;
+
+}
+
+#map {
+    height: 100%;
+    z-index: 10;
+
+}
+
+ .overlay{
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    z-index: 9;
+    width: 98%;
+    height: 160px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(180deg, rgba(255,255,255,0.1) 10%, rgba(124,181,177,0.54) 52%, rgba(87,137,112,1) 100%, rgba(255,255,255,1) 100%);    z-index: 9;
+
+ }
+
+ .succesfully-selected-type-text{
+    color: rgb(19, 42, 38);
+    font-weight: bolder;
+ }
+
+
+ .ride-information{
+    width: 98%;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    margin: 0 auto;
+
+}
+.ride-information-form{
+    width: 40%;
+    margin: 0 auto;
+}
+
+.my-button{
+    padding: 14px;
+    font-size: 20px;
+
+    border-radius: 4px;
+    transition:.3s ease-in-out;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.ride-button{
+    color: #578979;
+    border: 2px solid #578979;
+    background-color: white;
+}
+
+.modified-button-cancel{
+    color: red;
+    background-color: transparent;
+    border:2px solid transparent;
+
+    padding: 10px 22px;
+    transition: .3s ease-in-out;
+}
+.modified-button-cancel:hover{
+    color: white;
+    background-color: red;
+    border: 2px solid black;
+    transition: .3s ease-in-out;
+}
+
+.button-cancel{
+    color: red;
+    background-color: white;
+    border:2px solid transparent;
+
+    padding: 10px 22px;
+    transition: .3s ease-in-out;
+}
+.button-cancel:hover{
+    color: white;
+    background-color: red;
+    border: 2px solid black;
+    transition: .3s ease-in-out;
+}
+
+
+.ride-info-popup{
+    width: 98%;
+    border: 2px solid black;
+    font-weight: bold ;
+    margin: 0 auto;
+    color: black;
+
+}
+
+.ride-info-info{
+    border: 2px solid #578979;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.ride-button:hover{
+    color: white;
+    background-color: #578979;
+    border: 2px solid white;
+    transition:.3s ease-in-out;
+}
+
+input[type="text"]{
+    color: #578979;
+    font-size: 18px;
+}
+
+label{
+    font-size: 16px;
+    padding-bottom: 6px;
+}
+
+.vehicle-type{
+    border: 2px solid black;
+}
+
+.align-text-left{
+    width: 100%;
+    text-align: start;
+}
+
+
+.vehicle-type-item{
+    border: 2px solid black;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: white;
+}
+.vehicle-type-item:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: .3s ease-in-out;
+    cursor: pointer;
+}
+
+.open-vehicle-type{
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+    transition:.3s ease-in-out;
+}
+.open-vehicle-type:hover{
+    cursor: pointer;
+    background-color: rgba(25, 92, 81, 0.2);
+    border-radius: 30px;
+    transition: .3s ease-in-out;
+}
+
+
+@media only screen and (max-width: 800px) {
+
+    .ride-information-form{
+        width: 100%;
+    }
+    input[type="text"]{
+        font-size: 16px;
+    }
+    .ride-button{
+        font-size: 16px;
+    }
+    label{
+        font-size: 14px;
+    }
+}

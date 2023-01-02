@@ -1,0 +1,69 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<app-filter-ride-sidebar
+
+  *ngIf="showSideBar"
+  (showFiller) = "changeState($event)"
+  (kindsOfSort)="setSortedSmartTable($event)"
+  >
+</app-filter-ride-sidebar>
+
+<div class="w3-teal">
+  <div class="input-group rounded" id="input_search" >
+    <img src="assets/img/filter.png" (click)="changeState(true)" id="filter_btn"/>
+    <input type="search" class="form-control rounded" placeholder="Search"
+           aria-label="Search" aria-describedby="search-addon" id="search" />
+    <span class="input-group-text border-0" id="search-addon">
+    <i class="fa fa-search"></i>
+  </span>
+  </div>
+</div>
+
+<section class="driver-ride-history p-5 round-edges" id="full_screen">
+  <table  align="center">
+    <tbody *ngFor="let rides of taskService.taskArray;">
+    <tr>
+      <td>
+        <app-driver-card-history *ngIf ="rides.column1 != undefined" [date]="rides.column1"></app-driver-card-history>
+      </td>
+      <td>
+        <app-driver-card-history *ngIf="rides.column2 != undefined" [date]="rides.column2"></app-driver-card-history>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</section>
+
+<section class="driver-ride-history p-5 round-edges" id="responsive">
+
+  <table align="center">
+    <tr>
+      <td align="center">
+        <app-driver-card-history-responsive></app-driver-card-history-responsive>
+
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <app-driver-card-history-responsive></app-driver-card-history-responsive>
+
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <app-driver-card-history-responsive></app-driver-card-history-responsive>
+
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <app-driver-card-history-responsive></app-driver-card-history-responsive>
+
+      </td>
+    </tr>
+
+  </table>
+</section>
+
