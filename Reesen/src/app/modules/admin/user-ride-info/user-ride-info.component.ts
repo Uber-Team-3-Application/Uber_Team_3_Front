@@ -1,45 +1,52 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, AfterViewInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Driver } from 'src/app/models/Driver';
 import { Passenger } from 'src/app/models/Passenger';
 import { Review, Ride, SingleReview } from 'src/app/models/Ride';
 import { DriverService } from '../../driver/services/driver.service';
 import { PassengerService } from '../../passenger/passenger.service';
 import { RideService } from '../../services/ride.service';
-import { UserService } from '../../unregistered-user/user.service';
-
+import * as L from 'leaflet';
+import 'leaflet-routing-machine';
+import { MapService } from '../../map/map.service';
 @Component({
   selector: 'app-user-ride-info',
   templateUrl: './user-ride-info.component.html',
   styleUrls: ['./user-ride-info.component.css']
 })
-export class UserRideInfoComponent implements OnInit{
+export class UserRideInfoComponent implements AfterViewInit{
 
   userId: number;
   rideId: number;
+  userRole: string;
   ride: Ride;
   hasLoaded: boolean = false;
   ratings:number = 0;
   driver: Driver;
   passengers = new Array<Passenger>;
   reviews = new Array<Review>;
+  map!: L.Map;
 
 
 
   constructor(private route: ActivatedRoute,
               private rideService: RideService,
               private driverService: DriverService,
-              private passengerService: PassengerService){ }
+              private passengerService: PassengerService,
+              private router: Router,
+              private mapService: MapService){ }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
 
     this.hasLoaded = false;
     this.userId = +this.route.snapshot.paramMap.get('id');
     this.rideId = +this.route.snapshot.paramMap.get('rideId');
+    this.userRole = this.route.snapshot.paramMap.get('role');
 
 
     this.setRide();
-
+    this.initMap();
+    
   }
 
   private setRide():void{
@@ -77,7 +84,6 @@ export class UserRideInfoComponent implements OnInit{
                 this.passengers.push(result); 
                 this.setReviewInfo(i, result);
                 if(i===this.ride.passengers.length - 1){
-                  console.log(this.ride);
                   this.hasLoaded = true;
                 }
               
@@ -123,5 +129,35 @@ export class UserRideInfoComponent implements OnInit{
       
         this.ratings = totalReviewScore/ totalNumberOfReviews;
     }
-  
+  goBack():void{
+    this.router.navigate(['users/' + this.userId + '/' + this.userRole + '/ride-history']);
+  }
+
+  private initMap():void{
+   
+
+      const DefaultIcon = L.icon({
+        iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
+      });
+
+      L.Marker.prototype.options.icon = DefaultIcon;
+
+      this.map = L.map('map', {
+        center: [45.249101856630546, 19.848034],
+        zoom: 16,
+      });
+
+      const tiles = L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+          maxZoom: 18,
+          minZoom: 3,
+          attribution:
+            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        }
+      );
+      tiles.addTo(this.map);
+    
+  }
+
 }

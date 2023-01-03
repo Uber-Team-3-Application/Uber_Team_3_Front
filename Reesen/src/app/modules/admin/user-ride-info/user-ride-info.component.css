@@ -2,6 +2,7 @@
     width: 90%;
     margin: 20px auto;
     background-color: #578979;
+    z-index: 1;
 }
 .ride-info-padded{
     padding: 30px;
@@ -38,11 +39,9 @@
 }
 
 .ratingBar {
-    display: block !important;
-    width: 215px !important;
     text-align: right !important;
-    margin-right: 0;
-    margin-left: auto;
+    
+    
   }
   
 
@@ -90,3 +89,27 @@
     padding: 10px;
     border: 2px solid #2b4e42;
   }
+
+  .text-big{
+    font-size: 18px;
+  }
+
+  .map-container {
+    width: 100%;
+    height: 700px;
+    margin: 10px auto 0 auto;
+    z-index: 10;
+}
+
+.map-frame {
+    border: 2px solid black;
+    height: 100%;
+    z-index: 10;
+
+}
+
+#map {
+    height: 100%;
+    z-index: 10;
+
+}
