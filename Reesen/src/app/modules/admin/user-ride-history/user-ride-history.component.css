@@ -1,0 +1,58 @@
+.user-ride-history{
+    margin: 20px auto;
+    background-color: #578979;
+}
+.history_icon{
+    width: 30px;
+    height: 30px;
+}
+
+.vehicle_img{
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.card{
+    border-radius: 10px;
+    color: #578979;
+    transition: .3s ease-in-out;
+}
+.card:hover{
+    color: white;
+    background-color: gray;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+}
+
+.items{
+    margin-left: 8px;
+}
+
+.ratingBar {
+    display: block !important;
+    width: 215px !important;
+    text-align: right !important;
+    margin-right: 0;
+    margin-left: auto;
+  }
+  
+  /*#rating_td {*/
+  /*  width: 200px !important;*/
+  /*  text-align: right;*/
+  /*}*/
+  
+  ratings{
+    margin-right:10px;
+  
+  }
+  
+  .ratings i{
+  
+    color:#cecece;
+    font-size:32px;
+  }
+  
+  .rating-color{
+    color:#fbc634 !important;
+  }
