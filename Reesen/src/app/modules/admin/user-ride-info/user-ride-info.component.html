@@ -1,4 +1,132 @@
-<section class="ride-info" *ngIf="hasLoaded">
+<section class="ride-info text-light p-3" *ngIf="hasLoaded">
+    <div class="ride-info-padded">
+        <div class="row">
+            <div class="col-12 col-md-7">
+                <div class="row py-2">
+                    <div class="col-8">
+                        Start station: <span class="highlight">{{ride.locations.at(0).departure.address}} </span>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-8">
+                        End station: <span class="highlight">{{ride.locations.at(ride.locations.length - 1).destination.address}}</span>
+                    </div>
+                </div>
 
-    <div>Blatruc</div>
+                <div class="row py-2">
+                    <div class="col-8">
+                        Start drive: <span class="highlight">{{ride.startTime | date: 'dd/MM/yyyy HH:mm'}}</span>
+                    </div>
+                </div>
+
+                <div class="row py-2">
+                    <div class="col-8">
+                        End drive: <span class="highlight">{{ride.endTime | date: 'dd/MM/yyyy HH:mm'}}</span>
+                    </div>
+                </div>
+
+                <div class="row py-2">
+                    <div class="col-8">
+                        Vehicle type: <span class="highlight">{{ride.vehicleType}}</span>
+                    </div>
+                </div>
+                <div class="row py-2" *ngIf="ride.babyTransport">
+                    <div class="col-8">
+                        Baby transport: <span class="highlight">Yes</span>
+                    </div>
+                </div>
+                <div class="row py-2" *ngIf="ride.petTransport">
+                    <div class="col-8">
+                        Pet transport: <span class="highlight">Yes</span>
+                    </div>
+                </div>
+
+                <div class="row py-2" >
+                    <div class="col-8">
+                        Price: <span class="highlight">{{ride.totalCost}} (RSD) </span>
+                    </div>
+                </div>
+                
+
+            </div>
+            <div class="col-12 col-md-5">
+
+                <div class="row">
+                    <div class="col-8 px-5 d-flex flex-row-reverse">
+                        <span class="d-flex justify-content-between align-items-center ratingBar" >
+                            <div id = "ratings" class="ratings">
+                                <i class="fa fa-star" *ngIf="ratings < 1"></i>
+                                <i class="fa fa-star rating-color" *ngIf="ratings >= 1" ></i>
+                                <i class="fa fa-star rating-color" *ngIf="ratings >= 2"></i>
+                                <i class="fa fa-star" *ngIf="ratings < 2"></i>
+                                <i class="fa fa-star rating-color" *ngIf="ratings >= 3"></i>
+                                <i class="fa fa-star" *ngIf="ratings < 3"></i>
+                                <i class="fa fa-star rating-color" *ngIf="ratings >= 4"></i>
+                                <i class="fa fa-star" *ngIf="ratings < 4"></i>
+                                <i class="fa fa-star rating-color" *ngIf="ratings >= 5"></i>
+                                <i class="fa fa-star" *ngIf="ratings < 5"></i>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <h2>Driver:</h2>
+                
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="user-card">
+                            <div class="row">
+                                <div class="col-8 user-card-name text-dark">
+                                    {{driver.name}} {{driver.surname}}
+                                </div>
+                                <div class="col-4 user-card-avatar">
+                                    <img [src]="driver.profilePicture" alt="driver-avatar" class="rounded-circle user-card-avatar-image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <h2>Passengers:</h2>
+                </div>
+
+                <div class="row my-2 mb-2" *ngFor="let passenger of passengers">
+                    <div class="col-12">
+                        <div class="user-card">
+                            <div class="row">
+                                <div class="col-8 user-card-name text-dark">
+                                    {{passenger.name}} {{passenger.surname}}
+                                </div>
+                                <div class="col-4 user-card-avatar">
+                                    <img src="assets/img/avatar.png" alt="passenger-avatar" class="rounded-circle user-card-avatar-image" *ngIf="passenger.profilePicture === 'profilna'">
+
+                                    <img [src]="passenger.profilePicture" alt="passenger-avatar" class="rounded-circle user-card-avatar-image" *ngIf="passenger.profilePicture !== 'profilna'">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <h2>Comments: </h2>
+                </div>
+                <div class="row" *ngFor="let review of ride.reviews" class="single-review">
+                    <div class="col-12 my-2">
+                        <div class="user-card">
+                            
+                        </div>
+                    </div>
+                    <div class="col-12 my-2">
+                        <div class="user-card">
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+
+        </div>
+    </div>
 </section>
