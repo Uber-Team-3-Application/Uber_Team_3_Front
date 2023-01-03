@@ -117,15 +117,13 @@ export class RegistrationComponent {
       </html>`;
       this.passengerService.save(passenger).subscribe((pass: any) => {
        console.log(pass);
-       //this.passengerService.activatePassenger(pass.id).subscribe((html: any) => {
-        const html = 'mNBGYIOLmnbvsdghKMNbasvdi'
+       this.passengerService.activatePassenger(pass.id).subscribe((html: any) => {
         console.log(html);
 
-      // });
       const emailInfo: EmailInfo = {
         to: "karolinatrambolina@gmail.com",
         subject:"Reesen - Account activation",
-        message: htmlString.replace('{{activationHtml}}', "http://localhost:4200/activationPage?token=")
+        message: htmlString.replace('{{activationHtml}}', "http://localhost:4200/activationPage?url=")
       };
       this.userService.sendEmail(emailInfo)
         .subscribe(
@@ -133,6 +131,7 @@ export class RegistrationComponent {
         );
         this.router.navigate(['/activation'])
       });
+    });
      }else{
       this.hasError = true;
       alert("ne valja")

@@ -9,14 +9,12 @@ import jwt_decode from 'jwt-decode';
   styleUrls: ['./activationpage.component.css']
 })
 export class ActivationpageComponent implements OnInit{
-    token: string;
-    decodedToken: {passengerId:number, expirationDate:Date}
+    url: string;
     constructor(private route: ActivatedRoute, private router: Router, private passengerService: PassengerService) {}
   
     ngOnInit() {
-      this.token = this.route.snapshot.queryParams['token'];
-      this.decodedToken = jwt_decode(this.token);
-      this.passengerService.activatePassengerAccount(this.decodedToken.passengerId).subscribe(
+      this.url = this.route.snapshot.queryParams['url'];
+      this.passengerService.activateAccount(this.url).subscribe(
         (info) => {}
       );
     }
