@@ -59,8 +59,9 @@ export class UserRideHistoryComponent implements OnInit{
         let totalNumberOfReviews: number = reviews.length  * 2;
         let totalReviewScore: number = 0;
         for(let j =0;j<reviews.length;j++){
-          let vehicleReview = reviews[i].vehicleReview;
-          let driverReview = reviews[i].driverReview; 
+
+          let vehicleReview = reviews[j].vehicleReview;
+          let driverReview = reviews[j].driverReview; 
           totalReviewScore += vehicleReview.rating;
           totalReviewScore += driverReview.rating;
         }
@@ -68,6 +69,10 @@ export class UserRideHistoryComponent implements OnInit{
         this.ratings.push(totalReviewScore/totalNumberOfReviews);
 
     }
+  }
+
+  showRideInfo(ride: Ride): void{
+    
   }
 
 }
