@@ -1,5 +1,9 @@
 <section class="user-ride-history container text-center" *ngIf="hasLoaded">
-
+    <div class="row d-flex flex-row-reverse">
+        <div class="col-4 text-center">
+            <button type="button" class="reesen-button cancel-button my-3" (click)="goBack()">Go Back</button>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-6 col-12 my-3" *ngFor="let ride of rides; index as i;">
             <div class="card" (click)="showRideInfo(ride);">
@@ -41,10 +45,10 @@
                     </div>
                 </div>
                 <div class="row py-2 text-start items">
-                    <div class="col-3">
-                      Price: {{ride.totalCost}}
+                    <div class="col-4">
+                      Price: {{ride.totalCost}} <span class="bold-text">(RSD)</span>
                     </div>
-                    <div class="col-9 px-5 d-flex flex-row-reverse">
+                    <div class="col-8 px-5 d-flex flex-row-reverse">
                         <span class="d-flex justify-content-between align-items-center ratingBar" >
                             <div id = "ratings" class="ratings">
                                 <i class="fa fa-star" *ngIf="ratings[i] < 1"></i>

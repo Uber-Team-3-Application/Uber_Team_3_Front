@@ -72,7 +72,11 @@ export class UserRideHistoryComponent implements OnInit{
   }
 
   showRideInfo(ride: Ride): void{
-    
+    this.router.navigate(['users/' + this.userId + '/' + this.userRole + '/ride-history/' + ride.id]);
+  }
+
+  goBack():void{
+    this.router.navigate(['users/' + this.userId + '/' + this.userRole]);
   }
 
 }

@@ -22,6 +22,7 @@ import { PassengerProfileEditPasswordComponent } from './modules/passenger/passe
 import {DriverRideHistoryComponent} from "./modules/driver/driver-ride-history/driver-ride-history.component";
 import { ResetPasswordComponent } from './modules/unregistered-user/reset-password/resetPassword.component';
 import { UserRideHistoryComponent } from './modules/admin/user-ride-history/user-ride-history.component';
+import { UserRideInfoComponent } from './modules/admin/user-ride-info/user-ride-info.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent,
@@ -53,6 +54,7 @@ const routes: Routes = [
   {path: 'users/:id/:role/edit-vehicle', component: EditDriverVehicleComponent},
   {path: 'users/edit-requests', component: EditRequestsComponent},
   {path: 'users/:id/:role/ride-history', component: UserRideHistoryComponent},
+  {path: 'users/:id/:role/ride-history/:rideId', component: UserRideInfoComponent},
   {path:'**', component:HomeComponent},
 ];
 
