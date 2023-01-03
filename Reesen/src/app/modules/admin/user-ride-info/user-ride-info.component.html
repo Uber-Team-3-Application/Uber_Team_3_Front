@@ -111,15 +111,39 @@
                 <div class="row mt-5">
                     <h2>Comments: </h2>
                 </div>
-                <div class="row" *ngFor="let review of ride.reviews" class="single-review">
+                <div class="row" *ngFor="let review of reviews" class="single-review">
                     <div class="col-12 my-2">
                         <div class="user-card">
-                            
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="assets/img/avatar.png" alt="passenger-avatar" class="rounded-circle user-card-avatar-image" *ngIf="review.driverReview.passenger.profilePicture === 'profilna'">
+                                    <img [src]="review.driverReview.passenger.profilePicture" alt="passenger-avatar" class="rounded-circle user-card-avatar-image" *ngIf="review.driverReview.passenger.profilePicture !== 'profilna'">
+
+                                </div>
+                                <div class="col-4">{{review.driverReview.passenger.name}} {{review.driverReview.passenger.surname}}</div>
+                                <div class="col-6"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">{{review.driverReview.comment}}</div>
+                                <div class="col-6"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 my-2">
                         <div class="user-card">
-                            
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="assets/img/avatar.png" alt="passenger-avatar" class="rounded-circle user-card-avatar-image" *ngIf="review.vehicleReview.passenger.profilePicture === 'profilna'">
+                                    <img [src]="review.vehicleReview.passenger.profilePicture" alt="passenger-avatar" class="rounded-circle user-card-avatar-image" *ngIf="review.vehicleReview.passenger.profilePicture !== 'profilna'">
+
+                                </div>
+                                <div class="col-4">{{review.vehicleReview.passenger.name}} {{review.vehicleReview.passenger.surname}}</div>
+                                <div class="col-6"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">{{review.vehicleReview.comment}}</div>
+                                <div class="col-6"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Driver } from 'src/app/models/Driver';
 import { Passenger } from 'src/app/models/Passenger';
-import { Review, Ride } from 'src/app/models/Ride';
+import { Review, Ride, SingleReview } from 'src/app/models/Ride';
 import { DriverService } from '../../driver/services/driver.service';
 import { PassengerService } from '../../passenger/passenger.service';
 import { RideService } from '../../services/ride.service';
@@ -22,6 +22,9 @@ export class UserRideInfoComponent implements OnInit{
   ratings:number = 0;
   driver: Driver;
   passengers = new Array<Passenger>;
+  reviews = new Array<Review>;
+
+
 
   constructor(private route: ActivatedRoute,
               private rideService: RideService,
@@ -45,7 +48,7 @@ export class UserRideInfoComponent implements OnInit{
             {
               next: (result) =>{ 
                 this.ride = result;
-                console.log(this.ride);
+                this.reviews = this.ride.reviews;
                 this.setRatings();
                 this.setDriver();
                 this.setPassengers();
@@ -60,7 +63,7 @@ export class UserRideInfoComponent implements OnInit{
     this.driverService.get(this.ride.driver.id)
         .subscribe(
           {
-            next: (result) =>{this.driver = result; console.log(result); },
+            next: (result) =>{this.driver = result; },
             error: (error) =>{console.log(error);}
           }
         )
@@ -70,9 +73,11 @@ export class UserRideInfoComponent implements OnInit{
       this.passengerService.get(this.ride.passengers[i].id)
           .subscribe(
             {
-              next: (result) =>{this.passengers.push(result); 
-                console.log(result);
+              next: (result) =>{
+                this.passengers.push(result); 
+                this.setReviewInfo(i, result);
                 if(i===this.ride.passengers.length - 1){
+                  console.log(this.ride);
                   this.hasLoaded = true;
                 }
               
@@ -80,6 +85,21 @@ export class UserRideInfoComponent implements OnInit{
               error: (error) =>{console.log(error);}
             }
           );
+    }
+  }
+
+  private setReviewInfo(i: number, result: Passenger) {
+    for (let j = 0; j < this.reviews.length; j++) {
+      if (this.ride.passengers[i].id === this.reviews[j].driverReview.passenger.id) {
+        this.reviews[j].driverReview.passenger.profilePicture = result.profilePicture;
+        this.reviews[j].driverReview.passenger.name = result.name;
+        this.reviews[j].driverReview.passenger.surname = result.surname;
+      }
+      if (this.ride.passengers[i].id === this.reviews[j].vehicleReview.passenger.id) {
+        this.reviews[j].vehicleReview.passenger.profilePicture = result.profilePicture;
+        this.reviews[j].vehicleReview.passenger.name = result.name;
+        this.reviews[j].vehicleReview.passenger.surname = result.surname;
+      }
     }
   }
 
