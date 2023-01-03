@@ -20,12 +20,14 @@ export class UsersInfoComponent implements OnInit{
   page:number = 1;
   sortDirection: number = -1;
   totalRequests: number = 0;
+  hasLoaded: boolean = false;
   constructor(private userService: UserService, private router: Router,
               private driverService: DriverService){
     
   }
 
   ngOnInit(): void {
+    this.hasLoaded = false;
     
     this.fetchUsers(this.selectedPage);
     this.userService.getTotalNumberOfUsers()
@@ -41,7 +43,7 @@ export class UsersInfoComponent implements OnInit{
   fetchUsers(selPage: number): void{
     this.userService.getUsers(selPage - 1, this.selectedShowNumber)
         .subscribe(
-          users => {this.users = users.results; console.log(this.users)}
+          users => {this.users = users.results; console.log(this.users);this.hasLoaded = true;}
         );
   }
 
