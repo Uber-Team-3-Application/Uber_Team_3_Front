@@ -1,5 +1,15 @@
 <section class="user-ride-history container text-center" *ngIf="hasLoaded">
     <div class="row d-flex flex-row-reverse">
+        <div class="col-4">
+                <select name="dtBasicExample_length" id="select" (change)="selectSort()"
+                     aria-label="Select sort" [(ngModel)]="selectedSort">
+                    <option >Start Time</option>
+                    <option >End Time</option>
+                    <option>Location departure</option>
+                    <option>Location destination</option>
+
+                </select> 
+        </div>
         <div class="col-4 text-center">
             <button type="button" class="reesen-button cancel-button my-3" (click)="goBack()">Go Back</button>
         </div>

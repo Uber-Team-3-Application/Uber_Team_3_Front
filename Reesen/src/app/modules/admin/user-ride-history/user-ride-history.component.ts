@@ -15,6 +15,7 @@ export class UserRideHistoryComponent implements OnInit{
   rides: Ride[];
   ratings = new Array();
   hasLoaded: boolean = false;
+  selectedSort: string = "Start Time";
   constructor(private userService: UserService, 
             private router: Router,
             private route: ActivatedRoute){}
@@ -69,6 +70,10 @@ export class UserRideHistoryComponent implements OnInit{
         this.ratings.push(totalReviewScore/totalNumberOfReviews);
 
     }
+  }
+
+  selectSort():void{
+
   }
 
   showRideInfo(ride: Ride): void{

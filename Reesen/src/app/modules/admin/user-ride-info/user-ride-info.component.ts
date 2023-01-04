@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Driver } from 'src/app/models/Driver';
 import { Passenger } from 'src/app/models/Passenger';
@@ -15,7 +15,7 @@ import { MapService } from '../../map/map.service';
   styleUrls: ['./user-ride-info.component.css']
 })
 export class UserRideInfoComponent implements AfterViewInit{
-
+  
   userId: number;
   rideId: number;
   userRole: string;
