@@ -2,7 +2,7 @@ import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } fr
 import { ActivatedRoute, Router } from '@angular/router';
 import { Driver } from 'src/app/models/Driver';
 import { Passenger } from 'src/app/models/Passenger';
-import { Review, Ride, SingleReview } from 'src/app/models/Ride';
+import { Review, Ride } from 'src/app/models/Ride';
 import { DriverService } from '../../driver/services/driver.service';
 import { PassengerService } from '../../passenger/passenger.service';
 import { RideService } from '../../services/ride.service';
@@ -160,7 +160,41 @@ export class UserRideInfoComponent implements AfterViewInit{
         }
       );
       tiles.addTo(this.map);
-    
+
+      let departure;
+      let destination;
+      this.mapService
+      .search(this.ride.locations.at(0).departure.address)
+      .subscribe(
+        {
+          next: (result) =>{
+            departure = result[0];
+          },
+          error: (error) =>{console.log(error);}
+        }
+      );
+      
+      this.mapService
+      .search(this.ride.locations.at(this.ride.locations.length - 1).destination.address)
+      .subscribe(
+        {
+          next: (result) =>{
+            destination = result[0];
+            if(departure){
+              L.Routing.control({
+                waypoints: [L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)],
+                show: false,
+              }).addTo(this.map);
+            
+              const bounds = L.latLngBounds([departure, destination]);
+              this.map.fitBounds(bounds);
+            }
+          },
+          error: (error) =>{console.log(error);}
+        }
+      );
+
+
   }
 
 }

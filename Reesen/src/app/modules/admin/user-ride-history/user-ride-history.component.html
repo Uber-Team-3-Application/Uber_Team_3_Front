@@ -1,11 +1,11 @@
 <section class="user-ride-history container text-center" *ngIf="hasLoaded">
     <div class="row d-flex flex-row-reverse">
     
-        <div class="col-md-4 col-12 text-center">
+        <div class="col-md-3 col-12 text-center">
             <button type="button" class="reesen-button cancel-button my-3" (click)="goBack()">Go Back</button>
         </div>
         
-        <div class="col-md-4 col-12 my-4">
+        <div class="col-md-3 col-12 my-4">
             <span class="text-light">Sort by:</span>
                 <select name="sort" id="select" (change)="selectSort()"
                      [(ngModel)]="selectedSort" class="sort-rides">
@@ -17,7 +17,7 @@
                 </select>   
         </div>
 
-        <div class="col-md-4 col-12 my-4">
+        <div class="col-md-3 col-12 my-4">
             <span class="text-light">Show per page:</span>
                 <select name="pageSelect" id="pageSelect" (change)="selectPerPage()"
                      [(ngModel)]="selectedShowNumber" class="sort-rides">
@@ -27,6 +27,14 @@
                     <option>20</option>
                     <option>50</option>
 
+                </select>   
+        </div>
+        <div class="col-md-3 col-12 my-4">
+            <span class="text-light">Sort order:</span>
+                <select name="sortOrder" id="sortOrder" (change)="selectSortOrder()"
+                     [(ngModel)]="sortOrder" class="sort-rides">
+                    <option >Ascending</option>
+                    <option >Descending</option>
                 </select>   
         </div>
     </div>
