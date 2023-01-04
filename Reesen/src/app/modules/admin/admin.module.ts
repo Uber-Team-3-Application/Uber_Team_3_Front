@@ -36,6 +36,6 @@ import { ReportsComponent } from './reports/reports.component';
     NgxPaginationModule,
     AppRoutingModule
   ],
-  exports: [ DriverRegistrationComponent, UsersInfoComponent]
+  exports: [ DriverRegistrationComponent, UsersInfoComponent, ReportsComponent]
 })
 export class AdminModule { }
