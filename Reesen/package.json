@@ -22,6 +22,7 @@
     "@angular/router": "^15.0.0",
     "@asymmetrik/ngx-leaflet": "^15.0.1",
     "@auth0/angular-jwt": "^5.1.2",
+    "@swimlane/ngx-charts": "^20.1.2",
     "@types/jwt-decode": "^3.1.0",
     "bootstrap-icons": "^1.10.2",
     "jwt-decode": "^3.1.2",

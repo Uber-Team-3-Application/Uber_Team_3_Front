@@ -25,6 +25,7 @@ import { UserRideHistoryComponent } from './modules/admin/user-ride-history/user
 import { UserRideInfoComponent } from './modules/admin/user-ride-info/user-ride-info.component';
 import { ReportsComponent } from './modules/admin/reports/reports.component';
 
+
 const routes: Routes = [
   {path:'login', component:LoginComponent,
   canActivate: [LoginGuard],
