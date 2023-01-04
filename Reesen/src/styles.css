@@ -50,3 +50,21 @@ body, html{
 }
 
 
+
+.reesen-button{
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 22px;
+    padding: 10px 16px;
+    min-width: 150px;
+    text-transform: uppercase;
+}
+.cancel-button{
+    background-color: red;
+    color: white;
+
+}
+
+.cancel-button:hover{
+    color: rgb(211, 214, 244);
+}

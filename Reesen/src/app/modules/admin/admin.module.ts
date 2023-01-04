@@ -11,6 +11,8 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { EditUserProfileComponent } from './edit-user-profile/edit-user-profile.component';
 import { EditDriverVehicleComponent } from './edit-driver-vehicle/edit-driver-vehicle.component';
 import { EditRequestsComponent } from './edit-requests/edit-requests.component';
+import { UserRideHistoryComponent } from './user-ride-history/user-ride-history.component';
+import { UserRideInfoComponent } from './user-ride-info/user-ride-info.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { EditRequestsComponent } from './edit-requests/edit-requests.component';
     UserDetailsComponent,
     EditUserProfileComponent,
     EditDriverVehicleComponent,
-    EditRequestsComponent
+    EditRequestsComponent,
+    UserRideHistoryComponent,
+    UserRideInfoComponent
   ],
   imports: [
     CommonModule,

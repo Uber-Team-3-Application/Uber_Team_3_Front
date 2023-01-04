@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
 import { EmailInfo } from 'src/app/models/Email';
 import { PageRemark, Remark } from 'src/app/models/Remark';
-import { RideInfo, RideInfoBody } from 'src/app/models/Ride';
+import { Ride, RideInfo, RideInfoBody, RidePaginated } from 'src/app/models/Ride';
 import { PageUsers, User } from 'src/app/models/User';
 
 @Injectable({
@@ -86,7 +86,24 @@ export class UserService {
   }
 
   findByEmail(email: any): Observable<any>{
-    return this.http.get<User>(environment.apiHost+'user/email?email=' + email);
+    return this.http.get<User>(environment.apiHost+ 'user/email?email=' + email);
   }
 
+
+  getRides(userId: number, page:number, size:number, sort:string, from:string, to:string): Observable<RidePaginated>{
+    let params = new HttpParams();
+    params = params.append('page', page);
+    params = params.append('size', size);
+    params = params.append('sort', sort);
+    if(from !== null)
+      params = params.append('from', from);
+    if(to !== null)
+      params = params.append('to', to);
+    return this.http.get<RidePaginated>(environment.apiHost + 'api/user/' + userId + '/ride',
+    {params: params});
+  }
+
+  getTotalNumberOfRidesForUser(id: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + "api/user/" + id + '/number-of-rides');
+  }
 }

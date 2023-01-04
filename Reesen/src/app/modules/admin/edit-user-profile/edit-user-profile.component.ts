@@ -20,6 +20,7 @@ export class EditUserProfileComponent implements OnInit{
   user: User;
   avatarBase64: string = "";
   numId: number;
+  hasLoaded: boolean = false;
   constructor(private route: ActivatedRoute, 
     private passengerService: PassengerService,
     private driverService: DriverService,
@@ -39,6 +40,7 @@ export class EditUserProfileComponent implements OnInit{
     remarks: Remark[];
 
     ngOnInit(): void {
+      this.hasLoaded = false;
       this.id = this.route.snapshot.paramMap.get('id');
       this.role = this.route.snapshot.paramMap.get('role');
       this.numId = +this.id;
@@ -53,7 +55,7 @@ export class EditUserProfileComponent implements OnInit{
             (res) => {this.user = res;
               this.userService.getUserIsBlocked(this.numId)
                 .subscribe(
-                (blocked) =>{ this.user.blocked = blocked; console.log(blocked);}
+                (blocked) =>{ this.user.blocked = blocked; console.log(blocked); this.hasLoaded = true;}
                 )
             }
           )
@@ -64,7 +66,7 @@ export class EditUserProfileComponent implements OnInit{
             (res) => {this.user = res;
               this.userService.getUserIsBlocked(this.numId)
                 .subscribe(
-                (blocked) =>{ this.user.blocked = blocked; console.log(blocked);}
+                (blocked) =>{ this.user.blocked = blocked; console.log(blocked);this.hasLoaded = true;}
                 )
             }
           )

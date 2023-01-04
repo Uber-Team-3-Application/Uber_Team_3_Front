@@ -18,6 +18,7 @@ export class EditDriverVehicleComponent implements OnInit{
   avatarBase64: string = "";
   numId: number;
   vehicle: Vehicle;
+  hasLoaded: boolean = false;
 
   editVehicleForm = new FormGroup({
     model: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(13)]),
@@ -35,6 +36,7 @@ export class EditDriverVehicleComponent implements OnInit{
               private vehicleService: VehicleService){}
 
   ngOnInit(): void {
+    this.hasLoaded = false;
     this.id = this.route.snapshot.paramMap.get('id');
     this.numId = +this.id;
     this.role = this.route.snapshot.paramMap.get('role');
@@ -47,7 +49,7 @@ export class EditDriverVehicleComponent implements OnInit{
         )
       this.vehicleService.get(this.numId)
           .subscribe(
-            (res) => {this.vehicle = res;}
+            (res) => {this.vehicle = res;this.hasLoaded = true;}
           )
   }
 

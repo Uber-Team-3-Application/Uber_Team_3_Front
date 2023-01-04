@@ -1,0 +1,118 @@
+<section class="user-ride-history container text-center" *ngIf="hasLoaded">
+    <div class="row d-flex flex-row-reverse">
+    
+        <div class="col-md-4 col-12 text-center">
+            <button type="button" class="reesen-button cancel-button my-3" (click)="goBack()">Go Back</button>
+        </div>
+        
+        <div class="col-md-4 col-12 my-4">
+            <span class="text-light">Sort by:</span>
+                <select name="sort" id="select" (change)="selectSort()"
+                     [(ngModel)]="selectedSort" class="sort-rides">
+                    <option >Start Time</option>
+                    <option >End Time</option>
+                    <option>Location Departure</option>
+                    <option>Location Destination</option>
+
+                </select>   
+        </div>
+
+        <div class="col-md-4 col-12 my-4">
+            <span class="text-light">Show per page:</span>
+                <select name="pageSelect" id="pageSelect" (change)="selectPerPage()"
+                     [(ngModel)]="selectedShowNumber" class="sort-rides">
+                    <option >2</option>
+                    <option >5</option>
+                    <option>10</option>
+                    <option>20</option>
+                    <option>50</option>
+
+                </select>   
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-12 my-3" 
+        *ngFor="let ride of rides | paginate : {
+            itemsPerPage: selectedShowNumber,
+            currentPage: page,
+            totalItems: totalEntries}; 
+        index as i;"
+        
+        >
+            <div class="card" (click)="showRideInfo(ride);">
+                <div class="row py-2">
+                    <div class="col-2">
+                        <span><img src="assets/img/history.png" class="history_icon"></span>
+                    </div>
+                    <div class="col-7 py-1 text-dark">
+                        {{ride.startTime | date: 'dd/MM/yyyy HH:mm'}} - {{ride.endTime | date: 'dd/MM/yyyy HH:mm'}}
+                    </div>
+                    <div class="col-3">
+                        <img  class="vehicle_img" src="assets/img/van.png" alt="vehicle" *ngIf="ride.vehicleType === 'VAN'">
+                        <img  class="vehicle_img" src="assets/img/luxury.png" alt="vehicle" *ngIf="ride.vehicleType === 'LUXURY'">
+                        <img  class="vehicle_img" src="assets/img/standard.png" alt="vehicle" *ngIf="ride.vehicleType ==='STANDARD'">
+                        <img  class="vehicle_img" src="assets/img/baby_transport.png" alt="vehicle" *ngIf="ride.babyTransport">
+                        <img  class="vehicle_img" src="assets/img/pet_transport.png" alt="vehicle" *ngIf="ride.petTransport">
+                    </div>
+                </div>
+
+                <div class="row py-2 text-start items">
+                    <div class="col-12">
+                        {{ride.locations.at(0).departure.address}} - {{ride.locations.at(ride.locations.length - 1).destination.address}}
+                    </div>
+                </div>
+
+                <div class="row py-2 text-start items">
+                    <div class="col-12">
+                       Start Station: {{ride.locations.at(0).departure.address}}
+                    </div>
+                </div>
+                <div class="row py-2 text-start items">
+                    <div class="col-12">
+                       End Station: {{ride.locations.at(ride.locations.length - 1).destination.address}}
+                    </div>
+                </div>
+                <div class="row py-2 text-start items">
+                    <div class="col-12">
+                       Passengers: {{ride.passengers.length}}
+                    </div>
+                </div>
+                <div class="row py-2 text-start items">
+                    <div class="col-4">
+                      Price: {{ride.totalCost}} <span class="bold-text">(RSD)</span>
+                    </div>
+                    <div class="col-8 px-5 d-flex flex-row-reverse">
+                        <span class="d-flex justify-content-between align-items-center ratingBar" >
+                            <div id = "ratings" class="ratings">
+                                <i class="fa fa-star" *ngIf="ratings[i] < 1"></i>
+                                <i class="fa fa-star rating-color" *ngIf="ratings[i] >= 1" ></i>
+                                <i class="fa fa-star rating-color" *ngIf="ratings[i] >= 2"></i>
+                                <i class="fa fa-star" *ngIf="ratings[i] < 2"></i>
+                                <i class="fa fa-star rating-color" *ngIf="ratings[i] >= 3"></i>
+                                <i class="fa fa-star" *ngIf="ratings[i] < 3"></i>
+                                <i class="fa fa-star rating-color" *ngIf="ratings[i] >= 4"></i>
+                                <i class="fa fa-star" *ngIf="ratings[i] < 4"></i>
+                                <i class="fa fa-star rating-color" *ngIf="ratings[i] >= 5"></i>
+                                <i class="fa fa-star" *ngIf="ratings[i] < 5"></i>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <pagination-controls
+                previousLabel="Prev"
+                nextLabel="Next"
+                (pageChange)="onTableDataChange($event)"
+                ></pagination-controls>
+
+        </div>
+    </div>
+
+
+</section>
