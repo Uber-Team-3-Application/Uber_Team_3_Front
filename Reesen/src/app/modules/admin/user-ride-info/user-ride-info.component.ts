@@ -1,8 +1,8 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Driver } from 'src/app/models/Driver';
 import { Passenger } from 'src/app/models/Passenger';
-import { Review, Ride, SingleReview } from 'src/app/models/Ride';
+import { Review, Ride } from 'src/app/models/Ride';
 import { DriverService } from '../../driver/services/driver.service';
 import { PassengerService } from '../../passenger/passenger.service';
 import { RideService } from '../../services/ride.service';
@@ -34,7 +34,8 @@ export class UserRideInfoComponent implements AfterViewInit{
               private driverService: DriverService,
               private passengerService: PassengerService,
               private router: Router,
-              private mapService: MapService){ }
+              private mapService: MapService,
+              private changeDetectorRef: ChangeDetectorRef){ }
 
   ngAfterViewInit(): void {
 
@@ -45,7 +46,7 @@ export class UserRideInfoComponent implements AfterViewInit{
 
 
     this.setRide();
-    this.initMap();
+    
     
   }
 
@@ -85,6 +86,8 @@ export class UserRideInfoComponent implements AfterViewInit{
                 this.setReviewInfo(i, result);
                 if(i===this.ride.passengers.length - 1){
                   this.hasLoaded = true;
+                  this.changeDetectorRef.detectChanges();
+                  this.initMap();
                 }
               
               },
@@ -157,7 +160,41 @@ export class UserRideInfoComponent implements AfterViewInit{
         }
       );
       tiles.addTo(this.map);
-    
+
+      let departure;
+      let destination;
+      this.mapService
+      .search(this.ride.locations.at(0).departure.address)
+      .subscribe(
+        {
+          next: (result) =>{
+            departure = result[0];
+          },
+          error: (error) =>{console.log(error);}
+        }
+      );
+      
+      this.mapService
+      .search(this.ride.locations.at(this.ride.locations.length - 1).destination.address)
+      .subscribe(
+        {
+          next: (result) =>{
+            destination = result[0];
+            if(departure){
+              L.Routing.control({
+                waypoints: [L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)],
+                show: false,
+              }).addTo(this.map);
+            
+              const bounds = L.latLngBounds([departure, destination]);
+              this.map.fitBounds(bounds);
+            }
+          },
+          error: (error) =>{console.log(error);}
+        }
+      );
+
+
   }
 
 }

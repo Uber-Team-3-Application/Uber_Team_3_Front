@@ -19,6 +19,8 @@ export class UserRideHistoryComponent implements OnInit{
   page:number = 1;
   selectedShowNumber: number = 2;
   totalEntries: number = 0;
+  sortOrder: string = "Ascending";
+  selectedSortOrder: string = "asc";
   constructor(private userService: UserService, 
             private router: Router,
             private route: ActivatedRoute){}
@@ -31,7 +33,7 @@ export class UserRideHistoryComponent implements OnInit{
   }
 
   private getRides(page: number, size: number, sortBy: string) {
-    this.userService.getRides(this.userId, page - 1, size, sortBy, null, null)
+    this.userService.getRides(this.userId, page - 1, size, sortBy + ',' + this.selectedSortOrder, null, null)
       .subscribe(
         {
           next: (result) => {
@@ -112,6 +114,12 @@ export class UserRideHistoryComponent implements OnInit{
 
   goBack():void{
     this.router.navigate(['users/' + this.userId + '/' + this.userRole]);
+  }
+
+  selectSortOrder():void{
+      if(this.sortOrder === "Ascending") this.selectedSortOrder = "asc";
+      else this.selectedSortOrder = "desc";
+      this.selectSort();
   }
 
 }
