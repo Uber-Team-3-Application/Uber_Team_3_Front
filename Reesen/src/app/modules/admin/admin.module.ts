@@ -13,6 +13,7 @@ import { EditDriverVehicleComponent } from './edit-driver-vehicle/edit-driver-ve
 import { EditRequestsComponent } from './edit-requests/edit-requests.component';
 import { UserRideHistoryComponent } from './user-ride-history/user-ride-history.component';
 import { UserRideInfoComponent } from './user-ride-info/user-ride-info.component';
+import { ReportsComponent } from './reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { UserRideInfoComponent } from './user-ride-info/user-ride-info.component
     EditDriverVehicleComponent,
     EditRequestsComponent,
     UserRideHistoryComponent,
-    UserRideInfoComponent
+    UserRideInfoComponent,
+    ReportsComponent
   ],
   imports: [
     CommonModule,
