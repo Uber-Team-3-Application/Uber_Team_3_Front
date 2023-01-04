@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Driver } from 'src/app/models/Driver';
 import { Passenger } from 'src/app/models/Passenger';
@@ -34,7 +34,8 @@ export class UserRideInfoComponent implements AfterViewInit{
               private driverService: DriverService,
               private passengerService: PassengerService,
               private router: Router,
-              private mapService: MapService){ }
+              private mapService: MapService,
+              private changeDetectorRef: ChangeDetectorRef){ }
 
   ngAfterViewInit(): void {
 
@@ -45,7 +46,7 @@ export class UserRideInfoComponent implements AfterViewInit{
 
 
     this.setRide();
-    this.initMap();
+    
     
   }
 
@@ -85,6 +86,8 @@ export class UserRideInfoComponent implements AfterViewInit{
                 this.setReviewInfo(i, result);
                 if(i===this.ride.passengers.length - 1){
                   this.hasLoaded = true;
+                  this.changeDetectorRef.detectChanges();
+                  this.initMap();
                 }
               
               },
