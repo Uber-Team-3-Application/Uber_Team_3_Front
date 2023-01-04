@@ -49,7 +49,7 @@ const routes: Routes = [
   {path: 'passenger_profile-edit-password', component: PassengerProfileEditPasswordComponent},
   {path:'', redirectTo: '/home', pathMatch:'full'},
   {path: 'registerDriver', component:DriverRegistrationComponent},
-  {path: 'reports', component:ReportsComponent},
+  {path: 'admin-reports', component:ReportsComponent},
   {path: 'users', component: UsersInfoComponent},
   {path: 'users/:id/:role', component: UserDetailsComponent},
   {path: 'users/:id/:role/edit', component: EditUserProfileComponent},
