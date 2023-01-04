@@ -102,4 +102,8 @@ export class UserService {
     return this.http.get<RidePaginated>(environment.apiHost + 'api/user/' + userId + '/ride',
     {params: params});
   }
+
+  getTotalNumberOfRidesForUser(id: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + "api/user/" + id + '/number-of-rides');
+  }
 }

@@ -1,21 +1,44 @@
 <section class="user-ride-history container text-center" *ngIf="hasLoaded">
     <div class="row d-flex flex-row-reverse">
-        <div class="col-4">
-                <select name="dtBasicExample_length" id="select" (change)="selectSort()"
-                     aria-label="Select sort" [(ngModel)]="selectedSort">
+    
+        <div class="col-md-4 col-12 text-center">
+            <button type="button" class="reesen-button cancel-button my-3" (click)="goBack()">Go Back</button>
+        </div>
+        
+        <div class="col-md-4 col-12 my-4">
+            <span class="text-light">Sort by:</span>
+                <select name="sort" id="select" (change)="selectSort()"
+                     [(ngModel)]="selectedSort" class="sort-rides">
                     <option >Start Time</option>
                     <option >End Time</option>
-                    <option>Location departure</option>
-                    <option>Location destination</option>
+                    <option>Location Departure</option>
+                    <option>Location Destination</option>
 
-                </select> 
+                </select>   
         </div>
-        <div class="col-4 text-center">
-            <button type="button" class="reesen-button cancel-button my-3" (click)="goBack()">Go Back</button>
+
+        <div class="col-md-4 col-12 my-4">
+            <span class="text-light">Show per page:</span>
+                <select name="pageSelect" id="pageSelect" (change)="selectPerPage()"
+                     [(ngModel)]="selectedShowNumber" class="sort-rides">
+                    <option >2</option>
+                    <option >5</option>
+                    <option>10</option>
+                    <option>20</option>
+                    <option>50</option>
+
+                </select>   
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 col-12 my-3" *ngFor="let ride of rides; index as i;">
+        <div class="col-md-6 col-12 my-3" 
+        *ngFor="let ride of rides | paginate : {
+            itemsPerPage: selectedShowNumber,
+            currentPage: page,
+            totalItems: totalEntries}; 
+        index as i;"
+        
+        >
             <div class="card" (click)="showRideInfo(ride);">
                 <div class="row py-2">
                     <div class="col-2">
@@ -80,6 +103,16 @@
             </div>
 
         </div>
+
+        <div class="d-flex justify-content-center">
+            <pagination-controls
+                previousLabel="Prev"
+                nextLabel="Next"
+                (pageChange)="onTableDataChange($event)"
+                ></pagination-controls>
+
+        </div>
     </div>
+
 
 </section>

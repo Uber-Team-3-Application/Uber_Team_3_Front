@@ -60,3 +60,9 @@
   .bold-text{
     font-weight: bold;
   }
+
+  .sort-rides{
+    margin-left: 10px;
+    font-size: 18px;
+    padding: 10px;
+  }
