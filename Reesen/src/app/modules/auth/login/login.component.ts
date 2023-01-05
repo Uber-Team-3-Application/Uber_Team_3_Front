@@ -108,19 +108,19 @@ export class LoginComponent{
             <h1 class="text-center lbl">Verify your email</h1>
             <p class="line center"></p><br>
             <p class="text-center lbl2">Thanks for signing up for the Reesen app. Please click Confirm button for account activation to start ordering rides!</p>
-            <a href='{{activationHtml}}' target="_blank" ><button class="btn">confirm email</button></a>
+            <p class="text-center lbl2 >{{activationHtml}}</p>
             <br><br><br>
             <p class="text-center lbl">This email was sent to you by Reesen Inc. You are receiving this email because you registred on our website. If this wasn't you, please ignore this mail.</p>
       </div>
       </html>`;
-      this.userService.findByEmail(this.loginForm.value.email).subscribe((user: any) => {
+      this.userService.findByEmail(this.loginForm.get('email').value).subscribe((user: any) => {
        console.log(user);
-       this.userService.resetPasswordLink(user.id).subscribe((token: any) => {
-        console.log(token);
+       this.userService.resetPasswordLink(user.id).subscribe((code: any) => {
+        console.log(code);
         const emailInfo: EmailInfo = {
           to: "karolinatrambolina@gmail.com",
           subject:"Reesen - Password Reset",
-          message: htmlString.replace('{{activationHtml}}', "http://localhost:4200/resetPassword?token=" + token)
+          message: htmlString.replace('{{activationHtml}}', code)
         };
         this.userService.sendEmail(emailInfo)
           .subscribe(

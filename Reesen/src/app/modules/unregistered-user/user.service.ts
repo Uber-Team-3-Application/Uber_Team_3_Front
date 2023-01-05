@@ -84,9 +84,9 @@ export class UserService {
   resetPasswordLink(userId: number) {
     return this.http.get<String>(environment.apiHost+'user/' + userId + '/resetPassword');
   }
-
-  findByEmail(email: any): Observable<any>{
-    return this.http.get<User>(environment.apiHost+ 'user/email?email=' + email);
+  
+  findByEmail(email: string): Observable<any> {
+    return this.http.get<User>(environment.apiHost + 'user/email', { params: { email: email } });
   }
 
 

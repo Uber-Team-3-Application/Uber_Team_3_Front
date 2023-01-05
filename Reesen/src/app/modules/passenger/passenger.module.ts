@@ -8,8 +8,12 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivationComponent } from './activation-wait/activation.component';
 import { PassengerProfileEditPasswordComponent } from './passenger-profile-edit-password/passenger-profile-edit-password.component';
-
-
+import { RideHistoryComponent } from './ride-history/ride-history.component';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { A11yModule } from '@angular/cdk/a11y';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AnimationBuilder } from '@angular/animations';
 
 @NgModule({
   declarations: [
@@ -17,15 +21,20 @@ import { PassengerProfileEditPasswordComponent } from './passenger-profile-edit-
     PassengerProfileComponent,
     PassengerProfileEditComponent,
     ActivationComponent,
-    PassengerProfileEditPasswordComponent
+    PassengerProfileEditPasswordComponent,
+    RideHistoryComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    MatSortModule,
+    A11yModule,
+    BrowserAnimationsModule
   ],
   exports: [RegistrationComponent, PassengerProfileComponent, 
-    PassengerProfileEditComponent, ActivationComponent, PassengerProfileEditPasswordComponent]
+    PassengerProfileEditComponent, ActivationComponent, PassengerProfileEditPasswordComponent, RideHistoryComponent]
 })
 export class PassengerModule { }
