@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environment/environment';
 import { Vehicle, VehicleType } from 'src/app/models/Vehicle';
 import { VehicleLocationWithAvailibility } from 'src/app/models/Location';
+import { Location } from 'src/app/models/Location';
 @Injectable({
   providedIn: 'root'
 })
@@ -32,6 +33,10 @@ export class VehicleService {
 
   editAsAdmin(vehicle: Vehicle, id:number): Observable<Vehicle>{
     return this.http.put<Vehicle>(environment.apiHost + "api/driver/" + id + "/vehicle-admin", vehicle);
+  }
+
+  getVehicleLocation(vehicleId: number):Observable<Location>{
+    return this.http.get<Location>(environment.apiHost + 'api/vehicle/' + vehicleId + '/location');
   }
 
 }

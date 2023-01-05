@@ -49,8 +49,21 @@ export class EditDriverVehicleComponent implements OnInit{
         )
       this.vehicleService.get(this.numId)
           .subscribe(
-            (res) => {this.vehicle = res;this.hasLoaded = true;}
+            (res) => {this.vehicle = res;
+              this.vehicleService.getVehicleLocation(this.vehicle.id)
+                    .subscribe(
+                      {
+                        next: (result) =>{
+                            this.vehicle.currentLocation = result;
+                            this.hasLoaded = true;
+                        },
+                        error: (error) => {console.log(error);}
+                      }
+                    )
+              
+            }
           )
+     
   }
 
   goBack():void{
