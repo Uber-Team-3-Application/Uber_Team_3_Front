@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
 import { Passenger } from 'src/app/models/Passenger';
+import { Ride } from 'src/app/models/Ride';
 @Injectable({
   providedIn: 'root'
 })
@@ -37,6 +38,10 @@ export class PassengerService {
 
   edit(passenger: Passenger, id:number): Observable<Passenger>{
     return this.http.put<Passenger>(environment.apiHost + "api/passenger/" + id, passenger)
+  }
+
+  getRides(passengerId: number): Observable<Ride[]> {
+    return this.http.get<Ride[]>(environment.apiHost + "api/passenger/" + passengerId + "/ride")
   }
 
 }
