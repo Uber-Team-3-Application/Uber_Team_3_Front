@@ -1,6 +1,6 @@
-<ngx-charts-line-chart
+<ngx-charts-line-chart *ngIf="hasLoaded"
 [view]="view"
-[results]="[]"
+[results]="report"
 [gradient]="gradient"
 [xAxis]="showXAxis"
 [yAxis]="showYAxis"
@@ -10,3 +10,10 @@
 [xAxisLabel]="xAxisLabel"
 [yAxisLabel]="yAxisLabel">
 </ngx-charts-line-chart>
+
+<div class="row">
+    <div class="col-6">
+        Total rides in time period: {{sum}}
+    </div>
+    <div class="col-6">Average rides per day: {{average}}</div>
+</div>

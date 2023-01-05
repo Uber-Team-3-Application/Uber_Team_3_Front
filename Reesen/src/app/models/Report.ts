@@ -1,3 +1,5 @@
 export interface Report{
-    report: Map<Date, number>;
+    result: Map<Date, number>;
+    sum: number;
+    average: number;
 }
