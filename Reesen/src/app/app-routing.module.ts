@@ -23,7 +23,9 @@ import {DriverRideHistoryComponent} from "./modules/driver/driver-ride-history/d
 import { ResetPasswordComponent } from './modules/unregistered-user/reset-password/resetPassword.component';
 import { UserRideHistoryComponent } from './modules/admin/user-ride-history/user-ride-history.component';
 import { UserRideInfoComponent } from './modules/admin/user-ride-info/user-ride-info.component';
+import { ReportsComponent } from './modules/admin/reports/reports.component';
 import { RideHistoryComponent } from './modules/passenger/ride-history/ride-history.component';
+
 
 const routes: Routes = [
   {path:'login', component:LoginComponent,
@@ -50,6 +52,7 @@ const routes: Routes = [
   {path: 'passenger_profile-edit-password', component: PassengerProfileEditPasswordComponent},
   {path:'', redirectTo: '/home', pathMatch:'full'},
   {path: 'registerDriver', component:DriverRegistrationComponent},
+  {path: 'admin-reports', component:ReportsComponent},
   {path: 'users', component: UsersInfoComponent},
   {path: 'users/:id/:role', component: UserDetailsComponent},
   {path: 'users/:id/:role/edit', component: EditUserProfileComponent},

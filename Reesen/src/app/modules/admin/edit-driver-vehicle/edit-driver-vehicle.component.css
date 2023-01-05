@@ -59,6 +59,10 @@
     color: #578979;
 
 }
+
+.confirmation-button:hover{
+    color: #3d5b51;
+}
 .form-control-edit{
     width: 70%;
     border-top: none;
@@ -70,9 +74,6 @@
 
 
 
-.confirmation-button:hover{
-    color: #3d5b51;
-}
 
 
 @media only screen and (max-width: 1400px) {

@@ -13,6 +13,9 @@ import { EditDriverVehicleComponent } from './edit-driver-vehicle/edit-driver-ve
 import { EditRequestsComponent } from './edit-requests/edit-requests.component';
 import { UserRideHistoryComponent } from './user-ride-history/user-ride-history.component';
 import { UserRideInfoComponent } from './user-ride-info/user-ride-info.component';
+import { ReportsComponent } from './reports/reports.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { GraphsModule } from '../graphs/graphs.module';
 
 @NgModule({
   declarations: [
@@ -25,15 +28,19 @@ import { UserRideInfoComponent } from './user-ride-info/user-ride-info.component
     EditDriverVehicleComponent,
     EditRequestsComponent,
     UserRideHistoryComponent,
-    UserRideInfoComponent
+    UserRideInfoComponent,
+    ReportsComponent
+
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     NgxPaginationModule,
-    AppRoutingModule
+    AppRoutingModule,
+    GraphsModule,
+    NgxChartsModule
   ],
-  exports: [ DriverRegistrationComponent, UsersInfoComponent]
+  exports: [ DriverRegistrationComponent, UsersInfoComponent, ReportsComponent]
 })
 export class AdminModule { }
