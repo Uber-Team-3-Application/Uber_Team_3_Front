@@ -1,0 +1,20 @@
+body {
+    background-color: #578979
+}
+
+.rides{
+    margin: 20px;
+    background-color: white;
+    align-content: center;
+    box-shadow: 3px 5px 5px rgb(0, 0, 0);
+    border-radius: 15px;
+    padding-right: 11px;
+}
+
+table {
+    width: 100%;
+  }
+
+th.mat-sort-header-sorted {
+    color: black;
+  }
