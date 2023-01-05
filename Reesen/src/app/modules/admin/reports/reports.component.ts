@@ -13,6 +13,8 @@ export class ReportsComponent implements OnInit{
   endDateSelected: boolean = false;
   reportsGenerated: boolean = false;
   role: string = "ADMIN";
+  typeRidesPerDay: string = "RIDES_PER_DAY";
+  typeEarnedPerDay: string = "MONEY_EARNED_PER_DAY";
   constructor(){}
   
   ngOnInit(): void {
@@ -37,11 +39,16 @@ export class ReportsComponent implements OnInit{
   }
 
   generateReports(): void{
-    this.reportsGenerated = false;
     if(!this.areDatesValid()){
       alert("Please select valid dates!");
       return;
     }
     this.reportsGenerated = true;
+  }
+
+  resetData(): void{
+    this.startDate = null;
+    this.endDate = null;
+    this.reportsGenerated = false;
   }
 }
