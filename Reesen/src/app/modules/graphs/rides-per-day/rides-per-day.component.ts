@@ -37,8 +37,8 @@ export class RidesPerDayComponent implements OnInit{
 
           next: (report) =>{
               console.log(report);
-              this.sum = report.sum;
-              this.average = Math.round((report.average + Number.EPSILON) * 100) / 100
+              this.sum = Math.round((report.sum + Number.EPSILON) * 100) / 100;
+              this.average = Math.round((report.average + Number.EPSILON) * 100) / 100;
 
 
               let keys: string [] = Object.keys(report.result);

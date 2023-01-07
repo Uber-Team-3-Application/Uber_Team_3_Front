@@ -15,6 +15,7 @@ export class ReportsComponent implements OnInit{
   role: string = "ADMIN";
   typeRidesPerDay: string = "RIDES_PER_DAY";
   typeEarnedPerDay: string = "MONEY_EARNED_PER_DAY";
+  typeKilometersPerDay: string = "KILOMETERS_PER_DAY";
   constructor(){}
   
   ngOnInit(): void {
