@@ -3,9 +3,9 @@ import {DriverService} from "../services/driver.service";
 import {
   Ride,
   RidePaginated,
-  sortRideByDateAscending, sortRideByDateDescending,
+  sortRideByDateAscending, sortRideByDateDescending, sortRideByEndStationAscending, sortRideByEndStationDescending,
   sortRideByPriceAscending,
-  sortRideByPriceDescending
+  sortRideByPriceDescending, sortRideByStartStationAscending, sortRideByStartStationDescending
 } from "../../../models/Ride";
 import {TokenDecoderService} from "../../auth/token/token-decoder.service";
 import {TaskService} from "../services/task.service";
@@ -67,15 +67,17 @@ export class DriverRideHistoryComponent implements OnInit, OnDestroy{
   }
 
   setSortedSmartTable() {
-    if (this.sorting === 1)
-      this.driversRides.results.sort(sortRideByPriceAscending);
-    else if (this.sorting === 2)
-      this.driversRides.results.sort(sortRideByPriceDescending);
-    else if (this.sorting === 3)
-      this.driversRides.results.sort(sortRideByDateAscending);
-    else
-      this.driversRides.results.sort(sortRideByDateDescending);
+    switch (this.sorting) {
+      case 1: { this.driversRides.results.sort(sortRideByPriceAscending); break;}
+      case 2: { this.driversRides.results.sort(sortRideByPriceDescending); break;}
+      case 3: {this.driversRides.results.sort(sortRideByDateAscending); break;}
+      case 4: {this.driversRides.results.sort(sortRideByDateDescending); break;}
+      case 5: {this.driversRides.results.sort(sortRideByStartStationAscending); break;}
+      case 6: {this.driversRides.results.sort(sortRideByStartStationDescending); break;}
+      case 7: {this.driversRides.results.sort(sortRideByEndStationAscending); break;}
+      case 8: {this.driversRides.results.sort(sortRideByEndStationDescending); break;}
 
+    }
     this.taskService.deleteArray();
     this.generateSmartTable();
   }
