@@ -5,9 +5,9 @@ import jwt_decode from 'jwt-decode';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-resetPassword',
-  templateUrl: './resetPassword.component.html',
-  styleUrls: ['./resetPassword.component.css']
+  selector: 'app-reset-password',
+  templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit{
     token: string;

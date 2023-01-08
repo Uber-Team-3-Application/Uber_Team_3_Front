@@ -1,4 +1,3 @@
-import { verifyHostBindings } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -25,7 +24,7 @@ export class RegistrationComponent {
   });
   hasError: boolean;
   email: EmailInfo;
-  avatarBase64: string = "";
+  avatarBase64 = "";
 
   constructor(private passengerService: PassengerService, private userService: UserService, private router: Router){
     

@@ -20,8 +20,8 @@ export class DriverEditBasicInfoComponent implements OnInit{
       surname: new FormControl('', [Validators.required, Validators.minLength(3)])
         
     });
-    hasError: boolean = false;
-    avatarBase64: string = "";
+    hasError = false;
+    avatarBase64 = "";
     driver:Driver = {
       name: '',
       surname: '',

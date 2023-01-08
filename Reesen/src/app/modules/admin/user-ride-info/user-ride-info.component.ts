@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Driver } from 'src/app/models/Driver';
 import { Passenger } from 'src/app/models/Passenger';
@@ -20,8 +20,8 @@ export class UserRideInfoComponent implements AfterViewInit{
   rideId: number;
   userRole: string;
   ride: Ride;
-  hasLoaded: boolean = false;
-  ratings:number = 0;
+  hasLoaded = false;
+  ratings = 0;
   driver: Driver;
   passengers = new Array<Passenger>;
   reviews = new Array<Review>;
@@ -114,18 +114,18 @@ export class UserRideInfoComponent implements AfterViewInit{
 
   private setRatings(): void{
 
-        let reviews: Review[] = this.ride.reviews;
+        const reviews: Review[] = this.ride.reviews;
         if(reviews.length === 0) 
         {
           this.ratings = 0;
           return;
         }
-        let totalNumberOfReviews: number = reviews.length  * 2;
-        let totalReviewScore: number = 0;
+        const totalNumberOfReviews: number = reviews.length  * 2;
+        let totalReviewScore = 0;
         for(let j =0;j<reviews.length;j++){
 
-          let vehicleReview = reviews[j].vehicleReview;
-          let driverReview = reviews[j].driverReview; 
+          const vehicleReview = reviews[j].vehicleReview;
+          const driverReview = reviews[j].driverReview; 
           totalReviewScore += vehicleReview.rating;
           totalReviewScore += driverReview.rating;
         }

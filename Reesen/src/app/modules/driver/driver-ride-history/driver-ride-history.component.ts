@@ -1,4 +1,4 @@
-import {Component, OnDestroy, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DriverService} from "../services/driver.service";
 import {Ride, RidePaginated} from "../../../models/Ride";
 import {TokenDecoderService} from "../../auth/token/token-decoder.service";
@@ -9,7 +9,7 @@ import {TaskService} from "../services/task.service";
   templateUrl: './driver-ride-history.component.html',
   styleUrls: ['./driver-ride-history.component.css']
 })
-export class DriverRideHistoryComponent implements OnDestroy{
+export class DriverRideHistoryComponent implements OnInit, OnDestroy{
 
   constructor(private driverService : DriverService, private tokenDecoder: TokenDecoderService,
               public taskService : TaskService) {

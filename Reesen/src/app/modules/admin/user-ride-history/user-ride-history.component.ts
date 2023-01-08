@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Ride, Review, SingleReview } from 'src/app/models/Ride';
+import { Ride, Review } from 'src/app/models/Ride';
 import { UserService } from '../../unregistered-user/user.service';
 
 @Component({
@@ -14,13 +14,14 @@ export class UserRideHistoryComponent implements OnInit{
   userRole:string;
   rides: Ride[];
   ratings = new Array();
-  hasLoaded: boolean = false;
-  selectedSort: string = "Start Time";
-  page:number = 1;
-  selectedShowNumber: number = 2;
-  totalEntries: number = 0;
-  sortOrder: string = "Ascending";
-  selectedSortOrder: string = "asc";
+  hasLoaded = false;
+  selectedSort = "Start Time";
+  page = 1;
+  selectedShowNumber = 2;
+  totalEntries = 0;
+  sortOrder = "Ascending";
+  selectedSortOrder = "asc";
+
   constructor(private userService: UserService, 
             private router: Router,
             private route: ActivatedRoute){}
@@ -62,7 +63,7 @@ export class UserRideHistoryComponent implements OnInit{
   }
 
   private getDataFromUrl():void{
-      let id = this.route.snapshot.paramMap.get('id');
+      const id = this.route.snapshot.paramMap.get('id');
       this.userId = +id;
       this.userRole = this.route.snapshot.paramMap.get('role');
   }
@@ -70,19 +71,19 @@ export class UserRideHistoryComponent implements OnInit{
   private setRatings(): void{
     this.ratings.length = 0;
     for(let i=0;i<this.rides.length;i++){
-        let reviews: Review[] = this.rides[i].reviews;
+        const reviews: Review[] = this.rides[i].reviews;
         if(reviews.length === 0) 
         {
           this.ratings[i] = 0; 
           continue;
 
         }
-        let totalNumberOfReviews: number = reviews.length  * 2;
-        let totalReviewScore: number = 0;
+        const totalNumberOfReviews: number = reviews.length  * 2;
+        let totalReviewScore = 0;
         for(let j =0;j<reviews.length;j++){
 
-          let vehicleReview = reviews[j].vehicleReview;
-          let driverReview = reviews[j].driverReview; 
+          const vehicleReview = reviews[j].vehicleReview;
+          const driverReview = reviews[j].driverReview; 
           totalReviewScore += vehicleReview.rating;
           totalReviewScore += driverReview.rating;
         }

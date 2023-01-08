@@ -18,9 +18,9 @@ export class EditUserProfileComponent implements OnInit{
   id: string;
   role: string;
   user: User;
-  avatarBase64: string = "";
+  avatarBase64 = "";
   numId: number;
-  hasLoaded: boolean = false;
+  hasLoaded = false;
   constructor(private route: ActivatedRoute, 
     private passengerService: PassengerService,
     private driverService: DriverService,
@@ -175,8 +175,8 @@ export class EditUserProfileComponent implements OnInit{
     }
 
     addNote():void {
-      let noteInput = document.getElementById("addNote") as HTMLInputElement;
-      let value = noteInput.value;
+      const noteInput = document.getElementById("addNote") as HTMLInputElement;
+      const value = noteInput.value;
       if(value.trim().length < 3) return;
       const newNote: Remark ={
         message: value,

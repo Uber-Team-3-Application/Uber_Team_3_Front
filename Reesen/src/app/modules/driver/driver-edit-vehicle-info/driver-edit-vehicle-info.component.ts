@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Vehicle, VehicleType } from 'src/app/models/Vehicle';
+import { Vehicle } from 'src/app/models/Vehicle';
 import { DriverService } from '../services/driver.service';
 import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
 import { TokenDecoderService } from '../../auth/token/token-decoder.service';
@@ -22,7 +22,7 @@ export class DriverEditVehicleInfoComponent implements OnInit{
     petTransport: new FormControl(false, [])
   });
   vehicle: Vehicle;
-  hasError: boolean = false;
+  hasError = false;
 
   constructor(private driverService: DriverService, 
     private router: Router, 

@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
@@ -18,7 +18,7 @@ export class RideService {
   }
 
   getReport(role: string, typeOfReport: string, from:Date, to: Date): Observable<Report>{
-    let reportDTO = {
+    const reportDTO = {
       role:role,
       typeOfReport:typeOfReport,
       from:from,

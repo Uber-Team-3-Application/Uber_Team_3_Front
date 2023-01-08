@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PassengerService } from '../passenger.service';
-import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-activationpage',
@@ -15,7 +14,7 @@ export class ActivationpageComponent implements OnInit{
     ngOnInit() {
       this.url = this.route.snapshot.queryParams['url'];
       this.passengerService.activateAccount(this.url).subscribe(
-        (info) => {}
+        (info) => {console.log(info);}
       );
     }
     goToLogin() {

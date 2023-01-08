@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/modules/auth/authentication.service';
 
@@ -7,10 +7,9 @@ import { AuthenticationService } from 'src/app/modules/auth/authentication.servi
   templateUrl: './admin-navbar.component.html',
   styleUrls: ['../navbar.component.css']
 })
-export class AdminNavbarComponent implements OnInit{
+export class AdminNavbarComponent{
   constructor(private authService: AuthenticationService, private router: Router) {}
 
-  ngOnInit(): void {}
 
   logout(): void{
     this.authService.logout().subscribe({
@@ -18,8 +17,9 @@ export class AdminNavbarComponent implements OnInit{
         localStorage.removeItem('user');
         this.authService.setUser();
         this.router.navigate(['login']);
+        console.log(result);
       },
-      error: (error) => {},
+      error: (error) => {console.log(error);},
     });
   }
 }

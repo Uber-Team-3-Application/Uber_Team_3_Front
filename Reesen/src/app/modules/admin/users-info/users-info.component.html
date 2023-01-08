@@ -54,9 +54,9 @@
                 <th scope="col" (click)="sortTable(5)"
                 data-toggle="tooltip" data-placement="top" title="Sort by Address">Home Address</th>
                 <th scope="col"(click)="sortTable(6)"
-                data-toggle="tooltip" data-placement="top" title="Sort by Blocked" *ngIf="users[0].blocked != null">Blocked</th>
+                data-toggle="tooltip" data-placement="top" title="Sort by Blocked" *ngIf="users[0].blocked !== null">Blocked</th>
                 <th scope="col" (click)="sortTable(7)"
-                data-toggle="tooltip" data-placement="top" title="Sort by Role" *ngIf="users[0].role != null">Role</th>
+                data-toggle="tooltip" data-placement="top" title="Sort by Role" *ngIf="users[0].role !== null">Role</th>
             </tr>
             </thead>
             <tbody>
@@ -77,8 +77,8 @@
                     <td>{{user.telephoneNumber}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.address}}</td>
-                    <td *ngIf="user.blocked != null">{{user.blocked}}</td>
-                    <td *ngIf="user.blocked != null">{{user.role}}</td>
+                    <td *ngIf="user.blocked !== null">{{user.blocked}}</td>
+                    <td *ngIf="user.blocked !== null">{{user.role}}</td>
                 </tr>
                 
             </tbody>

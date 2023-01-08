@@ -25,10 +25,10 @@
     <tbody *ngFor="let rides of taskService.taskArray;">
     <tr>
       <td>
-        <app-driver-card-history *ngIf ="rides.column1 != undefined" [date]="rides.column1"></app-driver-card-history>
+        <app-driver-card-history *ngIf ="rides.column1 !== undefined" [date]="rides.column1"></app-driver-card-history>
       </td>
       <td>
-        <app-driver-card-history *ngIf="rides.column2 != undefined" [date]="rides.column2"></app-driver-card-history>
+        <app-driver-card-history *ngIf="rides.column2 !== undefined" [date]="rides.column2"></app-driver-card-history>
       </td>
     </tr>
     </tbody>

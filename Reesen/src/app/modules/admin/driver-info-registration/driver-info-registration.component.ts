@@ -1,11 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import { DriverService } from 'src/app/modules/driver/services/driver.service';
 import {Driver} from "../../../models/Driver";
-import * as _ from 'lodash';
-import {Vehicle} from "../../../models/Vehicle";
 
-// vezbe 7
 @Component({
   selector: 'app-driver-info-registration',
   templateUrl: './driver-info-registration.component.html',
@@ -27,7 +23,7 @@ export class DriverInfoRegistrationComponent {
   });
 
 
-  avatarBase64: string = "";
+  avatarBase64 = "";
 
 
   registerDriver() {
