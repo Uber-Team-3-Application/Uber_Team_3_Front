@@ -1,14 +1,15 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {DriverService} from "../services/driver.service";
-import {RideService} from "../services/ride.service";
+
 import {ReviewService} from "../services/review.service";
 import {MapService} from '../../map/map.service';
 import * as L from 'leaflet';
 import {PassengerService} from "../../passenger/passenger.service";
 import {Passenger} from "../../../models/Passenger";
-import {Review, RideReview} from "../../../models/Review";
+import {Review} from "../../../models/Ride";
 import {Ride} from "../../../models/Ride";
+import {RideService} from "../../services/ride.service";
 
 @Component({
   selector: 'app-drivers-ride',
@@ -39,7 +40,7 @@ export class DriversRideComponent implements OnInit{
 
   ngOnInit() : void {
     this.route.params.subscribe((params) => {
-      this.rideService.getRideById(params["rideId"]).subscribe((ride)=>
+      this.rideService.get(params["rideId"]).subscribe((ride)=>
       {
         this.ride = ride;
         this.reviews = this.ride.reviews;

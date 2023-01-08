@@ -2,7 +2,7 @@ import {Location, Route} from "./Location";
 import {Driver} from "./Driver";
 import {Passenger} from "./Passenger";
 import {Rejection} from "./Rejection";
-import {Review} from "./Review";
+import {User} from "./User";
 
 
 
@@ -23,6 +23,17 @@ export interface Ride {
 
 }
 
+export interface Review{
+  id?:number;
+  vehicleReview: SingleReview;
+  driverReview: SingleReview;
+}
+export interface SingleReview{
+  id?: number;
+  rating: number;
+  comment: string;
+  passenger: User;
+}
 
 export interface RideInfoBody{
     locations: Location[],
