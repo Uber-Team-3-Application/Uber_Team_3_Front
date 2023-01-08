@@ -19,6 +19,7 @@ import {LayoutModule} from "../layout/layout.module";
 import { DriversRideComponent } from './drivers-ride/drivers-ride.component';
 import {NgxPaginationModule} from "ngx-pagination";
 import {MapModule} from "../map/map.module";
+import {GraphsModule} from "../graphs/graphs.module";
 
 
 @NgModule({
@@ -35,19 +36,20 @@ import {MapModule} from "../map/map.module";
               DriversRideComponent,
 
             ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    MatCardModule,
-    MatSidenavModule,
-    LayoutModule,
-    NgxPaginationModule,
-    MapModule,
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        MatCardModule,
+        MatSidenavModule,
+        LayoutModule,
+        NgxPaginationModule,
+        MapModule,
+        GraphsModule,
 
-  ],
+    ],
   exports:[DriverAccountComponent,
     DriverEditBasicInfoComponent,
     DriverEditPasswordComponent,
