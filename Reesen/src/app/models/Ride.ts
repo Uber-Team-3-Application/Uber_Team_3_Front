@@ -2,7 +2,9 @@ import {Location, Route} from "./Location";
 import {Driver} from "./Driver";
 import {Passenger} from "./Passenger";
 import {Rejection} from "./Rejection";
-import { User } from "./User";
+import {Review} from "./Review";
+
+
 
 export interface Ride {
   id:number;
@@ -18,20 +20,9 @@ export interface Ride {
   rejection?: Rejection;
   locations: Route[];
   reviews?: Review[];
+
 }
 
-export interface Review{
-  id?:number;
-  vehicleReview: SingleReview;
-  driverReview: SingleReview;
-}
-
-export interface SingleReview{
-  id?: number;
-  rating: number;
-  comment: string;
-  passenger: User;
-}
 
 export interface RideInfoBody{
     locations: Location[],
@@ -49,4 +40,41 @@ export interface RideInfo{
 export interface RidePaginated {
   totalCount : number;
   results : Ride[];
+
+
+}
+
+//=====SORTERS=====//
+
+export const sortRideByPriceAscending = (a: Ride, b: Ride) => {
+  if (a.totalCost > b.totalCost)
+    return 1;
+  if (a.totalCost < b.totalCost)
+    return -1;
+  return 0;
+}
+
+export const sortRideByPriceDescending = (a: Ride, b: Ride) => {
+  if (a.totalCost > b.totalCost)
+    return -1;
+  if (a.totalCost < b.totalCost)
+    return 1;
+  return 0;
+}
+
+export const sortRideByDateAscending = (a: Ride, b: Ride) => {
+  if (a.startTime > b.startTime)
+    return 1;
+  if (a.startTime < b.startTime)
+    return -1;
+  return 0;
+}
+
+export const sortRideByDateDescending = (a: Ride, b: Ride) => {
+  if (a.startTime > b.startTime)
+    return -1;
+  if (a.startTime < b.startTime)
+    return 1;
+  return 0;
+
 }

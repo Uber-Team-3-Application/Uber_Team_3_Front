@@ -1,69 +1,86 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-<app-filter-ride-sidebar
-
-  *ngIf="showSideBar"
-  (showFiller) = "changeState($event)"
-  (kindsOfSort)="setSortedSmartTable($event)"
-  >
-</app-filter-ride-sidebar>
-
-<div class="w3-teal">
-  <div class="input-group rounded" id="input_search" >
-    <img src="assets/img/filter.png" (click)="changeState(true)" id="filter_btn"/>
-    <input type="search" class="form-control rounded" placeholder="Search"
-           aria-label="Search" aria-describedby="search-addon" id="search" />
-    <span class="input-group-text border-0" id="search-addon">
-    <i class="fa fa-search"></i>
-  </span>
+<div class="dropdown">
+  <img src="assets/img/filter.png" class="dropbtn">
+  <div class="dropdown-content">
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(1)">Sort by price in ascending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(2)" >Sort by price in descending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(3)">Sort by date in ascending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(4)">Sort by date in descending order</p>
   </div>
 </div>
 
+<label for="start_date">Start date:</label>
+<input type="date" id="start_date" name="start_date" value="{{minDate}}" max="{{maxDate}}" (change)="setMinValue()">
+<label for="end_date">End date:</label>
+<input type="date" id="end_date" name="end_date" value="{{maxDate}}" min="{{minDate}}" (change)="setMaxValue()" >
+<button (click)="searchByDates()" class="signup">Search</button>
+
+<label class="pr mt-5 ">
+  Show
+</label>
+<label>
+  <select name="dtBasicExample_length" id="select" (change)="changeTotalUsersPerPage()"
+          class="form-select" aria-label="Select how many users to show per page" [(ngModel)]="selectedShowNumber">
+    <option>3</option>
+    <option>5</option>
+    <option>10</option>
+    <option>15</option>
+    <option>25</option>
+    <option>50</option>
+  </select>
+
+</label>
 <section class="driver-ride-history p-5 round-edges" id="full_screen">
   <table  align="center">
-    <tbody *ngFor="let rides of taskService.taskArray;">
-    <tr>
-      <td>
-        <app-driver-card-history *ngIf ="rides.column1 !== undefined" [date]="rides.column1"></app-driver-card-history>
+
+    <tbody *ngFor="let rides of taskService.taskArray | paginate :{
+      itemsPerPage : selectedShowNumber,
+      currentPage : page,
+      totalItems: totalEntries
+    }
+    ">
+    <tr *ngIf="checkReviewsAreLoaded(rides) === true">
+      <td  *ngIf ="rides.column1 != undefined"  [routerLink]="['/driversRide/' + rides.column1.id]">
+        <app-driver-card-history [date]="rides.column1"></app-driver-card-history>
       </td>
-      <td>
-        <app-driver-card-history *ngIf="rides.column2 !== undefined" [date]="rides.column2"></app-driver-card-history>
+      <td  *ngIf="rides.column2 != undefined" [routerLink]="['/driversRide/' + rides.column2.id]">
+        <app-driver-card-history  [date]="rides.column2"></app-driver-card-history>
       </td>
     </tr>
     </tbody>
   </table>
+  <div class="d-flex justify-content-center ">
+    <pagination-controls
+      style="color: white"
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    ></pagination-controls>
 
+  </div>
 </section>
 
 <section class="driver-ride-history p-5 round-edges" id="responsive">
 
   <table align="center">
-    <tr>
+    <tbody *ngFor="let rides of taskService.taskArray | paginate :{
+      itemsPerPage : selectedShowNumber,
+      currentPage : page,
+      totalItems: totalEntries
+    }
+    ">
+    <tr  *ngIf="checkReviewsAreLoaded(rides) === true">
       <td align="center">
-        <app-driver-card-history-responsive></app-driver-card-history-responsive>
-
+        <app-driver-card-history-responsive *ngIf ="rides.column1 != undefined" [date]="rides.column1"></app-driver-card-history-responsive>
       </td>
     </tr>
-    <tr>
+    <tr *ngIf="checkReviewsAreLoaded(rides) === true">
       <td align="center">
-        <app-driver-card-history-responsive></app-driver-card-history-responsive>
-
+        <app-driver-card-history-responsive *ngIf="rides.column2 != undefined" [date]="rides.column2"></app-driver-card-history-responsive>
       </td>
     </tr>
-    <tr>
-      <td align="center">
-        <app-driver-card-history-responsive></app-driver-card-history-responsive>
-
-      </td>
-    </tr>
-    <tr>
-      <td align="center">
-        <app-driver-card-history-responsive></app-driver-card-history-responsive>
-
-      </td>
-    </tr>
-
+    </tbody>
   </table>
 </section>
 
