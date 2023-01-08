@@ -1,0 +1,174 @@
+* {
+  color: #1a4d3d;
+}
+.driver-ride-history{
+  background-color:#578979 ;
+  width: 95%;
+  margin: 40px auto;
+  color: #578979;
+}
+
+.white-section {
+  background-color:white;
+    width: 95%;
+  margin: 15px auto;
+  color: #578979;
+}
+
+.round-edges{
+  border: 2px solid #578979;
+  border-radius: 10px;
+}
+
+#tableInfo td {
+
+  padding: 8px;
+}
+
+.ratingBar {
+  display: block !important;
+  width: 215px !important;
+  text-align: right !important;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+
+ratings{
+  margin-right:10px;
+}
+
+.ratings i{
+
+  color:#cecece;
+  font-size:44px;
+}
+
+.rating-color{
+  color:#fbc634 !important;
+}
+
+img {
+  max-height: 40px !important;
+  max-width: 40px !important;
+  border-radius: 50%;
+  margin-right: +10px;
+}
+.highlight{
+  color: #2b4e42;
+  margin-left: 10px;
+}
+
+/*added*/
+
+.card{
+  border-radius: 10px;
+  color: #578979;
+  transition: .3s ease-in-out;
+}
+.card:hover{
+  color: white;
+  background-color: gray;
+  transition: .3s ease-in-out;
+  cursor: pointer;
+}
+
+.items{
+  margin-left: 8px;
+}
+
+.user-card{
+  border: 2px solid #76a693;
+  border-radius: 1em;
+  padding: 10px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.user-card:hover {
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1000px #4e8172;
+  color: white;
+  transition: .5s;
+}
+
+.user-card-name{
+  text-align: left;
+  font-size: 20px;
+  padding-top: 10px;
+}
+
+.user-card:hover .user-card-name {
+  color:white;
+}
+
+
+.user-card-avatar-image{
+  width: 50px;
+  height: 50px;
+}
+
+.single-review{
+  padding: 10px;
+  border: 2px solid #5c9f8a;
+  margin-bottom: +8px;
+  background-color: #548875;
+}
+
+.text-big{
+  font-size: 18px;
+}
+
+.map-container {
+  width: 100%;
+  height: 700px;
+  margin: 10px auto 0 auto;
+  z-index: 10;
+}
+
+.map-frame {
+  border: 2px solid black;
+  height: 100%;
+  z-index: 10;
+
+}
+
+#map {
+  height: 100%;
+  z-index: 11;
+
+}
+
+
+h4 {
+  font-style: italic;
+  font-weight: bolder;
+}
+
+.user-card-comment{
+  border: 2px solid #76a693;
+  border-radius: 1em;
+  background-color: white;
+  padding: 8px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.ratingBar {
+  text-align: left !important;
+}
+
+
+.ratings-comments i{
+
+  color:#cecece;
+  font-size:20px;
+}
+
+.rating-color{
+  color:#fbc634 !important;
+}
