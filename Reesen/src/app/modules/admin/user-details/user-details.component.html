@@ -1,6 +1,6 @@
 <section style="background-color: #4B7869;" class="m-5">
     <div class="container py-5">
-  
+
       <div class="row">
         <div class="col-lg-4">
           <div class="card mb-4">
@@ -9,16 +9,16 @@
                 class="rounded-circle img-fluid" style="width: 150px;">
               <div class="text-center my-5 red-text" *ngIf="user.profilePicture == 'profilna'">User doesnt have a profile picture!</div>
               <h5 class="my-3">{{user.name}} {{user.surname}}</h5>
-              
+
             </div>
           </div>
           <div class="mb-3 max-width">
-            <button type="button" class="custom-button" (click)="editUserProfile()">Edit Profile</button>
+            <button type="button" class="custom-button" (click)="editUserProfile()" >Edit Profile</button>
           </div>
           <div class="mb-3 max-width">
             <button type="button" class="custom-button" (click)="editVehicleInfo()" *ngIf="role==='DRIVER'">Edit Vehicle</button>
           </div>
-          
+
         </div>
         <div class="col-lg-8">
           <div class="card mb-4 border-black">
@@ -76,7 +76,7 @@
                   <p class="mb-0 green-text">The user is active</p>
                 </div>
               </div>
-              
+
             </div>
           </div>
          <div class="row d-flex flex-row-reverse">
@@ -84,7 +84,7 @@
             <button id="cancel" class="reesen-button cancel-button" (click)="goBack()">Go Back</button>
           </div>
          </div>
- 
+
         </div>
       </div>
     </div>
