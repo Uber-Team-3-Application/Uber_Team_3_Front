@@ -14,7 +14,7 @@ export class PassengerNavbarComponent {
 
   logout(): void{
     this.authService.logout().subscribe({
-      next: (result) => {
+      next: () => {
         localStorage.removeItem('user');
         this.authService.setUser();
         this.router.navigate(['login']);

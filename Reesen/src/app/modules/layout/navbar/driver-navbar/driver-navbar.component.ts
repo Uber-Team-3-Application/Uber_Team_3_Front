@@ -25,7 +25,7 @@ export class DriverNavbarComponent implements OnInit{
     const driverId = this.tokenService.getDecodedAccesToken().id;
     this.driverService.changeActivity(driverId, false).subscribe();
     this.authService.logout().subscribe({
-      next: (result) => {
+      next: () => {
         localStorage.removeItem('user');
         this.authService.setUser();
         this.router.navigate(['login']);

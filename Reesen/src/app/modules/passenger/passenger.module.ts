@@ -13,7 +13,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { A11yModule } from '@angular/cdk/a11y';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AnimationBuilder } from '@angular/animations';
 
 @NgModule({
   declarations: [
