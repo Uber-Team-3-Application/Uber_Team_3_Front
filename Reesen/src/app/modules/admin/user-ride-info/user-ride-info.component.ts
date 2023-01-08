@@ -141,6 +141,7 @@ export class UserRideInfoComponent implements AfterViewInit{
 
       const DefaultIcon = L.icon({
         iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
+        iconAnchor:[15, 30]
       });
 
       L.Marker.prototype.options.icon = DefaultIcon;
