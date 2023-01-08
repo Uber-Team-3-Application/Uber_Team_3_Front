@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmailInfo } from 'src/app/models/Email';
-import { Passenger } from 'src/app/models/Passenger';
 import { AuthenticationService } from 'src/app/modules/auth/authentication.service';
 import { UserService } from '../../unregistered-user/user.service';
 @Component({
@@ -18,7 +17,7 @@ export class LoginComponent{
         password: new FormControl('', [Validators.required, Validators.minLength(4)])
       }
     );
-    hasError:boolean = false;
+    hasError = false;
     email: EmailInfo;
 
     constructor(private router:Router, private authenticationService: AuthenticationService, private userService: UserService){}

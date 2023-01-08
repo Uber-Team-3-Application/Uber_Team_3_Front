@@ -10,19 +10,19 @@ import {TokenDecoderService} from "../../../auth/token/token-decoder.service";
   styleUrls: ['../navbar.component.css']
 })
 export class DriverNavbarComponent implements OnInit{
-  active : boolean = true;
+  active  = true;
   @Output() isSideBarActive: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private authService: AuthenticationService, private router: Router, private driverService : DriverService,
               private tokenService : TokenDecoderService) {}
 
   ngOnInit(): void {
-    let driverId = this.tokenService.getDecodedAccesToken().id;
+    const driverId = this.tokenService.getDecodedAccesToken().id;
     this.driverService.changeActivity(driverId, true).subscribe();
   }
 
   logout(): void{
-    let driverId = this.tokenService.getDecodedAccesToken().id;
+    const driverId = this.tokenService.getDecodedAccesToken().id;
     this.driverService.changeActivity(driverId, false).subscribe();
     this.authService.logout().subscribe({
       next: (result) => {
@@ -30,7 +30,7 @@ export class DriverNavbarComponent implements OnInit{
         this.authService.setUser();
         this.router.navigate(['login']);
       },
-      error: (error) => {},
+      error: (error) => {console.log(error);},
     });
   }
 

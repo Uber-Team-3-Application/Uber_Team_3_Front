@@ -16,7 +16,7 @@ export class UserDetailsComponent implements OnInit{
   role: string;
   user: User;
   numId: number;
-  hasLoaded: boolean = false;
+  hasLoaded = false;
   constructor(private route: ActivatedRoute, 
     private passengerService: PassengerService,
     private driverService: DriverService,

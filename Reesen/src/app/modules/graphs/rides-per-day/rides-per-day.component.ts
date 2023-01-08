@@ -22,10 +22,10 @@ export class RidesPerDayComponent implements OnInit{
   @Input() role: string;
   @Input() typeOfReport: string;
   reportData = new Array();
-  hasLoaded: boolean = false;
+  hasLoaded = false;
 
-  sum: number = 0;
-  average: number = 0;
+  sum = 0;
+  average = 0;
   
   constructor(private rideService: RideService){}
 
@@ -41,10 +41,10 @@ export class RidesPerDayComponent implements OnInit{
               this.average = Math.round((report.average + Number.EPSILON) * 100) / 100;
 
 
-              let keys: string [] = Object.keys(report.result);
-              let values: string [] = Object.values(report.result);
+              const keys: string [] = Object.keys(report.result);
+              const values: string [] = Object.values(report.result);
               const datepipe: DatePipe = new DatePipe('en-US');
-              let valuesNum= new Array();
+              const valuesNum = new Array();
               for(let j = 0;j<values.length;j++){
                 valuesNum.push(+values[j]);
               }

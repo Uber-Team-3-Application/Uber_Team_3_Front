@@ -20,7 +20,7 @@ import { EditDriverVehicleComponent } from './modules/admin/edit-driver-vehicle/
 import { EditRequestsComponent } from './modules/admin/edit-requests/edit-requests.component';
 import { PassengerProfileEditPasswordComponent } from './modules/passenger/passenger-profile-edit-password/passenger-profile-edit-password.component';
 import {DriverRideHistoryComponent} from "./modules/driver/driver-ride-history/driver-ride-history.component";
-import { ResetPasswordComponent } from './modules/unregistered-user/reset-password/resetPassword.component';
+import { ResetPasswordComponent } from './modules/unregistered-user/reset-password/reset-password.component';
 import { UserRideHistoryComponent } from './modules/admin/user-ride-history/user-ride-history.component';
 import { UserRideInfoComponent } from './modules/admin/user-ride-info/user-ride-info.component';
 import { ReportsComponent } from './modules/admin/reports/reports.component';

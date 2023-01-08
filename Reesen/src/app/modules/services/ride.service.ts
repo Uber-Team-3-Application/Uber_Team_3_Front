@@ -18,7 +18,7 @@ export class RideService {
   }
 
   getReport(role: string, typeOfReport: string, from:Date, to: Date): Observable<Report>{
-    let reportDTO = {
+    const reportDTO = {
       role:role,
       typeOfReport:typeOfReport,
       from:from,

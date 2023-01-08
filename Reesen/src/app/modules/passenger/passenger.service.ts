@@ -16,7 +16,7 @@ export class PassengerService {
   }
 
   activateAccount(url: string): Observable<string> {
-    let params = new HttpParams().set('url', url);
+    const params = new HttpParams().set('url', url);
     return this.http.get<string>(environment.apiHost+'api/passenger/activate/account', { params });
   }
 

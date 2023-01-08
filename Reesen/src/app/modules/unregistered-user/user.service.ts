@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
 import { EmailInfo } from 'src/app/models/Email';
 import { PageRemark, Remark } from 'src/app/models/Remark';
-import { Ride, RideInfo, RideInfoBody, RidePaginated } from 'src/app/models/Ride';
+import { RideInfo, RideInfoBody, RidePaginated } from 'src/app/models/Ride';
 import { PageUsers, User } from 'src/app/models/User';
 
 @Injectable({
@@ -78,11 +78,11 @@ export class UserService {
     {params:params});
   }
   resetPassword(resetPasswordDTO: any, userId: number) {
-    this.http.put<String>(environment.apiHost+'user/' + userId + '/resetPassword', resetPasswordDTO);
+    this.http.put<string>(environment.apiHost+'user/' + userId + '/resetPassword', resetPasswordDTO);
   }
 
   resetPasswordLink(userId: number) {
-    return this.http.get<String>(environment.apiHost+'user/' + userId + '/resetPassword');
+    return this.http.get<string>(environment.apiHost+'user/' + userId + '/resetPassword');
   }
   
   findByEmail(email: string): Observable<any> {

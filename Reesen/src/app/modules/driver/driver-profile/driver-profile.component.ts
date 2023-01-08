@@ -1,7 +1,6 @@
-import { ChangeDetectorRef, OnInit, Component } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { DriverService } from '../services/driver.service';
 import { Driver } from 'src/app/models/Driver';
-import jwt_decode from 'jwt-decode';
 import { TokenDecoderService } from '../../auth/token/token-decoder.service';
 @Component({
   selector: 'app-driver-profile',
@@ -11,8 +10,8 @@ import { TokenDecoderService } from '../../auth/token/token-decoder.service';
 export class DriverProfileComponent implements OnInit{
     title:string;
     selectedView:string;
-    firstName: string = "Pera";
-    lastName: string = "Peric";
+    firstName = "Pera";
+    lastName = "Peric";
     driver:Driver;
 
     ngOnInit():void{
