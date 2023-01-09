@@ -27,6 +27,7 @@ import { ReportsComponent } from './modules/admin/reports/reports.component';
 import { RideHistoryComponent } from './modules/passenger/ride-history/ride-history.component';
 import {DriversRideComponent} from "./modules/driver/drivers-ride/drivers-ride.component";
 import {PassengerInfoComponent} from "./modules/passenger/passenger-info/passenger-info.component";
+import {DriverReportsComponent} from "./modules/driver/driver-reports/driver-reports.component";
 
 
 
@@ -58,6 +59,7 @@ const routes: Routes = [
   {path:'', redirectTo: '/home', pathMatch:'full'},
   {path: 'registerDriver', component:DriverRegistrationComponent},
   {path: 'admin-reports', component:ReportsComponent},
+  {path: 'driver-reports', component:DriverReportsComponent},
   {path: 'users', component: UsersInfoComponent},
   {path: 'users/:id/:role', component: UserDetailsComponent},
   {path: 'users/:id/:role/edit', component: EditUserProfileComponent},

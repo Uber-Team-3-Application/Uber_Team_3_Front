@@ -21,18 +21,20 @@ export class RidesPerDayComponent implements OnInit{
   @Input() endDate: Date;
   @Input() role: string;
   @Input() typeOfReport: string;
+  @Input() driverId : number = null;
   reportData = new Array();
   hasLoaded = false;
 
   sum = 0;
   average = 0;
-  
+
   constructor(private rideService: RideService){}
 
   ngOnInit(): void {
-    
+
     this.hasLoaded = false;
-    this.rideService.getReport(this.role, this.typeOfReport, this.startDate, this.endDate)
+
+    this.rideService.getReport(this.role, this.typeOfReport, this.startDate, this.endDate, this.driverId)
         .subscribe({
 
           next: (report) =>{
@@ -52,12 +54,12 @@ export class RidesPerDayComponent implements OnInit{
                 this.reportData.push({
                   value:valuesNum[i],
                   name:datepipe.transform(keys[i], 'dd-MM-yyyy')
-                  
+
                 });
               }
               this.hasLoaded = true;
               console.log(this.reportData);
-            
+
           },
           error: (error) => {console.log(error);}
         })

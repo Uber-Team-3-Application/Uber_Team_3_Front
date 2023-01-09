@@ -17,9 +17,10 @@ export class RideService {
     return this.http.get<Ride>(environment.apiHost + 'api/ride/' + rideId);
   }
 
-  getReport(role: string, typeOfReport: string, from:Date, to: Date): Observable<Report>{
+  getReport(role: string, typeOfReport: string, from:Date, to: Date, driverId : number = null): Observable<Report>{
     const reportDTO = {
       role:role,
+      driverId:driverId,
       typeOfReport:typeOfReport,
       from:from,
       to:to
