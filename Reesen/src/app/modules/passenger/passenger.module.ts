@@ -13,6 +13,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { A11yModule } from '@angular/cdk/a11y';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PassengerInfoComponent } from './passenger-info/passenger-info.component';
+
+
 
 @NgModule({
   declarations: [
@@ -21,7 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PassengerProfileEditComponent,
     ActivationComponent,
     PassengerProfileEditPasswordComponent,
-    RideHistoryComponent
+    RideHistoryComponent,
+    PassengerInfoComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +37,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     A11yModule,
     BrowserAnimationsModule
   ],
-  exports: [RegistrationComponent, PassengerProfileComponent, 
+  exports: [RegistrationComponent, PassengerProfileComponent,
     PassengerProfileEditComponent, ActivationComponent, PassengerProfileEditPasswordComponent, RideHistoryComponent]
 })
 export class PassengerModule { }

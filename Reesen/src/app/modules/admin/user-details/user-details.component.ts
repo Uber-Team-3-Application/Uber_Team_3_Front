@@ -17,7 +17,9 @@ export class UserDetailsComponent implements OnInit{
   user: User;
   numId: number;
   hasLoaded = false;
-  constructor(private route: ActivatedRoute, 
+
+
+  constructor(private route: ActivatedRoute,
     private passengerService: PassengerService,
     private driverService: DriverService,
     private router: Router,
@@ -36,7 +38,7 @@ export class UserDetailsComponent implements OnInit{
   getDriver(id:number): void{
     this.driverService.get(id)
         .subscribe(
-          (driver) => {this.user = driver; 
+          (driver) => {this.user = driver;
             console.log(this.user);
 
             this.userService.getUserIsBlocked(this.numId)
@@ -55,7 +57,7 @@ export class UserDetailsComponent implements OnInit{
                 .subscribe(
                 (blocked) =>{ this.user.blocked = blocked; console.log(blocked); this.hasLoaded = true;}
                 )
-          
+
           }
         );
   }
@@ -64,13 +66,13 @@ export class UserDetailsComponent implements OnInit{
     this.router.navigate(['users/' + this.id + '/' + this.role + '/ride-history']);
   }
 
-  editUserProfile():void{ 
+  editUserProfile():void{
     this.router.navigate(['users/' + this.id + '/' + this.role + '/edit']);
   }
 
   editVehicleInfo():void{
     this.router.navigate(['users/' + this.id  + '/' + this.role + '/edit-vehicle']);
-     
+
   }
 
   goBack():void{

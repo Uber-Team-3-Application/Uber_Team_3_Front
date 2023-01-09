@@ -84,17 +84,29 @@ export class DriverService {
   return this.http.put<string>(environment.apiHost + "api/driver/" + id + "/accept-profile-edit-request", {});
 }
 
-  getRidesOfSpecificDriver(id: number, sort?:string) : Observable<RidePaginated> {
 
-    let queryParams = new HttpParams();
-    if (sort != null) {
-      queryParams = queryParams.append("sort", sort);
+
+  getRidesOfSpecificDriver(id: number, sort?:string, from?:string, to?:string, page?:number, size?:number) : Observable<RidePaginated> {
+
+    let params = new HttpParams();
+
+    if (sort != undefined)
+      params = params.append("sort", sort);
+
+    if (from != undefined) {
+      params = params.append("from", from);
+      params = params.append("to", to);
     }
-    console.log(queryParams)
-    return this.http.get<RidePaginated>(environment.apiHost + "api/driver/" + id + "/ride", {
-      params: queryParams
+
+    if (page != undefined) {
+      params = params.append('page', page);
+      params = params.append('size', size);
+    }
+     return this.http.get<RidePaginated>(environment.apiHost + "api/driver/" + id + "/ride", {
+      params: params
     });
   }
+
 
 }
 

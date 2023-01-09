@@ -25,6 +25,9 @@ import { UserRideHistoryComponent } from './modules/admin/user-ride-history/user
 import { UserRideInfoComponent } from './modules/admin/user-ride-info/user-ride-info.component';
 import { ReportsComponent } from './modules/admin/reports/reports.component';
 import { RideHistoryComponent } from './modules/passenger/ride-history/ride-history.component';
+import {DriversRideComponent} from "./modules/driver/drivers-ride/drivers-ride.component";
+import {PassengerInfoComponent} from "./modules/passenger/passenger-info/passenger-info.component";
+
 
 
 const routes: Routes = [
@@ -45,7 +48,9 @@ const routes: Routes = [
     {path:'rideHistory', component:DriverRideHistoryComponent},
     {path:'reports', component:DriverProfileComponent},
   ]},
+  {path: 'passengerInfo/:id/:rideId', component: PassengerInfoComponent},
   {path: 'driverRideHistory', component:DriverRideHistoryComponent},
+  { path: 'driversRide/:rideId', component: DriversRideComponent },
   {path:'driverEdit', component:DriverEditBasicInfoComponent},
   {path:'driverEditVehicle', component:DriverEditVehicleInfoComponent},
   {path: 'driverEditPassword', component:DriverEditPasswordComponent},
