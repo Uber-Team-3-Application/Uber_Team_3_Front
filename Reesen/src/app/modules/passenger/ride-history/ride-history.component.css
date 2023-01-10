@@ -1,20 +1,145 @@
-body {
-    background-color: #578979
-}
 
-.rides{
-    margin: 20px;
-    background-color: white;
-    align-content: center;
-    box-shadow: 3px 5px 5px rgb(0, 0, 0);
-    border-radius: 15px;
-    padding-right: 11px;
+.driver-ride-history{
+  background-color:#578979 ;
+  width: 90%;
+  margin: 40px auto;
+  color: #578979;
+}
+.round-edges{
+  border: 2px solid #578979;
+  border-radius: 10px;
 }
 
 table {
+  width: 100%;
+}
+
+td {
+  padding: 10px;
+}
+
+#responsive {
+  display: none;
+}
+
+@media screen and (max-width: 1200px) {
+
+  #full_screen {
+    display: none;
+  }
+
+  #responsive {
+    display: block;
+    align-content: center;
+  }
+
+  table {
+    table-layout: fixed;
     width: 100%;
   }
 
-th.mat-sort-header-sorted {
-    color: black;
-  }
+}
+
+.example-container {
+  width: 500px;
+  height: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+#mySidebar {
+  width: 300px;
+  z-index: 500;
+}
+
+.example-sidenav {
+  padding: 20px;
+}
+
+#input_search {
+  width: 400px;
+  padding-top: 10px;
+
+}
+
+#filter_btn {
+  cursor: pointer;
+  padding-top: 7px;
+  padding-left: 10px;
+  padding-right: 30px;;
+}
+
+
+.w3-teal {
+  padding: 10px ;
+  background-color: white !important;
+}
+
+#search-addon {
+  cursor: pointer;
+}
+
+/*888*/
+.dropbtn {
+
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content p {
+  color: #1a4d3d;
+  text-decoration: none;
+}
+
+.pr {
+  margin-left: +50px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+label {
+  color: #1a4d3d;
+  font-weight: bold;
+  padding: 5px;
+}
+
+input {
+  border-color: #1a4d3d;
+}
+
+.signup{
+  margin-left: +45px;
+  color:white;
+  background-color:#48786d;
+  padding:6px 26px;
+  border-radius: 8px;
+  border: 1px transparent;
+  font-weight: 500;
+  font-size: 16px;
+  box-shadow: 2px 2px 5px rgb(91, 91, 91);
+}
