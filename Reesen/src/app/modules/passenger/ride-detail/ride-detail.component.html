@@ -1,0 +1,202 @@
+<section class="driver-ride-history p-5 round-edges" id="full_screen">
+  <div class="white-section p-5 round-edges">
+    <div class="row">
+      <div class="col-12 col-md-7 text-big p-5 basic-info">  <!-- zauzima 7 kolona-->
+        <div class="row py-2">
+          <div class="col-12">
+            Start station: <span class="highlight">{{ride.locations.at(0).departure.address}} </span>
+          </div>
+        </div>
+        <div class="row py-2">
+          <div class="col-12">
+            End station:<span> {{ride.locations.at(ride.locations.length - 1).destination.address}} </span>
+          </div>
+        </div>
+
+        <div class="row py-2">
+          <div class="col-12">
+            Start drive: <span class="highlight">{{ride.startTime | date: 'dd/MM/yyyy HH:mm'}}</span>
+          </div>
+        </div>
+
+        <div class="row py-2">
+          <div class="col-12">
+            End drive: <span class="highlight">{{ride.endTime | date: 'dd/MM/yyyy HH:mm'}}</span>
+          </div>
+        </div>
+
+        <div class="row py-2">
+          <div class="col-12">
+            Vehicle type: <span class="highlight">{{ride.vehicleType}}</span>
+          </div>
+        </div>
+        <div class="row py-2" *ngIf="ride.babyTransport">
+          <div class="col-12">
+            Baby transport: <span class="highlight">Yes</span>
+          </div>
+        </div>
+        <div class="row py-2" *ngIf="ride.petTransport">
+          <div class="col-12">
+            Pet transport: <span class="highlight">Yes</span>
+          </div>
+        </div>
+
+        <div class="row py-2" >
+          <div class="col-12">
+            Price: <span class="highlight">{{ride.totalCost}} (RSD) </span>
+          </div>
+        </div>
+
+        <div class="row py-2">
+          <div class="map-container">
+            <div class="map-frame">
+              <div id="map"></div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-12 col-md-5">
+
+        <div class="row">
+          <div class="col-12 px-5 d-flex flex-row-reverse">
+                        <span class="d-flex justify-content-between align-items-center ratingBar" >
+                            <div  class="ratings">
+                                <i class="fa fa-star" *ngIf="ratings < 1"></i>
+                                <i class="fa fa-star rating-color" *ngIf="ratings >= 1" ></i>
+                                <i class="fa fa-star rating-color" *ngIf="ratings >= 2"></i>
+                                <i class="fa fa-star" *ngIf="ratings < 2"></i>
+                                <i class="fa fa-star rating-color" *ngIf="ratings >= 3"></i>
+                                <i class="fa fa-star" *ngIf="ratings < 3"></i>
+                                <i class="fa fa-star rating-color" *ngIf="ratings >= 4"></i>
+                                <i class="fa fa-star" *ngIf="ratings < 4"></i>
+                                <i class="fa fa-star rating-color" *ngIf="ratings >= 5"></i>
+                                <i class="fa fa-star" *ngIf="ratings < 5"></i>
+                            </div>
+                        </span>
+          </div>
+        </div>
+        <div class="row"><br/></div>
+        <div class="row">
+          <h4>Passengers:</h4>
+        </div>
+
+        <div class="row my-2 mb-2" *ngFor="let passenger of passengers">
+          <div class="col-12">
+            <div class="user-card" [routerLink]="['/passengerInfo/'  + passenger.id + '/' + ride.id]" >
+              <div class="row">
+                <div class="col-8 user-card-name ">
+                  {{passenger.name}} {{passenger.surname}}
+                </div>
+                <div class="col-4 user-card-avatar">
+                  <img src="assets/img/avatar.png" alt="passenger-avatar" class="rounded-circle user-card-avatar-image" *ngIf="passenger.profilePicture === 'profilna'">
+                  <img [src]="passenger.profilePicture" alt="passenger-avatar" class="rounded-circle user-card-avatar-image" *ngIf="passenger.profilePicture !== 'profilna'">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="row mt-5">
+          <h4>Comments: </h4>
+        </div>
+        <div class="row" *ngFor="let review of reviews" class="single-review">
+          <div class="col-12 my-2">
+            <div class="user-card-comment">
+              <div class="row">
+                <div class="col-2">
+                  <img src="assets/img/avatar.png" alt="passenger-avatar" class="rounded-circle user-card-avatar-image" *ngIf="review.driverReview.passenger.profilePicture === 'profilna'">
+                  <img [src]="review.driverReview.passenger.profilePicture" alt="passenger-avatar" class="rounded-circle user-card-avatar-image" *ngIf="review.driverReview.passenger.profilePicture !== 'profilna'">
+
+                </div>
+                <div class="col-4 pt-2">
+                  {{review.driverReview.passenger.name}} {{review.driverReview.passenger.surname}}
+
+                </div>
+                <div class="col-6">
+
+
+                  <div class="d-flex justify-content-between align-items-center ratingBar" >
+                    <div class="ratings-comments">
+                      <i class="fa fa-star" *ngIf="review.driverReview.rating < 1"></i>
+                      <i class="fa fa-star rating-color" *ngIf="review.driverReview.rating >= 1" ></i>
+                      <i class="fa fa-star rating-color" *ngIf="review.driverReview.rating >= 2"></i>
+                      <i class="fa fa-star" *ngIf="review.driverReview.rating < 2"></i>
+                      <i class="fa fa-star rating-color" *ngIf="review.driverReview.rating >= 3"></i>
+                      <i class="fa fa-star" *ngIf="review.driverReview.rating < 3"></i>
+                      <i class="fa fa-star rating-color" *ngIf="review.driverReview.rating >= 4"></i>
+                      <i class="fa fa-star" *ngIf="review.driverReview.rating < 4"></i>
+                      <i class="fa fa-star rating-color" *ngIf="review.driverReview.rating >= 5"></i>
+                      <i class="fa fa-star" *ngIf="review.driverReview.rating < 5"></i>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-12" >{{review.driverReview.comment}}</div>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-12 my-2">
+            <div class="user-card-comment">
+              <div class="row">
+                <div class="col-2">
+                  <img src="assets/img/avatar.png" alt="passenger-avatar" class="rounded-circle user-card-avatar-image" *ngIf="review.vehicleReview.passenger.profilePicture === 'profilna'">
+                  <img [src]="review.vehicleReview.passenger.profilePicture" alt="passenger-avatar" class="rounded-circle user-card-avatar-image" *ngIf="review.vehicleReview.passenger.profilePicture !== 'profilna'">
+
+                </div>
+                <div class="col-4 pt-2">{{review.vehicleReview.passenger.name}} {{review.vehicleReview.passenger.surname}}</div>
+                <div class="col-6">
+
+                  <div class="d-flex justify-content-between align-items-center ratingBar" >
+                    <div  class="ratings-comments">
+                      <i class="fa fa-star" *ngIf="review.vehicleReview.rating < 1"></i>
+                      <i class="fa fa-star rating-color" *ngIf="review.vehicleReview.rating >= 1" ></i>
+                      <i class="fa fa-star rating-color" *ngIf="review.vehicleReview.rating >= 2"></i>
+                      <i class="fa fa-star" *ngIf="review.vehicleReview.rating < 2"></i>
+                      <i class="fa fa-star rating-color" *ngIf="review.vehicleReview.rating >= 3"></i>
+                      <i class="fa fa-star" *ngIf="review.vehicleReview.rating < 3"></i>
+                      <i class="fa fa-star rating-color" *ngIf="review.vehicleReview.rating >= 4"></i>
+                      <i class="fa fa-star" *ngIf="review.vehicleReview.rating < 4"></i>
+                      <i class="fa fa-star rating-color" *ngIf="review.vehicleReview.rating >= 5"></i>
+                      <i class="fa fa-star" *ngIf="review.vehicleReview.rating < 5"></i>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-12">{{review.vehicleReview.comment}}</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+
+

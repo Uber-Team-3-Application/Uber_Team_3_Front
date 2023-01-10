@@ -1,54 +1,90 @@
-<body>
-    <section class="profile-section">
-        <div class="row">
-            <div class="rides">
-                <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
-                    class="mat-elevation-z8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div class="dropdown">
+  <img src="assets/img/filter.png" class="dropbtn">
+  <div class="dropdown-content">
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(1)">Sort by price in ascending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(2)" >Sort by price in descending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(3)">Sort by date in ascending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(4)">Sort by date in descending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(5)">Sort by start station in ascending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(6)">Sort by start station in descending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(7)">Sort by end station in ascending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(8)">Sort by end station in descending order</p>
+  </div>
+</div>
 
-                    <!-- Position Column -->
-                    <ng-container matColumnDef="startTime">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by startTime">
-                            Start time
-                        </th>
-                        <td mat-cell *matCellDef="let element"> {{element.startTime}} </td>
-                    </ng-container>
+<label for="start_date">Start date:</label>
+<input type="date" id="start_date" name="start_date" value="{{minDate}}" max="{{maxDate}}" (change)="setMinValue()">
+<label for="end_date">End date:</label>
+<input type="date" id="end_date" name="end_date" value="{{maxDate}}" min="{{minDate}}" (change)="setMaxValue()" >
+<button (click)="searchByDates()" class="signup">Search</button>
 
-                    <!-- Name Column -->
-                    <ng-container matColumnDef="endTime">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by endTime">
-                            End time
-                        </th>
-                        <td mat-cell *matCellDef="let element"> {{element.endTime}} </td>
-                    </ng-container>
+<label class="pr mt-5 ">
+  Show
+</label>
+<label>
+  <select name="dtBasicExample_length" id="select" (change)="changeTotalUsersPerPage()"
+          class="form-select" aria-label="Select how many users to show per page" [(ngModel)]="selectedShowNumber">
+    <option>3</option>
+    <option>5</option>
+    <option>10</option>
+    <option>15</option>
+    <option>25</option>
+    <option>50</option>
+  </select>
 
-                    <!-- Weight Column -->
-                    <ng-container matColumnDef="totalCost">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by totalCost">
-                            Total cost
-                        </th>
-                        <td mat-cell *matCellDef="let element"> {{element.totalCost}} </td>
-                    </ng-container>
+</label>
+<section class="driver-ride-history p-5 round-edges" id="full_screen">
+  <table  align="center">
 
-                    <!-- Symbol Column -->
-                    <ng-container matColumnDef="departure">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by departure">
-                            Departure
-                        </th>
-                        <td mat-cell *matCellDef="let element"> {{element.departure}} </td>
-                    </ng-container>
+    <tbody *ngFor="let rides of taskService.taskArray | paginate :{
+      itemsPerPage : selectedShowNumber,
+      currentPage : page,
+      totalItems: totalEntries
+    }
+    ">
+    <tr *ngIf="checkReviewsAreLoaded(rides) === true">
+      <td  *ngIf ="rides.column1 != undefined"  [routerLink]="['/passenger_ride-detail/' + rides.column1.id]">
+        <app-ride-card-history [date]="rides.column1"></app-ride-card-history>
+      </td>
+      <td  *ngIf="rides.column2 != undefined" [routerLink]="['/passenger_ride-detail/' + rides.column2.id]">
+        <app-ride-card-history  [date]="rides.column2"></app-ride-card-history>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-center ">
+    <pagination-controls
+      style="color: white"
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    ></pagination-controls>
 
-                    <!-- Symbol Column -->
-                    <ng-container matColumnDef="destination">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by destination">
-                            Destination
-                        </th>
-                        <td mat-cell *matCellDef="let element"> {{element.destination}} </td>
-                    </ng-container>
+  </div>
+</section>
 
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-            </div>
-        </div>
-    </section>
-</body>
+<section class="driver-ride-history p-5 round-edges" id="responsive">
+
+  <table align="center">
+    <tbody *ngFor="let rides of taskService.taskArray | paginate :{
+      itemsPerPage : selectedShowNumber,
+      currentPage : page,
+      totalItems: totalEntries
+    }
+    ">
+    <tr  *ngIf="checkReviewsAreLoaded(rides) === true">
+      <td align="center">
+        <app-ride-card-history *ngIf ="rides.column1 != undefined" [date]="rides.column1"></app-ride-card-history>
+      </td>
+    </tr>
+    <tr *ngIf="checkReviewsAreLoaded(rides) === true">
+      <td align="center">
+        <app-ride-card-history *ngIf="rides.column2 != undefined" [date]="rides.column2"></app-ride-card-history>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+

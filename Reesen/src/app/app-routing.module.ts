@@ -25,6 +25,8 @@ import { UserRideHistoryComponent } from './modules/admin/user-ride-history/user
 import { UserRideInfoComponent } from './modules/admin/user-ride-info/user-ride-info.component';
 import { ReportsComponent } from './modules/admin/reports/reports.component';
 import { RideHistoryComponent } from './modules/passenger/ride-history/ride-history.component';
+import { RideDetailComponent } from './modules/passenger/ride-detail/ride-detail.component';
+
 
 
 const routes: Routes = [
@@ -40,6 +42,7 @@ const routes: Routes = [
   {path:'passenger_profile', component:PassengerProfileComponent},
   {path:'passenger_profile-edit', component:PassengerProfileEditComponent},
   {path:'passenger_ride-history', component:RideHistoryComponent},
+  {path:'passenger_ride-detail/:rideId', component:RideDetailComponent},
   {path:'driverProfile', component:DriverProfileComponent, children: [
     {path:'account', redirectTo: '', pathMatch:'full', component:DriverProfileComponent},
     {path:'rideHistory', component:DriverRideHistoryComponent},
