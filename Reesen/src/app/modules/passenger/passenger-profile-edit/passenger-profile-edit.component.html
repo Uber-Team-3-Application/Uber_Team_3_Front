@@ -2,8 +2,8 @@
     <section class="profile-section">
         <div class="row">
           <div class="col-3 menu">
-            <img [src]="passenger.profilePicture" *ngIf="passenger.profilePicture != 'profilna'" class="img-avatar rounded-circle" id="profilePicture">
-            <div class="text-center my-5 red-text" *ngIf="passenger.profilePicture == 'profilna'">User doesnt have a profile picture!</div>
+            <img [src]="passenger.profilePicture" *ngIf="passenger.profilePicture !== 'profilna'" class="img-avatar rounded-circle" id="profilePicture">
+            <div class="text-center my-5 red-text" *ngIf="passenger.profilePicture === 'profilna'">User doesnt have a profile picture!</div>
 
             <section class="dsaf">
             <h1 id="name" class="names">{{passenger.name}}</h1><h1 id="surname" class="names">{{passenger.surname}}</h1>

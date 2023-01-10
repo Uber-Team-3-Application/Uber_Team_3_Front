@@ -18,6 +18,21 @@
   [labels]="true" >
 </ngx-charts-pie-chart>
 
+<ngx-charts-bar-vertical *ngIf="hasLoaded && typeOfReport==='KILOMETERS_PER_DAY'" class="my-3"
+[view]="view"
+[results]="reportData"
+[gradient]="gradient"
+[xAxis]="showXAxis"
+[yAxis]="showYAxis"
+[legend]="showLegend"
+[showXAxisLabel]="showXAxisLabel"
+[showYAxisLabel]="showYAxisLabel"
+[xAxisLabel]="'Date'"
+[yAxisLabel]="'Total'">
+</ngx-charts-bar-vertical>
+
+
+
 <div *ngIf="typeOfReport==='RIDES_PER_DAY'" class="my-2">
     <div class="row my-2">
         <div class="col-6">
@@ -44,6 +59,23 @@
     </div>
     <div class="row">
         <div class="col-6">Average money spent/earned per day: {{average}}</div>
+    </div>
+    <div class="row">
+        <div class="col-6 full-line">
+
+        </div>
+    </div>
+</div>
+
+<div *ngIf="typeOfReport==='KILOMETERS_PER_DAY'" class="my-2">
+    <div class="row my-2">
+        <div class="col-6">
+            Total kilometers: {{sum}}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-6">Average kilometers per day: {{average}}</div>
     </div>
     <div class="row">
         <div class="col-6 full-line">

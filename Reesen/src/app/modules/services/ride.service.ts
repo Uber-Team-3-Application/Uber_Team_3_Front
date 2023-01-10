@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
@@ -17,9 +17,10 @@ export class RideService {
     return this.http.get<Ride>(environment.apiHost + 'api/ride/' + rideId);
   }
 
-  getReport(role: string, typeOfReport: string, from:Date, to: Date): Observable<Report>{
-    let reportDTO = {
+  getReport(role: string, typeOfReport: string, from:Date, to: Date, driverId : number = null): Observable<Report>{
+    const reportDTO = {
       role:role,
+      driverId:driverId,
       typeOfReport:typeOfReport,
       from:from,
       to:to

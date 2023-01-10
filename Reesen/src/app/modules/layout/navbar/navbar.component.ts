@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../auth/authentication.service';
 import {DriverService} from "../../driver/services/driver.service";
@@ -10,8 +10,8 @@ import {TokenDecoderService} from "../../auth/token/token-decoder.service";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit{
-  isShown: boolean = false;
-  role: any;
+  isShown = false;
+  role: string;
 
 
   constructor(private authenticationService: AuthenticationService, private router: Router,
@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit{
 
 
   logout(): void{
-    if (this.role == 'DRIVER') {
+    if (this.role === 'DRIVER') {
       const driverId = this.tokenService.getDecodedAccesToken().id;
       this.driverService.changeActivity(driverId, false).subscribe();
     }

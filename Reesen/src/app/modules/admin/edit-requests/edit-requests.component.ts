@@ -13,8 +13,8 @@ export class EditRequestsComponent {
   vehicleRequests: DriverEditVehicleRequest[];
   profileRequests: DriverEditBasicInfoRequest[];
 
-  profileClicked: boolean = false;
-  vehicleClicked: boolean = false;
+  profileClicked = false;
+  vehicleClicked = false;
 
   constructor(private router:Router,
               private driverService: DriverService){}
@@ -54,7 +54,7 @@ export class EditRequestsComponent {
             this.vehicleRequests = result;
             console.log(result);
           },
-          error: (error) =>{ this.vehicleRequests = [];}
+          error: () =>{ this.vehicleRequests = [];}
         });
   }
 
@@ -68,8 +68,8 @@ export class EditRequestsComponent {
           .subscribe(
             {
               next:
-              (res) =>{ this.loadVehicleRequests();},
-              error: (error) =>{ this.loadVehicleRequests(); }
+              (res) =>{ this.loadVehicleRequests();console.log(res);},
+              error: () =>{ this.loadVehicleRequests(); }
             }
           );
   }
@@ -79,8 +79,8 @@ export class EditRequestsComponent {
         .subscribe(
             {
               next:
-              (res) =>{ this.loadVehicleRequests();},
-              error: (error) =>{ this.loadVehicleRequests(); }
+              (res) =>{ this.loadVehicleRequests();console.log(res);},
+              error: () =>{ this.loadVehicleRequests(); }
             }
         );
   }
@@ -91,8 +91,8 @@ export class EditRequestsComponent {
           .subscribe(
             {
               next:
-              (res) =>{ this.loadProfileRequests();},
-              error: (error) =>{ this.loadProfileRequests(); }
+              (res) =>{ this.loadProfileRequests();console.log(res);},
+              error: () =>{ this.loadProfileRequests(); }
             }
           );
   }
@@ -102,8 +102,8 @@ export class EditRequestsComponent {
         .subscribe(
           {
             next:
-            (res) =>{ this.loadProfileRequests();},
-            error: (error) =>{ this.loadProfileRequests(); }
+            (res) =>{ this.loadProfileRequests();console.log(res);},
+            error: () =>{ this.loadProfileRequests(); }
           }
         );
       

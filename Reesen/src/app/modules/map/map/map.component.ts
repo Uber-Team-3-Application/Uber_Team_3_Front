@@ -20,15 +20,15 @@ export class MapComponent implements AfterViewInit{
 
   private map:any;
   private currentRoute: L.Routing.Control | null = null;
-  isDriver: boolean = false;
-  rideButtonText: string = 'Get Ride info';
-  showGetRide: boolean = false;
-  showVehicleType: boolean = false;
+  isDriver = false;
+  rideButtonText = 'Get Ride info';
+  showGetRide = false;
+  showVehicleType = false;
   vehicleTypes: VehicleType[];
-  typeSelected: boolean = false;
-  selectedVehicleName: string = '';
-  isFormValid:boolean = true;
-  isRideInfoOpened:boolean = false;
+  typeSelected = false;
+  selectedVehicleName = '';
+  isFormValid = true;
+  isRideInfoOpened = false;
   rideAssumption: RideInfo = {
     estimatedTimeInMinutes: 0,
     estimatedCost: 0
@@ -82,6 +82,7 @@ export class MapComponent implements AfterViewInit{
 
     const DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
+      iconAnchor:[15, 30]
     });
 
     L.Marker.prototype.options.icon = DefaultIcon;
@@ -111,7 +112,7 @@ export class MapComponent implements AfterViewInit{
 
   }
 
-  search(address: string, isSecond:boolean = false){
+  search(address: string, isSecond = false){
 
     this.mapService.search(address).subscribe(
       {

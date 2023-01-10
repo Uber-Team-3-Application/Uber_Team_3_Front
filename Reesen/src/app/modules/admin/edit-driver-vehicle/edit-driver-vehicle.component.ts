@@ -15,10 +15,10 @@ export class EditDriverVehicleComponent implements OnInit{
   id: string;
   user: User;
   role: string;
-  avatarBase64: string = "";
+  avatarBase64 = "";
   numId: number;
   vehicle: Vehicle;
-  hasLoaded: boolean = false;
+  hasLoaded = false;
 
   editVehicleForm = new FormGroup({
     model: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(13)]),

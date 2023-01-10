@@ -1,7 +1,5 @@
 import { Component, Input} from '@angular/core';
 import {Ride} from "../../../models/Ride";
-import { BarRatingModule } from "ngx-bar-rating";
-
 
 @Component({
   selector: 'app-driver-card-history',
@@ -13,11 +11,24 @@ import { BarRatingModule } from "ngx-bar-rating";
 export class DriverCardHistoryComponent {
 
   ride : Ride;
-  rating : number = 4;
+  rating : number = 1;
+
 
   @Input() set date(value : Ride) {
     this.ride = value;
+    let sum = 0;
+    let q = 1;
+
+    if (this.ride.reviews != undefined) {
+      for (let review of this.ride.reviews) {
+        sum += review.driverReview.rating;
+        sum += review.vehicleReview.rating;
+        q += 2;
+      }
+      this.rating = sum / q;
+    }
   }
+
 
 
 

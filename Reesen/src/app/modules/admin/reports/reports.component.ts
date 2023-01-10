@@ -9,13 +9,13 @@ export class ReportsComponent implements OnInit{
 
   startDate: Date;
   endDate: Date;
-  startDateSelected: boolean = false;
-  endDateSelected: boolean = false;
-  reportsGenerated: boolean = false;
-  role: string = "ADMIN";
-  typeRidesPerDay: string = "RIDES_PER_DAY";
-  typeEarnedPerDay: string = "MONEY_EARNED_PER_DAY";
-  constructor(){}
+  startDateSelected = false;
+  endDateSelected = false;
+  reportsGenerated = false;
+  role = "ADMIN";
+  typeRidesPerDay = "RIDES_PER_DAY";
+  typeEarnedPerDay = "MONEY_EARNED_PER_DAY";
+  typeKilometersPerDay = "KILOMETERS_PER_DAY";
   
   ngOnInit(): void {
     this.startDate = new Date();

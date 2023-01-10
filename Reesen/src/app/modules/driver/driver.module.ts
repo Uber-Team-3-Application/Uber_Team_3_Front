@@ -16,6 +16,10 @@ import { DriverCardHistoryComponent } from './driver-card-history/driver-card-hi
 import { DriverCardHistoryResponsiveComponent } from './driver-card-history-responsive/driver-card-history-responsive.component';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {LayoutModule} from "../layout/layout.module";
+import { DriversRideComponent } from './drivers-ride/drivers-ride.component';
+import {NgxPaginationModule} from "ngx-pagination";
+import {MapModule} from "../map/map.module";
+import {GraphsModule} from "../graphs/graphs.module";
 
 
 @NgModule({
@@ -29,19 +33,23 @@ import {LayoutModule} from "../layout/layout.module";
               DriverRideHistoryComponent,
               DriverCardHistoryComponent,
               DriverCardHistoryResponsiveComponent,
+              DriversRideComponent,
 
             ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    MatCardModule,
-    MatSidenavModule,
-    LayoutModule,
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        MatCardModule,
+        MatSidenavModule,
+        LayoutModule,
+        NgxPaginationModule,
+        MapModule,
+        GraphsModule,
 
-  ],
+    ],
   exports:[DriverAccountComponent,
     DriverEditBasicInfoComponent,
     DriverEditPasswordComponent,

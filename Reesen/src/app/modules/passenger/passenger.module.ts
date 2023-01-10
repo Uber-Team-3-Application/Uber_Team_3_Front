@@ -9,11 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivationComponent } from './activation-wait/activation.component';
 import { PassengerProfileEditPasswordComponent } from './passenger-profile-edit-password/passenger-profile-edit-password.component';
 import { RideHistoryComponent } from './ride-history/ride-history.component';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
-import { A11yModule } from '@angular/cdk/a11y';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AnimationBuilder } from '@angular/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -22,6 +17,7 @@ import { LayoutModule } from '../layout/layout.module';
 import { MapModule } from '../map/map.module';
 import { RideCardHistoryComponent } from './ride-card-history/ride-card-history.component';
 import { RideDetailComponent } from './ride-detail/ride-detail.component';
+import { PassengerInfoComponent } from './passenger-info/passenger-info.component';
 
 
 
@@ -34,7 +30,8 @@ import { RideDetailComponent } from './ride-detail/ride-detail.component';
     PassengerProfileEditPasswordComponent,
     RideHistoryComponent,
     RideCardHistoryComponent,
-    RideDetailComponent
+    RideDetailComponent,
+    PassengerInfoComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +46,7 @@ import { RideDetailComponent } from './ride-detail/ride-detail.component';
     GraphsModule,
     FormsModule,
   ],
-  exports: [RegistrationComponent, PassengerProfileComponent, 
+  exports: [RegistrationComponent, PassengerProfileComponent,
     PassengerProfileEditComponent, ActivationComponent, PassengerProfileEditPasswordComponent, RideHistoryComponent]
 })
 export class PassengerModule { }

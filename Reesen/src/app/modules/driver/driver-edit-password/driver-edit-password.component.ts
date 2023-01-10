@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TokenDecoderService } from '../../auth/token/token-decoder.service';
-import { Driver } from 'src/app/models/Driver';
 import { UserService } from '../../unregistered-user/user.service';
 
 @Component({
@@ -24,7 +23,7 @@ export class DriverEditPasswordComponent{
 
   }
 
-  hasError:boolean = false;
+  hasError = false;
   
   edit():void{
     if(this.editPasswordForm.valid){

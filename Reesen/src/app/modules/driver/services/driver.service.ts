@@ -5,7 +5,6 @@ import { environment } from 'src/app/environment/environment';
 import { Driver, DriverActivityDTO, DriverEditVehicleRequest, DriverEditBasicInfoRequest } from 'src/app/models/Driver';
 import { Vehicle } from 'src/app/models/Vehicle';
 import { HttpHeaders } from '@angular/common/http';
-import { User } from 'src/app/models/User';
 import {RidePaginated} from "../../../models/Ride";
 @Injectable({
   providedIn: 'root'
@@ -39,7 +38,7 @@ export class DriverService {
   }
 
   changeActivity(driverId: number, isActive: boolean){
-    let driverActivityDTO: DriverActivityDTO = {
+    const driverActivityDTO: DriverActivityDTO = {
       active:isActive
     };
     return this.http.post(environment.apiHost + 'api/driver/'+ driverId + '/activity', driverActivityDTO);
@@ -66,36 +65,48 @@ export class DriverService {
     return this.http.get<DriverEditVehicleRequest[]>(environment.apiHost + "api/driver/vehicle-edit-requests");
   }
 
-  declineVehicleEditRequest(id: number):Observable<String>{
-      return this.http.delete<String>(environment.apiHost + "api/driver/" + id + "/decline-vehicle-edit-request");
+  declineVehicleEditRequest(id: number):Observable<string>{
+      return this.http.delete<string>(environment.apiHost + "api/driver/" + id + "/decline-vehicle-edit-request");
 
   }
 
-  declineProfileEditRequest(id: number):Observable<String>{
-    return this.http.delete<String>(environment.apiHost + "api/driver/" + id + "/decline-profile-edit-request");
+  declineProfileEditRequest(id: number):Observable<string>{
+    return this.http.delete<string>(environment.apiHost + "api/driver/" + id + "/decline-profile-edit-request");
 
   }
 
-  acceptVehicleEditRequest(id: number):Observable<String>{
-    return this.http.put<String>(environment.apiHost + "api/driver/" + id + "/accept-vehicle-edit-request", {});
+  acceptVehicleEditRequest(id: number):Observable<string>{
+    return this.http.put<string>(environment.apiHost + "api/driver/" + id + "/accept-vehicle-edit-request", {});
 
 }
 
- acceptProfileEditRequest(id: number):Observable<String>{
-  return this.http.put<String>(environment.apiHost + "api/driver/" + id + "/accept-profile-edit-request", {});
+ acceptProfileEditRequest(id: number):Observable<string>{
+  return this.http.put<string>(environment.apiHost + "api/driver/" + id + "/accept-profile-edit-request", {});
 }
 
-  getRidesOfSpecificDriver(id: number, sort?:string) : Observable<RidePaginated> {
 
-    let queryParams = new HttpParams();
-    if (sort != null) {
-      queryParams = queryParams.append("sort", sort);
+
+  getRidesOfSpecificDriver(id: number, sort?:string, from?:string, to?:string, page?:number, size?:number) : Observable<RidePaginated> {
+
+    let params = new HttpParams();
+
+    if (sort != undefined)
+      params = params.append("sort", sort);
+
+    if (from != undefined) {
+      params = params.append("from", from);
+      params = params.append("to", to);
     }
-    console.log(queryParams)
-    return this.http.get<RidePaginated>(environment.apiHost + "api/driver/" + id + "/ride", {
-      params: queryParams
+
+    if (page != undefined) {
+      params = params.append('page', page);
+      params = params.append('size', size);
+    }
+     return this.http.get<RidePaginated>(environment.apiHost + "api/driver/" + id + "/ride", {
+      params: params
     });
   }
+
 
 }
 

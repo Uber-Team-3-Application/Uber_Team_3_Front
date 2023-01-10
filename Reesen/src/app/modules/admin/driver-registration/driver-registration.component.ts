@@ -1,7 +1,6 @@
 import {Component} from "@angular/core";
 import {DriverService} from "../../driver/services/driver.service";
 import {Driver} from "../../../models/Driver";
-import {Location} from "../../../models/Location";
 import {Vehicle} from "../../../models/Vehicle";
 import { Router } from "@angular/router";
 
@@ -12,7 +11,7 @@ import { Router } from "@angular/router";
 })
 
 export class DriverRegistrationComponent {
-  currentState: boolean = true;
+  currentState = true;
   driver: Driver;
   vehicle : Vehicle;
 

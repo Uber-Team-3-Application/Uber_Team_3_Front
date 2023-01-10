@@ -12,15 +12,15 @@ import { DriverService } from '../../driver/services/driver.service';
 export class UsersInfoComponent implements OnInit{
 
   users: User[];
-  selectedShowNumber: number = 3;
+  selectedShowNumber = 3;
   tableSizes = [3, 5, 15, 25, 50];
   search: string;
-  totalEntries: number = 0;
-  selectedPage: number = 1;
-  page:number = 1;
-  sortDirection: number = -1;
-  totalRequests: number = 0;
-  hasLoaded: boolean = false;
+  totalEntries = 0;
+  selectedPage = 1;
+  page = 1;
+  sortDirection = -1;
+  totalRequests = 0;
+  hasLoaded = false;
   constructor(private userService: UserService, private router: Router,
               private driverService: DriverService){
     
@@ -48,7 +48,7 @@ export class UsersInfoComponent implements OnInit{
   }
 
   onSearchChange(): void{
-    var input, filter, table, tr, td, i, txtValue;
+    let input, filter, table, tr;
     input = document.getElementById("search");
     filter = input.value.toUpperCase();
     table = document.getElementById("userTable");
@@ -108,7 +108,7 @@ export class UsersInfoComponent implements OnInit{
 
   sortTable(column: number) : void {
     this.sortDirection = this.sortDirection * (-1);
-    var table, rows, switching, i, x, y, shouldSwitch;
+    let table, rows, switching, i, x, y, shouldSwitch;
     table = document.getElementById("userTable");
     switching = true;
     /*Make a loop that will continue until

@@ -14,7 +14,14 @@ export interface User{
     isConfirmedEmail?: boolean,
     amountOfMoney?: number,
 }
+
 export interface PageUsers{
     totalCount: number;
     results: User[];
+}
+
+export interface UserRestrict {
+  id:number,
+  email:string
+  profilePicture? :string
 }
