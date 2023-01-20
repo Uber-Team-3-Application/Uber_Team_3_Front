@@ -21,7 +21,6 @@ export class Interceptor implements HttpInterceptor {
     const decodedRefreshToken = JSON.parse(refreshToken);
 
     if (request.headers.get('skip')) return next.handle(request);
-
     if (accessToken) {
       const cloned = request.clone({
         headers: request.headers.set('X-Auth-Token', decodedItem)

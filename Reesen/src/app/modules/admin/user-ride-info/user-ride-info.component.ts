@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Driver } from 'src/app/models/Driver';
 import { Passenger } from 'src/app/models/Passenger';
@@ -9,12 +9,13 @@ import { RideService } from '../../services/ride.service';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { MapService } from '../../map/map.service';
+import { ReviewService } from '../../driver/services/review.service';
 @Component({
   selector: 'app-user-ride-info',
   templateUrl: './user-ride-info.component.html',
   styleUrls: ['./user-ride-info.component.css']
 })
-export class UserRideInfoComponent implements AfterViewInit{
+export class UserRideInfoComponent implements AfterViewInit, OnDestroy{
   
   userId: number;
   rideId: number;
@@ -35,7 +36,8 @@ export class UserRideInfoComponent implements AfterViewInit{
               private passengerService: PassengerService,
               private router: Router,
               private mapService: MapService,
-              private changeDetectorRef: ChangeDetectorRef){ }
+              private changeDetectorRef: ChangeDetectorRef,
+              private reviewSerice: ReviewService){ }
 
   ngAfterViewInit(): void {
 
@@ -56,10 +58,20 @@ export class UserRideInfoComponent implements AfterViewInit{
             {
               next: (result) =>{ 
                 this.ride = result;
-                this.reviews = this.ride.reviews;
-                this.setRatings();
-                this.setDriver();
-                this.setPassengers();
+                this.reviewSerice.getReviewsForTheSpecificRide(this.rideId).subscribe(
+                  {
+                    next:(res) =>{
+                      this.reviews = res;
+                      this.setRatings();
+                      this.setDriver();
+                      this.setPassengers();
+                    },
+                    error:(err) =>{
+                      console.log(err);
+                    }
+                  }
+                )
+
                
               },
               error: (error) => {console.log(error);}
@@ -114,7 +126,7 @@ export class UserRideInfoComponent implements AfterViewInit{
 
   private setRatings(): void{
 
-        const reviews: Review[] = this.ride.reviews;
+        const reviews: Review[] = this.reviews;
         if(reviews.length === 0) 
         {
           this.ratings = 0;
@@ -134,6 +146,9 @@ export class UserRideInfoComponent implements AfterViewInit{
     }
   goBack():void{
     this.router.navigate(['users/' + this.userId + '/' + this.userRole + '/ride-history']);
+  }
+  ngOnDestroy(): void {
+
   }
 
   private initMap():void{

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, OnDestroy, Component } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
@@ -16,7 +16,7 @@ import { greenCar, redCar } from '../icons/icons';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements AfterViewInit{
+export class MapComponent implements AfterViewInit, OnDestroy{
 
   private map:any;
   private currentRoute: L.Routing.Control | null = null;
@@ -39,6 +39,7 @@ export class MapComponent implements AfterViewInit{
   markers = new Array();
 
 
+  
   getRideForm = new FormGroup({
     departure: new FormControl('', [Validators.required, Validators.minLength(3)]),
     destination : new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -56,8 +57,6 @@ export class MapComponent implements AfterViewInit{
       zoom: 16,
     });
 
-
-
     const tiles = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       {
@@ -69,7 +68,6 @@ export class MapComponent implements AfterViewInit{
     );
     tiles.addTo(this.map);
 
-
   }
 
   selectVehicleType(type:VehicleType):void{
@@ -78,6 +76,12 @@ export class MapComponent implements AfterViewInit{
       this.typeSelected = true;
   }
 
+  ngOnDestroy(): void {
+    if (this.map && this.map.remove) {
+      this.map.off();
+      this.map.remove();
+    }
+  }
   ngAfterViewInit(): void {
 
     const DefaultIcon = L.icon({
