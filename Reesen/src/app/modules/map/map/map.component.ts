@@ -9,7 +9,8 @@ import { VehicleService } from 'src/app/modules/driver/services/vehicle.service'
 import { UserService } from '../../unregistered-user/user.service';
 import { RideInfo, RideInfoBody } from 'src/app/models/Ride';
 import { greenCar, redCar } from '../icons/icons';
-
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
 
 @Component({
   selector: 'app-map',
