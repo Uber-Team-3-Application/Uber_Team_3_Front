@@ -4,7 +4,7 @@ import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { VehicleType } from 'src/app/models/Vehicle';
-import { Location, VehicleLocationWithAvailibility } from 'src/app/models/Location';
+import { Location, Route, VehicleLocationWithAvailibility } from 'src/app/models/Location';
 import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
 import { UserService } from '../../unregistered-user/user.service';
 import { RideInfo, RideInfoBody } from 'src/app/models/Ride';
@@ -151,6 +151,7 @@ export class MapComponent implements AfterViewInit{
 
   getRideAssumptions():void{
 
+    const route = new Array<Route>();
     const selectedLocations = new Array<Location>();
     const depLoc: Location = {
         address: this.getRideForm.value.departure,
@@ -165,15 +166,19 @@ export class MapComponent implements AfterViewInit{
     };
     selectedLocations.push(depLoc);
     selectedLocations.push(destLoc);
-    let type = "KOMBI";
+    route.push({
+      departure:depLoc,
+      destination:destLoc
+    })
+    let type = "VAN";
     if(this.selectedVehicleName === "STANDARD"){
-        type = "STANDARDNO";
+        type = "STANDARD";
     }
     else if(this.selectedVehicleName === "LUXURY"){
-      type = "LUKSUZNO";
+      type = "LUXURY";
     }
      const rideInfo: RideInfoBody = {
-      locations: selectedLocations,
+      locations: route,
       vehicleType:type,
       babyTransport: this.getRideForm.value.babyTransport,
       petTransport: this.getRideForm.value.petTransport

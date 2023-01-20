@@ -36,7 +36,7 @@ export interface SingleReview{
 }
 
 export interface RideInfoBody{
-    locations: Location[],
+    locations: Route[],
     vehicleType: string,
     babyTransport: boolean,
     petTransport: boolean,
