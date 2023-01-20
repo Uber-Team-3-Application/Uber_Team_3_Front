@@ -12,6 +12,13 @@ export interface Vehicle{
     petTransport:boolean;
 
 }
+
+export interface VehicleDTO{
+    id?: number;
+    licensePlateNumber: string;
+    latitude:number;
+    longitude:number;
+}
 export interface VehicleType{
     id?:number;
     name:string;

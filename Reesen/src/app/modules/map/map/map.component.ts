@@ -3,13 +3,13 @@ import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { VehicleType } from 'src/app/models/Vehicle';
+import { VehicleDTO, VehicleType } from 'src/app/models/Vehicle';
 import { Location, Route, VehicleLocationWithAvailibility } from 'src/app/models/Location';
 import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
 import { UserService } from '../../unregistered-user/user.service';
 import { RideInfo, RideInfoBody } from 'src/app/models/Ride';
 import { greenCar, redCar } from '../icons/icons';
-import * as Stomp from 'stompjs';
+import * as Stomp from '@stomp/rx-stomp';
 import * as SockJS from 'sockjs-client';
 
 @Component({
@@ -30,6 +30,11 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   selectedVehicleName = '';
   isFormValid = true;
   isRideInfoOpened = false;
+  vehicles : any = {};
+  rides: any = {};
+  mainGroup: L.LayerGroup[] = [];
+  private stompClient: any;
+
   rideAssumption: RideInfo = {
     estimatedTimeInMinutes: 0,
     estimatedCost: 0
@@ -83,6 +88,24 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       this.map.remove();
     }
   }
+
+  initializeWebSocketConnection(){
+    let ws = new SockJS('http://localhost:8082/socket');
+    //this.stompClient = Stomp.watch(ws);
+    this.stompClient.debug = null;
+    let that = this;
+    this.stompClient.connect({}, function(){
+      this.openGlobalSocket();
+    })
+  }
+  openGLobalSocket(){
+    this.stompClient.subscribe('/map-updates/update-vehicle-position', (message: { body: string }) => {
+      let vehicle: VehicleDTO = JSON.parse(message.body);
+      let existingVehicle = this.vehicles[vehicle.id];
+      existingVehicle.setLatLng([vehicle.longitude, vehicle.latitude]);
+      existingVehicle.update();
+    });
+  }
   ngAfterViewInit(): void {
 
     const DefaultIcon = L.icon({
@@ -113,10 +136,37 @@ export class MapComponent implements AfterViewInit, OnDestroy{
                             }
                           }
                         );
+    
+
+    //this.getRidesFromScript();
 
 
   }
 
+  getRidesFromScript(): void{
+    this.mapService.getAllActiveRides().subscribe((ret) => {
+      for (let ride of ret) {
+        let color = Math.floor(Math.random() * 16777215).toString(16);
+        let geoLayerRouteGroup: L.LayerGroup = new L.LayerGroup();
+        for (let step of JSON.parse(ride.routeJSON)['routes'][0]['legs'][0]['steps']) {
+          let routeLayer = L.geoJSON(step.geometry);
+          routeLayer.setStyle({ color: `#${color}` });
+          routeLayer.addTo(geoLayerRouteGroup);
+          this.rides[ride.id] = geoLayerRouteGroup;
+        }
+        let markerLayer = L.marker([ride.vehicle.longitude, ride.vehicle.latitude], {
+          icon: L.icon({
+            iconUrl: 'assets/img/car-red.png',
+            iconSize: [35, 45],
+            iconAnchor: [18, 45],
+          }),
+        });
+        markerLayer.addTo(geoLayerRouteGroup);
+        this.vehicles[ride.vehicle.id] = markerLayer;
+        this.mainGroup = [...this.mainGroup, geoLayerRouteGroup];
+      }
+    });
+  }
   search(address: string, isSecond = false){
 
     this.mapService.search(address).subscribe(

@@ -3,8 +3,15 @@ import {Driver} from "./Driver";
 import {Passenger} from "./Passenger";
 import {Rejection} from "./Rejection";
 import {User} from "./User";
+import { VehicleDTO } from "./Vehicle";
 
 
+export interface RideDTO{
+  id?:number;
+  routeJSON:string;
+  rideStatus:number;
+  vehicle:VehicleDTO;
+}
 
 export interface Ride {
   id:number;
