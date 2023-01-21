@@ -1,9 +1,9 @@
 
 export interface Location{
-    id?:number,
-    address:string,
-    latitude:number,
-    longitude:number,
+    id?:number;
+    address:string;
+    latitude:number;
+    longitude:number;
 }
 
 export interface VehicleLocationWithAvailibility{
@@ -15,7 +15,7 @@ export interface VehicleLocationWithAvailibility{
 }
 
 export interface Route {
-  id?:number,
-  departure:Location,
-  destination:Location
+  id?:number;
+  departure:Location;
+  destination:Location;
 }

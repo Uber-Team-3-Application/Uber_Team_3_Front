@@ -29,6 +29,7 @@ import { RideDetailComponent } from './modules/passenger/ride-detail/ride-detail
 import {DriversRideComponent} from "./modules/driver/drivers-ride/drivers-ride.component";
 import {PassengerInfoComponent} from "./modules/passenger/passenger-info/passenger-info.component";
 import {DriverReportsComponent} from "./modules/driver/driver-reports/driver-reports.component";
+import { PanicPageAdminComponent } from './modules/admin/panic-page-admin/panic-page-admin.component';
 
 
 
@@ -63,6 +64,7 @@ const routes: Routes = [
   {path: 'admin-reports', component:ReportsComponent},
   {path: 'driver-reports', component:DriverReportsComponent},
   {path: 'users', component: UsersInfoComponent},
+  {path: 'panic', component: PanicPageAdminComponent},
   {path: 'users/:id/:role', component: UserDetailsComponent},
   {path: 'users/:id/:role/edit', component: EditUserProfileComponent},
   {path: 'users/:id/:role/edit-vehicle', component: EditDriverVehicleComponent},

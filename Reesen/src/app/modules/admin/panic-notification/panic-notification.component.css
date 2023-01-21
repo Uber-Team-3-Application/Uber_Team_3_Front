@@ -1,0 +1,42 @@
+.text-black-bold{
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+}
+.panic-notification{
+    background-color: #4B7869;
+    border-radius: 10px;
+}
+.panic-info{
+    background-color: white;
+    border-radius: 10px;
+}
+.text-color{
+    color: #4B7869;
+    font-weight: bold;
+}
+.img-danger{
+    width: 90px;
+    height: 90px;
+}
+.red-text{
+    color:red;
+
+}
+.panic-info:hover{
+    background-color: #737373;
+    color: white;
+}
+.panic-info:hover .row > .red-text{
+    color: rgb(244, 244, 244);
+}
+.panic-info:hover .row > .text-black-bold{
+    color: rgb(225, 255, 27);
+}
+@media only screen and (max-width: 900px) {
+    .img-danger{
+        width: 50px;
+        height: 50px;
+    }
+    
+}

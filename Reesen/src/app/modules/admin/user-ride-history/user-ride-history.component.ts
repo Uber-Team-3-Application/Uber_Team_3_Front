@@ -39,7 +39,7 @@ export class UserRideHistoryComponent implements OnInit{
         {
           next: (result) => {
             this.rides = result.results;
-            console.log(this.rides);
+            
             this.setRatings();
             this.hasLoaded = true;
 
