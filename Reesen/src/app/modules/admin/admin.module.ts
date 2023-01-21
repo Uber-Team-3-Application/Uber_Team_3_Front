@@ -16,6 +16,7 @@ import { UserRideInfoComponent } from './user-ride-info/user-ride-info.component
 import { ReportsComponent } from './reports/reports.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { GraphsModule } from '../graphs/graphs.module';
+import { PanicNotificationComponent } from './panic-notification/panic-notification.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { GraphsModule } from '../graphs/graphs.module';
     EditRequestsComponent,
     UserRideHistoryComponent,
     UserRideInfoComponent,
-    ReportsComponent
+    ReportsComponent,
+    PanicNotificationComponent
 
   ],
   imports: [
