@@ -67,7 +67,7 @@ export class UserService {
 
   }
 
-  createRemark(userId: number, message: string): Observable<Remark>{
+  createRemark(userId: number, message: Remark): Observable<Remark>{
     return this.http.post<Remark>(environment.apiHost + "api/user/" + userId + "/note", message);
   }
   getRemarks(userId: number, page: number, size: number): Observable<PageRemark>{
