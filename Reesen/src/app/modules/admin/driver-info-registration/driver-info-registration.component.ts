@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Driver} from "../../../models/Driver";
 
 @Component({
@@ -11,15 +11,15 @@ export class DriverInfoRegistrationComponent {
 
   @Output() statusChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output()  driver : EventEmitter<Driver> = new EventEmitter<Driver>();
-
+  hasError = false;
   createDriverForm = new FormGroup({
-    firstName: new FormControl(),
-    email: new FormControl(),
-    password: new FormControl(),
-    lastName: new FormControl(),
-    phone: new FormControl(),
-    passwordRepeat: new FormControl(),
-    address: new FormControl()
+    firstName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+    email: new FormControl('', [Validators.email, Validators.minLength(8), Validators.maxLength(25)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
+    lastName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+    phone: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
+    passwordRepeat: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
+    address: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(35)])
   });
 
 
@@ -27,7 +27,8 @@ export class DriverInfoRegistrationComponent {
 
 
   registerDriver() {
-    // if (this.createDriverForm.valid) {
+    if (this.createDriverForm.valid && this.createDriverForm.value.password && this.createDriverForm.value.passwordRepeat) {
+      this.hasError = false;
       this.statusChanged.emit(false);
       const new_driver: Driver = {
         name : this.createDriverForm.value.firstName,
@@ -39,7 +40,9 @@ export class DriverInfoRegistrationComponent {
         password : this.createDriverForm.value.password
       };
       this.driver.emit(new_driver);
-
+    }else{
+      this.hasError = true;
+    }
   }
 
 

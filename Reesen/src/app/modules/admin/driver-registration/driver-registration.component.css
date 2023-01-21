@@ -55,12 +55,20 @@
   width: 60%;
   height: 50px;
   background-color:#48786d;
+  border:2px solid transparent;
   border-radius: 8px;
   border: 1px transparent;
   font-weight: 500;
   font-size: 16px;
   text-transform: uppercase;
   box-shadow: 2px 2px 5px rgb(91, 91, 91);
+  transition: .3s ease-in-out;
+}
+.signup:hover{
+  background-color: white;
+  border:2px solid black;
+  color: #48786d;
+  transition: .3s ease-in-out;
 }
 
 .choose{
@@ -140,17 +148,26 @@ input[type="file"] {
 .custom-file-upload {
   cursor: pointer;
   color:white;
-  background-color:#9b9b9b;
+  background-color:#48786d;
+  border:2px solid transparent;
+
   height: 50px;
   margin-top: 7px;
-  padding:3px 20px;
+  padding:10px 20px;
   border-radius: 8px;
-  border: 1px transparent;
+  border: 2px solid transparent;
   font-weight: 500;
   font-size: 15px;
   box-shadow: 2px 2px 5px rgb(129, 129, 129);
+  transition: .3s ease-in-out;
 }
 
+.custom-file-upload:hover{
+  background-color: white;
+  border:2px solid black;
+  color: #48786d;
+  transition: .3s ease-in-out;
+}
 @media only screen and (max-width: 800px) {
   .logo-image{
     width: 20vw;
