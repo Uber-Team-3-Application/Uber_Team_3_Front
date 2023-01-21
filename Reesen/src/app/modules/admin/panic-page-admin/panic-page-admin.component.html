@@ -1,9 +1,9 @@
-<section class="panics">
-    <div class="row">
-        <div class="col-md-6 col-12 my-3" 
+<section class="panics" *ngIf="hasLoaded">
+    <div class="row p-3">
+        <div class="col-12 my-3 width-setting" 
         *ngFor="let panic of panics"
         >
-
+        <app-panic-notification [panic]="panic"></app-panic-notification>
        
 
         </div>

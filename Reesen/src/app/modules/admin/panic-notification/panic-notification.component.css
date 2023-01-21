@@ -1,0 +1,30 @@
+.text-black-bold{
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+}
+.panic-notification{
+    background-color: #4B7869;
+}
+.panic-info{
+    background-color: white;
+}
+.text-color{
+    color: #4B7869;
+    font-weight: bold;
+}
+.img-danger{
+    width: 90px;
+    height: 90px;
+}
+.red-text{
+    color:red;
+    
+}
+@media only screen and (max-width: 800px) {
+    .img-danger{
+        width: 40px;
+        height: 40px;
+    }
+    
+}

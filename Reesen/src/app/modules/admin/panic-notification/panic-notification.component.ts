@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { PanicDTO } from 'src/app/models/Panic';
 
 @Component({
   selector: 'app-panic-notification',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./panic-notification.component.css']
 })
 export class PanicNotificationComponent {
+  @Input() panic: PanicDTO;
 
+  
 }

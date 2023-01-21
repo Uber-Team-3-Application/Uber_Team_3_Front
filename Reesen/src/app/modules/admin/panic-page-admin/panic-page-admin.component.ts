@@ -10,37 +10,30 @@ import { PanicService } from './panic.service';
 })
 export class PanicPageAdminComponent {
 
-  userId: number;
-  userRole:string;
   panics: PanicDTO[];
-  ratings = new Array();
   hasLoaded = false;
-  selectedSort = "Start Time";
-  page = 1;
-  selectedShowNumber = 2;
-  totalEntries = 0;
 
-  constructor(private panicService: PanicService, 
-            private route: ActivatedRoute){}
+  constructor(private panicService: PanicService){}
 
   ngOnInit(): void {
      this.hasLoaded = false;
-     this.getDataFromUrl();
      this.getPanic();
   }
 
   private getPanic() {
-
-  
+      this.panicService.get().subscribe(
+        {
+          next:(result) =>{
+              this.panics = result.results;
+              this.hasLoaded = true;
+          },
+          error:(error) =>{
+            console.log(error);
+          }
+        }
+      )
   }
 
-
-
-  private getDataFromUrl():void{
-      const id = this.route.snapshot.paramMap.get('id');
-      this.userId = +id;
-      this.userRole = this.route.snapshot.paramMap.get('role');
-  }
 
 
 }

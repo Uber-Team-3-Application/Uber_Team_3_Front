@@ -1,68 +1,65 @@
-<section class="panic-notification">
-    <div class="row">
-        <div class="col-9">
-            <div class="row">
-                <div class="col-1">
-
+<section class="panic-notification py-3 px-5">
+    <div class="row panic-info p-3 text-color">
+        <div class="col-10">
+            <div class="row mb-2">
+                <div class="col-md-1 col-2">
+                    <img src="assets/img/timericon.png" alt="Time" style="width: 40px; height: 40px;">
                 </div>
-                <div class="col-4">
-
-                </div>
-                <div class="col-4">
-
+                <div class="col-md-8 col-9 pt-2 text-black-bold">
+                    {{panic.ride.startTime | date: 'dd/MM/yyyy HH:mm'}} - {{panic.ride.endTime | date: 'dd/MM/yyyy HH:mm'}}
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-
+                    {{panic.ride.locations[0].departure.address}} - {{panic.ride.locations[0].destination.address}}
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-4">
-
+                    Start station:
                 </div>
                 <div class="col-6">
-
+                    {{panic.ride.locations[0].departure.address}}
                 </div>
             </div>
             
             <div class="row">
                 <div class="col-4">
-
+                    End station:
                 </div>
                 <div class="col-6">
-
+                    {{panic.ride.locations[0].destination.address}}
                 </div>
             </div>
             
             <div class="row">
                 <div class="col-4">
-
+                    Passengers:
                 </div>
                 <div class="col-6">
-
+                    {{panic.ride.passengers.length}}
                 </div>
             </div>
             
             <div class="row">
                 <div class="col-4">
-
+                    Price:
                 </div>
                 <div class="col-6">
-
+                    {{panic.ride.totalCost}} (RSD)
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    
+            <div class="row mt-2">
+                <div class="col-12 red-text">
+                    {{panic.user.name}} {{panic.user.surname}} pressed panic button at {{panic.time | date: 'dd/MM/yyyy HH:mm'}}
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-2">
             <div class="row">
                 <div class="col-12">
-                    <img src="assets/img/danger.png" alt="Danger" style="width: 100px;height: 100px;">
+                    <img src="assets/img/danger.png" alt="Danger" class="img-danger">
                 </div>
             </div>
         </div>
