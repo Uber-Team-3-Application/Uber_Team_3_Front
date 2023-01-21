@@ -10,7 +10,10 @@ export interface Driver{
     password?:string;
     blocked?:boolean;
 }
-
+export interface PaginatedDriver{
+    totalCount: number;
+    results:Driver[];
+}
 export interface DriverActivityDTO{
     active:boolean;
 }
