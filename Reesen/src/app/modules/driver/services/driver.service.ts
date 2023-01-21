@@ -2,7 +2,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
-import { Driver, DriverActivityDTO, DriverEditVehicleRequest, DriverEditBasicInfoRequest } from 'src/app/models/Driver';
+import { PaginatedDriver, Driver, DriverActivityDTO, DriverEditVehicleRequest, DriverEditBasicInfoRequest } from 'src/app/models/Driver';
 import { Vehicle } from 'src/app/models/Vehicle';
 import { HttpHeaders } from '@angular/common/http';
 import {RidePaginated} from "../../../models/Ride";
@@ -30,8 +30,8 @@ export class DriverService {
 
   }
 
-  getAll():Observable<Driver[]>{
-    return this.http.get<Driver[]>(environment.apiHost + '/api/driver');
+  getAll():Observable<PaginatedDriver>{
+    return this.http.get<PaginatedDriver>(environment.apiHost + 'api/driver');
   }
   getDriversVehicle(driverId:number):Observable<Vehicle>{
     return this.http.get<Vehicle>(environment.apiHost + 'api/driver/' + driverId + '/vehicle');
