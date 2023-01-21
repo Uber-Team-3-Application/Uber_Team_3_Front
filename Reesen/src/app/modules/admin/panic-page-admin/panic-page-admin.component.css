@@ -1,0 +1,14 @@
+.width-setting{
+    width: 80%;
+    margin: 20px auto 0 auto;
+}
+
+.bg-panics{
+    background-color: rgba(98, 180, 136, 0.3);
+}
+@media only screen and (max-width: 800px) {
+
+.width-setting{
+    width: 98%;
+}
+}

@@ -18,7 +18,7 @@
                  <p class="notes-p ">Notes</p>
                  <div class="notes-display" *ngIf="remarks.length !== 0">
                     <div *ngFor="let note of remarks" class="remark-border mb-3">
-                      <p class="remark-date">{{note.date.toLocaleString()}}</p>
+                      <p class="remark-date">{{note.date | date: 'dd/MM/yyyy HH:mm'}}</p>
                       <p class="remark-text">{{note.message}}</p>
                     </div>
                  </div>

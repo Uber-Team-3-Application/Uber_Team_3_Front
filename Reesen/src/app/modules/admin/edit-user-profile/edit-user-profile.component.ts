@@ -179,12 +179,17 @@ export class EditUserProfileComponent implements OnInit{
       const value = noteInput.value;
       if(value.trim().length < 3) return;
       const newNote: Remark ={
-        message: value,
-        date: new Date(),
+        message: value
       }
-      this.remarks.push(newNote);
-      this.userService.createRemark(this.numId, value)
-          .subscribe();
+      this.userService.createRemark(this.numId, newNote)
+          .subscribe(
+            {
+              next:(result) =>{
+                this.remarks.push(result);
+              },
+              error:(error) =>{console.log(error);}
+            }
+          );
       noteInput.value = "";
     }
 

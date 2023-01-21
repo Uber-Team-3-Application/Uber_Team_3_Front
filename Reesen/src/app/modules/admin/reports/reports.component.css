@@ -1,3 +1,9 @@
 .border-left{
     border-left: 1px solid black;
 }
+
+.dropdown-drivers{
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+}

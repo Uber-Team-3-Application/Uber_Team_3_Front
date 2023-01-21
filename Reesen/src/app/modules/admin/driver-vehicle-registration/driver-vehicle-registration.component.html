@@ -6,6 +6,11 @@
     <div class="card-body">
       <h5 class="card-title">Driver’s Vehicle Info</h5>
       <div class="row">
+        <div class="alert alert-danger" role="alert" *ngIf="hasError === true">
+            Please fill out every field correctly.
+          </div>
+      </div>
+      <div class="row">
         <div class="col">
           <div class="mb-3 space">
             <label for="model" class="label-reg">Model</label>
@@ -16,8 +21,8 @@
             <input type="text" class="form-control" id="registrationNumber"  formControlName="registrationNumber" placeholder="SM666CF">
           </div>
           <div class="form-check mb-3 space">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="flexCheckDefault">
-            <label class="form-check-label check-button" for="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="" id="babyTransport" formControlName="babyTransport">
+            <label class="form-check-label check-button" for="babyTransport">
               Baby Transport
             </label>
           </div>
