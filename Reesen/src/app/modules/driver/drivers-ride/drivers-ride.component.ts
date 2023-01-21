@@ -43,15 +43,26 @@ export class DriversRideComponent implements OnInit{
       this.rideService.get(params["rideId"]).subscribe((ride)=>
       {
         this.ride = ride;
-        this.reviews = this.ride.reviews;
+        this.setReviews();
         this.setRatings();
         this.setPassengers();
+
       })
 
     })
   }
 
+  private setReviews() {
+    this.reviewService.getReviewsForTheSpecificRide(this.ride.id).subscribe(
+      res => {
+        this.reviews = res;
+      }
+    );
+  }
+
+
   private setPassengers(): void{
+    let indicator = 0;
     for(let i=0;i<this.ride.passengers.length;i++){
       this.passengerService.get(this.ride.passengers[i].id)
         .subscribe(
@@ -60,16 +71,17 @@ export class DriversRideComponent implements OnInit{
               this.passengers.push(result);
               this.setReviewInfo(i, result);
               if(i===this.ride.passengers.length - 1){
-                this.hasLoaded = true;
                 this.changeDetectorRef.detectChanges();
                 this.initMap();
+                this.hasLoaded = true;
               }
 
             },
-            error: (error) =>{console.log(error);}
+            error: (error) => {console.log(error);}
           }
         );
     }
+
   }
 
   private setReviewInfo(i: number, result: Passenger) {
@@ -89,7 +101,7 @@ export class DriversRideComponent implements OnInit{
 
   private setRatings(): void{
 
-    let reviews: Review[] = this.ride.reviews;
+    let reviews: Review[] = this.reviews;
     if(reviews.length === 0)
     {
       this.ratings = 0;

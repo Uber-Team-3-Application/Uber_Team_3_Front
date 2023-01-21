@@ -94,8 +94,10 @@ export class DriverService {
       params = params.append("sort", sort);
 
     if (from != undefined) {
-      params = params.append("from", from);
-      params = params.append("to", to);
+      let fromString = new Date(from).toISOString();
+      params = params.append("from", fromString);
+      let toString = new Date(to).toISOString();
+      params = params.append("to", toString);
     }
 
     if (page != undefined) {

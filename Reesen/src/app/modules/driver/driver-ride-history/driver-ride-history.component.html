@@ -3,21 +3,21 @@
 <div class="dropdown">
   <img src="assets/img/filter.png" class="dropbtn">
   <div class="dropdown-content">
-    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(1)">Sort by price in ascending order</p>
-    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(2)" >Sort by price in descending order</p>
-    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(3)">Sort by date in ascending order</p>
-    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(4)">Sort by date in descending order</p>
-    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(5)">Sort by start station in ascending order</p>
-    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(6)">Sort by start station in descending order</p>
-    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(7)">Sort by end station in ascending order</p>
-    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort(8)">Sort by end station in descending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort('totalPrice,asc')">Sort by price in ascending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort('totalPrice,desc')" >Sort by price in descending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort('timeOfStart,asc')">Sort by date in ascending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort('timeOfStart,desc')">Sort by date in descending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort('locations.departure.address,asc')">Sort by start station in ascending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort('locations.departure.address,desc')">Sort by start station in descending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort('locations.destination.address,asc')">Sort by end station in ascending order</p>
+    <p class="w3-bar-item w3-button" (click)="changeKindsOfSort('locations.destination.address,desc')">Sort by end station in descending order</p>
   </div>
 </div>
 
 <label for="start_date">Start date:</label>
-<input type="date" id="start_date" name="start_date" value="{{minDate}}" max="{{maxDate}}" (change)="setMinValue()">
+<input type="datetime-local" id="start_date" name="start_date" value="{{minDate}}" max="{{maxDate}}" (change)="setMinValue()">
 <label for="end_date">End date:</label>
-<input type="date" id="end_date" name="end_date" value="{{maxDate}}" min="{{minDate}}" (change)="setMaxValue()" >
+<input type="datetime-local" id="end_date" name="end_date" value="{{maxDate}}" min="{{minDate}}" (change)="setMaxValue()" >
 <button (click)="searchByDates()" class="signup">Search</button>
 
 <label class="pr mt-5 ">
