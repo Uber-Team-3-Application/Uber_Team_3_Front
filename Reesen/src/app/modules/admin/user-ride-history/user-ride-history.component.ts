@@ -22,15 +22,15 @@ export class UserRideHistoryComponent implements OnInit{
   sortOrder = "Ascending";
   selectedSortOrder = "asc";
 
-  constructor(private userService: UserService, 
-            private router: Router,
-            private route: ActivatedRoute){}
+  constructor(private userService: UserService,
+              private router: Router,
+              private route: ActivatedRoute){}
 
   ngOnInit(): void {
-     this.hasLoaded = false;
-     this.getDataFromUrl();
-     this.getTotalNumberOfRides();
-     this.getRides(this.page, this.selectedShowNumber, 'timeOfStart');
+    this.hasLoaded = false;
+    this.getDataFromUrl();
+    this.getTotalNumberOfRides();
+    this.getRides(this.page, this.selectedShowNumber, 'timeOfStart');
   }
 
   private getRides(page: number, size: number, sortBy: string) {
@@ -39,7 +39,7 @@ export class UserRideHistoryComponent implements OnInit{
         {
           next: (result) => {
             this.rides = result.results;
-            
+
             this.setRatings();
             this.hasLoaded = true;
 
@@ -63,41 +63,41 @@ export class UserRideHistoryComponent implements OnInit{
   }
 
   private getDataFromUrl():void{
-      const id = this.route.snapshot.paramMap.get('id');
-      this.userId = +id;
-      this.userRole = this.route.snapshot.paramMap.get('role');
+    const id = this.route.snapshot.paramMap.get('id');
+    this.userId = +id;
+    this.userRole = this.route.snapshot.paramMap.get('role');
   }
 
   private setRatings(): void{
     this.ratings.length = 0;
     for(let i=0;i<this.rides.length;i++){
-        const reviews: Review[] = this.rides[i].reviews;
-        if(reviews.length === 0) 
-        {
-          this.ratings[i] = 0; 
-          continue;
+      const reviews: Review[] = this.rides[i].reviews;
+      if(reviews.length === 0)
+      {
+        this.ratings[i] = 0;
+        continue;
 
-        }
-        const totalNumberOfReviews: number = reviews.length  * 2;
-        let totalReviewScore = 0;
-        for(let j =0;j<reviews.length;j++){
+      }
+      const totalNumberOfReviews: number = reviews.length  * 2;
+      let totalReviewScore = 0;
+      for(let j =0;j<reviews.length;j++){
 
-          const vehicleReview = reviews[j].vehicleReview;
-          const driverReview = reviews[j].driverReview; 
-          totalReviewScore += vehicleReview.rating;
-          totalReviewScore += driverReview.rating;
-        }
-      
-        this.ratings.push(totalReviewScore/totalNumberOfReviews);
+        const vehicleReview = reviews[j].vehicleReview;
+        const driverReview = reviews[j].driverReview;
+        totalReviewScore += vehicleReview.rating;
+        totalReviewScore += driverReview.rating;
+      }
+
+      this.ratings.push(totalReviewScore/totalNumberOfReviews);
 
     }
   }
 
   selectSort():void{
-      if(this.selectedSort === 'Start Time') this.getRides(this.page, this.selectedShowNumber, 'timeOfStart');
-      else if(this.selectedSort === 'End Time') this.getRides(this.page, this.selectedShowNumber, 'timeOfEnd');
-      else if(this.selectedSort === 'Location Departure') this.getRides(this.page, this.selectedShowNumber, 'locations.departure.address');
-      else if(this.selectedSort === 'Location Destination') this.getRides(this.page, this.selectedShowNumber, 'locations.destination.address');
+    if(this.selectedSort === 'Start Time') this.getRides(this.page, this.selectedShowNumber, 'timeOfStart');
+    else if(this.selectedSort === 'End Time') this.getRides(this.page, this.selectedShowNumber, 'timeOfEnd');
+    else if(this.selectedSort === 'Location Departure') this.getRides(this.page, this.selectedShowNumber, 'locations.departure.address');
+    else if(this.selectedSort === 'Location Destination') this.getRides(this.page, this.selectedShowNumber, 'locations.destination.address');
   }
   selectPerPage(): void{
     this.selectSort();
@@ -118,9 +118,9 @@ export class UserRideHistoryComponent implements OnInit{
   }
 
   selectSortOrder():void{
-      if(this.sortOrder === "Ascending") this.selectedSortOrder = "asc";
-      else this.selectedSortOrder = "desc";
-      this.selectSort();
+    if(this.sortOrder === "Ascending") this.selectedSortOrder = "asc";
+    else this.selectedSortOrder = "desc";
+    this.selectSort();
   }
 
 }

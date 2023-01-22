@@ -19,4 +19,10 @@ export class ReviewService {
   getReviewsForTheSpecificRide(rideId: number) : Observable<Review[]> {
     return this.http.get<Review[]>(environment.apiHost + "api/review/" + rideId);
   }
+
+  getPromiseReviewsForTheSpecificRide(rideId: number) : Promise<Review[]> {
+    return this.http.get<Review[]>(environment.apiHost + "api/review/" + rideId).toPromise();
+  }
+
+
 }

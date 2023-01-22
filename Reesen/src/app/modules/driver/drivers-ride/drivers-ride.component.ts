@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {DriverService} from "../services/driver.service";
 
@@ -7,8 +7,7 @@ import {MapService} from '../../map/map.service';
 import * as L from 'leaflet';
 import {PassengerService} from "../../passenger/passenger.service";
 import {Passenger} from "../../../models/Passenger";
-import {Review} from "../../../models/Ride";
-import {Ride} from "../../../models/Ride";
+import {Review, Ride} from "../../../models/Ride";
 import {RideService} from "../../services/ride.service";
 
 @Component({
@@ -36,33 +35,31 @@ export class DriversRideComponent implements OnInit{
   rideId: number;
   userRole: string;
   map!: L.Map;
+  params : any;
 
 
-  ngOnInit() : void {
+  async ngOnInit() {
     this.route.params.subscribe((params) => {
-      this.rideService.get(params["rideId"]).subscribe((ride)=>
-      {
-        this.ride = ride;
-        this.setReviews();
-        this.setRatings();
-        this.setPassengers();
+      this.setRide(params);
+    });
 
-      })
 
-    })
   }
 
-  private setReviews() {
-    this.reviewService.getReviewsForTheSpecificRide(this.ride.id).subscribe(
-      res => {
-        this.reviews = res;
-      }
-    );
+  async setRide(params)  {
+    this.ride = await this.rideService.getPromiseRide(params["rideId"]);
+    await this.setReviews();
+  }
+
+
+  async setReviews() {
+    this.reviews = await this.reviewService.getPromiseReviewsForTheSpecificRide(this.ride.id);
+    this.setRatings();
+
   }
 
 
   private setPassengers(): void{
-    let indicator = 0;
     for(let i=0;i<this.ride.passengers.length;i++){
       this.passengerService.get(this.ride.passengers[i].id)
         .subscribe(
@@ -72,7 +69,6 @@ export class DriversRideComponent implements OnInit{
               this.setReviewInfo(i, result);
               if(i===this.ride.passengers.length - 1){
                 this.changeDetectorRef.detectChanges();
-                this.initMap();
                 this.hasLoaded = true;
               }
 
@@ -85,6 +81,7 @@ export class DriversRideComponent implements OnInit{
   }
 
   private setReviewInfo(i: number, result: Passenger) {
+
     for (let j = 0; j < this.reviews.length; j++) {
       if (this.ride.passengers[i].id === this.reviews[j].driverReview.passenger.id) {
         this.reviews[j].driverReview.passenger.profilePicture = result.profilePicture;
@@ -118,13 +115,14 @@ export class DriversRideComponent implements OnInit{
     }
 
     this.ratings = totalReviewScore/ totalNumberOfReviews;
+    this.setPassengers();
   }
   goBack():void{
     this.router.navigate(['users/' + this.userId + '/' + this.userRole + '/ride-history']);
   }
 
 
-  private initMap():void{
+   initMap() {
 
     L.Marker.prototype.options.icon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
@@ -178,7 +176,5 @@ export class DriversRideComponent implements OnInit{
           error: (error) =>{console.log(error);}
         }
       );
-
-
   }
 }
