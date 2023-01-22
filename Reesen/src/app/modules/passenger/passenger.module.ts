@@ -18,6 +18,7 @@ import { MapModule } from '../map/map.module';
 import { RideCardHistoryComponent } from './ride-card-history/ride-card-history.component';
 import { RideDetailComponent } from './ride-detail/ride-detail.component';
 import { PassengerInfoComponent } from './passenger-info/passenger-info.component';
+import { OrderARideComponent } from './order-a-ride/order-a-ride.component';
 
 
 
@@ -31,7 +32,8 @@ import { PassengerInfoComponent } from './passenger-info/passenger-info.componen
     RideHistoryComponent,
     RideCardHistoryComponent,
     RideDetailComponent,
-    PassengerInfoComponent
+    PassengerInfoComponent,
+    OrderARideComponent
   ],
   imports: [
     CommonModule,
@@ -45,8 +47,9 @@ import { PassengerInfoComponent } from './passenger-info/passenger-info.componen
     MapModule,
     GraphsModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [RegistrationComponent, PassengerProfileComponent,
-    PassengerProfileEditComponent, ActivationComponent, PassengerProfileEditPasswordComponent, RideHistoryComponent]
+    PassengerProfileEditComponent, ActivationComponent, PassengerProfileEditPasswordComponent, RideHistoryComponent, OrderARideComponent]
 })
 export class PassengerModule { }

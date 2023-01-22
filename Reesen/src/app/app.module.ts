@@ -15,6 +15,11 @@ import {Interceptor} from './modules/auth/interceptor/interceptor';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { A11yModule } from '@angular/cdk/a11y';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+const config: SocketIoConfig = { url: 'http://localhost:8082', options: {} };
 
 @NgModule({
   declarations: [
@@ -34,7 +39,10 @@ import { A11yModule } from '@angular/cdk/a11y';
     UserModule,
     MatTableModule,
     MatSortModule,
-    A11yModule
+    A11yModule,
+    SocketIoModule.forRoot(config),
+    MatSnackBarModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {  provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },],

@@ -30,6 +30,7 @@ import {DriversRideComponent} from "./modules/driver/drivers-ride/drivers-ride.c
 import {PassengerInfoComponent} from "./modules/passenger/passenger-info/passenger-info.component";
 import {DriverReportsComponent} from "./modules/driver/driver-reports/driver-reports.component";
 import { PanicPageAdminComponent } from './modules/admin/panic-page-admin/panic-page-admin.component';
+import { OrderARideComponent } from './modules/passenger/order-a-ride/order-a-ride.component';
 
 
 
@@ -43,6 +44,7 @@ const routes: Routes = [
   {path:'activationPage', component:ActivationpageComponent},
   {path:'activation', component:ActivationComponent},
   {path:'home', component:HomeComponent},
+  {path:'passenger_home', component:OrderARideComponent},
   {path:'passenger_profile', component:PassengerProfileComponent},
   {path:'passenger_profile-edit', component:PassengerProfileEditComponent},
   {path:'passenger_ride-history', component:RideHistoryComponent},

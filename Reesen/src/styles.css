@@ -79,3 +79,5 @@ body, html{
 .confirmation-button:hover{
     color: #3d5b51;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
