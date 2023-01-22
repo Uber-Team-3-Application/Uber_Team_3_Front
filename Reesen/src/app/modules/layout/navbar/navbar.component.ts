@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+import {Observable} from 'rxjs';
 import { AuthenticationService } from '../../auth/authentication.service';
 import {DriverService} from "../../driver/services/driver.service";
 import {TokenDecoderService} from "../../auth/token/token-decoder.service";
@@ -12,14 +13,17 @@ import {TokenDecoderService} from "../../auth/token/token-decoder.service";
 export class NavbarComponent implements OnInit{
   isShown = false;
   role: string;
+  decodedToken = null;
 
 
   constructor(private authenticationService: AuthenticationService, private router: Router,
               private driverService : DriverService,  private tokenService : TokenDecoderService) {
+
   }
 
 
   logout(): void{
+
     if (this.role === 'DRIVER') {
       const driverId = this.tokenService.getDecodedAccesToken().id;
       this.driverService.changeActivity(driverId, false).subscribe();
@@ -27,7 +31,7 @@ export class NavbarComponent implements OnInit{
     localStorage.removeItem('user');
     localStorage.removeItem('refreshToken');
     this.authenticationService.setUser();
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
 
   }
 

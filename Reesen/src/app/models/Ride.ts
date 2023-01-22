@@ -42,6 +42,14 @@ export interface RideInfoBody{
     petTransport: boolean,
 }
 
+export interface CreateRideDTO{
+  passengers: UserRestrict[],
+  locations: Route[]
+  vehicleType: string,
+  babyTransport: boolean,
+  petTransport: boolean,
+}
+
 export interface RideInfo{
     estimatedTimeInMinutes:number,
     estimatedCost: number,
