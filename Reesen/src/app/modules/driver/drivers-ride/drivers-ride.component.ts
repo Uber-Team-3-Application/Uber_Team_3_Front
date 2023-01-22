@@ -81,12 +81,19 @@ export class DriversRideComponent implements OnInit{
   }
 
   private setReviewInfo(i: number, result: Passenger) {
-
+    console.log("passenger picture: ", result.profilePicture);
     for (let j = 0; j < this.reviews.length; j++) {
+      console.log("trenutno je: ", j);
+      console.log(this.ride.passengers[i].email);
+      console.log(this.reviews[j].driverReview.passenger.email)
       if (this.ride.passengers[i].id === this.reviews[j].driverReview.passenger.id) {
+        console.log("passenger picture: ", result.profilePicture);
+
         this.reviews[j].driverReview.passenger.profilePicture = result.profilePicture;
+        console.log("namesteno: ", this.reviews[j].driverReview.passenger.profilePicture);
         this.reviews[j].driverReview.passenger.name = result.name;
         this.reviews[j].driverReview.passenger.surname = result.surname;
+        console.log("na njega: ", this.reviews[j].driverReview.passenger.surname);
       }
       if (this.ride.passengers[i].id === this.reviews[j].vehicleReview.passenger.id) {
         this.reviews[j].vehicleReview.passenger.profilePicture = result.profilePicture;
@@ -121,17 +128,16 @@ export class DriversRideComponent implements OnInit{
     this.router.navigate(['users/' + this.userId + '/' + this.userRole + '/ride-history']);
   }
 
-
-   initMap() {
+   initMap() : boolean{
 
     L.Marker.prototype.options.icon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
     });
 
-    this.map = L.map('map', {
-      center: [45.249101856630546, 19.848034],
-      zoom: 16,
-    });
+      this.map = L.map('map', {
+        center: [45.249101856630546, 19.848034],
+        zoom: 16,
+      });
 
     const tiles = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -173,8 +179,9 @@ export class DriversRideComponent implements OnInit{
               this.map.fitBounds(bounds);
             }
           },
-          error: (error) =>{console.log(error);}
+          error: (error) => {console.log(error);}
         }
       );
+    return true;
   }
 }
