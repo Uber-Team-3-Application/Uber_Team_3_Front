@@ -30,6 +30,7 @@ import {DriversRideComponent} from "./modules/driver/drivers-ride/drivers-ride.c
 import {PassengerInfoComponent} from "./modules/passenger/passenger-info/passenger-info.component";
 import {DriverReportsComponent} from "./modules/driver/driver-reports/driver-reports.component";
 import { PanicPageAdminComponent } from './modules/admin/panic-page-admin/panic-page-admin.component';
+import {DocumentsComponent} from "./modules/driver/documents/documents.component";
 
 
 
@@ -49,6 +50,7 @@ const routes: Routes = [
   {path:'passenger_ride-detail/:rideId', component:RideDetailComponent},
   {path:'driverProfile', component:DriverProfileComponent, children: [
     {path:'account', redirectTo: '', pathMatch:'full', component:DriverProfileComponent},
+      {path: 'documents', component:DocumentsComponent},
     {path:'rideHistory', component:DriverRideHistoryComponent},
     {path:'reports', component:DriverProfileComponent},
   ]},
