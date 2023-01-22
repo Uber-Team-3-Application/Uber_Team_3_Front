@@ -6,7 +6,7 @@
                     <img [src]="driver.profilePicture" alt="avatar" class="rounded-circle img-avatar">
                 </div>
                 <div class="col-12 pt-3">
-                    <h1 class="bold-text">{{driver.name}} {{driver.surname}}</h1> 
+                    <h1 class="bold-text">{{driver.name}} {{driver.surname}}</h1>
                 </div>
                 <div class="col-12 pt-3">
                     <button class="btn btn-outline-secondary px-4 py-3 bold-text" type="button">Logout</button>
@@ -29,8 +29,12 @@
                         <span ><i class="bi bi-graph-up"></i></span>
                         <span class=""><button type="button" class="choice-button bold-text" (click)="changeSelectedView('REPORTS')" [routerLink]="['reports']">Reports</button></span>
                     </div>
+                  <div class="col-12">
+                    <span ><i class="bi bi-files"></i></span>
+                    <span class=""><button type="button" class="choice-button bold-text" (click)="changeSelectedView('DOCUMENTS')" [routerLink]="['documents']">Documents</button></span>
+                  </div>
                 </div>
-            
+
         </div>
         <div class="col-md-6 col-12 p-4 bg-white round-edges">
                 <div class="row title text-center">
@@ -42,6 +46,7 @@
                     <app-driver-inbox *ngIf="selectedView==='INBOX'"></app-driver-inbox>
                     <app-driver-ride-history *ngIf="selectedView==='RIDE_HISTORY'"></app-driver-ride-history>
                     <app-driver-reports *ngIf="selectedView==='REPORTS'"></app-driver-reports>
+                  <app-documents *ngIf="selectedView==='DOCUMENTS'"></app-documents>
                     <!-- ADD DOCUMENTS HIA' <app-driver-reports *ngIf="selectedView==='REPORTS'"></app-driver-reports> -->
                 </section>
         </div>

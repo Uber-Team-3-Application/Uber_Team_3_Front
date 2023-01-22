@@ -30,7 +30,7 @@ export class DriverProfileComponent implements OnInit{
       );
     }
 
-  
+
 
     constructor(private driverService:DriverService, private tokenDecoder: TokenDecoderService){
 
@@ -40,6 +40,7 @@ export class DriverProfileComponent implements OnInit{
       if(newView==="ACCOUNT") this.title = "Account";
       else if(newView==="RIDE_HISTORY") this.title = "Ride History";
       else if(newView==="REPORTS") this.title = "Reports";
+      else if (newView==='DOCUMENTS') this.title = "Documents"
       else this.title = "Inbox";
 
     }
