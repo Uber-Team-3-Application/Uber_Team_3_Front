@@ -31,6 +31,23 @@
         <p><strong>Baby Transport:</strong> {{this.getRideForm.value.babyTransport}} </p>
         <p><strong>Pet Transport:</strong> {{this.getRideForm.value.petTransport}} </p>
       </div>
+      <div class="col-12 p-2 mx-3 text-dark text-center" *ngIf="role==='PASSENGER'">
+        <h2>Passengers:</h2>
+        <div class="row">
+          <div class="col-12">
+            You
+          </div>
+        </div>
+        <div class="row"
+        *ngFor="let pass of splitPassengers">
+        <div class="col-12">
+          {{pass}}
+        </div>
+      </div>
+      </div>
+      <div class="col-12 p-2 mx-3 text-dark text-center" *ngIf="role==='PASSENGER'">
+        <button type="button" class="ride-button my-button" (click)="confirmRideOrder()">Confirm</button>
+      </div>
     </div>
   </div>
 </div>
@@ -113,6 +130,11 @@
 
 
     </div>
+
+    <div class="row text-center form-group passengers" *ngIf="role==='PASSENGER'">
+      <label for="passengers">Enter passenger email addresses with , inbetween</label>
+      <input type="text" class="form-control" placeholder="e1@mail.com, e2@mail.com" name="passengers" formControlName="passengers" id="passengers">
+    </div>
     <div class="row p-3 text-center">
       <div class="col-6">
         <input type="checkbox" class="form-check-input" id="babyTransport" name="babyTransport" formControlName="babyTransport">
@@ -130,7 +152,10 @@
       <p>Please enter valid data, and select a Vehicle type!</p>
     </div>
     <div class="row text-center">
-        <span><button class="my-button ride-button" type="submit" (click)="getRide()"> {{rideButtonText}}</button></span>
+        <span><button class="my-button ride-button" type="submit" (click)="getRide()">
+          <span *ngIf="role!=='PASSENGER'">Get Ride Info</span>
+          <span *ngIf="role==='PASSENGER'">Order A Ride</span>
+        </button></span>
 
 
     </div>

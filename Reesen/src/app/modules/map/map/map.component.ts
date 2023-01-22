@@ -1,4 +1,4 @@
-import { AfterViewInit, OnDestroy, Component } from '@angular/core';
+import { AfterViewInit, OnDestroy, Component, Input } from '@angular/core';
 import {Observable} from 'rxjs'
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
@@ -29,10 +29,13 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   vehicleTypes: VehicleType[];
   typeSelected = false;
   selectedVehicleName = '';
+  
+  splitPassengers = [];
   isFormValid = true;
   isRideInfoOpened = false;
+
   id = 0;
-  role = '';
+  @Input() role = '';
   decodedToken = null;
   rideAssumption: RideInfo = {
     estimatedTimeInMinutes: 0,
@@ -48,6 +51,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   getRideForm = new FormGroup({
     departure: new FormControl('', [Validators.required, Validators.minLength(3)]),
     destination : new FormControl('', [Validators.required, Validators.minLength(3)]),
+    passengers: new FormControl('', []),
     babyTransport: new FormControl(false),
     petTransport: new FormControl(false)
   });
@@ -78,7 +82,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
           console.log('LOGOUT');
         }
       });
-
+      
 
 
     }
@@ -319,6 +323,8 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     this.search(this.getRideForm.value.destination, true);
     document.getElementById("map").focus();
 
+    
+    this.splitPassengers = this.getRideForm.value.passengers.split(',');
     this.showGetRide = false;
 
   }
@@ -326,6 +332,10 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   openVehicleTypeComponent():void{
     this.showVehicleType = !this.showVehicleType;
     this.typeSelected = false;
+  }
+
+  confirmRideOrder():void{
+      
   }
 
 }
