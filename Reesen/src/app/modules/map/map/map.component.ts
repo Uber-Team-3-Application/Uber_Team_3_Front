@@ -341,23 +341,25 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     const passengers = new Array<UserRestrict>();
     let arePassengerdValid = true;
     console.log(this.splitPassengers);
-    for (let passenger of this.splitPassengers) {
-      passenger = passenger.trim();
-      try {
-        const result = await this.userService.findByEmail(passenger).toPromise();
-        passengers.push({
-          id: result.id,
-          email: result.email
-        });
-        console.log(result);
-      } catch (error) {
-        console.log(error);
-        arePassengerdValid = false;
+    if(this.splitPassengers.length > 0 && this.splitPassengers[0].trim()!==''){
+      for (let passenger of this.splitPassengers) {
+        passenger = passenger.trim();
+        try {
+          const result = await this.userService.findByEmail(passenger).toPromise();
+          passengers.push({
+            id: result.id,
+            email: result.email
+          });
+          console.log(result);
+        } catch (error) {
+          console.log(error);
+          arePassengerdValid = false;
+        }
       }
-    }
-    if (!arePassengerdValid) {
-      alert("Wrong email!");
-      return;
+      if (!arePassengerdValid) {
+        alert("Wrong email!");
+        return;
+      }
     }
     const route = new Array<Route>();
     const selectedLocations = new Array<Location>();
