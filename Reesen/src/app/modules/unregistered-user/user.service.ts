@@ -78,17 +78,18 @@ export class UserService {
     {params:params});
   }
   resetPassword(resetPasswordDTO: any, userId: number) {
-    this.http.put<string>(environment.apiHost+'user/' + userId + '/resetPassword', resetPasswordDTO);
+    this.http.put<string>(environment.apiHost+'api/user/' + userId + '/resetPassword', resetPasswordDTO);
   }
 
   resetPasswordLink(userId: number) {
-    return this.http.get<string>(environment.apiHost+'user/' + userId + '/resetPassword');
+    return this.http.get<string>(environment.apiHost+'api/user/' + userId + '/resetPassword');
   }
   
-  findByEmail(email: string): Observable<any> {
-    return this.http.get<User>(environment.apiHost + 'user/email', { params: { email: email } });
+  findByEmail(email: string): Observable<User> {
+    let params = new HttpParams();
+    params = params.append('email', email);
+    return this.http.get<User>(environment.apiHost + 'api/user/email', { params: params });
   }
-
 
   getRides(userId: number, page:number, size:number, sort:string, from:string, to:string): Observable<RidePaginated>{
     let params = new HttpParams();

@@ -2,7 +2,7 @@ import {Location, Route} from "./Location";
 import {Driver} from "./Driver";
 import {Passenger} from "./Passenger";
 import {Rejection} from "./Rejection";
-import {User} from "./User";
+import {User, UserRestrict} from "./User";
 
 
 
@@ -40,6 +40,14 @@ export interface RideInfoBody{
     vehicleType: string,
     babyTransport: boolean,
     petTransport: boolean,
+}
+
+export interface CreateRideDTO{
+  passengers: UserRestrict[],
+  locations: Route[]
+  vehicleType: string,
+  babyTransport: boolean,
+  petTransport: boolean,
 }
 
 export interface RideInfo{

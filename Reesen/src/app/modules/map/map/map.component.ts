@@ -8,9 +8,11 @@ import { VehicleType } from 'src/app/models/Vehicle';
 import { Location, Route, VehicleLocationWithAvailibility } from 'src/app/models/Location';
 import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
 import { UserService } from '../../unregistered-user/user.service';
-import { RideInfo, RideInfoBody } from 'src/app/models/Ride';
+import { RideInfo, RideInfoBody, CreateRideDTO } from 'src/app/models/Ride';
+import { UserRestrict } from 'src/app/models/User';
 import { greenCar, redCar } from '../icons/icons';
 import { TokenDecoderService } from '../../auth/token/token-decoder.service';
+import { RideService } from '../../services/ride.service';
 
 
 @Component({
@@ -59,6 +61,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   constructor(private mapService: MapService,
     private vehicleService: VehicleService,
     private userService: UserService,
+    private rideService: RideService,
     private tokenDecoder: TokenDecoderService){
 
       const tokenObservable = new Observable(subscriber => {
@@ -334,8 +337,56 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     this.typeSelected = false;
   }
 
-  confirmRideOrder():void{
-      
+  async confirmRideOrder(): Promise<void> {
+    const passengers = new Array<UserRestrict>();
+    let arePassengerdValid = true;
+    console.log(this.splitPassengers);
+    for (let passenger of this.splitPassengers) {
+      passenger = passenger.trim();
+      try {
+        const result = await this.userService.findByEmail(passenger).toPromise();
+        passengers.push({
+          id: result.id,
+          email: result.email
+        });
+        console.log(result);
+      } catch (error) {
+        console.log(error);
+        arePassengerdValid = false;
+      }
+    }
+    if (!arePassengerdValid) {
+      alert("Wrong email!");
+      return;
+    }
+    const route = new Array<Route>();
+    const selectedLocations = new Array<Location>();
+    const depLoc: Location = {
+        address: this.getRideForm.value.departure,
+        latitude: this.markers[0].lat,
+        longitude: this.markers[0].lon
+    };
+    const destLoc: Location = {
+      address: this.getRideForm.value.destination,
+      latitude: this.markers[1].lat,
+      longitude: this.markers[1].lon
+
+    };
+    selectedLocations.push(depLoc);
+    selectedLocations.push(destLoc);
+    route.push({
+      departure:depLoc,
+      destination:destLoc
+    })
+    const ride: CreateRideDTO = {
+      passengers: passengers,
+      babyTransport: this.getRideForm.value.babyTransport,
+      petTransport: this.getRideForm.value.petTransport,
+      locations: route,
+      vehicleType: this.selectedVehicleName
+    }
+    this.rideService.orderARide(ride).subscribe();
+    
   }
 
 }
