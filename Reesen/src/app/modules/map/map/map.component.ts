@@ -31,7 +31,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   vehicleTypes: VehicleType[];
   typeSelected = false;
   selectedVehicleName = '';
-  
+
   splitPassengers = [];
   isFormValid = true;
   isRideInfoOpened = false;
@@ -49,7 +49,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   markers = new Array();
 
 
-  
+
   getRideForm = new FormGroup({
     departure: new FormControl('', [Validators.required, Validators.minLength(3)]),
     destination : new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -66,12 +66,12 @@ export class MapComponent implements AfterViewInit, OnDestroy{
 
       const tokenObservable = new Observable(subscriber => {
         subscriber.next(this.tokenDecoder.getDecodedAccesToken());
-  
+
         window.addEventListener('storage', (event) => {
           subscriber.next(this.tokenDecoder.getDecodedAccesToken());
         });
       });
-  
+
       tokenObservable.subscribe(token => {
         if(token !== null){
           this.decodedToken = token;
@@ -85,7 +85,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
           console.log('LOGOUT');
         }
       });
-      
+
 
 
     }
@@ -326,7 +326,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     this.search(this.getRideForm.value.destination, true);
     document.getElementById("map").focus();
 
-    
+
     this.splitPassengers = this.getRideForm.value.passengers.split(',');
     this.showGetRide = false;
 
@@ -388,7 +388,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       vehicleType: this.selectedVehicleName
     }
     this.rideService.orderARide(ride).subscribe();
-    
+
   }
 
 }

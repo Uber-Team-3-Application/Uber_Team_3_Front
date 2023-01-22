@@ -1,9 +1,9 @@
 <div class="map-container">
     <div class="map-frame">
       <div id="map"></div>
-
   </div>
 </div>
+
 <div class="alert ride-info-popup p-3" role="alert" *ngIf="rideAssumption.estimatedCost !== 0 && rideAssumption.estimatedTimeInMinutes !== 0">
   <div class="d-flex flex-row-reverse">
     <button class="modified-button-cancel my-button" (click)="rideAssumption.estimatedCost=0">X</button>
