@@ -37,7 +37,10 @@
 
 
 <div *ngIf="!showGetRide" class="overlay">
-  <span><button class="ride-button my-button" type="button" (click)="openGetRide()"> {{rideButtonText}}</button></span>
+  <span><button class="ride-button my-button" type="button" (click)="openGetRide()">
+    <span *ngIf="role!=='PASSENGER'">Get Ride Info</span>
+    <span *ngIf="role==='PASSENGER'">Order A Ride</span>
+  </button></span>
   <span><button class="ride-button my-button mx-3" type="button" (click)="clearMap()"> Clear Map</button></span>
 </div>
 

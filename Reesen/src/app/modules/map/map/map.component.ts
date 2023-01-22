@@ -1,4 +1,5 @@
 import { AfterViewInit, OnDestroy, Component } from '@angular/core';
+import {Observable} from 'rxjs'
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
@@ -9,6 +10,7 @@ import { VehicleService } from 'src/app/modules/driver/services/vehicle.service'
 import { UserService } from '../../unregistered-user/user.service';
 import { RideInfo, RideInfoBody } from 'src/app/models/Ride';
 import { greenCar, redCar } from '../icons/icons';
+import { TokenDecoderService } from '../../auth/token/token-decoder.service';
 
 
 @Component({
@@ -29,6 +31,9 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   selectedVehicleName = '';
   isFormValid = true;
   isRideInfoOpened = false;
+  id = 0;
+  role = '';
+  decodedToken = null;
   rideAssumption: RideInfo = {
     estimatedTimeInMinutes: 0,
     estimatedCost: 0
@@ -49,7 +54,34 @@ export class MapComponent implements AfterViewInit, OnDestroy{
 
   constructor(private mapService: MapService,
     private vehicleService: VehicleService,
-    private userService: UserService){}
+    private userService: UserService,
+    private tokenDecoder: TokenDecoderService){
+
+      const tokenObservable = new Observable(subscriber => {
+        subscriber.next(this.tokenDecoder.getDecodedAccesToken());
+  
+        window.addEventListener('storage', (event) => {
+          subscriber.next(this.tokenDecoder.getDecodedAccesToken());
+        });
+      });
+  
+      tokenObservable.subscribe(token => {
+        if(token !== null){
+          this.decodedToken = token;
+          this.id = + this.decodedToken.id;
+
+          this.role = this.decodedToken.role[0]['authority'];
+          console.log(this.role);
+        }else{
+          this.id = 0;
+          this.role = '';
+          console.log('LOGOUT');
+        }
+      });
+
+
+
+    }
 
   private initMap():void{
     this.map = L.map('map', {

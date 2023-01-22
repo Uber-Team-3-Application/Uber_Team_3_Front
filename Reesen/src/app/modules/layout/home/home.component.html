@@ -1,1 +1,2 @@
-<app-map></app-map>
+<app-map *ngIf="role!=='PASSENGER'"></app-map>
+<app-passenger-navbar *ngIf="role==='PASSENGER'"></app-passenger-navbar>
