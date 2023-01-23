@@ -20,6 +20,7 @@ export interface mVehicle {
 
 
 export interface Ride {
+  status: string;
   id:number;
   startTime:string;
   endTime: string;
@@ -33,7 +34,6 @@ export interface Ride {
   rejection?: Rejection;
   locations: Route[];
   reviews?: Review[];
-
 }
 
 export interface Review{

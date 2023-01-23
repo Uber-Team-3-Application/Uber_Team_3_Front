@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
 import { Report } from 'src/app/models/Report';
 import {CreateRideDTO, mRide, Ride} from 'src/app/models/Ride';
@@ -9,6 +9,13 @@ import {CreateRideDTO, mRide, Ride} from 'src/app/models/Ride';
   providedIn: 'root'
 })
 export class RideService {
+
+  private rideStatusChanged$ = new BehaviorSubject<boolean>(false);
+  rideStatusChangedValue$ = this.rideStatusChanged$.asObservable();
+
+  setRideStatus(test: any) {
+    this.rideStatusChanged$.next(test);
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -39,4 +46,14 @@ export class RideService {
   getActiveRide(): Observable<Ride> {
     return null;
   }
+
+  cancelRide(rideId: number, rejection:string): Observable<Ride>{
+    return this.http.put<Ride>(environment.apiHost + "api/ride/" + rideId + "/cancel", {reason:rejection});
+  }
+
+  acceptRide(id:number, ride:Ride): Observable<Ride> {
+    return this.http.put<Ride>(environment.apiHost + "api/ride/" + id + "/accept", ride);
+  }
+
+
 }

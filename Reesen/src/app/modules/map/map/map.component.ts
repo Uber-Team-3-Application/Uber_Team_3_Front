@@ -33,10 +33,13 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   vehicleTypes: VehicleType[];
   typeSelected = false;
   selectedVehicleName = '';
+  waitingForRide = false;
 
   splitPassengers = [];
   isFormValid = true;
   isRideInfoOpened = false;
+  rideDeclined = false;
+  rideAccepted = false;
 
   id = 0;
   @Input() role = '';
@@ -79,59 +82,32 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       console.log(this.id);
       this.stompClient.subscribe('/topic/driver/ride/'+this.id, (message: {body: string}) =>{
         console.log(message);
+        this.rideService.setRideStatus(false);
         this.acceptRide = JSON.parse(message.body);
-        this.openPopUp();
+        this.acceptNotification = true;
+      });
+    }else if(this.role==='PASSENGER'){
+      this.stompClient.subscribe('/topic/passenger/ride/'+this.id, (message: {body: string}) =>{
+        console.log(message);
+        this.acceptRide = JSON.parse(message.body);
+        if(this.acceptRide.status === "ACCEPTED") 
+        {
+          this.rideAccepted = true;
+          this.waitingForRide = false;
+        } else if(this.acceptRide.status === "REJECTED") 
+        {
+            alert('Your ride was rejected');
+            this.clearMap();
+            this.rideAssumption.estimatedCost =  0;
+            this.rideAssumption.estimatedTimeInMinutes = 0;
+            this.waitingForRide = false;
+            this.rideAccepted = false;
+        }
       });
     }
 
-    this.stompClient.subscribe('/map-updates/update-vehicle-position', (message: { body: string }) => {
-      console.log(message);
-      let vehicle: VehicleSimulationDTO = JSON.parse(message.body);
-      let existingVehicle = this.vehicles[vehicle.id];
-      existingVehicle.setLatLng([vehicle.longitude, vehicle.latitude]);
-      existingVehicle.update();
-    });
-    this.stompClient.subscribe('/map-updates/new-ride', (message: { body: string }) => {
-      let ride: RideSimulationDTO = JSON.parse(message.body);
-      let geoLayerRouteGroup: L.LayerGroup = new L.LayerGroup();
-      let color = Math.floor(Math.random() * 16777215).toString(16);
-      for (let step of JSON.parse(ride.routeJSON)['routes'][0]['legs'][0]['steps']) {
-        let routeLayer = L.geoJSON(step.geometry);
-        routeLayer.setStyle({ color: `#${color}` });
-        routeLayer.addTo(geoLayerRouteGroup);
-        this.rides[ride.id] = geoLayerRouteGroup;
-      }
-      let markerLayer = L.marker([ride.vehicle.longitude, ride.vehicle.latitude], {
-        icon: L.icon({
-          iconUrl: 'assets/car.png',
-          iconSize: [35, 45],
-          iconAnchor: [18, 45],
-        }),
-      });
-      markerLayer.addTo(geoLayerRouteGroup);
-      this.vehicles[ride.vehicle.id] = markerLayer;
-      this.mainGroup = [...this.mainGroup, geoLayerRouteGroup];
-    });
-    this.stompClient.subscribe('/map-updates/ended-ride', (message: { body: string }) => {
-      let ride: RideSimulationDTO = JSON.parse(message.body);
-      this.mainGroup = this.mainGroup.filter((lg: L.LayerGroup) => lg !== this.rides[ride.id]);
-      delete this.vehicles[ride.vehicle.id];
-      delete this.rides[ride.id];
-    });
-    this.stompClient.subscribe('/map-updates/delete-all-rides', (message: { body: string }) => {
-      this.vehicles = {};
-      this.rides = {};
-      this.mainGroup = [];
-    });
   }
 
-  openPopUp() {
-    this.acceptNotification = true;
-  }
-
-  acceptRideOrder() {
-
-  }
   
   
 
@@ -208,6 +184,10 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   }
   ngAfterViewInit(): void {
 
+
+    this.rideService.rideStatusChangedValue$.subscribe((value) => {
+      this.rideDeclined = value;
+    });
     const DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
       iconAnchor:[15, 30]
@@ -430,7 +410,6 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   async confirmRideOrder(): Promise<void> {
     const passengers = new Array<UserRestrict>();
     let arePassengerdValid = true;
-    console.log(this.splitPassengers);
     if(this.splitPassengers.length > 0 && this.splitPassengers[0].trim()!==''){
       for (let passenger of this.splitPassengers) {
         passenger = passenger.trim();
@@ -477,8 +456,11 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       locations: route,
       vehicleType: this.selectedVehicleName
     }
+    this.rideDeclined = false;
+    this.acceptNotification = false;
     this.rideService.orderARide(ride).subscribe();
-
+    this.acceptNotification = true;
+    this.waitingForRide = true;
   }
 
 }

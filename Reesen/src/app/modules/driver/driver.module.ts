@@ -35,7 +35,7 @@ import { DocumentsComponent } from './documents/documents.component';
               DriverCardHistoryComponent,
               DriverCardHistoryResponsiveComponent,
               DriversRideComponent,
-              DocumentsComponent,
+              DocumentsComponent
 
             ],
     imports: [
@@ -60,5 +60,6 @@ import { DocumentsComponent } from './documents/documents.component';
         DriverProfileComponent,
         DriverReportsComponent,
         DriverRideHistoryComponent, DriverCardHistoryComponent]
+
 })
 export class DriverModule { }
