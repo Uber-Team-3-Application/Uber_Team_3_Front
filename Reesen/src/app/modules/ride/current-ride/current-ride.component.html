@@ -1,0 +1,27 @@
+
+<h2 align="center">Current ride</h2>
+
+<div class="map-container">
+  <div class="map-frame">
+    <div id="map"></div>
+  </div>
+</div>
+
+
+<div  class="overlay" *ngIf="isCardLoaded">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-5" align="center">
+    <app-driver-card-history [date]="ride" [setFinished]="false" id="card"></app-driver-card-history>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+      <img src="assets/img/panic_girl.png">
+    </div>
+    <div class="col-md-2" align="center">
+      <p>Something wrong? Please contact us!</p>
+      <button>PANIC</button>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</div>
