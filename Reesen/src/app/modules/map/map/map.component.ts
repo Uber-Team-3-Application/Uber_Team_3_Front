@@ -90,13 +90,18 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       this.stompClient.subscribe('/topic/passenger/ride/'+this.id, (message: {body: string}) =>{
         console.log(message);
         this.acceptRide = JSON.parse(message.body);
-        if(this.acceptRide.status == "ACCEPTED") 
+        if(this.acceptRide.status === "ACCEPTED") 
         {
           this.rideAccepted = true;
           this.waitingForRide = false;
-        } else if(this.acceptRide.status == "REJECTED") 
+        } else if(this.acceptRide.status === "REJECTED") 
         {
-
+            alert('Your ride was rejected');
+            this.clearMap();
+            this.rideAssumption.estimatedCost =  0;
+            this.rideAssumption.estimatedTimeInMinutes = 0;
+            this.waitingForRide = false;
+            this.rideAccepted = false;
         }
       });
     }
