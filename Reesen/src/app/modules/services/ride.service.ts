@@ -47,4 +47,8 @@ export class RideService {
     return this.http.put<Ride>(environment.apiHost + "api/ride/" + rideId + "/cancel", {reason:rejection});
   }
 
+  acceptRide(id:number, ride:Ride): Observable<Ride> {
+    return this.http.put<Ride>(environment.apiHost + "api/ride/" + id + "/accept", ride);
+  }
+
 }

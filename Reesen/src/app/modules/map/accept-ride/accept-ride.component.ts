@@ -16,6 +16,15 @@ export class AcceptRideComponent implements OnInit{
   constructor(private rideService: RideService){}
   acceptRideOrder(){
 
+    this.rideService.acceptRide(this.acceptRide.id, this.acceptRide).subscribe({
+      next:(result) =>{
+        console.log(result);
+        this.rideService.setRideStatus(true);
+        //TO DO: ovde otvoriti current ride za vozaca i pass  
+      },
+      error:(error) =>{console.log(error);}
+  });
+
   }
   ngOnInit(): void {
     this.rideService.rideStatusChangedValue$.subscribe((rideDeclined) => {

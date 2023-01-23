@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<div class="alert ride-info-popup p-3" role="alert" *ngIf="rideAssumption.estimatedCost !== 0 && rideAssumption.estimatedTimeInMinutes !== 0">
+<div class="alert ride-info-popup p-3" role="alert" *ngIf="rideAssumption.estimatedCost !== 0 && rideAssumption.estimatedTimeInMinutes !== 0  && !waitingForRide && !rideAccepted">
   <div class="d-flex flex-row-reverse">
     <button class="modified-button-cancel my-button" (click)="rideAssumption.estimatedCost=0">X</button>
   </div>
@@ -53,9 +53,9 @@
 </div>
 
 
-<app-accept-ride [acceptRide]="acceptRide" [role]="role" *ngIf="acceptNotification && role==='DRIVER' && !rideDeclined"></app-accept-ride>
+<app-accept-ride [acceptRide]="acceptRide" [role]="role" *ngIf="acceptNotification && role==='DRIVER' && !rideDeclined  && !waitingForRide"></app-accept-ride>
 
-<div *ngIf="!showGetRide" class="overlay">
+<div *ngIf="!showGetRide && !waitingForRide && !rideAccepted" class="overlay">
   <span><button class="ride-button my-button" type="button" (click)="openGetRide()">
     <span *ngIf="role!=='PASSENGER'">Get Ride Info</span>
     <span *ngIf="role==='PASSENGER'">Order A Ride</span>
@@ -164,3 +164,10 @@
   </form>
 </div>
 
+<div *ngIf="waitingForRide && !rideAccepted">
+  <h1 class="text-center">waiting For Ride</h1>
+</div>
+
+<div *ngIf="rideAccepted">
+  <h1 class="text-center">ride accepted! Will be there in: {{this.acceptRide.estimatedTimeInMinutes}}</h1> 
+</div>
