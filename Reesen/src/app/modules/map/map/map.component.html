@@ -52,6 +52,43 @@
   </div>
 </div>
 
+<div class="alert ride-info-popup p-3" role="alert" *ngIf="acceptNotification">
+  <div class="row">
+    <h2 class="text-center my-3 text-dark">Ride Information:</h2>
+    <div class="ride-info-info text-left">
+      <div class="col-12 p-2 mx-3 text-dark">
+          <strong>Start Station:</strong> {{this.acceptRide.locations[0].departure}}
+      </div>
+      <div class="col-12 p-2 mx-3 text-dark">
+        <strong>End Station:</strong> {{this.acceptRide.locations[0].destination}}
+      </div>
+      <div class="col-12 p-2 mx-3 text-dark">
+        <strong>Estimated Travel Time:</strong> {{this.acceptRide.estimatedTimeInMinutes}} <strong> min</strong>
+      </div>
+      <div class="col-12 p-2 mx-3 text-dark">
+        <strong>Total Cost:</strong> {{this.acceptRide.totalCost}} <strong> (RSD)</strong>
+      </div>
+
+      <div class="col-12 p-2 mx-3 text-dark">
+        <p><strong>Baby Transport:</strong> {{this.acceptRide.babyTransport}} </p>
+        <p><strong>Pet Transport:</strong> {{this.acceptRide.petTransport}} </p>
+      </div>
+      <div class="col-12 p-2 mx-3 text-dark text-center" *ngIf="role==='PASSENGER'">
+        <h2>Passengers:</h2>
+        <div class="row"
+        *ngFor="let pass of this.acceptRide.passengers">
+        <div class="col-12">
+          {{pass}}
+        </div>
+      </div>
+      </div>
+      <div class="col-12 p-2 mx-3 text-dark text-center" *ngIf="role==='DRIVER'">
+        <button type="button" class="ride-button my-button" (click)="acceptRideOrder()">Accept</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <div *ngIf="!showGetRide" class="overlay">
   <span><button class="ride-button my-button" type="button" (click)="openGetRide()">

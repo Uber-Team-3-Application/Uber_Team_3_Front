@@ -8,7 +8,7 @@ import { VehicleType } from 'src/app/models/Vehicle';
 import { Location, Route, VehicleLocationWithAvailibility } from 'src/app/models/Location';
 import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
 import { UserService } from '../../unregistered-user/user.service';
-import { RideInfo, RideInfoBody, CreateRideDTO, RideSimulationDTO, VehicleSimulationDTO } from 'src/app/models/Ride';
+import { RideInfo, RideInfoBody, CreateRideDTO, RideSimulationDTO, VehicleSimulationDTO, Ride } from 'src/app/models/Ride';
 import { UserRestrict } from 'src/app/models/User';
 import { greenCar, redCar } from '../icons/icons';
 import { TokenDecoderService } from '../../auth/token/token-decoder.service';
@@ -57,6 +57,9 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   mainGroup: L.LayerGroup[] = [];
   socketEndpoint = 'http://localhost:8082/socket';
 
+  acceptNotification = false;
+  acceptRide: Ride;
+
   initializeWebSocketConnection() {
     let ws = new SockJS(this.socketEndpoint);
     //this.stompClient = Stomp.Stomp.over(ws);
@@ -76,8 +79,11 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       console.log(this.id);
       this.stompClient.subscribe('/topic/driver/ride/'+this.id, (message: {body: string}) =>{
         console.log(message);
+        this.acceptRide = JSON.parse(message.body);
+        this.openPopUp();
       });
     }
+
     this.stompClient.subscribe('/map-updates/update-vehicle-position', (message: { body: string }) => {
       console.log(message);
       let vehicle: VehicleSimulationDTO = JSON.parse(message.body);
@@ -117,6 +123,14 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       this.rides = {};
       this.mainGroup = [];
     });
+  }
+
+  openPopUp() {
+    this.acceptNotification = true;
+  }
+
+  acceptRideOrder() {
+
   }
   
   
