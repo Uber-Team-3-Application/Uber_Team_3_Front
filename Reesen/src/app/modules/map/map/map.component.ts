@@ -8,12 +8,14 @@ import { VehicleType } from 'src/app/models/Vehicle';
 import { Location, Route, VehicleLocationWithAvailibility } from 'src/app/models/Location';
 import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
 import { UserService } from '../../unregistered-user/user.service';
-import { RideInfo, RideInfoBody, CreateRideDTO } from 'src/app/models/Ride';
+import { RideInfo, RideInfoBody, CreateRideDTO, RideSimulationDTO, VehicleSimulationDTO } from 'src/app/models/Ride';
 import { UserRestrict } from 'src/app/models/User';
 import { greenCar, redCar } from '../icons/icons';
 import { TokenDecoderService } from '../../auth/token/token-decoder.service';
 import { RideService } from '../../services/ride.service';
-
+//import * as Stomp from '@stomp/stompjs'
+import * as SockJS from 'sockjs-client';
+import * as myStomp from 'stompjs';
 
 @Component({
   selector: 'app-map',
@@ -48,7 +50,70 @@ export class MapComponent implements AfterViewInit, OnDestroy{
 
   markers = new Array();
 
+  stompClient: any;
 
+  vehicles: any = {};
+  rides: any = {};
+  mainGroup: L.LayerGroup[] = [];
+  socketEndpoint = 'http://localhost:8082/socket';
+
+  initializeWebSocketConnection() {
+    let ws = new SockJS(this.socketEndpoint);
+    //this.stompClient = Stomp.Stomp.over(ws);
+    
+    this.stompClient = myStomp.over(ws);
+    this.stompClient.debug = null;
+    let that = this;
+    this.stompClient.connect({}, function () {
+      console.log('da');
+      that.openGlobalSocket();
+    });
+  
+
+  }
+  openGlobalSocket() {
+    this.stompClient.subscribe('/map-updates/update-vehicle-position', (message: { body: string }) => {
+      console.log(message);
+      let vehicle: VehicleSimulationDTO = JSON.parse(message.body);
+      let existingVehicle = this.vehicles[vehicle.id];
+      existingVehicle.setLatLng([vehicle.longitude, vehicle.latitude]);
+      existingVehicle.update();
+    });
+    this.stompClient.subscribe('/map-updates/new-ride', (message: { body: string }) => {
+      let ride: RideSimulationDTO = JSON.parse(message.body);
+      let geoLayerRouteGroup: L.LayerGroup = new L.LayerGroup();
+      let color = Math.floor(Math.random() * 16777215).toString(16);
+      for (let step of JSON.parse(ride.routeJSON)['routes'][0]['legs'][0]['steps']) {
+        let routeLayer = L.geoJSON(step.geometry);
+        routeLayer.setStyle({ color: `#${color}` });
+        routeLayer.addTo(geoLayerRouteGroup);
+        this.rides[ride.id] = geoLayerRouteGroup;
+      }
+      let markerLayer = L.marker([ride.vehicle.longitude, ride.vehicle.latitude], {
+        icon: L.icon({
+          iconUrl: 'assets/car.png',
+          iconSize: [35, 45],
+          iconAnchor: [18, 45],
+        }),
+      });
+      markerLayer.addTo(geoLayerRouteGroup);
+      this.vehicles[ride.vehicle.id] = markerLayer;
+      this.mainGroup = [...this.mainGroup, geoLayerRouteGroup];
+    });
+    this.stompClient.subscribe('/map-updates/ended-ride', (message: { body: string }) => {
+      let ride: RideSimulationDTO = JSON.parse(message.body);
+      this.mainGroup = this.mainGroup.filter((lg: L.LayerGroup) => lg !== this.rides[ride.id]);
+      delete this.vehicles[ride.vehicle.id];
+      delete this.rides[ride.id];
+    });
+    this.stompClient.subscribe('/map-updates/delete-all-rides', (message: { body: string }) => {
+      this.vehicles = {};
+      this.rides = {};
+      this.mainGroup = [];
+    });
+  }
+  
+  
 
   getRideForm = new FormGroup({
     departure: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -130,6 +195,33 @@ export class MapComponent implements AfterViewInit, OnDestroy{
 
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
+
+
+    this.initializeWebSocketConnection();
+    this.mapService.getAllActiveRides().subscribe((ret) => {
+      for (let ride of ret) {
+        let color = Math.floor(Math.random() * 16777215).toString(16);
+        let geoLayerRouteGroup: L.LayerGroup = new L.LayerGroup();
+        for (let step of JSON.parse(ride.routeJSON)['routes'][0]['legs'][0]['steps']) {
+          let routeLayer = L.geoJSON(step.geometry);
+          routeLayer.setStyle({ color: `#${color}` });
+          routeLayer.addTo(geoLayerRouteGroup);
+          this.rides[ride.id] = geoLayerRouteGroup;
+        }
+        let markerLayer = L.marker([ride.vehicle.longitude, ride.vehicle.latitude], {
+          icon: L.icon({
+            iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
+            iconSize: [35, 45],
+            iconAnchor: [18, 45],
+          }),
+        });
+        markerLayer.addTo(geoLayerRouteGroup);
+        this.vehicles[ride.vehicle.id] = markerLayer;
+        this.mainGroup = [...this.mainGroup, geoLayerRouteGroup];
+      }
+    });
+
+
     this.registerOnClick();
 
     this.vehicleService.getVehicleTypes()

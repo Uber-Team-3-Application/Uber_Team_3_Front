@@ -22,14 +22,11 @@ export class HomeComponent {
     });
 
     tokenObservable.subscribe(token => {
-      console.log('radi');
-      console.log(token !== null);
       if(token !== null){
         this.decodedToken = token;
         this.id = + this.decodedToken.id;
 
         this.role = this.decodedToken.role[0]['authority'];
-        console.log(this.role);
       }else{
         this.id = 0;
         this.role = '';

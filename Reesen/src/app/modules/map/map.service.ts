@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Ride, RideSimulationDTO } from 'src/app/models/Ride';
 
 @Injectable({
   providedIn: 'root'

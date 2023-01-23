@@ -35,6 +35,19 @@ export interface SingleReview{
   passenger: User;
 }
 
+export interface RideSimulationDTO {
+  id: number;
+  routeJSON: string;
+  rideStatus: number;
+  vehicle: VehicleSimulationDTO;
+}
+export interface VehicleSimulationDTO{
+  id: number;
+  licensePlateNumber: string;
+  latitude: number;
+  longitude: number;
+}
+
 export interface RideInfoBody{
     locations: Route[],
     vehicleType: string,
