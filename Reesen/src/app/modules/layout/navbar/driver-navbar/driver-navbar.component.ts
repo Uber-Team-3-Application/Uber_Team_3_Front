@@ -13,25 +13,35 @@ export class DriverNavbarComponent implements OnInit{
   active  = true;
   @Output() isSideBarActive: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private authService: AuthenticationService, private router: Router, private driverService : DriverService,
-              private tokenService : TokenDecoderService) {}
+  constructor(private authService: AuthenticationService, 
+    private router: Router, 
+    private driverService : DriverService,
+    private tokenService : TokenDecoderService) {}
 
   ngOnInit(): void {
     const driverId = this.tokenService.getDecodedAccesToken().id;
     this.driverService.changeActivity(driverId, true).subscribe();
+    this.driverService.createWorkingHours(driverId, new Date()).subscribe({
+        next:(result) =>{
+          localStorage.setItem("workingHourId", result.id.toString())
+        },
+        error:(error) =>{console.log(error);}
+    });
   }
 
   logout(): void{
-    const driverId = this.tokenService.getDecodedAccesToken().id;
-    this.driverService.changeActivity(driverId, false).subscribe();
+ 
     this.authService.logout().subscribe({
       next: () => {
         localStorage.removeItem('user');
+        localStorage.removeItem('workingHourId');
         this.authService.setUser();
         this.router.navigate(['login']);
       },
       error: (error) => {console.log(error);},
     });
+
+  
   }
 
   changeSideBarActivity() {
@@ -42,6 +52,25 @@ export class DriverNavbarComponent implements OnInit{
     this.active = !this.active;
     const driverId = this.tokenService.getDecodedAccesToken().id;
     this.driverService.changeActivity(driverId, this.active).subscribe();
+    let workingHourId = +localStorage.getItem('workingHourId');
+    if(!this.active){
+
+      this.driverService.finishShift(workingHourId, new Date()).subscribe({
+        next:(result) =>{
+          console.log(result);
+
+        },
+        error:(error) =>{console.log(error);}
+      });
+    }else{
+      this.driverService.createWorkingHours(driverId, new Date()).subscribe({
+        next:(result) =>{
+          console.log(result);
+
+        },
+        error:(error) =>{console.log(error);}
+      })
+    }
   }
 
 }

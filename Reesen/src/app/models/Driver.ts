@@ -10,6 +10,12 @@ export interface Driver{
     password?:string;
     blocked?:boolean;
 }
+
+export interface WorkingHours{
+    id?:number;
+    start?:Date;
+    end?:Date;
+}
 export interface PaginatedDriver{
     totalCount: number;
     results:Driver[];
