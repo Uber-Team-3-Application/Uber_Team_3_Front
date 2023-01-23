@@ -4,16 +4,16 @@ import { MapComponent } from './map/map.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
+import { AcceptRideComponent } from './accept-ride/accept-ride.component';
 
 
 @NgModule({
-  declarations: [MapComponent],
+  declarations: [MapComponent, AcceptRideComponent],
   imports: [
     CommonModule,
     RouterModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
     exports: [MapComponent]
 })
