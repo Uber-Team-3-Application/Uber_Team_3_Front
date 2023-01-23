@@ -52,13 +52,13 @@ import { DocumentsComponent } from './documents/documents.component';
         GraphsModule,
 
     ],
-  exports:[DriverAccountComponent,
-    DriverEditBasicInfoComponent,
-    DriverEditPasswordComponent,
-    DriverEditVehicleInfoComponent,
-    DriverInboxComponent,
-    DriverProfileComponent,
-    DriverReportsComponent,
-    DriverRideHistoryComponent]
+    exports: [DriverAccountComponent,
+        DriverEditBasicInfoComponent,
+        DriverEditPasswordComponent,
+        DriverEditVehicleInfoComponent,
+        DriverInboxComponent,
+        DriverProfileComponent,
+        DriverReportsComponent,
+        DriverRideHistoryComponent, DriverCardHistoryComponent]
 })
 export class DriverModule { }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
 import { Report } from 'src/app/models/Report';
-import { CreateRideDTO, Ride } from 'src/app/models/Ride';
+import {CreateRideDTO, mRide, Ride} from 'src/app/models/Ride';
 
 @Injectable({
   providedIn: 'root'
@@ -36,4 +36,7 @@ export class RideService {
     return this.http.post<Ride>(environment.apiHost + "api/ride/", ride);
   }
 
+  getActiveRide(): Observable<Ride> {
+    return null;
+  }
 }
