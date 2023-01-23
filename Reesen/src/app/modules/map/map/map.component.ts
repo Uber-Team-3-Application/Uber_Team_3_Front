@@ -33,11 +33,13 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   vehicleTypes: VehicleType[];
   typeSelected = false;
   selectedVehicleName = '';
+  waitingForRide = false;
 
   splitPassengers = [];
   isFormValid = true;
   isRideInfoOpened = false;
   rideDeclined = false;
+  rideAccepted = false;
 
   id = 0;
   @Input() role = '';
@@ -87,6 +89,15 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     }else if(this.role==='PASSENGER'){
       this.stompClient.subscribe('/topic/passenger/ride/'+this.id, (message: {body: string}) =>{
         console.log(message);
+        this.acceptRide = JSON.parse(message.body);
+        if(this.acceptRide.status == "ACCEPTED") 
+        {
+          this.rideAccepted = true;
+          this.waitingForRide = false;
+        } else if(this.acceptRide.status == "REJECTED") 
+        {
+
+        }
       });
     }
 
@@ -444,6 +455,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     this.acceptNotification = false;
     this.rideService.orderARide(ride).subscribe();
     this.acceptNotification = true;
+    this.waitingForRide = true;
   }
 
 }
