@@ -81,19 +81,11 @@ export class DriversRideComponent implements OnInit{
   }
 
   private setReviewInfo(i: number, result: Passenger) {
-    console.log("passenger picture: ", result.profilePicture);
     for (let j = 0; j < this.reviews.length; j++) {
-      console.log("trenutno je: ", j);
-      console.log(this.ride.passengers[i].email);
-      console.log(this.reviews[j].driverReview.passenger.email)
       if (this.ride.passengers[i].id === this.reviews[j].driverReview.passenger.id) {
-        console.log("passenger picture: ", result.profilePicture);
-
         this.reviews[j].driverReview.passenger.profilePicture = result.profilePicture;
-        console.log("namesteno: ", this.reviews[j].driverReview.passenger.profilePicture);
         this.reviews[j].driverReview.passenger.name = result.name;
         this.reviews[j].driverReview.passenger.surname = result.surname;
-        console.log("na njega: ", this.reviews[j].driverReview.passenger.surname);
       }
       if (this.ride.passengers[i].id === this.reviews[j].vehicleReview.passenger.id) {
         this.reviews[j].vehicleReview.passenger.profilePicture = result.profilePicture;
