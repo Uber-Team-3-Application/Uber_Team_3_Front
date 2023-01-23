@@ -72,6 +72,12 @@ export class MapComponent implements AfterViewInit, OnDestroy{
 
   }
   openGlobalSocket() {
+    if(this.role==='DRIVER'){
+      console.log(this.id);
+      this.stompClient.subscribe('/topic/driver/ride/'+this.id, (message: {body: string}) =>{
+        console.log(message);
+      });
+    }
     this.stompClient.subscribe('/map-updates/update-vehicle-position', (message: { body: string }) => {
       console.log(message);
       let vehicle: VehicleSimulationDTO = JSON.parse(message.body);
@@ -198,28 +204,6 @@ export class MapComponent implements AfterViewInit, OnDestroy{
 
 
     this.initializeWebSocketConnection();
-    this.mapService.getAllActiveRides().subscribe((ret) => {
-      for (let ride of ret) {
-        let color = Math.floor(Math.random() * 16777215).toString(16);
-        let geoLayerRouteGroup: L.LayerGroup = new L.LayerGroup();
-        for (let step of JSON.parse(ride.routeJSON)['routes'][0]['legs'][0]['steps']) {
-          let routeLayer = L.geoJSON(step.geometry);
-          routeLayer.setStyle({ color: `#${color}` });
-          routeLayer.addTo(geoLayerRouteGroup);
-          this.rides[ride.id] = geoLayerRouteGroup;
-        }
-        let markerLayer = L.marker([ride.vehicle.longitude, ride.vehicle.latitude], {
-          icon: L.icon({
-            iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
-            iconSize: [35, 45],
-            iconAnchor: [18, 45],
-          }),
-        });
-        markerLayer.addTo(geoLayerRouteGroup);
-        this.vehicles[ride.vehicle.id] = markerLayer;
-        this.mainGroup = [...this.mainGroup, geoLayerRouteGroup];
-      }
-    });
 
 
     this.registerOnClick();
