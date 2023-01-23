@@ -11,8 +11,8 @@ export interface Ride {
   startTime:string;
   endTime: string;
   totalCost : number;
-  driver : Driver;
-  passengers : Passenger[];
+  driver : UserRestrict;
+  passengers : UserRestrict[];
   estimatedTimeInMinutes: number;
   vehicleType : string;
   babyTransport : boolean;

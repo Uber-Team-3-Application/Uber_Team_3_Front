@@ -1,4 +1,4 @@
-<section class="driver-ride-history p-5 round-edges" id="full_screen">
+<section class="driver-ride-history p-5 round-edges" id="full_screen" *ngIf="hasLoaded">
   <div class="white-section p-5 round-edges">
     <div class="row">
       <div class="col-12 col-md-7 text-big p-5 basic-info">  <!-- zauzima 7 kolona-->
@@ -47,14 +47,12 @@
           </div>
         </div>
 
-        <div class="row py-2">
+        <div class="row py-2" >
           <div class="map-container">
             <div class="map-frame">
               <div id="map"></div>
-
             </div>
           </div>
-
         </div>
       </div>
 
@@ -147,7 +145,7 @@
           <div class="col-12 my-2">
             <div class="user-card-comment">
               <div class="row">
-                <div class="col-2">
+                <div class="col-2" *ngIf="hasLoaded">
                   <img src="assets/img/avatar.png" alt="passenger-avatar" class="rounded-circle user-card-avatar-image" *ngIf="review.vehicleReview.passenger.profilePicture === 'profilna'">
                   <img [src]="review.vehicleReview.passenger.profilePicture" alt="passenger-avatar" class="rounded-circle user-card-avatar-image" *ngIf="review.vehicleReview.passenger.profilePicture !== 'profilna'">
 
@@ -179,18 +177,6 @@
             </div>
           </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
       </div>
     </div>
   </div>

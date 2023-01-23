@@ -6,6 +6,7 @@ import { PaginatedDriver, Driver, DriverActivityDTO, DriverEditVehicleRequest, D
 import { Vehicle } from 'src/app/models/Vehicle';
 import { HttpHeaders } from '@angular/common/http';
 import {RidePaginated} from "../../../models/Ride";
+import {Document} from "../../../models/Document";
 @Injectable({
   providedIn: 'root'
 })
@@ -84,6 +85,18 @@ export class DriverService {
   return this.http.put<string>(environment.apiHost + "api/driver/" + id + "/accept-profile-edit-request", {});
 }
 
+  getDocuments(driverId : number): Observable<Document[]> {
+    return this.http.get<Document[]>(environment.apiHost + "api/driver/" + driverId + "/documents");
+  }
+
+  saveDocument(driverId : number, doc : Document) : Observable<Document> {
+    return this.http.post<Document>(environment.apiHost + "api/driver/" + driverId + "/documents", doc);
+  }
+
+  deleteDocument(documentId : number) : Observable<string> {
+    return this.http.delete<string>(environment.apiHost + "api/driver/document/" + documentId);
+  }
+
 
 
   getRidesOfSpecificDriver(id: number, sort?:string, from?:string, to?:string, page?:number, size?:number) : Observable<RidePaginated> {
@@ -94,8 +107,10 @@ export class DriverService {
       params = params.append("sort", sort);
 
     if (from != undefined) {
-      params = params.append("from", from);
-      params = params.append("to", to);
+      let fromString = new Date(from).toISOString();
+      params = params.append("from", fromString);
+      let toString = new Date(to).toISOString();
+      params = params.append("to", toString);
     }
 
     if (page != undefined) {

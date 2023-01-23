@@ -3,9 +3,7 @@ import {DriverService} from "../services/driver.service";
 import {
   Ride,
   RidePaginated,
-  sortRideByDateAscending, sortRideByDateDescending, sortRideByEndStationAscending, sortRideByEndStationDescending,
-  sortRideByPriceAscending,
-  sortRideByPriceDescending, sortRideByStartStationAscending, sortRideByStartStationDescending
+
 } from "../../../models/Ride";
 import {TokenDecoderService} from "../../auth/token/token-decoder.service";
 import {TaskService} from "../services/task.service";
@@ -18,9 +16,8 @@ import {ReviewService} from "../services/review.service";
 })
 export class DriverRideHistoryComponent implements OnInit, OnDestroy{
 
-
-  minDate = "2022-05-02"; // default
-  maxDate = "2022-12-31"; // default
+  minDate = "2022-05-02T01:30" ; // default
+  maxDate = "2022-12-31T01:30"; // default
 
   page:number = 1;
   totalEntries: number = 0;
@@ -67,17 +64,6 @@ export class DriverRideHistoryComponent implements OnInit, OnDestroy{
   }
 
   setSortedSmartTable() {
-    switch (this.sorting) {
-      case 1: { this.driversRides.results.sort(sortRideByPriceAscending); break;}
-      case 2: { this.driversRides.results.sort(sortRideByPriceDescending); break;}
-      case 3: {this.driversRides.results.sort(sortRideByDateAscending); break;}
-      case 4: {this.driversRides.results.sort(sortRideByDateDescending); break;}
-      case 5: {this.driversRides.results.sort(sortRideByStartStationAscending); break;}
-      case 6: {this.driversRides.results.sort(sortRideByStartStationDescending); break;}
-      case 7: {this.driversRides.results.sort(sortRideByEndStationAscending); break;}
-      case 8: {this.driversRides.results.sort(sortRideByEndStationDescending); break;}
-
-    }
     this.taskService.deleteArray();
     this.generateSmartTable();
   }
@@ -124,8 +110,9 @@ export class DriverRideHistoryComponent implements OnInit, OnDestroy{
   }
 
 
-  changeKindsOfSort(number: number) {
-    this.sorting = number;
+  changeKindsOfSort(kinds: string) {
+    this.kindsOfSort = kinds;
+    this.fetchRides(this.page);
     this.setSortedSmartTable();
   }
 

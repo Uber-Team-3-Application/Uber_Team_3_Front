@@ -1,0 +1,63 @@
+
+<div *ngFor="let doc of documents">
+<p>{{doc.name}}</p>
+<img [src]="doc.documentImage" alt="avatar" *ngIf="doc.documentImage !== 'dozvola'">
+<img src="assets/img/dozvola.png" alt="avatar" *ngIf="doc.documentImage === 'dozvola'">
+<br/>
+  <div class="row">
+  <div class="col-md-7"></div>
+  <div class="col-md-5">
+  <button (click)="removeDocument(doc)">Remove</button>
+  </div>
+  </div>
+</div>
+
+<br/>
+<div class="row">
+  <div class="col-md-7"></div>
+  <div class="col-md-5">
+    <button  id="btn" (click)="changeState(true);" *ngIf="state === false">Add new</button>
+  </div>
+</div>
+
+<section class="add-document" *ngIf="state === true">
+  <form
+    [formGroup]="newDocumentForm"
+    (ngSubmit)="newDocument()">
+    <div class="row" id="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-2">
+        <label class="name" for="nameOfDocument">Name:</label>
+      </div>
+      <div class="col-md-5">
+         <input type="text" formControlName="nameOfDocument" name="nameOfDocument" id="nameOfDocument">
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+    <div class="row" *ngIf="hasError === true">
+      <div class="col-md-3"></div>
+      <div class="col-md-7"><span id="error">Please input name of document!</span></div>
+      <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+    <div class="col-md-5">
+    <label class="custom-file-upload">
+      <input type="file" (change)="handleUpload($event)"/>
+      <i class="fa fa-cloud-upload"></i>Choose
+    </label>
+    </div>
+    <div class="col-md-7"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-5"></div>
+      <div class="col-md-3">
+        <button (click)="changeState(false)">Cancel</button>
+      </div>
+      <div class="col-md-4">
+        <button type="submit">Submit</button>
+      </div>
+    </div>
+  </form>
+</section>
+
+
