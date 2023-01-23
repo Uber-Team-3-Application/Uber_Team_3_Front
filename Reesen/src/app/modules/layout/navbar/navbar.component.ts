@@ -27,6 +27,14 @@ export class NavbarComponent implements OnInit{
     if (this.role === 'DRIVER') {
       const driverId = this.tokenService.getDecodedAccesToken().id;
       this.driverService.changeActivity(driverId, false).subscribe();
+      let workingHourId = +localStorage.getItem('workingHourId');
+      this.driverService.finishShift(workingHourId, new Date()).subscribe({
+        next:(result) =>{
+          console.log(result);
+  
+        },
+        error:(error) =>{console.log(error);}
+      });
     }
     localStorage.removeItem('user');
     localStorage.removeItem('refreshToken');

@@ -94,6 +94,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
         {
           this.rideAccepted = true;
           this.waitingForRide = false;
+
         } else if(this.acceptRide.status === "REJECTED") 
         {
             alert('Your ride was rejected');
@@ -221,10 +222,9 @@ export class MapComponent implements AfterViewInit, OnDestroy{
                             }
                           }
                         );
-
-
+         
   }
-
+  
   search(address: string, isSecond = false){
 
     this.mapService.search(address).subscribe(
@@ -240,6 +240,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
             const route = L.Routing.control({
                   waypoints:[L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)],
                   show:false,
+                  routeWhileDragging:true,
                 }).addTo(this.map);
             const bounds = L.latLngBounds(this.markers);
             this.map.fitBounds(bounds);
