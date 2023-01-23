@@ -80,8 +80,13 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       console.log(this.id);
       this.stompClient.subscribe('/topic/driver/ride/'+this.id, (message: {body: string}) =>{
         console.log(message);
+        this.rideService.setRideStatus(false);
         this.acceptRide = JSON.parse(message.body);
         this.acceptNotification = true;
+      });
+    }else if(this.role==='PASSENGER'){
+      this.stompClient.subscribe('/topic/passenger/ride'+this.id, (message: {body: string}) =>{
+        console.log(message);
       });
     }
 
@@ -163,6 +168,10 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   }
   ngAfterViewInit(): void {
 
+
+    this.rideService.rideStatusChangedValue$.subscribe((value) => {
+      this.rideDeclined = value;
+    });
     const DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
       iconAnchor:[15, 30]
@@ -431,8 +440,10 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       locations: route,
       vehicleType: this.selectedVehicleName
     }
+    this.rideDeclined = false;
+    this.acceptNotification = false;
     this.rideService.orderARide(ride).subscribe();
-
+    this.acceptNotification = true;
   }
 
 }

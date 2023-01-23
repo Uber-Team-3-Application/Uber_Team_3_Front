@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {Observable} from 'rxjs';
 import { Ride } from 'src/app/models/Ride';
+import { RideService } from '../../services/ride.service';
 
 
 @Component({
@@ -13,15 +13,27 @@ export class AcceptRideComponent implements OnInit{
   @Input() acceptRide: Ride;
   @Input() role: string;
   rideDeclined = false;
-
-  constructor(){}
+  constructor(private rideService: RideService){}
   acceptRideOrder(){
 
   }
   ngOnInit(): void {
+    this.rideService.rideStatusChangedValue$.subscribe((rideDeclined) => {
+      this.rideDeclined = rideDeclined;
+    });
     console.log(this.role);
   }
   declineRide(){
-    this.rideDeclined = true;
+  
+    this.rideService.cancelRide(this.acceptRide.id, 'Ma lik je debil').subscribe({
+        next:(result) =>{
+          console.log(result);
+          this.rideDeclined = true;
+          this.rideService.setRideStatus(this.rideDeclined);
+        },
+        error:(error) =>{console.log(error);}
+    });
+    
+    
   }
 }

@@ -52,11 +52,10 @@
   </div>
 </div>
 
-<div *ngIf="acceptNotification" class="row">
-  <app-accept-ride [acceptRide]="acceptRide" [role]="role"></app-accept-ride>
-</div>
 
-<div *ngIf="!showGetRide && !acceptNotification" class="overlay">
+<app-accept-ride [acceptRide]="acceptRide" [role]="role" *ngIf="acceptNotification && role==='DRIVER' && !rideDeclined"></app-accept-ride>
+
+<div *ngIf="!showGetRide" class="overlay">
   <span><button class="ride-button my-button" type="button" (click)="openGetRide()">
     <span *ngIf="role!=='PASSENGER'">Get Ride Info</span>
     <span *ngIf="role==='PASSENGER'">Order A Ride</span>
@@ -64,7 +63,7 @@
   <span><button class="ride-button my-button mx-3" type="button" (click)="clearMap()"> Clear Map</button></span>
 </div>
 
-<div *ngIf="showGetRide && !acceptNotification" class="ride-information p-5">
+<div *ngIf="showGetRide" class="ride-information p-5">
   <form
     ride
     [formGroup]="getRideForm"
