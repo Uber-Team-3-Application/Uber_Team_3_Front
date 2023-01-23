@@ -85,7 +85,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
         this.acceptNotification = true;
       });
     }else if(this.role==='PASSENGER'){
-      this.stompClient.subscribe('/topic/passenger/ride'+this.id, (message: {body: string}) =>{
+      this.stompClient.subscribe('/topic/passenger/ride/'+this.id, (message: {body: string}) =>{
         console.log(message);
       });
     }
