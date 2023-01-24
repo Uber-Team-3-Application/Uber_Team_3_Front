@@ -1,5 +1,5 @@
 import { AfterViewInit, OnDestroy, Component, Input } from '@angular/core';
-import {Observable, scheduled} from 'rxjs'
+import { Observable, scheduled } from 'rxjs'
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
@@ -22,9 +22,9 @@ import * as myStomp from 'stompjs';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements AfterViewInit, OnDestroy{
+export class MapComponent implements AfterViewInit, OnDestroy {
 
-  private map:any;
+  private map: any;
   private currentRoute: L.Routing.Control | null = null;
   isDriver = false;
   rideButtonText = 'Get Ride info';
@@ -71,7 +71,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   initializeWebSocketConnection() {
     let ws = new SockJS(this.socketEndpoint);
     //this.stompClient = Stomp.Stomp.over(ws);
-    
+
     this.stompClient = myStomp.over(ws);
     this.stompClient.debug = null;
     let that = this;
@@ -101,37 +101,41 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   }
 
   openGlobalSocket() {
-    if(this.role==='DRIVER'){
-      this.stompClient.subscribe('/topic/driver/ride/'+this.id, (message: {body: string}) =>{
+    if (this.role === 'DRIVER') {
+      this.stompClient.subscribe('/topic/driver/ride/' + this.id, (message: { body: string }) => {
         console.log(message);
         this.rideService.setRideStatus(false);
         this.acceptRide = JSON.parse(message.body);
         this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
         this.acceptNotification = true;
       });
+
       this.stompClient.submitRideRejection('topic/driver/accept-ride/' + this.id, (message: {body : string})=>{
         console.log(message);
-      })
-    }else if(this.role==='PASSENGER'){
-      this.stompClient.subscribe('/topic/passenger/ride/'+this.id, (message: {body: string}) =>{
+      })   
+    } else if (this.role === 'PASSENGER') {
+      this.stompClient.subscribe('/topic/passenger/ride/' + this.id, (message: { body: string }) => {
         console.log(message);
-        this.acceptRide = JSON.parse(message.body);
-        if(this.acceptRide.status === "ACCEPTED") 
-        {
-          this.rideAccepted = true;
-          this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
-          this.waitingForRide = false;
-          this.rideService.setActiveRide(true);
-          
+        if (message.body === "You have a scheduled ride!") {
+          alert("You have a scheduled ride!");
+        }
+        else {
+          this.acceptRide = JSON.parse(message.body);
+          if (this.acceptRide.status === "ACCEPTED") {
+            this.rideAccepted = true;
+            this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
+            this.waitingForRide = false;
+            this.rideService.setActiveRide(true);
 
-        } else if(this.acceptRide.status === "REJECTED") 
-        {
+
+          } else if (this.acceptRide.status === "REJECTED") {
             alert('Your ride was rejected');
             this.clearMap();
-            this.rideAssumption.estimatedCost =  0;
+            this.rideAssumption.estimatedCost = 0;
             this.rideAssumption.estimatedTimeInMinutes = 0;
             this.waitingForRide = false;
             this.rideAccepted = false;
+          }
         }
       }
       );
@@ -144,7 +148,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
 
   getRideForm = new FormGroup({
     departure: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    destination : new FormControl('', [Validators.required, Validators.minLength(3)]),
+    destination: new FormControl('', [Validators.required, Validators.minLength(3)]),
     passengers: new FormControl('', []),
     babyTransport: new FormControl(false),
     petTransport: new FormControl(false),
@@ -156,35 +160,35 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     private vehicleService: VehicleService,
     private userService: UserService,
     private rideService: RideService,
-    private tokenDecoder: TokenDecoderService){
+    private tokenDecoder: TokenDecoderService) {
 
-      const tokenObservable = new Observable(subscriber => {
+    const tokenObservable = new Observable(subscriber => {
+      subscriber.next(this.tokenDecoder.getDecodedAccesToken());
+
+      window.addEventListener('storage', (event) => {
         subscriber.next(this.tokenDecoder.getDecodedAccesToken());
-
-        window.addEventListener('storage', (event) => {
-          subscriber.next(this.tokenDecoder.getDecodedAccesToken());
-        });
       });
+    });
 
-      tokenObservable.subscribe(token => {
-        if(token !== null){
-          this.decodedToken = token;
-          this.id = + this.decodedToken.id;
+    tokenObservable.subscribe(token => {
+      if (token !== null) {
+        this.decodedToken = token;
+        this.id = + this.decodedToken.id;
 
-          this.role = this.decodedToken.role[0]['authority'];
-          console.log(this.role);
-        }else{
-          this.id = 0;
-          this.role = '';
-          console.log('LOGOUT');
-        }
-      });
+        this.role = this.decodedToken.role[0]['authority'];
+        console.log(this.role);
+      } else {
+        this.id = 0;
+        this.role = '';
+        console.log('LOGOUT');
+      }
+    });
 
 
 
-    }
+  }
 
-  private initMap():void{
+  private initMap(): void {
     this.map = L.map('map', {
       center: [45.249101856630546, 19.848034],
       zoom: 16,
@@ -203,18 +207,18 @@ export class MapComponent implements AfterViewInit, OnDestroy{
 
   }
 
-  showDateTimePicker():void{
-    if(this.showDateTime){
-      this.scheduledTime = null; 
-      this.showDateTime = false; 
+  showDateTimePicker(): void {
+    if (this.showDateTime) {
+      this.scheduledTime = null;
+      this.showDateTime = false;
     }
     else this.showDateTime = true;
   }
 
-  selectVehicleType(type:VehicleType):void{
-      this.selectedVehicleName = type.name;
-      this.showVehicleType = false;
-      this.typeSelected = true;
+  selectVehicleType(type: VehicleType): void {
+    this.selectedVehicleName = type.name;
+    this.showVehicleType = false;
+    this.typeSelected = true;
   }
 
   ngOnDestroy(): void {
@@ -231,7 +235,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     });
     const DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
-      iconAnchor:[15, 30]
+      iconAnchor: [15, 30]
     });
 
     L.Marker.prototype.options.icon = DefaultIcon;
@@ -245,9 +249,9 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     this.registerOnClick();
 
     this.vehicleService.getVehicleTypes()
-                        .subscribe(
-                          (vehicleTypes) => (this.vehicleTypes = vehicleTypes)
-                        );
+      .subscribe(
+        (vehicleTypes) => (this.vehicleTypes = vehicleTypes)
+      );
 
     this.vehicleService.getAllLocations()
                         .subscribe(
@@ -269,26 +273,24 @@ export class MapComponent implements AfterViewInit, OnDestroy{
                           }
                         );
 
-         
   }
-  
-  search(address: string, isSecond = false){
+
+  search(address: string, isSecond = false) {
 
     this.mapService.search(address).subscribe(
       {
-        next: (result) =>{
-          if(this.markers.length != 2){
+        next: (result) => {
+          if (this.markers.length != 2) {
             this.markers.push(result[0]);
           }
-          if(isSecond && this.markers.length == 2)
-          {
+          if (isSecond && this.markers.length == 2) {
             const departure = this.markers[0];
             const destination = this.markers[1];
             const route = L.Routing.control({
-                  waypoints:[L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)],
-                  show:false,
-                  routeWhileDragging:true,
-                }).addTo(this.map);
+              waypoints: [L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)],
+              show: false,
+              routeWhileDragging: true,
+            }).addTo(this.map);
             const bounds = L.latLngBounds(this.markers);
             this.map.fitBounds(bounds);
             this.currentRoute = route;
@@ -297,27 +299,27 @@ export class MapComponent implements AfterViewInit, OnDestroy{
             this.getRideAssumptions();
           }
         },
-        error:() =>{ console.log("Mistakes were made..");}
+        error: () => { console.log("Mistakes were made.."); }
       }
     );
-    if(this.currentRoute != null){
+    if (this.currentRoute != null) {
       this.map.removeControl(this.currentRoute);
     }
 
   }
 
-  closeRideInfo():void{
+  closeRideInfo(): void {
     this.showGetRide = false;
   }
 
-  getRideAssumptions():void{
+  getRideAssumptions(): void {
 
     const route = new Array<Route>();
     const selectedLocations = new Array<Location>();
     const depLoc: Location = {
-        address: this.getRideForm.value.departure,
-        latitude: this.markers[0].lat,
-        longitude: this.markers[0].lon
+      address: this.getRideForm.value.departure,
+      latitude: this.markers[0].lat,
+      longitude: this.markers[0].lon
     };
     const destLoc: Location = {
       address: this.getRideForm.value.destination,
@@ -328,19 +330,19 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     selectedLocations.push(depLoc);
     selectedLocations.push(destLoc);
     route.push({
-      departure:depLoc,
-      destination:destLoc
+      departure: depLoc,
+      destination: destLoc
     })
     let type = "VAN";
-    if(this.selectedVehicleName === "STANDARD"){
-        type = "STANDARD";
+    if (this.selectedVehicleName === "STANDARD") {
+      type = "STANDARD";
     }
-    else if(this.selectedVehicleName === "LUXURY"){
+    else if (this.selectedVehicleName === "LUXURY") {
       type = "LUXURY";
     }
-     const rideInfo: RideInfoBody = {
+    const rideInfo: RideInfoBody = {
       locations: route,
-      vehicleType:type,
+      vehicleType: type,
       babyTransport: this.getRideForm.value.babyTransport,
       petTransport: this.getRideForm.value.petTransport
 
@@ -348,92 +350,93 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     console.log(rideInfo)
     this.userService.getRideAssumption(rideInfo)
       .subscribe(
-        (info) => {this.rideAssumption = info;}
+        (info) => { this.rideAssumption = info; }
       );
 
   }
 
 
-  registerOnClick(): void{
+  registerOnClick(): void {
 
-      this.map.on('click', (e:any) =>{
-          if(this.showGetRide && this.markers.length != 2){
-            const coord = e.latlng;
-            const lat = coord.lat;
-            const lng = coord.lng;
-            this.mapService.reverseSearch(lat, lng).
-            subscribe(
-              (res) => {
+    this.map.on('click', (e: any) => {
+      if (this.showGetRide && this.markers.length != 2) {
+        const coord = e.latlng;
+        const lat = coord.lat;
+        const lng = coord.lng;
+        this.mapService.reverseSearch(lat, lng).
+          subscribe(
+            (res) => {
 
-                  if((this.markers.length != 2 && this.getRideForm.value.departure == "")){
-                    this.getRideForm.patchValue({
-                      departure:  res.display_name
-                    });
-                  }
-                  else{
-                    if(this.getRideForm.value.destination == ""){
-                      this.getRideForm.patchValue({
-                        destination:  res.display_name
-                      });
-                    }
-                  }
+              if ((this.markers.length != 2 && this.getRideForm.value.departure == "")) {
+                this.getRideForm.patchValue({
+                  departure: res.display_name
+                });
               }
-            );
-          }
-          if(!this.showGetRide){
-            alert("Click on the get ride button first!");
-          }
-          if(this.markers.length == 2){
-            alert("Already selected 2 locations!");
-          }
+              else {
+                if (this.getRideForm.value.destination == "") {
+                  this.getRideForm.patchValue({
+                    destination: res.display_name
+                  });
+                }
+              }
+            }
+          );
+      }
+      if (!this.showGetRide) {
+        alert("Click on the get ride button first!");
+      }
+      if (this.markers.length == 2) {
+        alert("Already selected 2 locations!");
+      }
 
-      });
+    });
 
 
   }
 
-  openGetRide():void{
+  openGetRide(): void {
 
     this.showGetRide = true;
 
   }
 
-  clearMap():void{
+  clearMap(): void {
     this.deleteMarkers();
     this.map.removeControl(this.currentRoute);
     this.getRideForm.patchValue(
-      {departure: "",
-      destination: ""}
+      {
+        departure: "",
+        destination: ""
+      }
     );
 
   }
 
-  deleteMarkers():void{
+  deleteMarkers(): void {
 
 
     this.map.eachLayer(
-      (layer) =>
-      {
+      (layer) => {
         if (layer.options.waypoints && layer.options.waypoints.length) {
           this.map.removeLayer(layer);
-         }
+        }
       });
     this.markers.length = 0;
 
   }
-  getRide():void{
+  getRide(): void {
 
 
-    if(!this.getRideForm.valid){
+    if (!this.getRideForm.valid) {
       this.isFormValid = false;
       return;
     }
-    if(this.selectedVehicleName === ''){
+    if (this.selectedVehicleName === '') {
       this.isFormValid = false;
       return;
     }
     this.isFormValid = true;
-    if(this.getRideForm.value.departure === this.getRideForm.value.destination){
+    if (this.getRideForm.value.departure === this.getRideForm.value.destination) {
       alert("Destination and departure must be different!");
       return;
     }
@@ -450,7 +453,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
 
   }
 
-  openVehicleTypeComponent():void{
+  openVehicleTypeComponent(): void {
     this.showVehicleType = !this.showVehicleType;
     this.typeSelected = false;
   }
@@ -458,7 +461,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   async confirmRideOrder(): Promise<void> {
     const passengers = new Array<UserRestrict>();
     let arePassengerdValid = true;
-    if(this.splitPassengers.length > 0 && this.splitPassengers[0].trim()!==''){
+    if (this.splitPassengers.length > 0 && this.splitPassengers[0].trim() !== '') {
       for (let passenger of this.splitPassengers) {
         passenger = passenger.trim();
         try {
@@ -481,9 +484,9 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     const route = new Array<Route>();
     const selectedLocations = new Array<Location>();
     const depLoc: Location = {
-        address: this.getRideForm.value.departure,
-        latitude: this.markers[0].lat,
-        longitude: this.markers[0].lon
+      address: this.getRideForm.value.departure,
+      latitude: this.markers[0].lat,
+      longitude: this.markers[0].lon
     };
     const destLoc: Location = {
       address: this.getRideForm.value.destination,
@@ -494,11 +497,11 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     selectedLocations.push(depLoc);
     selectedLocations.push(destLoc);
     route.push({
-      departure:depLoc,
-      destination:destLoc
+      departure: depLoc,
+      destination: destLoc
     })
+    if (this.showDateTime) {
 
-    if(this.showDateTime){
       this.scheduledTime = this.getRideForm.value.scheduledTime;
     }
     const ride: CreateRideDTO = {
@@ -512,16 +515,16 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     this.rideDeclined = false;
     this.acceptNotification = false;
     this.rideService.orderARide(ride).subscribe({
-      next:(result) =>{
+      next: (result) => {
         this.acceptNotification = true;
         this.waitingForRide = true;
       },
-      error:(error) =>{
+      error: (error) => {
         console.log(error);
         alert('Cannot create ride. You already have one in progress.');
       }
     });
-    
+
   }
 
 }

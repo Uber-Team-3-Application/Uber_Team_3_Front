@@ -1,0 +1,48 @@
+
+<h2 align="center">Current ride</h2>
+
+<div class="map-container">
+  <div class="map-frame">
+    <div id="map"></div>
+  </div>
+</div>
+
+
+
+<div  class="overlay" *ngIf="isCardLoaded">
+  <div class="row first">
+    <div class="col-md-2 stop-watch">
+      <div class="stop-watch">
+        <div class="display">{{format(mm)}}:{{format(ss)}}:{{format(ms)}}</div>
+      </div>
+    </div>
+    <div class="col-md-10"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6" align="right">
+    <button class="startRidebtn" (click) = "finishRide()">FINISH RIDE</button>
+    </div>
+    <div class="col-md-6" align="left">
+      <button class="startRidebtn" (click)="clickHandler()">STOP</button></div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-5" align="center">
+    <app-driver-card-history [date]="ride" [setFinished]="false" id="card"></app-driver-card-history>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+      <img src="assets/img/panic_girl.png">
+    </div>
+
+    <div class="col-md-2" align="center">
+      <p>Something wrong? Please contact us!</p>
+      <button class="panicBtn">PANIC</button>
+      </div>
+    <div class="col-md-1"></div>
+  </div>
+
+
+</div>

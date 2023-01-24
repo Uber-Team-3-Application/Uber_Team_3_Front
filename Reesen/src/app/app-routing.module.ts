@@ -31,7 +31,9 @@ import {PassengerInfoComponent} from "./modules/passenger/passenger-info/passeng
 import {DriverReportsComponent} from "./modules/driver/driver-reports/driver-reports.component";
 import { PanicPageAdminComponent } from './modules/admin/panic-page-admin/panic-page-admin.component';
 import {DocumentsComponent} from "./modules/driver/documents/documents.component";
+import {DriverCurrentRideComponent} from "./modules/ride/driver-current-ride/driver-current-ride.component";
 import { PanicPressedComponent } from './modules/admin/panic-pressed/panic-pressed.component';
+import {PassengerCurrentRideComponent} from "./modules/ride/passenger-current-ride/passenger-current-ride.component";
 
 
 const routes: Routes = [
@@ -44,6 +46,8 @@ const routes: Routes = [
   {path:'activationPage', component:ActivationpageComponent},
   {path:'activation', component:ActivationComponent},
   {path:'home', component:HomeComponent},
+  {path: 'passenger_current_ride/:rideId', component: PassengerCurrentRideComponent},
+  {path: 'driver_current_ride/:rideId', component: DriverCurrentRideComponent},
   {path:'passenger_profile', component:PassengerProfileComponent},
   {path:'passenger_profile-edit', component:PassengerProfileEditComponent},
   {path:'passenger_ride-history', component:RideHistoryComponent},
