@@ -84,6 +84,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
         console.log(message);
         this.rideService.setRideStatus(false);
         this.acceptRide = JSON.parse(message.body);
+        this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
         this.acceptNotification = true;
       });
     }else if(this.role==='PASSENGER'){
@@ -93,6 +94,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
         if(this.acceptRide.status === "ACCEPTED") 
         {
           this.rideAccepted = true;
+          this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
           this.waitingForRide = false;
 
         } else if(this.acceptRide.status === "REJECTED") 
@@ -104,7 +106,8 @@ export class MapComponent implements AfterViewInit, OnDestroy{
             this.waitingForRide = false;
             this.rideAccepted = false;
         }
-      });
+      }
+      );
     }
 
   }
@@ -459,9 +462,17 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     }
     this.rideDeclined = false;
     this.acceptNotification = false;
-    this.rideService.orderARide(ride).subscribe();
-    this.acceptNotification = true;
-    this.waitingForRide = true;
+    this.rideService.orderARide(ride).subscribe({
+      next:(result) =>{
+        this.acceptNotification = true;
+        this.waitingForRide = true;
+      },
+      error:(error) =>{
+        console.log(error);
+        alert('Cannot create ride. You already have one in progress.');
+      }
+    });
+    
   }
 
 }
