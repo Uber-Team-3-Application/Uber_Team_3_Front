@@ -1,5 +1,5 @@
 import { AfterViewInit, OnDestroy, Component, Input } from '@angular/core';
-import {Observable} from 'rxjs'
+import {Observable, scheduled} from 'rxjs'
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
@@ -30,10 +30,12 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   rideButtonText = 'Get Ride info';
   showGetRide = false;
   showVehicleType = false;
+  showDateTime = false;
   vehicleTypes: VehicleType[];
   typeSelected = false;
   selectedVehicleName = '';
   waitingForRide = false;
+  scheduledTime = null;
 
   splitPassengers = [];
   isFormValid = true;
@@ -111,15 +113,14 @@ export class MapComponent implements AfterViewInit, OnDestroy{
 
   }
 
-  
-  
-
   getRideForm = new FormGroup({
     departure: new FormControl('', [Validators.required, Validators.minLength(3)]),
     destination : new FormControl('', [Validators.required, Validators.minLength(3)]),
     passengers: new FormControl('', []),
     babyTransport: new FormControl(false),
-    petTransport: new FormControl(false)
+    petTransport: new FormControl(false),
+    scheduled: new FormControl(false),
+    scheduledTime: new FormControl(new Date())
   });
 
   constructor(private mapService: MapService,
@@ -171,6 +172,14 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     );
     tiles.addTo(this.map);
 
+  }
+
+  showDateTimePicker():void{
+    if(this.showDateTime){
+      this.scheduledTime = null; 
+      this.showDateTime = false; 
+    }
+    else this.showDateTime = true;
   }
 
   selectVehicleType(type:VehicleType):void{
@@ -453,12 +462,16 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       departure:depLoc,
       destination:destLoc
     })
+    if(this.showDateTime){
+      this.scheduledTime = this.getRideForm.value.scheduledTime;
+    }
     const ride: CreateRideDTO = {
       passengers: passengers,
       babyTransport: this.getRideForm.value.babyTransport,
       petTransport: this.getRideForm.value.petTransport,
       locations: route,
-      vehicleType: this.selectedVehicleName
+      vehicleType: this.selectedVehicleName,
+      scheduledTime: this.scheduledTime
     }
     this.rideDeclined = false;
     this.acceptNotification = false;
