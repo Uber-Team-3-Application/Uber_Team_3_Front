@@ -10,12 +10,14 @@ import { RideService } from '../../services/ride.service';
 export class PanicPressedComponent implements OnInit{
 
   ride = null;
+  panicDTO = null;
 
   constructor(private rideService: RideService){}
 
   ngOnInit(): void {
     this.rideService.panicPressedValue$.subscribe((value) =>{
       this.ride = value;
+      
     });
   }
 
