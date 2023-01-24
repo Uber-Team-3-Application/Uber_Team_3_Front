@@ -147,7 +147,13 @@
         <input type="checkbox" class="form-check-input" id="petTransport" name="petTransport" formControlName="petTransport">
         <label for="petTransport" class="form-check-label px-3">Pet transport</label>
       </div>
-
+      <div class="col-6">
+        <input type="checkbox" class="form-check-input" id="schedule" name="schedule" formControlName="schedule" (click)="showDateTimePicker()">
+        <label for="schedule" class="form-check-label px-3">Schedule for later:</label>
+      </div>
+      <div class="col-6" id="scheduledTime" *ngIf="showDateTime">
+        <input type="datetime-local" class="form-control" id="scheduledTime" name="scheduledTime" formControlName="scheduledTime">
+      </div>
     </div>
 
     <div class="alert alert-danger" role="alert" *ngIf="!isFormValid">

@@ -61,6 +61,7 @@ export interface CreateRideDTO{
   vehicleType: string,
   babyTransport: boolean,
   petTransport: boolean,
+  scheduledTime: Date;
 }
 
 export interface RideInfo{
