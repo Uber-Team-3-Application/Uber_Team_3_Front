@@ -18,7 +18,13 @@ export class CurrentRideComponent  implements OnInit {
   private map:any;
   private currentRoute: L.Routing.Control | null = null;
   ride : Ride;
-  isCardLoaded : boolean = false;
+  isCardLoaded  = false;
+  mm = 0;
+  ss = 0;
+  ms = 0;
+  isRunning = false;
+  timerId;
+
 
   constructor(private mapService: MapService,
               private route: ActivatedRoute,
@@ -35,8 +41,41 @@ export class CurrentRideComponent  implements OnInit {
         this.ride = ride;
         this.isCardLoaded = true;
         this.initMap();
+        this.clickHandler();
       })
     });
+  }
+
+
+  changeHandler(bool : boolean) {
+    this.isRunning = bool;
+  }
+
+
+  clickHandler() {
+
+    if (!this.isRunning) {
+      // Stop => Running
+      this.timerId = setInterval(() => {
+        this.ms++;
+
+        if (this.ms >= 100) {
+          this.ss++;
+          this.ms = 0;
+        }
+        if (this.ss >= 60) {
+          this.mm++;
+          this.ss = 0
+        }
+      }, 10);
+    } else {
+      clearInterval(this.timerId);
+    }
+    this.isRunning = !this.isRunning;
+  }
+
+  format(num: number) {
+    return (num + '').length === 1 ? '0' + num : num + '';
   }
 
 

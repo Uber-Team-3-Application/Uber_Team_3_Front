@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-card.component.css']
 })
 export class UserCardComponent {
-
-  isComment : boolean = false;
 }

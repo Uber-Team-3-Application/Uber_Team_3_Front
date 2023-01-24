@@ -40,6 +40,6 @@ import { AdminModule } from '../admin/admin.module';
 
 
     ],
-  exports: [AboutComponent, HomeComponent, NavbarComponent, MatSlideToggleModule, RideMapComponent, UserCardComponent]
+    exports: [AboutComponent, HomeComponent, NavbarComponent, MatSlideToggleModule, RideMapComponent, UserCardComponent]
 })
 export class LayoutModule { }
