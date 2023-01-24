@@ -40,6 +40,7 @@ export class AdminNavbarComponent implements OnInit{
     this.stompClient.subscribe('/topic/admin/panic/'+this.id, (message: {body: string}) =>{
       console.log(message);
       this.panicRide = JSON.parse(message.body);
+      this.panicRide.totalCost = Math.round(this.panicRide.totalCost * 100)/100;
       this.rideService.setPanicPressed(this.panicRide);
       this.router.navigate(['/panic-notification']);
     });

@@ -4,6 +4,6 @@
             <h1 class="text-red">New Panic Notification!</h1>
         </div>
     </div>
-    <app-panic-notification [panic]="panicDTO"></app-panic-notification>
+    <app-panic-notification [panic]="panicDTO" *ngIf="panicDTO !== null"></app-panic-notification>
 
 </section>

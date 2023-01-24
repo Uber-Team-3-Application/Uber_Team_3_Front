@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PaginatedPanic } from 'src/app/models/Panic';
+import { PaginatedPanic, PanicDTO } from 'src/app/models/Panic';
 import { environment } from 'src/app/environment/environment';
 import { Observable } from 'rxjs';
 
@@ -14,5 +14,8 @@ export class PanicService {
   
   get():Observable<PaginatedPanic>{
     return this.http.get<PaginatedPanic>(environment.apiHost + 'api/panic');
+  }
+  getByRideId(rideId: number):Observable<PanicDTO>{
+    return this.http.get<PanicDTO>(environment.apiHost + 'api/panic/' + rideId);
   }
 }
