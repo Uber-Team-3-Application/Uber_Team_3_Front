@@ -1,0 +1,13 @@
+.panic-notification{
+    width: 60%;
+    margin: 20px auto;
+    background-color: #578979;
+}
+.text-red{
+    color: red;
+    font-weight: bold;
+}
+.text-panic{
+    color: #578979;
+
+}

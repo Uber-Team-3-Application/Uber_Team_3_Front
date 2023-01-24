@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TokenDecoderService } from '../../auth/token/token-decoder.service';
 import {Observable} from 'rxjs';
+import { RideService } from '../../services/ride.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,7 +12,6 @@ export class HomeComponent {
   id = 0;
   role = '';
   decodedToken = null;
-
   constructor(private tokenDecoder: TokenDecoderService){
     const tokenObservable = new Observable(subscriber => {
       subscriber.next(this.tokenDecoder.getDecodedAccesToken());
@@ -33,6 +33,7 @@ export class HomeComponent {
         console.log('LOGOUT');
       }
     });
+
   }
 
 

@@ -74,8 +74,6 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       console.log('da');
       that.openGlobalSocket();
     });
-  
-
   }
   openGlobalSocket() {
     if(this.role==='DRIVER'){
