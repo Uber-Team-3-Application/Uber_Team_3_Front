@@ -21,6 +21,7 @@ export interface Ride {
   rejection?: Rejection;
   locations: Route[];
   reviews?: Review[];
+  scheduledTime?:Date;
 }
 
 export interface Review{

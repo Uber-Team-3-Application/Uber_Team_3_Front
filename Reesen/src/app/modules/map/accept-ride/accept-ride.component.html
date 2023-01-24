@@ -15,6 +15,9 @@
         <div class="col-12 p-2 mx-3 text-dark">
           <strong>Total Cost:</strong> {{this.acceptRide.totalCost}} <strong> (RSD)</strong>
         </div>
+        <div class="col-12 p-2 mx-3 text-dark" *ngIf="acceptRide.scheduledTime !== null">
+          <strong>Scheduled time:</strong> {{this.acceptRide.scheduledTime | date : 'HH:mm dd-MM-yyyy'}} <strong></strong>
+        </div>
   
         <div class="col-12 p-2 mx-3 text-dark">
           <p><strong>Baby Transport:</strong> {{this.acceptRide.babyTransport}} </p>
