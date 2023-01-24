@@ -4,6 +4,19 @@ import {Passenger} from "./Passenger";
 import {Rejection} from "./Rejection";
 import {User, UserRestrict} from "./User";
 
+export interface mRide {
+  id: number;
+  routeJSON: string;
+  rideStatus: number;
+  vehicle: mVehicle;
+}
+
+export interface mVehicle {
+  id: number;
+  licensePlateNumber: string;
+  latitude: number;
+  longitude: number;
+}
 
 
 export interface Ride {

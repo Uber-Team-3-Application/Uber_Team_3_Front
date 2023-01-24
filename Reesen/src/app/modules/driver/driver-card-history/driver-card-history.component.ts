@@ -12,7 +12,11 @@ export class DriverCardHistoryComponent {
 
   ride : Ride;
   rating : number = 1;
+  isFinished: boolean = true;
 
+  @Input() set setFinished(finished : boolean) {
+    this.isFinished = finished;
+  }
 
   @Input() set date(value : Ride) {
     this.ride = value;
