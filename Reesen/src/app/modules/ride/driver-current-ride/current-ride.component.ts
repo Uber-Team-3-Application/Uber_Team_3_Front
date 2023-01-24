@@ -8,13 +8,14 @@ import {TokenDecoderService} from "../../auth/token/token-decoder.service";
 import {VehicleType} from "../../../models/Vehicle";
 import {Ride} from "../../../models/Ride";
 import {ActivatedRoute} from "@angular/router";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-driver-current-ride',
-  templateUrl: './driver-current-ride.component.html',
-  styleUrls: ['./driver-current-ride.component.css']
+  templateUrl: './current-ride.component.html',
+  styleUrls: ['./current-ride.component.css']
 })
-export class DriverCurrentRideComponent implements OnInit {
+export class CurrentRideComponent implements OnInit {
   private map:any;
   private currentRoute: L.Routing.Control | null = null;
   ride : Ride;
@@ -23,7 +24,14 @@ export class DriverCurrentRideComponent implements OnInit {
   ss = 0;
   ms = 0;
   isRunning = false;
+  isNotePressed = false;
   timerId;
+
+  role: string = "PASSENGER";
+
+  notePassengerForm = new FormGroup({
+    inputNote: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+  });
 
 
   constructor(private mapService: MapService,
@@ -47,8 +55,17 @@ export class DriverCurrentRideComponent implements OnInit {
   }
 
 
-  changeHandler(bool : boolean) {
-    this.isRunning = bool;
+
+  changeHandler(bool) {
+    this.isNotePressed = bool;
+  }
+
+  sendNote() {
+    if (this.notePassengerForm.valid) {
+      // TODO: POSALJI UPOZORENJE CENTRALI
+    } else {
+      alert("Please input valid text message!")
+    }
   }
 
 

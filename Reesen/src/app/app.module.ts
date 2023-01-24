@@ -15,15 +15,13 @@ import {Interceptor} from './modules/auth/interceptor/interceptor';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { A11yModule } from '@angular/cdk/a11y';
-import { DriverCurrentRideComponent } from './modules/ride/driver-current-ride/driver-current-ride.component';
+import { CurrentRideComponent } from './modules/ride/driver-current-ride/current-ride.component';
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
-import { PassengerCurrentRideComponent } from './modules/ride/passenger-current-ride/passenger-current-ride.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DriverCurrentRideComponent,
-    PassengerCurrentRideComponent,
+    CurrentRideComponent,
   ],
   imports: [
     BrowserModule,
