@@ -465,7 +465,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       destination:destLoc
     })
     if(this.showDateTime){
-      this.scheduledTime = this.getRideForm.get('scheduledTime').value;
+      this.scheduledTime = this.getRideForm.value.scheduledTime;
     }
     const ride: CreateRideDTO = {
       passengers: passengers,
