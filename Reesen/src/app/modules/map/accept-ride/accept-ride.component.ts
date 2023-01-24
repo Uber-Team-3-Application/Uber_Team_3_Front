@@ -26,7 +26,7 @@ export class AcceptRideComponent implements OnInit{
       next:(result) =>{
         console.log(result);
         this.rideService.setRideStatus(true);
-        //TO DO: ovde otvoriti current ride za vozaca i pass  
+        this.rideService.setActiveRide(true);
       },
       error:(error) =>{console.log(error);}
   });

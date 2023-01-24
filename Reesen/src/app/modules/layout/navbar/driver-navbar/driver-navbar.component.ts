@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/modules/auth/authentication.service';
 import {DriverService} from "../../../driver/services/driver.service";
 import {TokenDecoderService} from "../../../auth/token/token-decoder.service";
+import { RideService } from 'src/app/modules/services/ride.service';
 
 @Component({
   selector: 'app-driver-navbar',
@@ -12,11 +13,13 @@ import {TokenDecoderService} from "../../../auth/token/token-decoder.service";
 export class DriverNavbarComponent implements OnInit{
   active  = true;
   @Output() isSideBarActive: EventEmitter<boolean> = new EventEmitter<boolean>();
+  activeRide = false;
 
   constructor(private authService: AuthenticationService, 
     private router: Router, 
     private driverService : DriverService,
-    private tokenService : TokenDecoderService) {}
+    private tokenService : TokenDecoderService,
+    private rideService: RideService) {}
 
   ngOnInit(): void {
     const driverId = this.tokenService.getDecodedAccesToken().id;
@@ -26,6 +29,9 @@ export class DriverNavbarComponent implements OnInit{
           localStorage.setItem("workingHourId", result.id.toString())
         },
         error:(error) =>{console.log(error);}
+    });
+    this.rideService.activeRideValue$.subscribe((value) => {
+      this.activeRide = value;
     });
   }
 

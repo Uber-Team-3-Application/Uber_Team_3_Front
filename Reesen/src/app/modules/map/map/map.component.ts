@@ -96,6 +96,8 @@ export class MapComponent implements AfterViewInit, OnDestroy{
           this.rideAccepted = true;
           this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
           this.waitingForRide = false;
+          this.rideService.setActiveRide(true);
+          
 
         } else if(this.acceptRide.status === "REJECTED") 
         {
