@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Ride } from 'src/app/models/Ride';
+import { VehicleService } from '../../driver/services/vehicle.service';
 import { RideService } from '../../services/ride.service';
 
 
@@ -19,7 +20,7 @@ export class AcceptRideComponent implements OnInit{
     reason: new FormControl('', [Validators.required]),
   });
 
-  constructor(private rideService: RideService){}
+  constructor(private rideService: RideService, private vehicleService: VehicleService){}
   acceptRideOrder(){
 
     this.rideService.acceptRide(this.acceptRide.id, this.acceptRide).subscribe({
@@ -27,6 +28,10 @@ export class AcceptRideComponent implements OnInit{
         console.log(result);
         this.rideService.setRideStatus(true);
         this.rideService.setActiveRide(true);
+        this.vehicleService.simulateRide(result.id).subscribe({
+          next:(result) =>{console.log(result);},
+          error:(error) =>{console.log(error);}
+        })
       },
       error:(error) =>{console.log(error);}
   });
