@@ -51,16 +51,19 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     estimatedCost: 0
   }
 
-  vehicleLocations: VehicleLocationWithAvailibility[];
+  vehicles: { [vehicleId: number]: L.Marker } = {};
 
+  vehicleLocations: VehicleLocationWithAvailibility[];
   markers = new Array();
 
   stompClient: any;
+  stompClientSimulation: any;
 
-  vehicles: any = {};
+
   rides: any = {};
   mainGroup: L.LayerGroup[] = [];
   socketEndpoint = 'http://localhost:8082/socket';
+  simulationEndpoint = 'http://localhost:8082/vehicle-simulation';
 
   acceptNotification = false;
   acceptRide: Ride;
@@ -73,10 +76,30 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.stompClient.debug = null;
     let that = this;
     this.stompClient.connect({}, function () {
-      console.log('da');
       that.openGlobalSocket();
     });
   }
+  initializeWebSocketSimulationConnection(){
+    let ws = new SockJS(this.simulationEndpoint);
+    
+    this.stompClientSimulation = myStomp.over(ws);
+    this.stompClientSimulation.debug = null;
+    let that = this;
+    this.stompClientSimulation.connect({}, function () {
+      that.openSimulationSocket();
+    });
+  }
+  openSimulationSocket(){
+    this.stompClientSimulation.subscribe('/topic/map-updates', (message: {body: string}) =>{
+
+      const newLocation = JSON.parse(message.body);
+      const vehicle = this.vehicles[newLocation.id];
+      vehicle.setLatLng([newLocation.longitude, newLocation.latitude]);
+      
+    })
+
+  }
+
   openGlobalSocket() {
     if (this.role === 'DRIVER') {
       this.stompClient.subscribe('/topic/driver/ride/' + this.id, (message: { body: string }) => {
@@ -86,6 +109,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
         this.acceptNotification = true;
       });
+
+      this.stompClient.submitRideRejection('topic/driver/accept-ride/' + this.id, (message: {body : string})=>{
+        console.log(message);
+      })   
     } else if (this.role === 'PASSENGER') {
       this.stompClient.subscribe('/topic/passenger/ride/' + this.id, (message: { body: string }) => {
         console.log(message);
@@ -112,6 +139,9 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         }
       }
       );
+      this.stompClient.submitRideRejection('topic/passenger/accept-ride/' + this.id, (message: {body : string})=>{
+        console.log(message);
+      })
     }
 
   }
@@ -213,6 +243,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
 
     this.initializeWebSocketConnection();
+    this.initializeWebSocketSimulationConnection();
 
 
     this.registerOnClick();
@@ -223,20 +254,24 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       );
 
     this.vehicleService.getAllLocations()
-      .subscribe(
-        (locations) => {
-          this.vehicleLocations = locations;
-          for (const location of this.vehicleLocations) {
-            console.log(location);
-            if (location.available === true) {
-              L.marker([location.latitude, location.longitude], { icon: greenCar }).addTo(this.map);
-            } else {
-              L.marker([location.latitude, location.longitude], { icon: redCar }).addTo(this.map);
-            }
-          }
-        }
-      );
+                        .subscribe(
+                          (locations) => {
+                            this.vehicleLocations = locations;
+                            for(const location of this.vehicleLocations){
+                              
+                              if(location.available === true){
 
+                                const vehicleMarker = L.marker([location.latitude, location.longitude], 
+                                  {icon:greenCar}).addTo(this.map);
+                                this.vehicles[location.id] = vehicleMarker;
+                              }else{
+                                const vehicleMarker = L.marker([location.latitude, location.longitude], {icon:redCar}).addTo(this.map);
+                                this.vehicles[location.id] = vehicleMarker;
+                              }
+                              
+                            }
+                          }
+                        );
 
   }
 
@@ -466,6 +501,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       destination: destLoc
     })
     if (this.showDateTime) {
+
       this.scheduledTime = this.getRideForm.value.scheduledTime;
     }
     const ride: CreateRideDTO = {

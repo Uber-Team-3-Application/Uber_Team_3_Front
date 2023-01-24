@@ -18,6 +18,10 @@ export class VehicleService {
     
   }
 
+  simulateRide(rideId: number):Observable<String>{
+    return this.http.put<String>(environment.apiHost + 'api/vehicle/simulation/' + rideId, {});
+  }
+
   getVehicleTypes():Observable<VehicleType[]>{
     return this.http.get<VehicleType[]>(environment.apiHost + 'api/vehicle/types');
   }
