@@ -79,7 +79,6 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   }
   openGlobalSocket() {
     if(this.role==='DRIVER'){
-      console.log(this.id);
       this.stompClient.subscribe('/topic/driver/ride/'+this.id, (message: {body: string}) =>{
         console.log(message);
         this.rideService.setRideStatus(false);
@@ -227,6 +226,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
                             }
                           }
                         );
+
          
   }
   
