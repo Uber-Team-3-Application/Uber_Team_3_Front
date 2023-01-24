@@ -1,8 +1,8 @@
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
-import { PaginatedDriver, Driver, DriverActivityDTO, DriverEditVehicleRequest, DriverEditBasicInfoRequest } from 'src/app/models/Driver';
+import { PaginatedDriver, Driver, DriverActivityDTO, DriverEditVehicleRequest, DriverEditBasicInfoRequest, WorkingHours } from 'src/app/models/Driver';
 import { Vehicle } from 'src/app/models/Vehicle';
 import { HttpHeaders } from '@angular/common/http';
 import {RidePaginated} from "../../../models/Ride";
@@ -12,10 +12,18 @@ import {Document} from "../../../models/Document";
 })
 export class DriverService {
 
-  private headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    skip:'true',
-  })
+  private driverActivity$ = new BehaviorSubject<boolean>(true);
+  driverActivityValue$ = this.driverActivity$.asObservable();
+
+  setRideStatus(test: boolean) {
+    this.driverActivity$.next(test);
+    if(test === true){
+
+    }else{
+
+    }
+  }
+
   constructor(private http: HttpClient) { }
 
   saveDriver(newDriver: any) : Observable<Driver> {
@@ -97,7 +105,14 @@ export class DriverService {
     return this.http.delete<string>(environment.apiHost + "api/driver/document/" + documentId);
   }
 
+  createWorkingHours(driverId: number, date: Date): Observable<WorkingHours>{
+    return this.http.post<WorkingHours>(environment.apiHost + "api/driver/" + driverId + "/working-hour", {start:date});
 
+  }
+  finishShift(workingHourId: number, date:Date): Observable<WorkingHours>{
+    return this.http.put<WorkingHours>(environment.apiHost + "api/driver/working-hour/" + workingHourId, {end: date});
+    
+  }
 
   getRidesOfSpecificDriver(id: number, sort?:string, from?:string, to?:string, page?:number, size?:number) : Observable<RidePaginated> {
 
@@ -121,6 +136,7 @@ export class DriverService {
       params: params
     });
   }
+
 
 
 }

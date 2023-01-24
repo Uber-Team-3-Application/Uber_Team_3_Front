@@ -12,9 +12,23 @@ export class RideService {
 
   private rideStatusChanged$ = new BehaviorSubject<boolean>(false);
   rideStatusChangedValue$ = this.rideStatusChanged$.asObservable();
+  
 
   setRideStatus(test: any) {
     this.rideStatusChanged$.next(test);
+  }
+
+  private activeRide$ = new BehaviorSubject<boolean>(false);
+  activeRideValue$ = this.activeRide$.asObservable();
+
+  setActiveRide(test: boolean) {
+    this.activeRide$.next(test);
+  }
+
+  private panicPressed$ = new BehaviorSubject<Ride>(null);
+  panicPressedValue$ = this.panicPressed$.asObservable();
+  setPanicPressed(panic: Ride){
+    this.panicPressed$.next(panic);
   }
 
   constructor(private http: HttpClient) { }

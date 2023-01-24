@@ -1,0 +1,9 @@
+<section class="panic-notification text-center" *ngIf="ride!==null">
+    <div class="row text-center">
+        <div class="col-12">
+            <h1 class="text-red">New Panic Notification!</h1>
+        </div>
+    </div>
+    <app-panic-notification [panic]="panicDTO" *ngIf="panicDTO !== null"></app-panic-notification>
+
+</section>

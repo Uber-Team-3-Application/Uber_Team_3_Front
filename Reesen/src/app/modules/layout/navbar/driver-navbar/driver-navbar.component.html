@@ -3,7 +3,7 @@
   <span class="m-3 hover-underline-animation"><a [routerLink]="['/driverProfile']">Profile</a></span>
   <span class="m-3 hover-underline-animation"><a [routerLink]="['/driverRideHistory']">Ride history</a></span>
   <span class="m-3 hover-underline-animation"><a [routerLink]="['/driver-reports']">Reports</a></span>
-  <span class="m-3 hover-underline-animation"><a [routerLink]="['']">Support</a></span>
+  <span class="m-3 hover-underline-animation" *ngIf="activeRide"><a [routerLink]="['/currentRide']" class="custom-text-ride-color">Current ride</a></span>
   <mat-slide-toggle checked="true" id="matslide" color='warn' (click)="changeStatus()" >Active</mat-slide-toggle>
 </div>
 

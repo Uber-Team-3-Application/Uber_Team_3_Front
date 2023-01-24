@@ -34,6 +34,7 @@ export interface Ride {
   rejection?: Rejection;
   locations: Route[];
   reviews?: Review[];
+  scheduledTime?:Date;
 }
 
 export interface Review{
@@ -74,6 +75,7 @@ export interface CreateRideDTO{
   vehicleType: string,
   babyTransport: boolean,
   petTransport: boolean,
+  scheduledTime: Date;
 }
 
 export interface RideInfo{

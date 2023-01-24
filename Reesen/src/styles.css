@@ -49,7 +49,9 @@ body, html{
     font-size: 26px;
 }
 
-
+.custom-text-ride-color{
+    color: #e60000;
+}
 
 .reesen-button{
     border-radius: 6px;

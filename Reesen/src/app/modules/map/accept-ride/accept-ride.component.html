@@ -15,6 +15,9 @@
         <div class="col-12 p-2 mx-3 text-dark">
           <strong>Total Cost:</strong> {{this.acceptRide.totalCost}} <strong> (RSD)</strong>
         </div>
+        <div class="col-12 p-2 mx-3 text-dark" *ngIf="acceptRide.scheduledTime !== null">
+          <strong>Scheduled time:</strong> {{this.acceptRide.scheduledTime | date : 'HH:mm dd-MM-yyyy'}} <strong></strong>
+        </div>
   
         <div class="col-12 p-2 mx-3 text-dark">
           <p><strong>Baby Transport:</strong> {{this.acceptRide.babyTransport}} </p>
@@ -42,8 +45,28 @@
   <div class="alert ride-info-popup p-3 decline-ride" *ngIf="rideDeclined">
     <div class="row text-center">
       <div class="col-12 p-2 mx-3 text-dark text-center">
-  
-  
+        <form
+              editProfile
+          [formGroup]="rejectionForm"
+          (ngSubmit)="submitRideRejection()"
+            >
+            <div class="row">
+            <div class="col-12 my-2">
+              <label for="reason"><p class="mb-0">Reason:</p></label>
+            </div>
+            
+            <div class="col-12 my-2">
+              <input type="text" name="name" id="reason" 
+              formControlName="reason" class="form-control-edit"> 
+            </div>
+          </div>
+          <div class="col-12">
+            <button type="submit" id="save" class="reesen-button cancel-button">
+              Confirm Rejection
+          </button>
+          </div>
+          </form>
+        
       </div>
     </div>
   

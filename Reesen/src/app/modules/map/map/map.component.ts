@@ -1,5 +1,5 @@
 import { AfterViewInit, OnDestroy, Component, Input } from '@angular/core';
-import {Observable} from 'rxjs'
+import {Observable, scheduled} from 'rxjs'
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
@@ -30,10 +30,12 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   rideButtonText = 'Get Ride info';
   showGetRide = false;
   showVehicleType = false;
+  showDateTime = false;
   vehicleTypes: VehicleType[];
   typeSelected = false;
   selectedVehicleName = '';
   waitingForRide = false;
+  scheduledTime = null;
 
   splitPassengers = [];
   isFormValid = true;
@@ -74,16 +76,14 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       console.log('da');
       that.openGlobalSocket();
     });
-  
-
   }
   openGlobalSocket() {
     if(this.role==='DRIVER'){
-      console.log(this.id);
       this.stompClient.subscribe('/topic/driver/ride/'+this.id, (message: {body: string}) =>{
         console.log(message);
         this.rideService.setRideStatus(false);
         this.acceptRide = JSON.parse(message.body);
+        this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
         this.acceptNotification = true;
       });
     }else if(this.role==='PASSENGER'){
@@ -93,7 +93,11 @@ export class MapComponent implements AfterViewInit, OnDestroy{
         if(this.acceptRide.status === "ACCEPTED") 
         {
           this.rideAccepted = true;
+          this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
           this.waitingForRide = false;
+          this.rideService.setActiveRide(true);
+          
+
         } else if(this.acceptRide.status === "REJECTED") 
         {
             alert('Your ride was rejected');
@@ -103,20 +107,20 @@ export class MapComponent implements AfterViewInit, OnDestroy{
             this.waitingForRide = false;
             this.rideAccepted = false;
         }
-      });
+      }
+      );
     }
 
   }
-
-  
-  
 
   getRideForm = new FormGroup({
     departure: new FormControl('', [Validators.required, Validators.minLength(3)]),
     destination : new FormControl('', [Validators.required, Validators.minLength(3)]),
     passengers: new FormControl('', []),
     babyTransport: new FormControl(false),
-    petTransport: new FormControl(false)
+    petTransport: new FormControl(false),
+    scheduled: new FormControl(false),
+    scheduledTime: new FormControl(new Date())
   });
 
   constructor(private mapService: MapService,
@@ -168,6 +172,14 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     );
     tiles.addTo(this.map);
 
+  }
+
+  showDateTimePicker():void{
+    if(this.showDateTime){
+      this.scheduledTime = null; 
+      this.showDateTime = false; 
+    }
+    else this.showDateTime = true;
   }
 
   selectVehicleType(type:VehicleType):void{
@@ -222,9 +234,9 @@ export class MapComponent implements AfterViewInit, OnDestroy{
                           }
                         );
 
-
+         
   }
-
+  
   search(address: string, isSecond = false){
 
     this.mapService.search(address).subscribe(
@@ -240,6 +252,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
             const route = L.Routing.control({
                   waypoints:[L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)],
                   show:false,
+                  routeWhileDragging:true,
                 }).addTo(this.map);
             const bounds = L.latLngBounds(this.markers);
             this.map.fitBounds(bounds);
@@ -449,18 +462,30 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       departure:depLoc,
       destination:destLoc
     })
+    if(this.showDateTime){
+      this.scheduledTime = this.getRideForm.value.scheduledTime;
+    }
     const ride: CreateRideDTO = {
       passengers: passengers,
       babyTransport: this.getRideForm.value.babyTransport,
       petTransport: this.getRideForm.value.petTransport,
       locations: route,
-      vehicleType: this.selectedVehicleName
+      vehicleType: this.selectedVehicleName,
+      scheduledTime: this.scheduledTime
     }
     this.rideDeclined = false;
     this.acceptNotification = false;
-    this.rideService.orderARide(ride).subscribe();
-    this.acceptNotification = true;
-    this.waitingForRide = true;
+    this.rideService.orderARide(ride).subscribe({
+      next:(result) =>{
+        this.acceptNotification = true;
+        this.waitingForRide = true;
+      },
+      error:(error) =>{
+        console.log(error);
+        alert('Cannot create ride. You already have one in progress.');
+      }
+    });
+    
   }
 
 }

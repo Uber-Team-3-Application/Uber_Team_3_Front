@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Ride } from 'src/app/models/Ride';
 import { RideService } from '../../services/ride.service';
 
@@ -13,6 +14,11 @@ export class AcceptRideComponent implements OnInit{
   @Input() acceptRide: Ride;
   @Input() role: string;
   rideDeclined = false;
+
+  rejectionForm = new FormGroup({
+    reason: new FormControl('', [Validators.required]),
+  });
+
   constructor(private rideService: RideService){}
   acceptRideOrder(){
 
@@ -20,7 +26,7 @@ export class AcceptRideComponent implements OnInit{
       next:(result) =>{
         console.log(result);
         this.rideService.setRideStatus(true);
-        //TO DO: ovde otvoriti current ride za vozaca i pass  
+        this.rideService.setActiveRide(true);
       },
       error:(error) =>{console.log(error);}
   });
@@ -32,17 +38,20 @@ export class AcceptRideComponent implements OnInit{
     });
     console.log(this.role);
   }
+
+
+  submitRideRejection(){
+    this.rideService.cancelRide(this.acceptRide.id, this.rejectionForm.value.reason).subscribe({
+      next:(result) =>{
+        console.log(result);
+        this.rideService.setRideStatus(this.rideDeclined);
+      },
+      error:(error) =>{console.log(error);}
+  });
+  }
+
   declineRide(){
-  
-    this.rideService.cancelRide(this.acceptRide.id, 'Ma lik je debil').subscribe({
-        next:(result) =>{
-          console.log(result);
-          this.rideDeclined = true;
-          this.rideService.setRideStatus(this.rideDeclined);
-        },
-        error:(error) =>{console.log(error);}
-    });
-    
+    this.rideDeclined = true;
     
   }
 }

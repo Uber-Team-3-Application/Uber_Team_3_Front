@@ -13,6 +13,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { RideMapComponent } from './ride-map/ride-map.component';
 import { UserCardComponent } from './user-card/user-card.component';
 import {MatCardModule} from "@angular/material/card";
+import { AdminModule } from '../admin/admin.module';
 
 
 
@@ -35,6 +36,7 @@ import {MatCardModule} from "@angular/material/card";
         MapModule,
         MatSlideToggleModule,
         MatCardModule,
+        AdminModule
 
 
     ],

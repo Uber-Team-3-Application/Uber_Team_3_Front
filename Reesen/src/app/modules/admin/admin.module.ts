@@ -18,6 +18,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { GraphsModule } from '../graphs/graphs.module';
 import { PanicNotificationComponent } from './panic-notification/panic-notification.component';
 import { PanicPageAdminComponent } from './panic-page-admin/panic-page-admin.component';
+import { PanicPressedComponent } from './panic-pressed/panic-pressed.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { PanicPageAdminComponent } from './panic-page-admin/panic-page-admin.com
     UserRideInfoComponent,
     ReportsComponent,
     PanicNotificationComponent,
-    PanicPageAdminComponent
+    PanicPageAdminComponent,
+    PanicPressedComponent
 
   ],
   imports: [
@@ -45,6 +47,6 @@ import { PanicPageAdminComponent } from './panic-page-admin/panic-page-admin.com
     GraphsModule,
     NgxChartsModule
   ],
-  exports: [ DriverRegistrationComponent, UsersInfoComponent, ReportsComponent, PanicPageAdminComponent]
+  exports: [ DriverRegistrationComponent, UsersInfoComponent, ReportsComponent, PanicPageAdminComponent, PanicPressedComponent]
 })
 export class AdminModule { }

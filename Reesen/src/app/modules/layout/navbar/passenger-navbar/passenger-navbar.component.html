@@ -4,6 +4,7 @@
 <span class="m-3 hover-underline-animation"><a [routerLink]="['/passenger_ride-history']">Ride history</a></span>
 <span class="m-3 hover-underline-animation"><a [routerLink]="['']">Reports</a></span>
 <span class="m-3 hover-underline-animation"><a [routerLink]="['']">Favotite routes</a></span>
+<span class="m-3 hover-underline-animation" *ngIf="activeRide"><a [routerLink]="['/currentRide']" class="custom-text-ride-color">Current ride</a></span>
 </div>
 
 <div id="response">
