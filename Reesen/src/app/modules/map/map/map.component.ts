@@ -112,8 +112,17 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       });
 
       this.stompClient.subscribe('topic/driver/accept-ride/' + this.id, (message: {body : string})=>{
+        let ride = JSON.parse(message.body);
+        this.vehicleService.simulateRide(ride.id).subscribe({
+          next:(result) =>{
+              console.log(result);
+          },
+          error:(error) =>{
+            console.log(error);
+          }
+        })
         console.log(message);
-      })   
+      });  
     } else if (this.role === 'PASSENGER') {
       this.stompClient.subscribe('/topic/passenger/ride/' + this.id, (message: { body: string }) => {
         console.log(message);
@@ -141,8 +150,17 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       }
       );
       this.stompClient.subscribe('topic/passenger/accept-ride/' + this.id, (message: {body : string})=>{
+        let ride = JSON.parse(message.body);
+        this.vehicleService.simulateRide(ride.id).subscribe({
+          next:(result) =>{
+              console.log(result);
+          },
+          error:(error) =>{
+            console.log(error);
+          }
+        })
         console.log(message);
-      })
+      });
     }
 
   }
