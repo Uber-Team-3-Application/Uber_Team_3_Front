@@ -38,21 +38,18 @@
 
     <div class="col-md-2" align="center" *ngIf="isRideStarted">
       <p>Something wrong? Please contact us!</p>
-      <button class="panicBtn">PANIC</button>
-
-        <div *ngIf="role === 'PASSENGER'">
-            <br/>
-            <button (click)="changeHandler(!isNotePressed)">{{isNotePressed ? "CANCEL" : "ADD NOTE"}}</button>
-            <form>
+            <form
+            id="panic"
+          [formGroup]="panicForm"
+          (ngSubmit)="sendPanic()">
               <div class="form-group" *ngIf="isNotePressed">
-                <label for="inputNote"></label>
+                <label for="inputNote">Enter reason</label>
                 <input type="text" class="form-control" id="inputNote" aria-describedby="emailHelp" placeholder="What's wrong ?">
                 <small id="emailHelp" class="form-text text-muted">We'll do our best to solve the problem as soon as possible</small>
                 <br/>
-                <button type="submit" (click)="sendNote()">Send</button>
+                <button type="submit" class="panicBtn">PANIC</button>
               </div>
             </form>
-        </div>
 
 
     </div>

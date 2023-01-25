@@ -102,6 +102,14 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       vehicle.setLatLng([newLocation.longitude, newLocation.latitude]);
       
     });
+    this.stompClientSimulation.subscribe('/topic/map-updates-regular', (message: {body: string}) =>{
+      const newLocation = JSON.parse(message.body);
+      const vehicle = this.vehicles[newLocation.id];
+
+      vehicle.setIcon(greenCar);
+      vehicle.setLatLng([newLocation.latitude, newLocation.longitude]);
+      
+    });
 
   }
 
@@ -196,6 +204,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       this.stompClient.subscribe('/topic/passenger/end-ride/' + this.id, (message: {body : string})=>{
         let ride = JSON.parse(message.body);
         console.log(message.body);
+        
         this.vehicleService.get(ride.driver.id).subscribe({
           next:(result) =>{
             this.vehicles[result.id].setIcon(greenCar);
@@ -337,6 +346,24 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         (vehicleTypes) => (this.vehicleTypes = vehicleTypes)
       );
 
+    this.rideService.getAllActiveRidesWithIds().subscribe({
+      next:(result) =>{
+        console.log(result);
+          for(const rideLoc of result){
+            const vehicleMarker = L.marker([rideLoc.latitude, rideLoc.longitude], 
+              {icon:redCar}).addTo(this.map);
+              this.vehicles[rideLoc.vehicleId] = vehicleMarker;
+              this.vehicleService.simulateRide(rideLoc.rideId).subscribe({
+                next:(result) =>{},
+                error:(error) =>{}
+              })
+
+          }
+      },
+      error:(error) =>{
+
+      }
+    })
     this.vehicleService.getAllLocations()
                         .subscribe(
                           (locations) => {
@@ -356,10 +383,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
                             }
                           }
                         );
-                        if(this.destinationRideInfo !== '' && this.departureRideInfo !== ''){
-                          this.search(this.departureRideInfo);
-                          this.search(this.destinationRideInfo, true);
-                        }
+    if(this.destinationRideInfo !== '' && this.departureRideInfo !== ''){
+      this.search(this.departureRideInfo);
+      this.search(this.destinationRideInfo, true);
+    }
 
   }
 

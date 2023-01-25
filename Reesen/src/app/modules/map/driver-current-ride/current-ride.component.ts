@@ -34,7 +34,7 @@ export class CurrentRideComponent implements OnInit {
   isRideStarted : boolean = false;
 
 
-  notePassengerForm = new FormGroup({
+  panicForm = new FormGroup({
     inputNote: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
   });
 
@@ -64,14 +64,6 @@ export class CurrentRideComponent implements OnInit {
 
   changeHandler(bool) {
     this.isNotePressed = bool;
-  }
-
-  sendNote() {
-    if (this.notePassengerForm.valid) {
-      // TODO: POSALJI UPOZORENJE CENTRALI
-    } else {
-      alert("Please input valid text message!")
-    }
   }
 
 
@@ -120,7 +112,24 @@ export class CurrentRideComponent implements OnInit {
     });
 
   }
+  sendPanic(){
+    if(this.panicForm.valid){
+      this.rideService.panicRide(this.ride.id, this.panicForm.value.inputNote)
+          .subscribe({
+            next:(result) =>{
+              console.log(result);
+              this.rideService.setRideEnded(true);
+            },
+            error:(error) =>{
+              console.log(error);
+            }
+          })
 
+    }else{
+      alert('Please enter a reason.');
+    }
+
+  }
   startRide() {
       this.isRideStarted = true;
       this.rideService.startRide(this.ride.id).subscribe({

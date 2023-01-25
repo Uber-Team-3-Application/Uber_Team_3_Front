@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
 import { Report } from 'src/app/models/Report';
-import {CreateRideDTO, mRide, Ride} from 'src/app/models/Ride';
+import {CreateRideDTO, mRide, Ride, RideWithVehicle} from 'src/app/models/Ride';
 
 @Injectable({
   providedIn: 'root'
@@ -90,4 +90,11 @@ export class RideService {
     return this.http.put<Ride>(environment.apiHost + "api/ride/" + id + "/end", {});
   }
 
+  panicRide(id: number, reason: string) : Observable<Ride>{
+    return this.http.put<Ride>(environment.apiHost + 'api/ride' + id + '/panic', {reason:reason});
+  }
+
+  getAllActiveRidesWithIds():Observable<RideWithVehicle[]>{
+    return this.http.get<RideWithVehicle[]>(environment.apiHost + 'api/ride/all-active-rides');
+  }
 }
