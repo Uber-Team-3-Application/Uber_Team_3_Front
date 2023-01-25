@@ -26,6 +26,13 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   private map: any;
   private currentRoute: L.Routing.Control | null = null;
+  @Input() role = '';
+
+  departure:string;
+  destination:string;
+
+
+
   isDriver = false;
   rideButtonText = 'Get Ride info';
   showGetRide = false;
@@ -44,7 +51,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   rideAccepted = false;
 
   id = 0;
-  @Input() role = '';
+ 
   decodedToken = null;
   rideAssumption: RideInfo = {
     estimatedTimeInMinutes: 0,
