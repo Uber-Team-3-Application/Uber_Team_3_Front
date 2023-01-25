@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AcceptRideComponent } from './accept-ride/accept-ride.component';
-import { RideModule } from '../ride/ride.module';
 
 
 @NgModule({
@@ -14,8 +13,7 @@ import { RideModule } from '../ride/ride.module';
     CommonModule,
     RouterModule,
     HttpClientModule,
-    ReactiveFormsModule,
-    RideModule
+    ReactiveFormsModule
   ],
     exports: [MapComponent]
 })
