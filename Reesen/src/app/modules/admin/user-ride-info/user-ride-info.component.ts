@@ -28,6 +28,9 @@ export class UserRideInfoComponent implements AfterViewInit, OnDestroy{
   reviews = new Array<Review>;
   map!: L.Map;
 
+  departureRideInfo = '';
+  destinationRideInfo = '';
+  isOnlyMap = true;
 
 
   constructor(private route: ActivatedRoute,
@@ -58,6 +61,8 @@ export class UserRideInfoComponent implements AfterViewInit, OnDestroy{
             {
               next: (result) =>{ 
                 this.ride = result;
+                this.departureRideInfo = this.ride.locations[0].departure.address;
+                this.destinationRideInfo = this.ride.locations[0].destination.address;
                 this.reviewSerice.getReviewsForTheSpecificRide(this.rideId).subscribe(
                   {
                     next:(res) =>{
@@ -99,7 +104,6 @@ export class UserRideInfoComponent implements AfterViewInit, OnDestroy{
                 if(i===this.ride.passengers.length - 1){
                   this.hasLoaded = true;
                   this.changeDetectorRef.detectChanges();
-                  this.initMap();
                 }
               
               },
@@ -151,66 +155,6 @@ export class UserRideInfoComponent implements AfterViewInit, OnDestroy{
 
   }
 
-  private initMap():void{
-   
 
-      const DefaultIcon = L.icon({
-        iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
-        iconAnchor:[15, 30]
-      });
-
-      L.Marker.prototype.options.icon = DefaultIcon;
-
-      this.map = L.map('map', {
-        center: [45.249101856630546, 19.848034],
-        zoom: 16,
-      });
-
-      const tiles = L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        {
-          maxZoom: 18,
-          minZoom: 3,
-          attribution:
-            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        }
-      );
-      tiles.addTo(this.map);
-
-      let departure;
-      let destination;
-      this.mapService
-      .search(this.ride.locations.at(0).departure.address)
-      .subscribe(
-        {
-          next: (result) =>{
-            departure = result[0];
-          },
-          error: (error) =>{console.log(error);}
-        }
-      );
-      
-      this.mapService
-      .search(this.ride.locations.at(this.ride.locations.length - 1).destination.address)
-      .subscribe(
-        {
-          next: (result) =>{
-            destination = result[0];
-            if(departure){
-              L.Routing.control({
-                waypoints: [L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)],
-                show: false,
-              }).addTo(this.map);
-            
-              const bounds = L.latLngBounds([departure, destination]);
-              this.map.fitBounds(bounds);
-            }
-          },
-          error: (error) =>{console.log(error);}
-        }
-      );
-
-
-  }
 
 }

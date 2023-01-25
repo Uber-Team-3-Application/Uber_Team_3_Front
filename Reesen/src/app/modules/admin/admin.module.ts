@@ -19,6 +19,7 @@ import { GraphsModule } from '../graphs/graphs.module';
 import { PanicNotificationComponent } from './panic-notification/panic-notification.component';
 import { PanicPageAdminComponent } from './panic-page-admin/panic-page-admin.component';
 import { PanicPressedComponent } from './panic-pressed/panic-pressed.component';
+import { MapModule } from '../map/map.module';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { PanicPressedComponent } from './panic-pressed/panic-pressed.component';
     NgxPaginationModule,
     AppRoutingModule,
     GraphsModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MapModule
   ],
   exports: [ DriverRegistrationComponent, UsersInfoComponent, ReportsComponent, PanicPageAdminComponent, PanicPressedComponent]
 })

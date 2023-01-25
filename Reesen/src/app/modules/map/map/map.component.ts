@@ -24,6 +24,9 @@ import { Router } from '@angular/router';
 })
 export class MapComponent implements AfterViewInit, OnDestroy {
 
+  @Input() isOnlyMap = false;
+  @Input() departureRideInfo = '';
+  @Input() destinationRideInfo = '';
   private map: any;
   private currentRoute: L.Routing.Control | null = null;
   isDriver = false;
@@ -326,6 +329,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
                             }
                           }
                         );
+                        if(this.destinationRideInfo !== '' && this.departureRideInfo !== ''){
+                          this.search(this.departureRideInfo);
+                          this.search(this.destinationRideInfo, true);
+                        }
 
   }
 
