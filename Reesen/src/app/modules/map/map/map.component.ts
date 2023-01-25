@@ -114,6 +114,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   openGlobalSocket() {
+
     if (this.role === 'DRIVER') {
       this.stompClient.subscribe('/topic/driver/ride/' + this.id, (message: { body: string }) => {
         console.log(message);
@@ -346,19 +347,17 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         (vehicleTypes) => (this.vehicleTypes = vehicleTypes)
       );
 
+    // get all vehicles not in an active ride currently
+    // then simulate their pins
     this.rideService.getAllActiveRidesWithIds().subscribe({
       next:(result) =>{
         console.log(result);
           for(const rideLoc of result){
-            const vehicleMarker = L.marker([rideLoc.latitude, rideLoc.longitude], 
-              {icon:redCar}).addTo(this.map);
-              this.vehicles[rideLoc.vehicleId] = vehicleMarker;
-              this.vehicleService.simulateRide(rideLoc.rideId).subscribe({
-                next:(result) =>{},
-                error:(error) =>{}
-              })
-
+            if(this.vehicles[rideLoc.vehicleId] && this.acceptRide.id !== rideLoc.rideId){
+                this.vehicles[rideLoc.vehicleId].setIcon(redCar);
+            }
           }
+
       },
       error:(error) =>{
 

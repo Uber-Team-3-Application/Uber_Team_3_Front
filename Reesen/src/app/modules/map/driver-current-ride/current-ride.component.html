@@ -42,9 +42,9 @@
             id="panic"
           [formGroup]="panicForm"
           (ngSubmit)="sendPanic()">
-              <div class="form-group" *ngIf="isNotePressed">
+              <div class="form-group">
                 <label for="inputNote">Enter reason</label>
-                <input type="text" class="form-control" id="inputNote" aria-describedby="emailHelp" placeholder="What's wrong ?">
+                <input type="text" class="form-control"  formControlName="inputNote" id="inputNote" aria-describedby="emailHelp" placeholder="What's wrong ?">
                 <small id="emailHelp" class="form-text text-muted">We'll do our best to solve the problem as soon as possible</small>
                 <br/>
                 <button type="submit" class="panicBtn">PANIC</button>
