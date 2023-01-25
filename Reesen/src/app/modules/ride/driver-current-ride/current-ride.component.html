@@ -21,13 +21,13 @@
 
   <div class="row" *ngIf = "!isRideStarted">
     <div class="col-md-12" align="right">
-      <button class="startRidebtn" (click) = "startRide()">START RIDE</button>
+      <button class="startRidebtn" (click)="startRide()">START RIDE</button>
     </div>
   </div>
 
   <div class="row" *ngIf = "role === 'DRIVER'">
     <div class="col-md-6" align="right">
-    <button class="startRidebtn" (click) = "finishRide()">FINISH RIDE</button>
+    <button class="startRidebtn" (click)="finishRide()">FINISH RIDE</button>
     </div>
     <div class="col-md-6" align="left">
       <button class="startRidebtn" (click)="clickHandler()">STOP</button></div>
@@ -44,7 +44,7 @@
       <img src="assets/img/panic_girl.png">
     </div>
 
-    <div class="col-md-2" align="center">
+    <div class="col-md-2" align="center" *ngIf="isRideStarted">
       <p>Something wrong? Please contact us!</p>
       <button class="panicBtn">PANIC</button>
 

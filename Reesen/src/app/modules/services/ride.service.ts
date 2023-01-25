@@ -69,5 +69,12 @@ export class RideService {
     return this.http.put<Ride>(environment.apiHost + "api/ride/" + id + "/accept", ride);
   }
 
+  startRide(id:number): Observable<Ride>{
+    return this.http.put<Ride>(environment.apiHost + "api/ride/" + id + "/start", {});
+  }
+  
+  endRide(id:number): Observable<Ride>{
+    return this.http.put<Ride>(environment.apiHost + "api/ride/" + id + "/end", {});
+  }
 
 }

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, Input} from '@angular/core';
 import * as L from "leaflet";
 import {MapService} from "../../map/map.service";
 import {VehicleService} from "../../driver/services/vehicle.service";
@@ -6,8 +6,9 @@ import {UserService} from "../../unregistered-user/user.service";
 import {RideService} from "../../services/ride.service";
 import {TokenDecoderService} from "../../auth/token/token-decoder.service";
 import {VehicleType} from "../../../models/Vehicle";
+import { carPanic, carMyRide } from '../../map/icons/icons';
 import {Ride} from "../../../models/Ride";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -27,8 +28,11 @@ export class CurrentRideComponent implements OnInit {
   isNotePressed = false;
   timerId;
 
-  role: string = "PASSENGER";
+  @Input() role: string;
   isRideStarted : boolean = true;
+  vehicles: { [vehicleId: number]: L.Marker } = {};
+
+  vehicle: {[vehicleId: number]: L.Marker} = {};
 
   notePassengerForm = new FormGroup({
     inputNote: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
@@ -37,6 +41,7 @@ export class CurrentRideComponent implements OnInit {
 
   constructor(private mapService: MapService,
               private route: ActivatedRoute,
+              private router: Router,
               private vehicleService: VehicleService,
               private userService: UserService,
               private rideService: RideService,
@@ -49,10 +54,22 @@ export class CurrentRideComponent implements OnInit {
       this.rideService.get(params["rideId"]).subscribe((ride)=> {
         this.ride = ride;
         this.isCardLoaded = true;
+        this.vehicleService.get(ride.driver.id).subscribe({
+          next:(result) =>{
+            this.vehicle[result.id].setIcon(carMyRide);
+          }
+        })
         this.initMap();
         this.clickHandler();
+
+      })
+      this.vehicleService.simulateRide(params["rideId"]).subscribe({
+        next:(result) =>{console.log(result);},
+        error:(error) =>{console.log(error);}
       })
     });
+    
+   
   }
 
 
@@ -159,10 +176,38 @@ export class CurrentRideComponent implements OnInit {
 
   finishRide() {
     this.clickHandler(); // zaustavi timer
+    this.rideService.endRide(this.ride.id).subscribe({
+
+      next:(result) =>{
+          if(this.role==='DRIVER')
+            this.router.navigate(['/']);
+      },
+      error:(error) =>{
+          console.log(error);
+      }
+    });
 
   }
 
   startRide() {
+      this.isRideStarted = true;
+      this.isRunning = true;
+      this.rideService.startRide(this.ride.id).subscribe({
 
+        next:(result) =>{
+          this.vehicleService.simulateRide(result.id).subscribe({
+            next:(ress) =>{
+              
+                console.log(ress);
+            },
+            error:(err) =>{
+              console.log(err);
+            }
+          })
+        },
+        error:(error) =>{
+            console.log(error);
+        }
+      });
   }
 }
