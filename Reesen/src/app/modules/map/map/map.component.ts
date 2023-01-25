@@ -16,6 +16,7 @@ import { RideService } from '../../services/ride.service';
 //import * as Stomp from '@stomp/stompjs'
 import * as SockJS from 'sockjs-client';
 import * as myStomp from 'stompjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -109,6 +110,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         this.acceptRide = JSON.parse(message.body);
         this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
         this.acceptNotification = true;
+        if(this.acceptRide.status === 'ACCEPTED'){
+          this.router.navigate(['current_ride/' + this.acceptRide.id]);
+        }
+        
       });
       this.stompClient.subscribe('/topic/driver/start-ride/' + this.id, (message: {body : string})=>{
         let ride = JSON.parse(message.body);
@@ -150,6 +155,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
             this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
             this.waitingForRide = false;
             this.rideService.setActiveRide(true);
+            this.router.navigate(['current_ride/' + this.acceptRide.id]);
+            
 
 
           } else if (this.acceptRide.status === "REJECTED") {
@@ -207,7 +214,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     private vehicleService: VehicleService,
     private userService: UserService,
     private rideService: RideService,
-    private tokenDecoder: TokenDecoderService) {
+    private tokenDecoder: TokenDecoderService,
+    private router: Router) {
 
     const tokenObservable = new Observable(subscriber => {
       subscriber.next(this.tokenDecoder.getDecodedAccesToken());
