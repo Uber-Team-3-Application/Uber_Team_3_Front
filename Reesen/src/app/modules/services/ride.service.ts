@@ -17,6 +17,12 @@ export class RideService {
   setRideStatus(test: any) {
     this.rideStatusChanged$.next(test);
   }
+  private rideAccepted$ = new BehaviorSubject<boolean>(false);
+  rideAcceptedValue$ = this.rideAccepted$.asObservable();
+
+  setRideAccepted(test: boolean) {
+    this.rideAccepted$.next(test);
+  }
 
   private activeRide$ = new BehaviorSubject<boolean>(false);
   activeRideValue$ = this.activeRide$.asObservable();

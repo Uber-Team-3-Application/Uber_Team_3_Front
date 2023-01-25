@@ -19,8 +19,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class CurrentRideComponent implements OnInit {
   private map:any;
   private currentRoute: L.Routing.Control | null = null;
-  ride : Ride;
-  isOnlyMap = false;
+  @Input() ride : Ride;
+  isOnlyMap = true;
   isCardLoaded  = false;
   mm = 0;
   ss = 0;
@@ -30,10 +30,9 @@ export class CurrentRideComponent implements OnInit {
   timerId;
 
   @Input() role: string;
-  isRideStarted : boolean = true;
-  vehicles: { [vehicleId: number]: L.Marker } = {};
+  @Input()id: number;
+  isRideStarted : boolean = false;
 
-  vehicle: {[vehicleId: number]: L.Marker} = {};
 
   notePassengerForm = new FormGroup({
     inputNote: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
@@ -51,25 +50,14 @@ export class CurrentRideComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe((params) => {
-      this.rideService.get(params["rideId"]).subscribe((ride)=> {
-        this.ride = ride;
-        this.isCardLoaded = true;
-        this.vehicleService.get(ride.driver.id).subscribe({
-          next:(result) =>{
-            this.vehicle[result.id].setIcon(carMyRide);
-          }
-        })
-        this.initMap();
-        this.clickHandler();
-
+      this.clickHandler();
+      // this.vehicleService.simulateRide(this.ride.id).subscribe({
+      //   next:(result) =>{console.log(result);},
+      //   error:(error) =>{console.log(error);}
+      // })
+      this.rideService.activeRideValue$.subscribe((value)=>{
+        this.isCardLoaded = value;
       })
-      this.vehicleService.simulateRide(params["rideId"]).subscribe({
-        next:(result) =>{console.log(result);},
-        error:(error) =>{console.log(error);}
-      })
-    });
-    
    
   }
 
@@ -115,65 +103,6 @@ export class CurrentRideComponent implements OnInit {
   }
 
 
-  private initMap() :void{
-    const DefaultIcon = L.icon({
-      iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
-      iconAnchor: [15, 30]
-    });
-
-    L.Marker.prototype.options.icon = L.icon({
-      iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
-    });
-
-    this.map = L.map('map', {
-      center: [45.249101856630546, 19.848034],
-      zoom: 16,
-    });
-
-    const tiles = L.tileLayer(
-      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      {
-        maxZoom: 18,
-        minZoom: 3,
-        attribution:
-          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      }
-    );
-    tiles.addTo(this.map);
-
-    let departure;
-    let destination;
-    this.mapService
-      .search(this.ride.locations.at(0).departure.address)
-      .subscribe(
-        {
-          next: (result) =>{
-            departure = result[0];
-          },
-          error: (error) =>{console.log(error);}
-        }
-      );
-
-    this.mapService
-      .search(this.ride.locations.at(this.ride.locations.length - 1).destination.address)
-      .subscribe(
-        {
-          next: (result) =>{
-            destination = result[0];
-            if(departure){
-              L.Routing.control({
-                waypoints: [L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)],
-                show: false,
-              }).addTo(this.map);
-
-              const bounds = L.latLngBounds([departure, destination]);
-              this.map.fitBounds(bounds);
-            }
-          },
-          error: (error) => {console.log(error);}
-        }
-      );
-  }
 
   finishRide() {
     this.clickHandler(); // zaustavi timer
@@ -181,7 +110,10 @@ export class CurrentRideComponent implements OnInit {
 
       next:(result) =>{
           if(this.role==='DRIVER')
-            this.router.navigate(['/']);
+            this.router.navigate(['/driverRideHistory']);
+          else
+            this.router.navigate(['/passenger_ride-history']);
+
       },
       error:(error) =>{
           console.log(error);
@@ -198,7 +130,7 @@ export class CurrentRideComponent implements OnInit {
         next:(result) =>{
           this.vehicleService.simulateRide(result.id).subscribe({
             next:(ress) =>{
-              
+                this.isCardLoaded = true;
                 console.log(ress);
             },
             error:(err) =>{

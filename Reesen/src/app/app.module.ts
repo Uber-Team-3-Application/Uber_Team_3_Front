@@ -16,7 +16,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { A11yModule } from '@angular/cdk/a11y';
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
-import { RideModule } from './modules/ride/ride.module';
 
 @NgModule({
   declarations: [
@@ -37,8 +36,7 @@ import { RideModule } from './modules/ride/ride.module';
     MatTableModule,
     MatSortModule,
     A11yModule,
-    LeafletModule,
-    RideModule
+    LeafletModule
   ],
   providers: [
     {  provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },],

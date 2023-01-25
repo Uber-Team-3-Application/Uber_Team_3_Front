@@ -37,8 +37,6 @@ import { AdminModule } from '../admin/admin.module';
         MatSlideToggleModule,
         MatCardModule,
         AdminModule
-
-
     ],
     exports: [AboutComponent, HomeComponent, NavbarComponent, MatSlideToggleModule, RideMapComponent, UserCardComponent]
 })

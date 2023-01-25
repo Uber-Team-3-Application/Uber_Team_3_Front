@@ -112,9 +112,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         this.acceptRide = JSON.parse(message.body);
         this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
         this.acceptNotification = true;
-        if(this.acceptRide.status === 'ACCEPTED'){
-          this.router.navigate(['current_ride/' + this.acceptRide.id]);
-        }
+
         
       });
       this.stompClient.subscribe('/topic/driver/start-ride/' + this.id, (message: {body : string})=>{
@@ -157,7 +155,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
             this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
             this.waitingForRide = false;
             this.rideService.setActiveRide(true);
-            this.router.navigate(['current_ride/' + this.acceptRide.id]);
             
 
 
@@ -290,6 +287,9 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.rideService.rideStatusChangedValue$.subscribe((value) => {
       this.rideDeclined = value;
     });
+    this.rideService.rideAcceptedValue$.subscribe((value) =>{
+      this.rideAccepted = value;
+    })
     const DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
       iconAnchor: [15, 30]
