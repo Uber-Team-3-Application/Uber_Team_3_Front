@@ -10,7 +10,7 @@ import { VehicleService } from 'src/app/modules/driver/services/vehicle.service'
 import { UserService } from '../../unregistered-user/user.service';
 import { RideInfo, RideInfoBody, CreateRideDTO, RideSimulationDTO, VehicleSimulationDTO, Ride } from 'src/app/models/Ride';
 import { UserRestrict } from 'src/app/models/User';
-import { greenCar, redCar } from '../icons/icons';
+import { greenCar, redCar, carMyRide, carPanic } from '../icons/icons';
 import { TokenDecoderService } from '../../auth/token/token-decoder.service';
 import { RideService } from '../../services/ride.service';
 //import * as Stomp from '@stomp/stompjs'
@@ -94,9 +94,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
       const newLocation = JSON.parse(message.body);
       const vehicle = this.vehicles[newLocation.id];
+      vehicle.setIcon(carMyRide);
       vehicle.setLatLng([newLocation.longitude, newLocation.latitude]);
       
-    })
+    });
 
   }
 
@@ -110,7 +111,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         this.acceptNotification = true;
       });
 
-      this.stompClient.submitRideRejection('topic/driver/accept-ride/' + this.id, (message: {body : string})=>{
+      this.stompClient.subscribe('topic/driver/accept-ride/' + this.id, (message: {body : string})=>{
         console.log(message);
       })   
     } else if (this.role === 'PASSENGER') {
@@ -139,7 +140,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         }
       }
       );
-      this.stompClient.submitRideRejection('topic/passenger/accept-ride/' + this.id, (message: {body : string})=>{
+      this.stompClient.subscribe('topic/passenger/accept-ride/' + this.id, (message: {body : string})=>{
         console.log(message);
       })
     }
