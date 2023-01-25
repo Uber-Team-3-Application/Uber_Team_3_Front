@@ -9,6 +9,8 @@ import { Ride, RideSimulationDTO } from 'src/app/models/Ride';
 export class MapService {
 
   
+
+  
   constructor(private http: HttpClient) { }
 
   search(street: string): Observable<any>{

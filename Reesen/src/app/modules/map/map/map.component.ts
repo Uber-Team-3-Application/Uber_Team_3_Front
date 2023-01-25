@@ -13,7 +13,6 @@ import { UserRestrict } from 'src/app/models/User';
 import { greenCar, redCar, carMyRide, carPanic } from '../icons/icons';
 import { TokenDecoderService } from '../../auth/token/token-decoder.service';
 import { RideService } from '../../services/ride.service';
-//import * as Stomp from '@stomp/stompjs'
 import * as SockJS from 'sockjs-client';
 import * as myStomp from 'stompjs';
 import { Router } from '@angular/router';
