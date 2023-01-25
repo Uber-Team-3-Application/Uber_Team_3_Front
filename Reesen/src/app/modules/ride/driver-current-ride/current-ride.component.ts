@@ -20,6 +20,7 @@ export class CurrentRideComponent implements OnInit {
   private map:any;
   private currentRoute: L.Routing.Control | null = null;
   ride : Ride;
+  isOnlyMap = false;
   isCardLoaded  = false;
   mm = 0;
   ss = 0;

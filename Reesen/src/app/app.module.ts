@@ -15,13 +15,12 @@ import {Interceptor} from './modules/auth/interceptor/interceptor';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { A11yModule } from '@angular/cdk/a11y';
-import { CurrentRideComponent } from './modules/ride/driver-current-ride/current-ride.component';
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
+import { RideModule } from './modules/ride/ride.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CurrentRideComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +37,8 @@ import {LeafletModule} from "@asymmetrik/ngx-leaflet";
     MatTableModule,
     MatSortModule,
     A11yModule,
-    LeafletModule
+    LeafletModule,
+    RideModule
   ],
   providers: [
     {  provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },],

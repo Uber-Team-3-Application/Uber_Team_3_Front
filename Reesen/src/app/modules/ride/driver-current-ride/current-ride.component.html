@@ -1,12 +1,7 @@
 
 <h2 align="center">Current ride</h2>
 
-<div class="map-container">
-  <div class="map-frame">
-    <div id="map"></div>
-  </div>
-</div>
-
+<app-map [isOnlyMap]="isOnlyMap"></app-map>
 
 
 <div  class="overlay" *ngIf="isCardLoaded">
@@ -37,7 +32,7 @@
   <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-5" align="center">
-    <app-driver-card-history [date]="ride" [setFinished]="false" id="card"></app-driver-card-history>
+    <app-driver-card-history [date]="ride" [isFinished]="false" id="card"></app-driver-card-history>
     </div>
     <div class="col-md-1"></div>
     <div class="col-md-2">

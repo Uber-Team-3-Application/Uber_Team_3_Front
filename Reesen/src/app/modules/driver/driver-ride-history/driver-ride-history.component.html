@@ -46,10 +46,10 @@
     ">
     <tr *ngIf="checkReviewsAreLoaded(rides) === true">
       <td  *ngIf ="rides.column1 != undefined"  [routerLink]="['/driversRide/' + rides.column1.id]">
-        <app-driver-card-history [date]="rides.column1" [setFinished]="true"  ></app-driver-card-history>
+        <app-driver-card-history [date]="rides.column1" [isFInished]="true"  ></app-driver-card-history>
       </td>
       <td  *ngIf="rides.column2 != undefined" [routerLink]=" ['/driversRide/' + rides.column2.id]">
-        <app-driver-card-history  [date]="rides.column2" [setFinished]="true" ></app-driver-card-history>
+        <app-driver-card-history  [date]="rides.column2" [isFInished]="true" ></app-driver-card-history>
       </td>
     </tr>
     </tbody>
