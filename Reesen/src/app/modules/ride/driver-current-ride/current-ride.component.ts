@@ -28,6 +28,7 @@ export class CurrentRideComponent implements OnInit {
   timerId;
 
   role: string = "PASSENGER";
+  isRideStarted : boolean = true;
 
   notePassengerForm = new FormGroup({
     inputNote: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
@@ -158,6 +159,10 @@ export class CurrentRideComponent implements OnInit {
 
   finishRide() {
     this.clickHandler(); // zaustavi timer
+
+  }
+
+  startRide() {
 
   }
 }

@@ -19,6 +19,12 @@
     <div class="col-md-10"></div>
   </div>
 
+  <div class="row" *ngIf = "!isRideStarted">
+    <div class="col-md-12" align="right">
+      <button class="startRidebtn" (click) = "startRide()">START RIDE</button>
+    </div>
+  </div>
+
   <div class="row" *ngIf = "role === 'DRIVER'">
     <div class="col-md-6" align="right">
     <button class="startRidebtn" (click) = "finishRide()">FINISH RIDE</button>
