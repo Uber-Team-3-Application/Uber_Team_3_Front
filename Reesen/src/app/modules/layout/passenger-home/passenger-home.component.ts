@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./passenger-home.component.css']
 })
 export class PassengerHomeComponent {
-
+  role = 'PASSENGER';
 }

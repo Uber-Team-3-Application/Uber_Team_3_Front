@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./driver-home.component.css']
 })
 export class DriverHomeComponent {
-
+  role = 'DRIVER';
 }

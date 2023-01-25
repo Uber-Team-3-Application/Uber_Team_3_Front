@@ -1,1 +1,5 @@
-<app-map [role]="role"></app-map>
+
+<app-unregistered-home *ngIf="role===''"></app-unregistered-home>
+<app-admin-home *ngIf="role==='ADMIN'"></app-admin-home>
+<app-passenger-home *ngIf="role==='PASSENGER'"></app-passenger-home>
+<app-driver-home *ngIf="role==='DRIVER'"></app-driver-home>

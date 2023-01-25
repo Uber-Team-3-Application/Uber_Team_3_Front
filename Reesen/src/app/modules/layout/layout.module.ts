@@ -13,9 +13,11 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { RideMapComponent } from './ride-map/ride-map.component';
 import { UserCardComponent } from './user-card/user-card.component';
 import {MatCardModule} from "@angular/material/card";
-import { AdminModule } from '../admin/admin.module';
-
-
+import { UnregisteredHomeComponent } from './unregistered-home/unregistered-home.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { PassengerHomeComponent } from './passenger-home/passenger-home.component';
+import { DriverHomeComponent } from './driver-home/driver-home.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -29,16 +31,18 @@ import { AdminModule } from '../admin/admin.module';
     UnregisteredUserNavbarComponent,
     RideMapComponent,
     UserCardComponent,
+    UnregisteredHomeComponent,
+    AdminHomeComponent,
+    PassengerHomeComponent,
+    DriverHomeComponent
   ],
     imports: [
         CommonModule,
+        BrowserModule,
         AppRoutingModule,
         MapModule,
         MatSlideToggleModule,
-        MatCardModule,
-        AdminModule
-
-
+        MatCardModule
     ],
     exports: [AboutComponent, HomeComponent, NavbarComponent, MatSlideToggleModule, RideMapComponent, UserCardComponent]
 })

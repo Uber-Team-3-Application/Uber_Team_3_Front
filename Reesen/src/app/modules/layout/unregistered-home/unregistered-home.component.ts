@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./unregistered-home.component.css']
 })
 export class UnregisteredHomeComponent {
-
+  role = 'UNREGISTERED-USER';
 }

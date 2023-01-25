@@ -27,6 +27,7 @@ export class HomeComponent {
         this.id = + this.decodedToken.id;
 
         this.role = this.decodedToken.role[0]['authority'];
+        console.log(this.role);
       }else{
         this.id = 0;
         this.role = '';
