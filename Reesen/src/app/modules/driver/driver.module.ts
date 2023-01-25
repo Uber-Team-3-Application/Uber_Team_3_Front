@@ -21,6 +21,7 @@ import {NgxPaginationModule} from "ngx-pagination";
 import {MapModule} from "../map/map.module";
 import {GraphsModule} from "../graphs/graphs.module";
 import { DocumentsComponent } from './documents/documents.component';
+import { DriverHomeComponent } from './driver-home/driver-home.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { DocumentsComponent } from './documents/documents.component';
               DriverCardHistoryComponent,
               DriverCardHistoryResponsiveComponent,
               DriversRideComponent,
-              DocumentsComponent
+              DocumentsComponent,
+              DriverHomeComponent
 
             ],
     imports: [

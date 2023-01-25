@@ -19,6 +19,7 @@ import { GraphsModule } from '../graphs/graphs.module';
 import { PanicNotificationComponent } from './panic-notification/panic-notification.component';
 import { PanicPageAdminComponent } from './panic-page-admin/panic-page-admin.component';
 import { PanicPressedComponent } from './panic-pressed/panic-pressed.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { PanicPressedComponent } from './panic-pressed/panic-pressed.component';
     ReportsComponent,
     PanicNotificationComponent,
     PanicPageAdminComponent,
-    PanicPressedComponent
+    PanicPressedComponent,
+    AdminHomeComponent
 
   ],
   imports: [

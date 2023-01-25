@@ -18,6 +18,7 @@ import { MapModule } from '../map/map.module';
 import { RideCardHistoryComponent } from './ride-card-history/ride-card-history.component';
 import { RideDetailComponent } from './ride-detail/ride-detail.component';
 import { PassengerInfoComponent } from './passenger-info/passenger-info.component';
+import { PassengerHomeComponent } from './passenger-home/passenger-home.component';
 
 
 
@@ -31,7 +32,8 @@ import { PassengerInfoComponent } from './passenger-info/passenger-info.componen
     RideHistoryComponent,
     RideCardHistoryComponent,
     RideDetailComponent,
-    PassengerInfoComponent
+    PassengerInfoComponent,
+    PassengerHomeComponent
   ],
   imports: [
     CommonModule,
