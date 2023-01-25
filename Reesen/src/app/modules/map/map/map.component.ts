@@ -110,8 +110,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
         this.acceptNotification = true;
       });
-
-      this.stompClient.subscribe('topic/driver/accept-ride/' + this.id, (message: {body : string})=>{
+      this.stompClient.subscribe('/topic/driver/start-ride/' + this.id, (message: {body : string})=>{
         let ride = JSON.parse(message.body);
         this.vehicleService.simulateRide(ride.id).subscribe({
           next:(result) =>{
@@ -122,7 +121,22 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           }
         })
         console.log(message);
-      });  
+      });
+
+      this.stompClient.subscribe('/topic/driver/end-ride/' + this.id, (message: {body : string})=>{
+        let ride = JSON.parse(message.body);
+        this.vehicleService.get(ride.driver.id).subscribe({
+          next:(result) =>{
+            this.vehicles[result.id].setIcon(greenCar);
+          },
+          error:(error) =>{
+              console.log(error);
+          }
+        })
+      });
+    
+
+     
     } else if (this.role === 'PASSENGER') {
       this.stompClient.subscribe('/topic/passenger/ride/' + this.id, (message: { body: string }) => {
         console.log(message);
@@ -148,8 +162,9 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           }
         }
       }
+
       );
-      this.stompClient.subscribe('topic/passenger/accept-ride/' + this.id, (message: {body : string})=>{
+      this.stompClient.subscribe('/topic/passenger/start-ride/' + this.id, (message: {body : string})=>{
         let ride = JSON.parse(message.body);
         this.vehicleService.simulateRide(ride.id).subscribe({
           next:(result) =>{
@@ -160,6 +175,19 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           }
         })
         console.log(message);
+      });
+
+      this.stompClient.subscribe('/topic/passenger/end-ride/' + this.id, (message: {body : string})=>{
+        let ride = JSON.parse(message.body);
+        console.log(message.body);
+        this.vehicleService.get(ride.driver.id).subscribe({
+          next:(result) =>{
+            this.vehicles[result.id].setIcon(greenCar);
+          },
+          error:(error) =>{
+              console.log(error);
+          }
+        })
       });
     }
 
