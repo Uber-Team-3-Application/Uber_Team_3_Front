@@ -3,7 +3,7 @@
 <div  class="overlay" *ngIf="isCardLoaded">
   <h2 align="center">Current ride</h2>
   <div class="row first">
-    <div class="col-md-2 stop-watch">
+    <div class="col-md-2 stop-watch" *ngIf="isRideStarted">
       <div class="stop-watch">
         <div class="display">{{format(mm)}}:{{format(ss)}}:{{format(ms)}}</div>
       </div>
@@ -11,8 +11,8 @@
     <div class="col-md-10"></div>
   </div>
 
-  <div class="row" *ngIf = "!isRideStarted">
-    <div class="col-md-12" align="right">
+  <div class="row" *ngIf = "!isRideStarted && role==='DRIVER'">
+    <div class="col-md-12" align="center">
       <button class="startRidebtn" (click)="startRide()">START RIDE</button>
     </div>
   </div>

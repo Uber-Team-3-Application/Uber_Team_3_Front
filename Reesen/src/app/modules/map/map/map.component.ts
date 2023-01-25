@@ -39,6 +39,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   selectedVehicleName = '';
   waitingForRide = false;
   scheduledTime = null;
+  
 
   splitPassengers = [];
   isFormValid = true;
@@ -133,6 +134,9 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         this.vehicleService.get(ride.driver.id).subscribe({
           next:(result) =>{
             this.vehicles[result.id].setIcon(greenCar);
+            this.rideAccepted = false;
+            this.rideService.setActiveRide(false);
+            this.router.navigate['/driverRideHistory'];
           },
           error:(error) =>{
               console.log(error);
@@ -155,8 +159,14 @@ export class MapComponent implements AfterViewInit, OnDestroy {
             this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
             this.waitingForRide = false;
             this.rideService.setActiveRide(true);
-            
+            this.vehicleService.simulateRide(this.acceptRide.id).subscribe({
+              next:(result) =>{
+              
+              },
+              error:(error) =>{
 
+              }
+            })
 
           } else if (this.acceptRide.status === "REJECTED") {
             alert('Your ride was rejected');
@@ -189,6 +199,9 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         this.vehicleService.get(ride.driver.id).subscribe({
           next:(result) =>{
             this.vehicles[result.id].setIcon(greenCar);
+            this.rideService.setActiveRide(false);
+            this.rideService.setRideAccepted(false);
+            
           },
           error:(error) =>{
               console.log(error);
@@ -289,6 +302,20 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     });
     this.rideService.rideAcceptedValue$.subscribe((value) =>{
       this.rideAccepted = value;
+    })
+    this.rideService.activeRideValue$.subscribe((value) =>{
+      this.rideAccepted = value;
+      if(this.rideAccepted == true){
+          if (this.currentRoute != null) {
+            this.map.removeControl(this.currentRoute);
+          };
+          const route = L.Routing.control({
+            waypoints: [L.latLng(this.acceptRide.locations[0].departure.latitude, this.acceptRide.locations[0].departure.longitude), 
+            L.latLng(this.acceptRide.locations[0].destination.latitude, this.acceptRide.locations[0].destination.longitude)],
+            show: false,
+            routeWhileDragging: true,
+          }).addTo(this.map);
+      }
     })
     const DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',

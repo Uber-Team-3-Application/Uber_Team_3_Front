@@ -28,7 +28,7 @@ export class CurrentRideComponent implements OnInit {
   isRunning = false;
   isNotePressed = false;
   timerId;
-
+  rideEnded = false;
   @Input() role: string;
   @Input()id: number;
   isRideStarted : boolean = false;
@@ -50,13 +50,12 @@ export class CurrentRideComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.clickHandler();
-      // this.vehicleService.simulateRide(this.ride.id).subscribe({
-      //   next:(result) =>{console.log(result);},
-      //   error:(error) =>{console.log(error);}
-      // })
+      
       this.rideService.activeRideValue$.subscribe((value)=>{
         this.isCardLoaded = value;
+      });
+      this.rideService.rideEndedValue$.subscribe((value)=>{
+        this.rideEnded = value;
       })
    
   }
@@ -124,13 +123,13 @@ export class CurrentRideComponent implements OnInit {
 
   startRide() {
       this.isRideStarted = true;
-      this.isRunning = true;
       this.rideService.startRide(this.ride.id).subscribe({
 
         next:(result) =>{
           this.vehicleService.simulateRide(result.id).subscribe({
             next:(ress) =>{
                 this.isCardLoaded = true;
+                this.clickHandler();
                 console.log(ress);
             },
             error:(err) =>{

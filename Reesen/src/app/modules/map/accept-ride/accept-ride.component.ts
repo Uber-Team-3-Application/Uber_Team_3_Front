@@ -29,6 +29,10 @@ export class AcceptRideComponent implements OnInit{
         console.log(result);
         this.rideService.setRideStatus(true);
         this.rideService.setActiveRide(true);
+        this.vehicleService.simulateRide(result.id).subscribe({
+          next:(result)=>{console.log(result);},
+          error:(error) =>{console.log(error);}
+        })
       }
   });
 
@@ -37,7 +41,7 @@ export class AcceptRideComponent implements OnInit{
     this.rideService.rideStatusChangedValue$.subscribe((rideDeclined) => {
       this.rideDeclined = rideDeclined;
     });
-    console.log(this.role);
+
   }
 
 

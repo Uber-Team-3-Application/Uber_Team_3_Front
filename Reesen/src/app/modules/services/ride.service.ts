@@ -37,6 +37,13 @@ export class RideService {
     this.panicPressed$.next(panic);
   }
 
+  private rideEnded$ = new BehaviorSubject<boolean>(false);
+  rideEndedValue$ = this.rideEnded$.asObservable();
+  setRideEnded(value:boolean){
+    this.rideEnded$.next(value);
+  }
+
+
   constructor(private http: HttpClient) { }
 
 
