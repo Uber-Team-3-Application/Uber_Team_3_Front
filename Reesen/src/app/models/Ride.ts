@@ -37,6 +37,25 @@ export interface Ride {
   scheduledTime?:Date;
 }
 
+export interface CreateFavoriteRide {
+  favoriteName: string;
+  passengers : UserRestrict[];
+  vehicleType : string;
+  babyTransport : boolean;
+  petTransport :boolean;
+  locations: Route[];
+}
+
+export interface FavoriteRide {
+  id: number;
+  favoriteName: string;
+  passengers : UserRestrict[];
+  vehicleType : string;
+  babyTransport : boolean;
+  petTransport :boolean;
+  locations: Route[];
+}
+
 export interface Review{
   id?:number;
   vehicleReview: SingleReview;
