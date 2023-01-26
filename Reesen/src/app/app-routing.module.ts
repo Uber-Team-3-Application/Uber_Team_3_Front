@@ -34,6 +34,7 @@ import {DocumentsComponent} from "./modules/driver/documents/documents.component
 import {CurrentRideComponent} from "./modules/map/driver-current-ride/current-ride.component";
 import { PanicPressedComponent } from './modules/admin/panic-pressed/panic-pressed.component';
 import { PassengersRideComponent } from './modules/passenger/pasnegers-ride/passengers-ride.component';
+import { PassengerReportsComponent } from './modules/passenger/passenger-reports/passenger-reports.component';
 
 
 const routes: Routes = [
@@ -71,6 +72,7 @@ const routes: Routes = [
   {path: 'registerDriver', component:DriverRegistrationComponent},
   {path: 'admin-reports', component:ReportsComponent},
   {path: 'driver-reports', component:DriverReportsComponent},
+  {path: 'passenger-reports', component: PassengerReportsComponent},
   {path: 'users', component: UsersInfoComponent},
   {path: 'panic', component: PanicPageAdminComponent},
   {path: 'users/:id/:role', component: UserDetailsComponent},
