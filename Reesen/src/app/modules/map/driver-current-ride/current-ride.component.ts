@@ -31,7 +31,7 @@ export class CurrentRideComponent implements OnInit {
   rideEnded = false;
   @Input() role: string;
   @Input()id: number;
-  isRideStarted : boolean = false;
+  isRideStarted  = false;
 
 
   panicForm = new FormGroup({
@@ -50,14 +50,21 @@ export class CurrentRideComponent implements OnInit {
   }
 
   ngOnInit() {
-      
+
       this.rideService.activeRideValue$.subscribe((value)=>{
         this.isCardLoaded = value;
       });
       this.rideService.rideEndedValue$.subscribe((value)=>{
         this.rideEnded = value;
       })
-   
+
+      this.rideService.isRideStarted$.subscribe((value) => {
+        console.log("isRideStarted", this.isRideStarted);
+        this.isRideStarted = value;
+      })
+
+
+
   }
 
 
@@ -96,9 +103,8 @@ export class CurrentRideComponent implements OnInit {
 
 
   finishRide() {
-    this.clickHandler(); // zaustavi timer
+    this.clickHandler();
     this.rideService.endRide(this.ride.id).subscribe({
-
       next:(result) =>{
           if(this.role==='DRIVER')
             this.router.navigate(['/driverRideHistory']);
@@ -130,8 +136,11 @@ export class CurrentRideComponent implements OnInit {
     }
 
   }
+
   startRide() {
       this.isRideStarted = true;
+      this.rideService.setRideStarted(true);
+      this.clickHandler();
       this.rideService.startRide(this.ride.id).subscribe({
 
         next:(result) =>{
@@ -150,5 +159,9 @@ export class CurrentRideComponent implements OnInit {
             console.log(error);
         }
       });
+  }
+
+  sendNote() {
+
   }
 }

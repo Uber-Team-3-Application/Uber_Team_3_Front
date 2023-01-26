@@ -39,6 +39,11 @@ img {
   height: 30%;
 }
 
+h3 {
+  font-weight: bolder;
+  font-style: italic;
+}
+
 p {
   font-weight: bolder;
   font-style: italic;

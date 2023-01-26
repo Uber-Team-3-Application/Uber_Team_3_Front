@@ -12,7 +12,7 @@ export class RideService {
 
   private rideStatusChanged$ = new BehaviorSubject<boolean>(false);
   rideStatusChangedValue$ = this.rideStatusChanged$.asObservable();
-  
+
 
   setRideStatus(test: any) {
     this.rideStatusChanged$.next(test);
@@ -26,6 +26,13 @@ export class RideService {
 
   private activeRide$ = new BehaviorSubject<boolean>(false);
   activeRideValue$ = this.activeRide$.asObservable();
+
+  private rideStarted = new BehaviorSubject<boolean>(false);
+  isRideStarted$ = this.rideStarted.asObservable();
+
+  setRideStarted(started : boolean) {
+    this.rideStarted.next(started);
+  }
 
   setActiveRide(test: boolean) {
     this.activeRide$.next(test);
@@ -85,7 +92,7 @@ export class RideService {
   startRide(id:number): Observable<Ride>{
     return this.http.put<Ride>(environment.apiHost + "api/ride/" + id + "/start", {});
   }
-  
+
   endRide(id:number): Observable<Ride>{
     return this.http.put<Ride>(environment.apiHost + "api/ride/" + id + "/end", {});
   }

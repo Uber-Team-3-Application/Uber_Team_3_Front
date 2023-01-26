@@ -1,7 +1,11 @@
 
-
 <div  class="overlay" *ngIf="isCardLoaded">
   <h2 align="center">Current ride</h2>
+
+  <h3 *ngIf="role === 'PASSENGER' && !isRideStarted" align="center">
+    <br/>Waiting to driver arrives...
+  </h3>
+
   <div class="row first">
     <div class="col-md-2 stop-watch" *ngIf="isRideStarted">
       <div class="stop-watch">
@@ -32,26 +36,26 @@
     <!-- <app-driver-card-history [date]="ride" [setFinished]="false" id="card"></app-driver-card-history> -->
     </div>
     <div class="col-md-1"></div>
-    <div class="col-md-2">
+
+    <div class="col-md-2" *ngIf="isRideStarted">
       <img src="assets/img/panic_girl.png">
     </div>
 
     <div class="col-md-2" align="center" *ngIf="isRideStarted">
       <p>Something wrong? Please contact us!</p>
+      <button type="submit" class="panicBtn">PANIC</button>
             <form
             id="panic"
           [formGroup]="panicForm"
           (ngSubmit)="sendPanic()">
-              <div class="form-group" *ngIf="isNotePressed">
-                <label for="inputNote">Enter reason</label>
+              <div class="form-group" *ngIf="!isNotePressed && role === 'PASSENGER'" >
+<!--                <label for="inputNote">Enter reason</label>-->
                 <input type="text" class="form-control" id="inputNote" aria-describedby="emailHelp" placeholder="What's wrong ?">
                 <small id="emailHelp" class="form-text text-muted">We'll do our best to solve the problem as soon as possible</small>
                 <br/>
-                <button type="submit" class="panicBtn">PANIC</button>
+                <button type="submit" (click)="sendNote()">Send</button>
               </div>
             </form>
-
-
     </div>
     <div class="col-md-1"></div>
   </div>
