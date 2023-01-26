@@ -1,11 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {
   Ride,
-  RidePaginated,
-  sortRideByDateAscending, sortRideByDateDescending, sortRideByEndStationAscending, sortRideByEndStationDescending,
-  sortRideByPriceAscending,
-  sortRideByPriceDescending, sortRideByStartStationAscending, sortRideByStartStationDescending
-} from "../../../models/Ride";
+  RidePaginated} from "../../../models/Ride";
 import {TokenDecoderService} from "../../auth/token/token-decoder.service";
 import { ReviewService } from '../../driver/services/review.service';
 import { TaskService } from '../../driver/services/task.service';
@@ -18,8 +14,8 @@ import { PassengerService } from '../passenger.service';
 })
 export class RideHistoryComponent implements OnInit, OnDestroy{
 
-  minDate = "2022-05-02"; // default
-  maxDate = "2022-12-31"; // default
+  minDate = "2022-05-02T01:30" ; // default
+  maxDate = "2022-12-31T01:30"; // default
 
   page:number = 1;
   totalEntries: number = 0;
@@ -34,7 +30,7 @@ export class RideHistoryComponent implements OnInit, OnDestroy{
 
   }
   showSideBar = false;
-  driversRides : RidePaginated;
+  passengersRides : RidePaginated;
   smartTable : TableRideContent[] = new Array<TableRideContent>;
   hasLoaded: boolean = true;
 
@@ -53,7 +49,7 @@ export class RideHistoryComponent implements OnInit, OnDestroy{
     const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
     this.passengerService.getRidesOfPassenger(tokenInfo.id, this.kindsOfSort, this.minDate, this.maxDate,
       selPage-1, this.selectedShowNumber).subscribe(res => {
-        this.driversRides = res;
+        this.passengersRides = res;
         this.setRatingsOfRide();
         this.setSortedSmartTable();
     })
@@ -66,33 +62,22 @@ export class RideHistoryComponent implements OnInit, OnDestroy{
   }
 
   setSortedSmartTable() {
-    switch (this.sorting) {
-      case 1: { this.driversRides.results.sort(sortRideByPriceAscending); break;}
-      case 2: { this.driversRides.results.sort(sortRideByPriceDescending); break;}
-      case 3: {this.driversRides.results.sort(sortRideByDateAscending); break;}
-      case 4: {this.driversRides.results.sort(sortRideByDateDescending); break;}
-      case 5: {this.driversRides.results.sort(sortRideByStartStationAscending); break;}
-      case 6: {this.driversRides.results.sort(sortRideByStartStationDescending); break;}
-      case 7: {this.driversRides.results.sort(sortRideByEndStationAscending); break;}
-      case 8: {this.driversRides.results.sort(sortRideByEndStationDescending); break;}
-
-    }
     this.taskService.deleteArray();
     this.generateSmartTable();
   }
 
 
   generateSmartTable() {
-    for (let i = 0; i < this.driversRides.results.length; i += 2) {
+    for (let i = 0; i < this.passengersRides.results.length; i += 2) {
       this.taskService.fillTable({
-        column1 : this.driversRides.results[i],
-        column2 : this.driversRides.results[i+1],
+        column1 : this.passengersRides.results[i],
+        column2 : this.passengersRides.results[i+1],
       });
     }
   }
 
   setRatingsOfRide() {
-    for (let ride of this.driversRides.results) {
+    for (let ride of this.passengersRides.results) {
       this.reviewService.getReviewsForTheSpecificRide(ride.id).subscribe(
         res => {
            ride.reviews = res;
@@ -123,8 +108,9 @@ export class RideHistoryComponent implements OnInit, OnDestroy{
   }
 
 
-  changeKindsOfSort(number: number) {
-    this.sorting = number;
+  changeKindsOfSort(kinds: string) {
+    this.kindsOfSort = kinds;
+    this.fetchRides(this.page);
     this.setSortedSmartTable();
   }
 

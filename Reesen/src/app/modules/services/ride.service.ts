@@ -98,7 +98,7 @@ export class RideService {
   }
 
   panicRide(id: number, reason: string) : Observable<Ride>{
-    return this.http.put<Ride>(environment.apiHost + 'api/ride' + id + '/panic', {reason:reason});
+    return this.http.put<Ride>(environment.apiHost + 'api/ride/' + id + '/panic', {reason:reason});
   }
 
   getAllActiveRidesWithIds():Observable<RideWithVehicle[]>{
