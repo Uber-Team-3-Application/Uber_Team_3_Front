@@ -64,6 +64,7 @@ button {
 }
 .panicBtn {
   background-color: red;
+  color: white;
 }
 
 .overlay{

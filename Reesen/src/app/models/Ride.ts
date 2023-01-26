@@ -18,6 +18,14 @@ export interface mVehicle {
   longitude: number;
 }
 
+export interface RideWithVehicle{
+  rideId:number;
+  vehicleId:number;
+  latitude:number;
+  longitude:number;
+  address:string;
+
+}
 
 export interface Ride {
   status: string;
