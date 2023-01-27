@@ -6,10 +6,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AcceptRideComponent } from './accept-ride/accept-ride.component';
 import { CurrentRideComponent } from './driver-current-ride/current-ride.component';
+import { RateRideComponent } from './rate-ride/rate-ride.component';
 
 
 @NgModule({
-  declarations: [MapComponent, AcceptRideComponent, CurrentRideComponent],
+  declarations: [MapComponent, AcceptRideComponent, CurrentRideComponent, RateRideComponent],
   imports: [
     CommonModule,
     RouterModule,
