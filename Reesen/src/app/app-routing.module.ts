@@ -59,7 +59,7 @@ const routes: Routes = [
     {path:'rideHistory', component:DriverRideHistoryComponent},
     {path:'reports', component:DriverProfileComponent},
   ]},
-  {path:'ride-rating', component:RateRideComponent},
+  {path:'ride-rating/:rideId', component:RateRideComponent},
   {path:'panic-notification', component:PanicPressedComponent},
   {path: 'passengerInfo/:id/:rideId', component: PassengerInfoComponent},
   {path: 'driverRideHistory', component:DriverRideHistoryComponent},
