@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TokenDecoderService } from '../../auth/token/token-decoder.service';
+import { ReviewService } from '../../services/review.service';
 
 @Component({
   selector: 'app-rate-ride',
@@ -10,22 +12,54 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RateRideComponent implements OnInit{
 
   rideId: number;
-  id: number;
   reviewForm = new FormGroup({
-    driverRating: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(13)]),
-    vehicleRating: new FormControl('', [Validators.required, Validators.email]),
-    driverComment: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    vehicleComment: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    driverRating: new FormControl('', ),
+    vehicleRating: new FormControl('', ),
+    driverComment: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    vehicleComment: new FormControl('', [Validators.required, Validators.minLength(2)]),
   });
+  rateVehicle = 3;
+  rateDriver = 0;
+  hasError = false;
 
   constructor(private router: Router,
-            private route: ActivatedRoute){}
+            private route: ActivatedRoute,
+            private reviewService: ReviewService){}
 
   ngOnInit(): void {
-    
+    this.rideId = +this.route.snapshot.paramMap.get('rideId');
   }
 
   leaveReview(): void{
+    if(this.reviewForm.valid){
+      this.hasError = false;
+      let driverRating = +this.reviewForm.value.driverRating;
+      let vehicleRating = +this.reviewForm.value.vehicleRating;
+      let driverComment = this.reviewForm.value.driverComment;
+      let vehicleComment = this.reviewForm.value.vehicleComment;
+      this.reviewService.leaveReviewForDriver(this.rideId, driverRating, driverComment).subscribe({
+        next:(result) =>{
+          console.log(result);
+          this.reviewService.leaveReviewForVehicle(this.rideId, vehicleRating, vehicleComment).subscribe({
+            next:(res) =>{
+                alert('Review successfully left!');
+                this.goHome();
+            },
+            error:(err)=>{
+              console.log(err);
+            }
+          })
+        },
+        error:(error) =>{
+            console.log(error);
+        }
+      });
 
+    }else{
+      this.hasError = true;
+    }
+  }
+  goHome(): void{
+    this.router.navigate(['/passenger_ride-history']);
   }
 }

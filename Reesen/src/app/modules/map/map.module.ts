@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AcceptRideComponent } from './accept-ride/accept-ride.component';
 import { CurrentRideComponent } from './driver-current-ride/current-ride.component';
 import { RateRideComponent } from './rate-ride/rate-ride.component';
+import { BarRatingModule } from 'ngx-bar-rating';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { RateRideComponent } from './rate-ride/rate-ride.component';
     CommonModule,
     RouterModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BarRatingModule
   ],
     exports: [MapComponent, CurrentRideComponent]
 })

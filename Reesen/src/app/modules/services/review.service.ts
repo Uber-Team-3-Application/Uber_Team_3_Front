@@ -11,21 +11,21 @@ export class ReviewService {
 
   constructor(private http: HttpClient) { }
 
-  leaveReviewForVehicle(rideId: number, rating: number, comment: number): Observable<ReviewDTO> {
+  leaveReviewForVehicle(rideId: number, rating: number, comment: string): Observable<ReviewDTO> {
     let review = {
       rating: rating,
       comment:comment
 
     };
-    return this.http.post<ReviewDTO>(environment.apiHost + "api/ride/", review);
+    return this.http.post<ReviewDTO>(environment.apiHost + "api/review/" + rideId + '/vehicle', review);
   }
 
-  leaveReviewForDriver(rideId: number, rating: number, comment: number): Observable<ReviewDTO> {
+  leaveReviewForDriver(rideId: number, rating: number, comment: string): Observable<ReviewDTO> {
     let review = {
       rating: rating,
       comment:comment
 
     };
-    return this.http.post<ReviewDTO>(environment.apiHost + "api/ride/", review);
+    return this.http.post<ReviewDTO>(environment.apiHost + "api/review/" + rideId + '/driver', review);
   }
 }
