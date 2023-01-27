@@ -1,1 +1,63 @@
-<p>rate-ride works!</p>
+<section style="background-color: white; border: 2px solid #578979;" class="m-5">
+    <div class="container py-5">
+  
+        <div class="row">
+            <div class="col-4 mx-3">
+                <h1 class="reesen-green-text-color">How was your ride?</h1>
+            </div>
+        </div>
+      <div class="row p-5">
+            <div class="col-12 rating p-3">
+                    <form
+                    editProfile
+                [formGroup]="reviewForm"
+                (ngSubmit)="leaveReview()"
+                    >
+                        <div class="row text-center my-3">
+                            <div class="col-12">
+                                <h2 class="reesen-green-text-color">
+                                    Driver Rating
+                                </h2>
+                            </div>
+                            <div class="col-12">
+                                <span class="fa fa-star checked" id="driver1"></span>
+                                <span class="fa fa-star checked" id="driver2"></span>
+                                <span class="fa fa-star checked" id="driver3"></span>
+                                <span class="fa fa-star" id="driver4"></span>
+                                <span class="fa fa-star" id="driver5"></span>
+                            </div>
+                            <div class="col-12">
+                                <input type="text" name="driverComment" id="driverComment" 
+                                formControlName="driverComment"
+                                placeholder="Driver comment"
+                               > 
+                            </div>
+                        </div>
+
+                        <div class="row text-center my-3">
+                            <div class="col-12">
+                                <h2 class="reesen-green-text-color">
+                                   Vehicle Rating
+                                </h2>
+                            </div>
+                            <div class="col-12">
+                                <span class="fa fa-star checked" id="vehicle1"></span>
+                                <span class="fa fa-star checked" id="vehicle2"></span>
+                                <span class="fa fa-star checked" id="vehicle3"></span>
+                                <span class="fa fa-star" id="vehicle4"></span>
+                                <span class="fa fa-star" id="vehicle5"></span>
+                            </div>
+                            <div class="col-12">
+                                <input type="text" name="vehicleComment" id="vehicleComment" 
+                                formControlName="vehicleComment"
+                                placeholder="Vehicle comment"
+                               > 
+                            </div>
+                        </div>
+                
+                    </form>
+            </div>
+      </div>
+    </div>
+  </section>
+

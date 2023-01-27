@@ -1,0 +1,9 @@
+.rating{
+    border: 2px solid #578979;
+}
+
+input[type="text"]{
+    width: 80%;
+    padding: 20px;
+    margin-top: 10px;
+}
