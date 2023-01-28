@@ -114,6 +114,20 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   openGlobalSocket() {
+    if(this.id){
+      this.stompClient.subscribe('/topic/panic/' + this.id, (message: { body: string }) => {
+          let ride = JSON.parse(message.body);
+          this.vehicleService.get(ride.driver.id).subscribe({
+            next:(result) =>{
+              this.vehicles[result.id].setIcon(carPanic);
+            },
+            error:(error) =>{
+                console.log(error);
+            }
+          })
+      
+      });
+    }
 
     if (this.role === 'DRIVER') {
       this.stompClient.subscribe('/topic/driver/ride/' + this.id, (message: { body: string }) => {

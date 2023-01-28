@@ -72,7 +72,7 @@ export class UserRideHistoryComponent implements OnInit{
     this.ratings.length = 0;
     for(let i=0;i<this.rides.length;i++){
       const reviews: Review[] = this.rides[i].reviews;
-      if(reviews.length === 0)
+      if(!reviews || reviews.length === 0)
       {
         this.ratings[i] = 0;
         continue;

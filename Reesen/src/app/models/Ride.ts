@@ -76,6 +76,13 @@ export interface SingleReview{
   passenger: User;
 }
 
+export interface ReviewDTO{
+  id?:number;
+  rating:number;
+  comment:string;
+  passenger:UserRestrict;
+}
+
 export interface RideSimulationDTO {
   id: number;
   routeJSON: string;

@@ -18,9 +18,9 @@
 
   <div class="col-3 text-end nav-items" id="left">
     <!-- prikazati neregeistrovanom/neulogovanom -->
-    <span class="text-right m-3 hover-underline-animation" style="display: inline"><a [routerLink]="['/login']" *ngIf="role === null">Log In</a></span>
+    <span class="text-right m-3 hover-underline-animation" style="display: inline"><a [routerLink]="['/login']" *ngIf="role === null" id="login">Log In</a></span>
     <!-- prikazati ulogovanom -->
-   <span class="text-right m-3" *ngIf="role !== null"><button class="logout-button" type="button" id="logout-button" (click)="logout()">Log Out</button></span>
+   <span class="text-right m-3" *ngIf="role !== null"><button class="logout-button" type="button" id="logout-button" (click)="logout()" id="logout">Log Out</button></span>
     <!-- prikazati neregeistrovanom/neulogovanom -->
     <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"
             [routerLink]="['/register']" *ngIf="role === null">
