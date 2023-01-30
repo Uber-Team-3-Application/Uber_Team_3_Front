@@ -29,6 +29,7 @@ export class RideCardHistoryComponent {
         sum += review.vehicleReview.rating;
         q += 2;
       }
+      if (q == 0) this.rating = 0;
       this.rating = q == 0 ? 1 : sum / q;
 
     }

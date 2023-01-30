@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
 import { Report } from 'src/app/models/Report';
-import {CreateRideDTO, mRide, Ride, RideWithVehicle} from 'src/app/models/Ride';
+import {CreateFavoriteRide, CreateRideDTO, FavoriteRide, mRide, Ride, RideWithVehicle} from 'src/app/models/Ride';
 
 @Injectable({
   providedIn: 'root'
@@ -75,6 +75,10 @@ export class RideService {
 
   orderARide(ride: CreateRideDTO): Observable<Ride> {
     return this.http.post<Ride>(environment.apiHost + "api/ride/", ride);
+  }
+
+  addFavoriteRide(fav: CreateFavoriteRide): Observable<FavoriteRide>  {
+    return this.http.post<FavoriteRide>(environment.apiHost + "api/ride/favorites", fav);
   }
 
   getActiveRide(): Observable<Ride> {
