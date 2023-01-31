@@ -19,6 +19,7 @@ export class LoginComponent{
     );
     hasError = false;
     email: EmailInfo;
+    resetCode : string;
 
     constructor(private router:Router,
       private authenticationService: AuthenticationService,
@@ -53,7 +54,10 @@ export class LoginComponent{
 
     sendEmailReset(){
       alert("Mail sent!");
-      const htmlString = `<html><head><style>
+      this.userService.findByEmail(this.loginForm.value.email).subscribe((user) => {
+       this.userService.resetPasswordLink(user.id).subscribe((code:string) => {
+        this.resetCode = code;
+         const htmlString = `<html><head><style>
 
     .btn{
         color:white;
@@ -106,22 +110,18 @@ export class LoginComponent{
     </head>
     <img src="https://www.pngall.com/wp-content/uploads/2/Envelope-PNG-Free-Download.png" style="width:20%;margin-left: 40%;;">
     <div class="container">
-            <h1 class="text-center lbl">Verify your email</h1>
+            <h1 class="text-center lbl">Reset your password</h1>
             <p class="line center"></p><br>
-            <p class="text-center lbl2">Thanks for signing up for the Reesen app. Please click Confirm button for account activation to start ordering rides!</p>
-            <p class="text-center lbl2 >{{activationHtml}}</p>
+            <p class="text-center lbl2">This is a code for reset your password!</p>
+            <p class="text-center lbl2">${this.resetCode}</p>
             <br><br><br>
             <p class="text-center lbl">This email was sent to you by Reesen Inc. You are receiving this email because you registred on our website. If this wasn't you, please ignore this mail.</p>
       </div>
       </html>`;
-      this.userService.findByEmail(this.loginForm.value.email).subscribe((user) => {
-       console.log(user);
-       this.userService.resetPasswordLink(user.id).subscribe((code) => {
-        console.log(code);
         const emailInfo: EmailInfo = {
           to: this.loginForm.value.email,
           subject:"Reesen - Password Reset",
-          message: htmlString.replace('{{activationHtml}}', code)
+          message: htmlString
         };
         this.userService.sendEmail(emailInfo)
           .subscribe(
@@ -129,6 +129,7 @@ export class LoginComponent{
           );
        });
       });
+      this.router.navigate(['/resetPassword'])
     }
 
 }
