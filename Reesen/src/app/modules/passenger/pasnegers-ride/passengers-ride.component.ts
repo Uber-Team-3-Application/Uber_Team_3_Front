@@ -201,6 +201,7 @@ export class PassengersRideComponent implements AfterViewInit, OnDestroy {
     this.rideService.addFavoriteRide(fav).subscribe(
       {
         next: (result) => {
+          
         },
         error: (error) => { console.log(error); }
       }

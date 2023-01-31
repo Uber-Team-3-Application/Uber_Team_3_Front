@@ -1,12 +1,10 @@
-import {AfterViewInit, Component, OnInit, Input} from '@angular/core';
-import * as L from "leaflet";
+import {Component, OnInit, Input} from '@angular/core';
 import {MapService} from "../../map/map.service";
 import {VehicleService} from "../../driver/services/vehicle.service";
 import {UserService} from "../../unregistered-user/user.service";
 import {RideService} from "../../services/ride.service";
 import {TokenDecoderService} from "../../auth/token/token-decoder.service";
-import {VehicleType} from "../../../models/Vehicle";
-import { carPanic, carMyRide } from '../../map/icons/icons';
+
 import {Ride} from "../../../models/Ride";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -17,8 +15,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./current-ride.component.css']
 })
 export class CurrentRideComponent implements OnInit {
-  private map:any;
-  private currentRoute: L.Routing.Control | null = null;
+
   @Input() ride : Ride;
   isOnlyMap = true;
   isCardLoaded  = false;
@@ -32,20 +29,17 @@ export class CurrentRideComponent implements OnInit {
   @Input() role: string;
   @Input()id: number;
   isRideStarted  = false;
-
+  isRideAccepted = false;
 
   panicForm = new FormGroup({
     inputNote: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
   });
 
 
-  constructor(private mapService: MapService,
-              private route: ActivatedRoute,
+  constructor(
               private router: Router,
               private vehicleService: VehicleService,
-              private userService: UserService,
-              private rideService: RideService,
-              private tokenDecoder: TokenDecoderService) {
+              private rideService: RideService) {
 
   }
 
@@ -60,6 +54,7 @@ export class CurrentRideComponent implements OnInit {
 
       this.rideService.isRideStarted$.subscribe((value) => {
         console.log("isRideStarted", this.isRideStarted);
+        this.isRideAccepted = !value;
         this.isRideStarted = value;
         this.clickHandler();
       })
@@ -68,16 +63,8 @@ export class CurrentRideComponent implements OnInit {
 
   }
 
-
-
-  changeHandler(bool) {
-    this.isNotePressed = bool;
-  }
-
-
   clickHandler() {
 
-    // TODO LOOK HERE
     if (this.isRideStarted) {
       // Stop => Running
       this.timerId = setInterval(() => {
@@ -143,10 +130,11 @@ export class CurrentRideComponent implements OnInit {
       this.rideService.setRideStarted(true);
       this.clickHandler();
       this.rideService.startRide(this.ride.id).subscribe({
-
+        
         next:(result) =>{
           this.vehicleService.simulateRide(result.id).subscribe({
             next:(ress) =>{
+                
                 this.isCardLoaded = true;
                 this.clickHandler();
                 console.log(ress);
@@ -160,9 +148,5 @@ export class CurrentRideComponent implements OnInit {
             console.log(error);
         }
       });
-  }
-
-  sendNote() {
-
   }
 }

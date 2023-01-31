@@ -27,6 +27,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   @Input() isOnlyMap = false;
   @Input() departureRideInfo = '';
   @Input() destinationRideInfo = '';
+  rideEnded = false;
   private map: any;
   private currentRoute: L.Routing.Control | null = null;
   isDriver = false;
@@ -95,9 +96,14 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
   openSimulationSocket(){
     this.stompClientSimulation.subscribe('/topic/map-updates', (message: {body: string}) =>{
-
       const newLocation = JSON.parse(message.body);
       const vehicle = this.vehicles[newLocation.id];
+      if(this.rideEnded){
+        vehicle.setIcon(greenCar);
+        return;
+      }
+
+      
 
       if(this.panicPressed !== null){
         vehicle.setIcon(carPanic);
@@ -216,6 +222,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       else {
         this.acceptRide = JSON.parse(message.body);
         if (this.acceptRide.status === "ACCEPTED") {
+          this.rideService.setRideEnded(false);
           this.rideAccepted = true;
           this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
           this.waitingForRide = false;
@@ -242,6 +249,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.stompClient.subscribe('/topic/passenger/start-ride/' + this.id, (message: { body: string; }) => {
       let ride = JSON.parse(message.body);
       this.rideService.setRideStarted(true);
+      this.rideService.setRideEnded(false);
+
       this.vehicleService.simulateRide(ride.id).subscribe({
         next: (result) => {
           console.log(result);
@@ -256,7 +265,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.stompClient.subscribe('/topic/passenger/end-ride/' + this.id, (message: { body: string; }) => {
       let ride = JSON.parse(message.body);
       console.log(message.body);
-
+      this.rideService.setRideEnded(true);
       this.vehicleService.get(ride.driver.id).subscribe({
         next: (result) => {
           this.vehicles[result.id].setIcon(greenCar);
@@ -288,14 +297,17 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   });
     this.stompClient.subscribe('/topic/driver/ride/' + this.id, (message: { body: string; }) => {
       console.log(message);
+      this.rideService.setRideEnded(false);
+
       this.rideService.setRideStatus(false);
       this.acceptRide = JSON.parse(message.body); 
       this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
       this.acceptNotification = true;
     });
     this.stompClient.subscribe('/topic/driver/start-ride/' + this.id, (message: { body: string; }) => {
-      let ride = JSON.parse(message.body);
-      
+      let ride = JSON.parse(message.body);  
+      this.rideService.setRideEnded(false);
+
       this.rideService.setRideStarted(true);
       this.vehicleService.simulateRide(ride.id).subscribe({
         next: (result) => {
@@ -310,6 +322,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     this.stompClient.subscribe('/topic/driver/end-ride/' + this.id, (message: { body: string; }) => {
       let ride = JSON.parse(message.body);
+      this.rideService.setRideEnded(true);
       this.vehicleService.get(ride.driver.id).subscribe({
         next: (result) => {
           this.vehicles[result.id].setIcon(greenCar);
@@ -340,6 +353,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
       this.stompClient.subscribe('/topic/admin/end-ride/' + this.id, (message: { body: string; }) => {
         let ride = JSON.parse(message.body);
+        
+        this.rideService.setRideEnded(true);
         console.log(message.body);
         this.vehicleService.get(ride.driver.id).subscribe({
           next: (result) => {
@@ -411,8 +426,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           }
         });
       }
-    });
-
+    }); 
+    this.rideService.rideEndedValue$.subscribe((value) =>{
+      this.rideEnded = value;
+    })
     this.rideService.isRideStarted$.subscribe((value) =>{
       if(value === true){
         if (this.currentRoute != null) {
