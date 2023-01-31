@@ -11,7 +11,7 @@ import {Ride} from "../../../models/Ride";
 export class RideCardHistoryComponent {
 
   ride : Ride;
-  rating : number = 1;
+  rating : number = 0;
   isFinished: boolean = true;
 
   @Input() set setFinished(finished : boolean) {
@@ -24,6 +24,9 @@ export class RideCardHistoryComponent {
     let q = 0;
 
     if (this.ride.reviews != undefined) {
+      if(this.ride.reviews.length === 0){
+        return;
+      }
       for (let review of this.ride.reviews) {
         sum += review.driverReview.rating;
         sum += review.vehicleReview.rating;
