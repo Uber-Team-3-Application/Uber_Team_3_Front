@@ -3,7 +3,7 @@
   <h2 align="center">Current ride</h2>
 
   <h3 *ngIf="role === 'PASSENGER' && !isRideStarted" align="center">
-    <br/>Waiting to driver arrives...
+    <br/>Waiting for driver to arive...
   </h3>
 
   <div class="row first">
@@ -43,17 +43,16 @@
 
     <div class="col-md-2" align="center" *ngIf="isRideStarted">
       <p>Something wrong? Please contact us!</p>
-      <button type="submit" class="panicBtn">PANIC</button>
             <form
             id="panic"
           [formGroup]="panicForm"
           (ngSubmit)="sendPanic()">
-              <div class="form-group" *ngIf="!isNotePressed && role === 'PASSENGER'" >
+              <div class="form-group" *ngIf="!isNotePressed" >
                 <label for="inputNote"></label>
-                <input type="text" class="form-control" id="inputNote" aria-describedby="emailHelp" placeholder="What's wrong ?">
+                <input type="text" formControlName="inputNote" class="form-control" id="inputNote" aria-describedby="emailHelp" placeholder="What's wrong ?">
                 <small id="emailHelp" class="form-text text-muted">We'll do our best to solve the problem as soon as possible</small>
                 <br/>
-                <button type="submit" (click)="sendNote()">Send</button>
+                <button type="submit" class="panicBtn">PANIC</button>
               </div>
             </form>
     </div>

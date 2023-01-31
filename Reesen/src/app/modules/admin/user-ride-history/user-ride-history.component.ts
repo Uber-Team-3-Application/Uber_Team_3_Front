@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Ride, Review } from 'src/app/models/Ride';
+import { ReviewService } from '../../services/review.service';
 import { UserService } from '../../unregistered-user/user.service';
 
 @Component({
@@ -24,7 +25,8 @@ export class UserRideHistoryComponent implements OnInit{
 
   constructor(private userService: UserService,
               private router: Router,
-              private route: ActivatedRoute){}
+              private route: ActivatedRoute,
+              private reviewService: ReviewService){}
 
   ngOnInit(): void {
     this.hasLoaded = false;
@@ -71,24 +73,33 @@ export class UserRideHistoryComponent implements OnInit{
   private setRatings(): void{
     this.ratings.length = 0;
     for(let i=0;i<this.rides.length;i++){
-      const reviews: Review[] = this.rides[i].reviews;
-      if(!reviews || reviews.length === 0)
-      {
-        this.ratings[i] = 0;
-        continue;
+      this.reviewService.getAllReviewsForRide(this.rides[i].id).subscribe({
+        next:(result) =>{
 
-      }
-      const totalNumberOfReviews: number = reviews.length  * 2;
-      let totalReviewScore = 0;
-      for(let j =0;j<reviews.length;j++){
+          const reviews: Review[] = result;
+          if(!reviews || reviews.length === 0)
+          {
+            this.ratings[i] = 0;
+            return;
+          }
+          const totalNumberOfReviews: number = reviews.length  * 2;
+          let totalReviewScore = 0;
+          for(let j =0;j<reviews.length;j++){
+    
+            const vehicleReview = reviews[j].vehicleReview;
+            const driverReview = reviews[j].driverReview;
+            totalReviewScore += vehicleReview.rating;
+            totalReviewScore += driverReview.rating;
+          }
+    
+          this.ratings.push(totalReviewScore/totalNumberOfReviews);
 
-        const vehicleReview = reviews[j].vehicleReview;
-        const driverReview = reviews[j].driverReview;
-        totalReviewScore += vehicleReview.rating;
-        totalReviewScore += driverReview.rating;
-      }
-
-      this.ratings.push(totalReviewScore/totalNumberOfReviews);
+        },
+        error:(error) =>{
+          console.log(error);
+        }
+      })
+      
 
     }
   }

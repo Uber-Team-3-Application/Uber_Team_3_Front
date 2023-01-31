@@ -61,6 +61,7 @@ export class CurrentRideComponent implements OnInit {
       this.rideService.isRideStarted$.subscribe((value) => {
         console.log("isRideStarted", this.isRideStarted);
         this.isRideStarted = value;
+        this.clickHandler();
       })
 
 
@@ -76,7 +77,8 @@ export class CurrentRideComponent implements OnInit {
 
   clickHandler() {
 
-    if (!this.isRunning) {
+    // TODO LOOK HERE
+    if (this.isRideStarted) {
       // Stop => Running
       this.timerId = setInterval(() => {
         this.ms++;
@@ -104,13 +106,11 @@ export class CurrentRideComponent implements OnInit {
 
   finishRide() {
     this.clickHandler();
+    this.rideService.setRideEnded(true);
     this.rideService.endRide(this.ride.id).subscribe({
       next:(result) =>{
           if(this.role==='DRIVER')
             this.router.navigate(['/driverRideHistory']);
-          else
-            this.router.navigate(['/passenger_ride-history']);
-
       },
       error:(error) =>{
           console.log(error);
@@ -124,7 +124,8 @@ export class CurrentRideComponent implements OnInit {
           .subscribe({
             next:(result) =>{
               console.log(result);
-              this.rideService.setRideEnded(true);
+              this.rideService.setPanicPressed(result);
+
             },
             error:(error) =>{
               console.log(error);

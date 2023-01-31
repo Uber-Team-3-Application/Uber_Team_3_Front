@@ -183,7 +183,7 @@ export class PassengersRideComponent implements AfterViewInit, OnDestroy {
   }
 
   rateRide() {
-
+    this.router.navigate(['/ride-rating/'+this.ride.id]);
 
     this.setRatings();
   }
