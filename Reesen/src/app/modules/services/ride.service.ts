@@ -27,11 +27,11 @@ export class RideService {
   private activeRide$ = new BehaviorSubject<boolean>(false);
   activeRideValue$ = this.activeRide$.asObservable();
 
-  private rideStarted = new BehaviorSubject<boolean>(false);
-  isRideStarted$ = this.rideStarted.asObservable();
+  private rideStarted$ = new BehaviorSubject<boolean>(false);
+  isRideStarted$ = this.rideStarted$.asObservable();
 
   setRideStarted(started : boolean) {
-    this.rideStarted.next(started);
+    this.rideStarted$.next(started);
   }
 
   setActiveRide(test: boolean) {

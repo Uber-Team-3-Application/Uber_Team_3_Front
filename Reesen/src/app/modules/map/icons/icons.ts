@@ -27,7 +27,7 @@ export const carMyRide = L.icon({
 export const carPanic = L.icon({
     iconUrl: '../../../assets/img/car-panic.png',
 
-    iconSize: [30, 30],
+    iconSize: [50, 50],
     iconAnchor: [ 15, 30],
     popupAnchor: [-3, -76]
 });

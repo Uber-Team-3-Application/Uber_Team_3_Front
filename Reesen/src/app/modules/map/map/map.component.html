@@ -7,7 +7,7 @@
 <app-driver-current-ride *ngIf="rideAccepted" [role]="role" [id]="id" [ride]="acceptRide"></app-driver-current-ride>
 
 <div *ngIf="!isOnlyMap && !rideAccepted">
-<div class="alert ride-info-popup p-3" role="alert" *ngIf="rideAssumption.estimatedCost !== 0 && rideAssumption.estimatedTimeInMinutes !== 0  && !waitingForRide && !rideAccepted">
+<div class="alert ride-info-popup p-3" role="alert" *ngIf="rideAssumption.estimatedCost !== 0 && !waitingForRide && !rideAccepted">
   <div class="d-flex flex-row-reverse">
     <button class="modified-button-cancel my-button" (click)="rideAssumption.estimatedCost=0">X</button>
   </div>
@@ -150,7 +150,7 @@
         <input type="checkbox" class="form-check-input" id="petTransport" name="petTransport" formControlName="petTransport">
         <label for="petTransport" class="form-check-label px-3">Pet transport</label>
       </div>
-      <div class="col-6">
+      <div class="col-6" *ngIf="role==='PASSENGER'">
         <input type="checkbox" class="form-check-input" id="schedule" name="schedule" formControlName="schedule" (click)="showDateTimePicker()">
         <label for="schedule" class="form-check-label px-3">Schedule for later:</label>
       </div>
