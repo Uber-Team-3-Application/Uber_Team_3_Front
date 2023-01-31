@@ -44,19 +44,20 @@
                             <input type="text" formControlName="surname" class="form-control" id="lastName" placeholder="Ross">
                         </div>
                         <div class="mb-3 space">
-                            <label for="phone" class="label-reg">Phone number</label>
+                            <label for="phoneNumber" class="label-reg">Phone number</label>
                             <input type="text" formControlName="phoneNumber"  class="form-control" id="phoneNumber" placeholder="+381600000000">
                         </div>
                         <div class="mb-3 space">
                             <label for="passwordRepet" class="label-reg ">Repeat password</label>
                             <input type="password" formControlName="repeatedPassword" class="form-control" id="passwordRepet" placeholder="Password123">
                         </div>
-                        <div class="mb-3 space">
-                            <label for="passwordRepet" class="label-reg ">Choose a profile picture</label>
-                            <input type="file" (change)="handleUpload($event)"/>
-                        </div>
+                      <div class="mb-3 space">
+                        <label class="custom-file-upload">
+                          <input type="file" (change)="handleUpload($event)" id="selectAvatar"/> Choose photo
+                        </label>
+                      </div>
                     </div>
-                
+
                 <div class="mb-3 text-center">
                 <button type="submit" class="signup confirmation-button">Sign up</button>
                 </div>

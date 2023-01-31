@@ -27,7 +27,7 @@ export class RegistrationComponent {
   avatarBase64 = "";
 
   constructor(private passengerService: PassengerService, private userService: UserService, private router: Router){
-    
+
   }
 
   get password() { return this.registerForm.get('password'); }
@@ -42,7 +42,7 @@ export class RegistrationComponent {
     console.log(this.registerForm)
      if(this.registerForm.valid){
       this.hasError = false;
-      alert("Succesfully registrated!");
+      alert("Successfully registered!");
       const passenger: Passenger = {
         name : this.registerForm.value.name,
         surname : this.registerForm.value.surname,
@@ -54,13 +54,13 @@ export class RegistrationComponent {
         active : false
       };
       const htmlString = `<html><head><style>
-    
+
     .btn{
         color:white;
         margin-top: 7px;
         width: 32%;
         margin-left: 34%;
-        background-color:#48786d; 
+        background-color:#48786d;
         padding:6px;
         border-radius: 8px;
         border: 1px transparent;
@@ -82,9 +82,9 @@ export class RegistrationComponent {
 
     .center{
       width: 50%; /* Define the width of the element */
-      margin: auto; 
+      margin: auto;
     }
-    
+
     .lbl{
         text-align: center;
         color:#48786d;
