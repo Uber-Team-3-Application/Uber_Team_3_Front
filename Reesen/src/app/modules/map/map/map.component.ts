@@ -133,140 +133,15 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       });
       
     }
-    if(this.role==='ADMIN'){
-      this.stompClient.subscribe('/topic/admin/panic/' + this.id, (message: {body:string}) =>{
-          let ride = JSON.parse(message.body);
-          this.vehicleService.get(ride.driver.id).subscribe({
-            next:(result) =>{
-              this.vehicles[result.id].setIcon(carPanic);
-            },
-            error:(error) =>{
-                console.log(error);
-            }
-          })
-      });
-
-      this.stompClient.subscribe('/topic/admin/end-ride/' + this.id, (message: {body : string})=>{
-        let ride = JSON.parse(message.body);
-        console.log(message.body);
-        
-        this.vehicleService.get(ride.driver.id).subscribe({
-          next:(result) =>{
-            this.vehicles[result.id].setIcon(greenCar);
-            this.rideService.setActiveRide(false);
-            this.rideService.setRideAccepted(false);
-            
-          },
-          error:(error) =>{
-              console.log(error);
-          }
-        })
-      });
-    }
+    this.setAdminSockets();
 
 
     if (this.role === 'DRIVER') {
-      this.stompClient.subscribe('/topic/driver/ride/' + this.id, (message: { body: string }) => {
-        console.log(message);
-        this.rideService.setRideStatus(false);
-        this.acceptRide = JSON.parse(message.body);
-        this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
-        this.acceptNotification = true;
-      });
-      this.stompClient.subscribe('/topic/driver/start-ride/' + this.id, (message: {body : string})=>{
-        let ride = JSON.parse(message.body);
-        this.vehicleService.simulateRide(ride.id).subscribe({
-          next:(result) =>{
-              console.log(result);
-          },
-          error:(error) =>{
-            console.log(error);
-          }
-        })
-        console.log(message);
-      });
-
-      this.stompClient.subscribe('/topic/driver/end-ride/' + this.id, (message: {body : string})=>{
-        let ride = JSON.parse(message.body);
-        this.vehicleService.get(ride.driver.id).subscribe({
-          next:(result) =>{
-            this.vehicles[result.id].setIcon(greenCar);
-            this.rideAccepted = false;
-            this.rideService.setActiveRide(false);
-            this.router.navigate['/driverRideHistory'];
-          },
-          error:(error) =>{
-              console.log(error);
-          }
-        });
-      });
-    
+      this.setDriverSockets();
 
      
     } else if (this.role === 'PASSENGER') {
-      this.stompClient.subscribe('/topic/passenger/ride/' + this.id, (message: { body: string }) => {
-        console.log(message);
-        if (message.body === "You have a scheduled ride!") {
-          alert("You have a scheduled ride!");
-        }
-        else {
-          this.acceptRide = JSON.parse(message.body);
-          if (this.acceptRide.status === "ACCEPTED") {
-            this.rideAccepted = true;
-            this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
-            this.waitingForRide = false;
-            this.rideService.setActiveRide(true);
-            this.vehicleService.simulateRide(this.acceptRide.id).subscribe({
-              next:(result) =>{
-              
-              },
-              error:(error) =>{
-
-              }
-            })
-
-          } else if (this.acceptRide.status === "REJECTED") {
-            alert('Your ride was rejected');
-            this.clearMap();
-            this.rideAssumption.estimatedCost = 0;
-            this.rideAssumption.estimatedTimeInMinutes = 0;
-            this.waitingForRide = false;
-            this.rideAccepted = false;
-          }
-        }
-      }
-
-      );
-      this.stompClient.subscribe('/topic/passenger/start-ride/' + this.id, (message: {body : string})=>{
-        let ride = JSON.parse(message.body);
-        this.vehicleService.simulateRide(ride.id).subscribe({
-          next:(result) =>{
-              console.log(result);
-          },
-          error:(error) =>{
-            console.log(error);
-          }
-        })
-        console.log(message);
-      });
-
-      this.stompClient.subscribe('/topic/passenger/end-ride/' + this.id, (message: {body : string})=>{
-        let ride = JSON.parse(message.body);
-        console.log(message.body);
-        
-        this.vehicleService.get(ride.driver.id).subscribe({
-          next:(result) =>{
-            this.vehicles[result.id].setIcon(greenCar);
-            this.rideService.setActiveRide(false);
-            this.rideService.setRideAccepted(false);
-            this.router.navigate(['/ride-rating/'+ride.id]);
-            
-          },
-          error:(error) =>{
-              console.log(error);
-          }
-        })
-      });
+      this.setPassengerSockets();
     }
 
   }
@@ -312,6 +187,142 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
 
 
+  }
+
+  private setPassengerSockets() {
+    this.stompClient.subscribe('/topic/passenger/ride/' + this.id, (message: { body: string; }) => {
+      console.log(message);
+      if (message.body === "You have a scheduled ride!") {
+        alert("You have a scheduled ride!");
+      }
+      else {
+        this.acceptRide = JSON.parse(message.body);
+        if (this.acceptRide.status === "ACCEPTED") {
+          this.rideAccepted = true;
+          this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
+          this.waitingForRide = false;
+          this.rideService.setActiveRide(true);
+          this.vehicleService.simulateRide(this.acceptRide.id).subscribe({
+            next: (result) => {
+            },
+            error: (error) => {
+            }
+          });
+
+        } else if (this.acceptRide.status === "REJECTED") {
+          alert('Your ride was rejected');
+          this.clearMap();
+          this.rideAssumption.estimatedCost = 0;
+          this.rideAssumption.estimatedTimeInMinutes = 0;
+          this.waitingForRide = false;
+          this.rideAccepted = false;
+        }
+      }
+    }
+
+    );
+    this.stompClient.subscribe('/topic/passenger/start-ride/' + this.id, (message: { body: string; }) => {
+      let ride = JSON.parse(message.body);
+      this.rideService.setRideStarted(true);
+      this.vehicleService.simulateRide(ride.id).subscribe({
+        next: (result) => {
+          console.log(result);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+      console.log(message);
+    });
+
+    this.stompClient.subscribe('/topic/passenger/end-ride/' + this.id, (message: { body: string; }) => {
+      let ride = JSON.parse(message.body);
+      console.log(message.body);
+
+      this.vehicleService.get(ride.driver.id).subscribe({
+        next: (result) => {
+          this.vehicles[result.id].setIcon(greenCar);
+          this.rideService.setActiveRide(false);
+          this.rideService.setRideAccepted(false);
+          this.router.navigate(['/ride-rating/' + ride.id]);
+
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+    });
+  }
+
+  private setDriverSockets() {
+    this.stompClient.subscribe('/topic/driver/ride/' + this.id, (message: { body: string; }) => {
+      console.log(message);
+      this.rideService.setRideStatus(false);
+      this.acceptRide = JSON.parse(message.body); 
+      this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
+      this.acceptNotification = true;
+    });
+    this.stompClient.subscribe('/topic/driver/start-ride/' + this.id, (message: { body: string; }) => {
+      let ride = JSON.parse(message.body);
+      
+      this.rideService.setRideStarted(true);
+      this.vehicleService.simulateRide(ride.id).subscribe({
+        next: (result) => {
+          console.log(result);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+      console.log(message);
+    });
+
+    this.stompClient.subscribe('/topic/driver/end-ride/' + this.id, (message: { body: string; }) => {
+      let ride = JSON.parse(message.body);
+      this.vehicleService.get(ride.driver.id).subscribe({
+        next: (result) => {
+          this.vehicles[result.id].setIcon(greenCar);
+          this.rideAccepted = false;
+          this.rideService.setActiveRide(false);
+          this.router.navigate['/driverRideHistory'];
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+    });
+  }
+
+  private setAdminSockets() {
+    if (this.role === 'ADMIN') {
+      this.stompClient.subscribe('/topic/admin/panic/' + this.id, (message: { body: string; }) => {
+        let ride = JSON.parse(message.body);
+        this.vehicleService.get(ride.driver.id).subscribe({
+          next: (result) => {
+            this.vehicles[result.id].setIcon(carPanic);
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        });
+      });
+
+      this.stompClient.subscribe('/topic/admin/end-ride/' + this.id, (message: { body: string; }) => {
+        let ride = JSON.parse(message.body);
+        console.log(message.body);
+        this.vehicleService.get(ride.driver.id).subscribe({
+          next: (result) => {
+            this.vehicles[result.id].setIcon(greenCar);
+            this.rideService.setActiveRide(false);
+            this.rideService.setRideAccepted(false);
+
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        });
+      });
+    }
   }
 
   private initMap(): void {
@@ -364,6 +375,9 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     })
     this.rideService.activeRideValue$.subscribe((value) =>{
       this.rideAccepted = value;
+      if (this.currentRoute != null) {
+        this.map.removeControl(this.currentRoute);
+      }
       if(this.rideAccepted == true){
           if (this.currentRoute != null) {
             this.map.removeControl(this.currentRoute);
@@ -374,6 +388,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
             show: false,
             routeWhileDragging: true,
           }).addTo(this.map);
+          this.currentRoute = route;
       }
     })
     const DefaultIcon = L.icon({
