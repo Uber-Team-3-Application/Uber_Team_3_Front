@@ -61,6 +61,7 @@ export class CurrentRideComponent implements OnInit {
       this.rideService.isRideStarted$.subscribe((value) => {
         console.log("isRideStarted", this.isRideStarted);
         this.isRideStarted = value;
+        this.clickHandler();
       })
 
 
@@ -76,7 +77,8 @@ export class CurrentRideComponent implements OnInit {
 
   clickHandler() {
 
-    if (!this.isRunning) {
+    // TODO LOOK HERE
+    if (this.isRideStarted) {
       // Stop => Running
       this.timerId = setInterval(() => {
         this.ms++;
