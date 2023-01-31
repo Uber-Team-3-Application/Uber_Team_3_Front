@@ -63,7 +63,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   stompClient: any;
   stompClientSimulation: any;
 
-
+  panicPressed = null;
   rides: any = {};
   mainGroup: L.LayerGroup[] = [];
   socketEndpoint = 'http://localhost:8082/socket';
@@ -98,6 +98,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
       const newLocation = JSON.parse(message.body);
       const vehicle = this.vehicles[newLocation.id];
+
+      if(this.panicPressed !== null){
+        vehicle.setIcon(carPanic);
+        vehicle.setLatLng([newLocation.longitude, newLocation.latitude]);
+        return;
+      }
       if(this.role === 'PASSENGER' || this.role === 'DRIVER'){
         vehicle.setIcon(carMyRide);
       }else{
@@ -190,6 +196,18 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   private setPassengerSockets() {
+    this.stompClient.subscribe('/topic/panic/' + this.id, (message: { body: string }) => {
+      let ride = JSON.parse(message.body);
+      this.vehicleService.get(ride.driver.id).subscribe({
+        next:(result) =>{
+          this.vehicles[result.id].setIcon(carPanic);
+        },
+        error:(error) =>{
+            console.log(error);
+        }
+      });
+  
+  });
     this.stompClient.subscribe('/topic/passenger/ride/' + this.id, (message: { body: string; }) => {
       console.log(message);
       if (message.body === "You have a scheduled ride!") {
@@ -255,6 +273,18 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   private setDriverSockets() {
+    this.stompClient.subscribe('/topic/panic/' + this.id, (message: { body: string }) => {
+      let ride = JSON.parse(message.body);
+      this.vehicleService.get(ride.driver.id).subscribe({
+        next:(result) =>{
+          this.vehicles[result.id].setIcon(carPanic);
+        },
+        error:(error) =>{
+            console.log(error);
+        }
+      });
+  
+  });
     this.stompClient.subscribe('/topic/driver/ride/' + this.id, (message: { body: string; }) => {
       console.log(message);
       this.rideService.setRideStatus(false);
@@ -366,6 +396,19 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
   ngAfterViewInit(): void {
 
+    this.rideService.panicPressedValue$.subscribe((value) =>{
+      this.panicPressed = value;
+      if(this.panicPressed !== null){
+        this.vehicleService.get(value.driver.id).subscribe({
+          next:(result) =>{
+            this.vehicles[result.id].setIcon(carPanic);
+          },
+          error:(error) =>{
+              console.log(error);
+          }
+        });
+      }
+    });
 
     this.rideService.rideStatusChangedValue$.subscribe((value) => {
       this.rideDeclined = value;
