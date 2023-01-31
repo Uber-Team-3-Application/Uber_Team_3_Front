@@ -349,12 +349,19 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
 
-
+    if(this.isOnlyMap) {
+      if(this.destinationRideInfo !== '' && this.departureRideInfo !== ''){
+        this.search(this.departureRideInfo);
+        this.search(this.destinationRideInfo, true);
+      }
+      return;
+    }
     this.initializeWebSocketConnection();
     this.initializeWebSocketSimulationConnection();
 
 
     this.registerOnClick();
+
 
     this.vehicleService.getVehicleTypes()
       .subscribe(
@@ -363,6 +370,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     // get all vehicles not in an active ride currently
     // then simulate their pins
+  
     this.rideService.getAllActiveRidesWithIds().subscribe({
       next:(result) =>{
         console.log(result);

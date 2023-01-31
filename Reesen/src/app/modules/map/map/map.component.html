@@ -150,7 +150,7 @@
         <input type="checkbox" class="form-check-input" id="petTransport" name="petTransport" formControlName="petTransport">
         <label for="petTransport" class="form-check-label px-3">Pet transport</label>
       </div>
-      <div class="col-6">
+      <div class="col-6" *ngIf="role==='PASSENGER'">
         <input type="checkbox" class="form-check-input" id="schedule" name="schedule" formControlName="schedule" (click)="showDateTimePicker()">
         <label for="schedule" class="form-check-label px-3">Schedule for later:</label>
       </div>
