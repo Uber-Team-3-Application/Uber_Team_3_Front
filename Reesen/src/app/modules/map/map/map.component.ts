@@ -262,6 +262,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           this.vehicles[result.id].setIcon(greenCar);
           this.rideService.setActiveRide(false);
           this.rideService.setRideAccepted(false);
+          this.rideService.setRideStarted(false);
           this.router.navigate(['/ride-rating/' + ride.id]);
 
         },
@@ -345,6 +346,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
             this.vehicles[result.id].setIcon(greenCar);
             this.rideService.setActiveRide(false);
             this.rideService.setRideAccepted(false);
+            
+            this.rideService.setRideStarted(false);
 
           },
           error: (error) => {
@@ -409,6 +412,21 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         });
       }
     });
+
+    this.rideService.isRideStarted$.subscribe((value) =>{
+      if(value === true){
+        if (this.currentRoute != null) {
+          this.map.removeControl(this.currentRoute);
+        };
+        const route = L.Routing.control({
+          waypoints: [L.latLng(this.acceptRide.locations[0].departure.latitude, this.acceptRide.locations[0].departure.longitude), 
+          L.latLng(this.acceptRide.locations[0].destination.latitude, this.acceptRide.locations[0].destination.longitude)],
+          show: false,
+          routeWhileDragging: true,
+        }).addTo(this.map);
+        this.currentRoute = route;
+      }
+    })
 
     this.rideService.rideStatusChangedValue$.subscribe((value) => {
       this.rideDeclined = value;
