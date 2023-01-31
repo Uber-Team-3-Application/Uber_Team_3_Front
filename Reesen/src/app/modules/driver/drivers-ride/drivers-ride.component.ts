@@ -1,4 +1,4 @@
-import {AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {DriverService} from "../services/driver.service";
 
@@ -16,6 +16,20 @@ import {RideService} from "../../services/ride.service";
   styleUrls: ['./drivers-ride.component.css']
 })
 export class DriversRideComponent implements OnInit{
+  ride : Ride;
+  passengers = new Array<Passenger>;
+  reviews = new Array<Review>;
+  ratings  = 4;
+  hasLoaded  = false;
+  isOnlyMap  = true;
+  departureRideInfo = '';
+  destinationRideInfo = '';
+  userId: number;
+  rideId: number;
+  userRole: string;
+  map!: L.Map;
+  params : any;
+
   constructor(private route: ActivatedRoute,
               private driverService : DriverService,
               private rideService : RideService,
@@ -23,19 +37,7 @@ export class DriversRideComponent implements OnInit{
               private reviewService : ReviewService,
               private mapService: MapService,
               private changeDetectorRef: ChangeDetectorRef,
-              private passengerService : PassengerService) {
-  }
-
-  ride : Ride;
-  passengers = new Array<Passenger>;
-  reviews = new Array<Review>;
-  ratings : number = 4;
-  hasLoaded : boolean = false;
-  userId: number;
-  rideId: number;
-  userRole: string;
-  map!: L.Map;
-  params : any;
+              private passengerService : PassengerService) {}
 
 
   async ngOnInit() {
@@ -48,6 +50,8 @@ export class DriversRideComponent implements OnInit{
 
   async setRide(params)  {
     this.ride = await this.rideService.getPromiseRide(params["rideId"]);
+    this.departureRideInfo = this.ride.locations[0].departure.address;
+    this.destinationRideInfo = this.ride.locations[0].destination.address;
     await this.setReviews();
   }
 
@@ -97,18 +101,18 @@ export class DriversRideComponent implements OnInit{
 
   private setRatings(): void{
 
-    let reviews: Review[] = this.reviews;
+    const reviews: Review[] = this.reviews;
     if(reviews.length === 0)
     {
       this.ratings = 0;
       return;
     }
-    let totalNumberOfReviews: number = reviews.length  * 2;
-    let totalReviewScore: number = 0;
+    const totalNumberOfReviews: number = reviews.length  * 2;
+    let totalReviewScore  = 0;
     for(let j =0;j<reviews.length;j++){
 
-      let vehicleReview = reviews[j].vehicleReview;
-      let driverReview = reviews[j].driverReview;
+      const vehicleReview = reviews[j].vehicleReview;
+      const driverReview = reviews[j].driverReview;
       totalReviewScore += vehicleReview.rating;
       totalReviewScore += driverReview.rating;
     }
@@ -117,63 +121,63 @@ export class DriversRideComponent implements OnInit{
     this.setPassengers();
   }
   goBack():void{
-    this.router.navigate(['users/' + this.userId + '/' + this.userRole + '/ride-history']);
+    this.router.navigate(['driverRideHistory']);
   }
 
-   initMap() : boolean{
-
-    L.Marker.prototype.options.icon = L.icon({
-      iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
-    });
-
-      this.map = L.map('map', {
-        center: [45.249101856630546, 19.848034],
-        zoom: 16,
-      });
-
-    const tiles = L.tileLayer(
-      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      {
-        maxZoom: 18,
-        minZoom: 3,
-        attribution:
-          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      }
-    );
-    tiles.addTo(this.map);
-
-    let departure;
-    let destination;
-    this.mapService
-      .search(this.ride.locations.at(0).departure.address)
-      .subscribe(
-        {
-          next: (result) =>{
-            departure = result[0];
-          },
-          error: (error) =>{console.log(error);}
-        }
-      );
-
-    this.mapService
-      .search(this.ride.locations.at(this.ride.locations.length - 1).destination.address)
-      .subscribe(
-        {
-          next: (result) =>{
-            destination = result[0];
-            if(departure){
-              L.Routing.control({
-                waypoints: [L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)],
-                show: false,
-              }).addTo(this.map);
-
-              const bounds = L.latLngBounds([departure, destination]);
-              this.map.fitBounds(bounds);
-            }
-          },
-          error: (error) => {console.log(error);}
-        }
-      );
-    return true;
-  }
+  //  initMap() : boolean{
+  //
+  //   L.Marker.prototype.options.icon = L.icon({
+  //     iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
+  //   });
+  //
+  //     this.map = L.map('map', {
+  //       center: [45.249101856630546, 19.848034],
+  //       zoom: 16,
+  //     });
+  //
+  //   const tiles = L.tileLayer(
+  //     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  //     {
+  //       maxZoom: 18,
+  //       minZoom: 3,
+  //       attribution:
+  //         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  //     }
+  //   );
+  //   tiles.addTo(this.map);
+  //
+  //   let departure;
+  //   let destination;
+  //   this.mapService
+  //     .search(this.ride.locations.at(0).departure.address)
+  //     .subscribe(
+  //       {
+  //         next: (result) =>{
+  //           departure = result[0];
+  //         },
+  //         error: (error) =>{console.log(error);}
+  //       }
+  //     );
+  //
+  //   this.mapService
+  //     .search(this.ride.locations.at(this.ride.locations.length - 1).destination.address)
+  //     .subscribe(
+  //       {
+  //         next: (result) =>{
+  //           destination = result[0];
+  //           if(departure){
+  //             L.Routing.control({
+  //               waypoints: [L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)],
+  //               show: false,
+  //             }).addTo(this.map);
+  //
+  //             const bounds = L.latLngBounds([departure, destination]);
+  //             this.map.fitBounds(bounds);
+  //           }
+  //         },
+  //         error: (error) => {console.log(error);}
+  //       }
+  //     );
+  //   return true;
+  // }
 }

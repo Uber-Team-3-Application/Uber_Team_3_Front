@@ -12,7 +12,7 @@ import { UserService } from '../../unregistered-user/user.service';
 })
 export class LoginComponent{
     loginForm = new FormGroup(
-      { 
+      {
         email: new FormControl('', [Validators.required, Validators.minLength(4)]),
         password: new FormControl('', [Validators.required, Validators.minLength(4)])
       }
@@ -20,8 +20,8 @@ export class LoginComponent{
     hasError = false;
     email: EmailInfo;
 
-    constructor(private router:Router, 
-      private authenticationService: AuthenticationService, 
+    constructor(private router:Router,
+      private authenticationService: AuthenticationService,
       private userService: UserService){}
 
     login(){
@@ -48,19 +48,19 @@ export class LoginComponent{
         }
 
       });
-      
+
     }
 
     sendEmailReset(){
       alert("Mail sent!");
       const htmlString = `<html><head><style>
-    
+
     .btn{
         color:white;
         margin-top: 7px;
         width: 32%;
         margin-left: 34%;
-        background-color:#48786d; 
+        background-color:#48786d;
         padding:6px;
         border-radius: 8px;
         border: 1px transparent;
@@ -82,9 +82,9 @@ export class LoginComponent{
 
     .center{
       width: 50%; /* Define the width of the element */
-      margin: auto; 
+      margin: auto;
     }
-    
+
     .lbl{
         text-align: center;
         color:#48786d;
@@ -119,7 +119,7 @@ export class LoginComponent{
        this.userService.resetPasswordLink(user.id).subscribe((code: any) => {
         console.log(code);
         const emailInfo: EmailInfo = {
-          to: "karolinatrambolina@gmail.com",
+          to: "veljkobubnjevic01@gmail.com",
           subject:"Reesen - Password Reset",
           message: htmlString.replace('{{activationHtml}}', code)
         };
@@ -130,5 +130,5 @@ export class LoginComponent{
        });
       });
     }
-  
+
 }
