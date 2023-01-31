@@ -145,6 +145,23 @@ export class MapComponent implements AfterViewInit, OnDestroy {
             }
           })
       });
+
+      this.stompClient.subscribe('/topic/admin/end-ride/' + this.id, (message: {body : string})=>{
+        let ride = JSON.parse(message.body);
+        console.log(message.body);
+        
+        this.vehicleService.get(ride.driver.id).subscribe({
+          next:(result) =>{
+            this.vehicles[result.id].setIcon(greenCar);
+            this.rideService.setActiveRide(false);
+            this.rideService.setRideAccepted(false);
+            
+          },
+          error:(error) =>{
+              console.log(error);
+          }
+        })
+      });
     }
 
 
@@ -155,8 +172,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         this.acceptRide = JSON.parse(message.body);
         this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
         this.acceptNotification = true;
-
-        
       });
       this.stompClient.subscribe('/topic/driver/start-ride/' + this.id, (message: {body : string})=>{
         let ride = JSON.parse(message.body);
@@ -183,7 +198,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           error:(error) =>{
               console.log(error);
           }
-        })
+        });
       });
     
 
@@ -244,6 +259,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
             this.vehicles[result.id].setIcon(greenCar);
             this.rideService.setActiveRide(false);
             this.rideService.setRideAccepted(false);
+            this.router.navigate(['/ride-rating/'+ride.id]);
             
           },
           error:(error) =>{
