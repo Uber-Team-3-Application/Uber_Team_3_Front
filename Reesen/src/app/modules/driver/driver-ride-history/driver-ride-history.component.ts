@@ -17,7 +17,7 @@ import {ReviewService} from "../services/review.service";
 export class DriverRideHistoryComponent implements OnInit, OnDestroy{
 
   minDate = "2022-05-02T01:30" ; // default
-  maxDate = "2022-12-31T01:30"; // default
+  maxDate = "2023-02-08T01:30"; // default
 
   page:number = 1;
   totalEntries: number = 0;
