@@ -15,7 +15,7 @@ import { PassengerService } from '../passenger.service';
 export class RideHistoryComponent implements OnInit, OnDestroy{
 
   minDate = "2022-05-02T01:30" ; // default
-  maxDate = "2022-12-31T01:30"; // default
+  maxDate = "2023-12-31T01:30"; // default
 
   page:number = 1;
   totalEntries: number = 0;
