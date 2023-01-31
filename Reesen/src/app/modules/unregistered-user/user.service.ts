@@ -77,8 +77,8 @@ export class UserService {
     return this.http.get<PageRemark>(environment.apiHost + "api/user/" + userId + "/note",
     {params:params});
   }
-  resetPassword(resetPasswordDTO: any, userId: number) {
-    this.http.put<string>(environment.apiHost+'api/user/' + userId + '/resetPassword', resetPasswordDTO);
+  resetPassword(resetPasswordDTO: any, userId: number): Observable<string> {
+    return this.http.put<string>(environment.apiHost+'api/user/' + userId + '/resetPassword', resetPasswordDTO);
   }
 
   resetPasswordLink(userId: number) {
