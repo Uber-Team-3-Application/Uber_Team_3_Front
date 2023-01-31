@@ -32,16 +32,12 @@
   <br/>
   <div class="row">
     <div class="col-md-1"></div>
-    <div class="col-md-5" align="center">
-    <!-- <app-driver-card-history [date]="ride" [setFinished]="false" id="card"></app-driver-card-history> -->
-    </div>
-    <div class="col-md-1"></div>
 
     <div class="col-md-2" *ngIf="isRideStarted">
       <img src="assets/img/panic_girl.png">
     </div>
 
-    <div class="col-md-2" align="center" *ngIf="isRideStarted">
+    <div class="col-md-6 m-3" align="center" *ngIf="isRideStarted">
       <p>Something wrong? Please contact us!</p>
             <form
             id="panic"
@@ -56,7 +52,6 @@
               </div>
             </form>
     </div>
-    <div class="col-md-1"></div>
   </div>
 
 

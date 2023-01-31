@@ -50,7 +50,7 @@ export class PassengerService {
   }
 
   getAll():Observable<Passenger[]>{
-    return this.http.get<Passenger[]>(environment.apiHost + '/api/passenger');
+    return this.http.get<Passenger[]>(environment.apiHost + 'api/passenger');
   }
 
   save(newPassenger: any) : Observable<Passenger> {
