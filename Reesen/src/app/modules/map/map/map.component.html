@@ -58,7 +58,7 @@
 
 <app-accept-ride [acceptRide]="acceptRide" [role]="role" *ngIf="acceptNotification && role==='DRIVER' && !rideDeclined  && !waitingForRide"></app-accept-ride>
 
-<div *ngIf="!showGetRide && !waitingForRide && !rideAccepted" class="overlay">
+<div *ngIf="!showGetRide && !waitingForRide && !rideAccepted && role!=='DRIVER'" class="overlay">
   <span><button class="ride-button my-button" type="button" (click)="openGetRide()">
     <span *ngIf="role!=='PASSENGER'">Get Ride Info</span>
     <span *ngIf="role==='PASSENGER'">Order A Ride</span>
