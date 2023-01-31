@@ -114,12 +114,12 @@ export class LoginComponent{
             <p class="text-center lbl">This email was sent to you by Reesen Inc. You are receiving this email because you registred on our website. If this wasn't you, please ignore this mail.</p>
       </div>
       </html>`;
-      this.userService.findByEmail(this.loginForm.get('email').value).subscribe((user: any) => {
+      this.userService.findByEmail(this.loginForm.value.email).subscribe((user) => {
        console.log(user);
-       this.userService.resetPasswordLink(user.id).subscribe((code: any) => {
+       this.userService.resetPasswordLink(user.id).subscribe((code) => {
         console.log(code);
         const emailInfo: EmailInfo = {
-          to: "veljkobubnjevic01@gmail.com",
+          to: this.loginForm.value.email,
           subject:"Reesen - Password Reset",
           message: htmlString.replace('{{activationHtml}}', code)
         };

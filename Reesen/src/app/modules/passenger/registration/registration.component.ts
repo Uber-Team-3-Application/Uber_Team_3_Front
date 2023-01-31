@@ -120,7 +120,7 @@ export class RegistrationComponent {
         console.log(html);
 
       const emailInfo: EmailInfo = {
-        to: "karolinatrambolina@gmail.com",
+        to: this.registerForm.value.email,
         subject:"Reesen - Account activation",
         message: htmlString.replace('{{activationHtml}}', "http://localhost:4200/activationPage?url=")
       };
