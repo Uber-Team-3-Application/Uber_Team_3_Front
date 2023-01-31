@@ -36,6 +36,7 @@ import { PanicPressedComponent } from './modules/admin/panic-pressed/panic-press
 import { PassengersRideComponent } from './modules/passenger/pasnegers-ride/passengers-ride.component';
 import { PassengerReportsComponent } from './modules/passenger/passenger-reports/passenger-reports.component';
 import { RateRideComponent } from './modules/map/rate-ride/rate-ride.component';
+import { PassengersInfoComponent } from './modules/passenger/passengers-info/passenger-info.component';
 
 
 const routes: Routes = [
@@ -62,6 +63,7 @@ const routes: Routes = [
   {path:'ride-rating/:rideId', component:RateRideComponent},
   {path:'panic-notification', component:PanicPressedComponent},
   {path: 'passengerInfo/:id/:rideId', component: PassengerInfoComponent},
+  {path: 'passengersInfo/:id/:rideId', component: PassengersInfoComponent},
   {path: 'driverRideHistory', component:DriverRideHistoryComponent},
   { path: 'driversRide/:rideId', component: DriversRideComponent },
   {path: 'rideHistory', component: RideHistoryComponent},
