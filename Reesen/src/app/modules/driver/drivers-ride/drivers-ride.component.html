@@ -48,18 +48,15 @@
         </div>
 
         <div class="row py-2" >
-          <div class="map-container">
-            <div class="map-frame">
-              <div id="map"></div>
-            </div>
-          </div>
+          <app-map [isOnlyMap]="isOnlyMap" [departureRideInfo]="departureRideInfo" [destinationRideInfo]="destinationRideInfo"></app-map>
+
         </div>
       </div>
 
       <div class="col-12 col-md-5">
 
         <div class="row">
-          <div class="col-12 px-5 d-flex flex-row-reverse">
+          <div class="col-8 px-5 d-flex flex-row-reverse">
                         <span class="d-flex justify-content-between align-items-center ratingBar" >
                             <div  class="ratings">
                                 <i class="fa fa-star" *ngIf="ratings < 1"></i>
@@ -74,6 +71,9 @@
                                 <i class="fa fa-star" *ngIf="ratings < 5"></i>
                             </div>
                         </span>
+          </div>
+          <div class="col-4">
+            <button type="button" class="reesen-button cancel-button" (click)="goBack()">Go Back</button>
           </div>
         </div>
         <div class="row"><br/></div>
