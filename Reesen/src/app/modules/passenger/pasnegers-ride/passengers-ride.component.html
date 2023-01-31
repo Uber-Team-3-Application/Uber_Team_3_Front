@@ -77,7 +77,7 @@
           <button (click)="openBox()" *ngIf="!openFavBox">Add to favorites</button>
           <div class="blargh" *ngIf="openFavBox">
             <p>Enter name for favorite ride:</p>
-            <input type="text" id="name" placeholder="Home to Work">
+            <input type="text" id="name" placeholder="Home to Work" [(ngModel)]="favoriteRideName">
             <button (click)="addFavoriteRide()">Add to favorites</button>
           </div>
         </div>

@@ -43,7 +43,7 @@ export class PassengersRideComponent implements AfterViewInit, OnDestroy {
   departureRideInfo = '';
   destinationRideInfo = '';
   isOnlyMap = true;
-
+  favoriteRideName:string;
   openFavBox: boolean = false;
 
 
@@ -191,7 +191,7 @@ export class PassengersRideComponent implements AfterViewInit, OnDestroy {
   addFavoriteRide() {
     this.openFavBox = false;
     const fav: CreateFavoriteRide = {
-      favoriteName: "home",
+      favoriteName: this.favoriteRideName,
       babyTransport: this.ride.babyTransport,
       petTransport: this.ride.petTransport,
       locations: this.ride.locations,
@@ -201,7 +201,7 @@ export class PassengersRideComponent implements AfterViewInit, OnDestroy {
     this.rideService.addFavoriteRide(fav).subscribe(
       {
         next: (result) => {
-          
+          console.log(result);
         },
         error: (error) => { console.log(error); }
       }
