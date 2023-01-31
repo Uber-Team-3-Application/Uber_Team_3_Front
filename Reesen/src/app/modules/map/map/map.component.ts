@@ -98,7 +98,11 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
       const newLocation = JSON.parse(message.body);
       const vehicle = this.vehicles[newLocation.id];
-      vehicle.setIcon(carMyRide);
+      if(this.role === 'PASSENGER' || this.role === 'DRIVER'){
+        vehicle.setIcon(carMyRide);
+      }else{
+        vehicle.setIcon(redCar);
+      }
       vehicle.setLatLng([newLocation.longitude, newLocation.latitude]);
       
     });
@@ -114,7 +118,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   openGlobalSocket() {
-    if(this.id){
+    if(this.id && this.role !== 'ADMIN'){
       this.stompClient.subscribe('/topic/panic/' + this.id, (message: { body: string }) => {
           let ride = JSON.parse(message.body);
           this.vehicleService.get(ride.driver.id).subscribe({
@@ -124,10 +128,25 @@ export class MapComponent implements AfterViewInit, OnDestroy {
             error:(error) =>{
                 console.log(error);
             }
-          })
+          });
       
       });
+      
     }
+    if(this.role==='ADMIN'){
+      this.stompClient.subscribe('/topic/admin/panic/' + this.id, (message: {body:string}) =>{
+          let ride = JSON.parse(message.body);
+          this.vehicleService.get(ride.driver.id).subscribe({
+            next:(result) =>{
+              this.vehicles[result.id].setIcon(carPanic);
+            },
+            error:(error) =>{
+                console.log(error);
+            }
+          })
+      });
+    }
+
 
     if (this.role === 'DRIVER') {
       this.stompClient.subscribe('/topic/driver/ride/' + this.id, (message: { body: string }) => {
