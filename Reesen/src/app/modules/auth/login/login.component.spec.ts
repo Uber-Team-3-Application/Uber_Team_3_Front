@@ -4,12 +4,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router, RouterModule } from '@angular/router';
+import { UsersInfoComponent } from '../../admin/users-info/users-info.component';
 import { UserService } from '../../unregistered-user/user.service';
 import { AuthenticationService } from '../authentication.service';
 
 import { LoginComponent } from './login.component';
 
-describe('LoginComponent', () => {
+fdescribe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let de: DebugElement;
@@ -17,25 +18,32 @@ describe('LoginComponent', () => {
   let authenticationService: jasmine.SpyObj<AuthenticationService>;
   let userService: jasmine.SpyObj<UserService>;
   let router: jasmine.SpyObj<Router>;
-  
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+
+  beforeEach(() => {
+
+    const userServiceSpy = jasmine.createSpyObj<UserService>(['findByEmail','resetPasswordLink','sendEmail']);
+    const authenticationServiceSpy = jasmine.createSpyObj<AuthenticationService>(['login', 'setUser']);
+    const routerSpy = jasmine.createSpyObj<Router>(['navigate']);
+    TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
       imports:[
         CommonModule,
         ReactiveFormsModule,
         RouterModule,
+      ],
+      providers:[
+        {provide: UserService, useValue: userServiceSpy},
+        {provide: AuthenticationService, useValue: authenticationServiceSpy},
+        {provide: Router, useValue: routerSpy}
       ]
     })
     .compileComponents();
+
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  beforeEach(() =>{
-
-  })
 
 
   it('should create', () => {
