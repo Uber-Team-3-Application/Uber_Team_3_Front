@@ -8,6 +8,7 @@ describe('PanicService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(PanicService);
+    
   });
 
   it('should be created', () => {
