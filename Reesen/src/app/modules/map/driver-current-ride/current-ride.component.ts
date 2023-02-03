@@ -64,7 +64,7 @@ export class CurrentRideComponent implements OnInit, AfterViewInit {
         this.toggleTimer();
 
     })
-
+    this.isRideStarted = false;
   }
 
   ngAfterViewInit() {
