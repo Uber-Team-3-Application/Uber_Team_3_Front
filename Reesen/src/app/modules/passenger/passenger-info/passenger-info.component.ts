@@ -17,6 +17,7 @@ export class PassengerInfoComponent {
   rideId : string;
   user: User;
   numId: number;
+  hasLoaded = false;
 
   constructor(private route: ActivatedRoute,
               private passengerService: PassengerService,
@@ -25,11 +26,12 @@ export class PassengerInfoComponent {
               private userService: UserService){}
 
   ngOnInit(): void {
+    this.hasLoaded = false;
     this.id = this.route.snapshot.paramMap.get('id');
     this.rideId = this.route.snapshot.paramMap.get('rideId');
     this.numId = +this.id;
     this.getPassenger( this.numId);
-
+    this.hasLoaded = true;
   }
 
 
