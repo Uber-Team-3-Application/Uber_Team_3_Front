@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
 import { EmailInfo } from 'src/app/models/Email';
 import { PageRemark, Remark } from 'src/app/models/Remark';
-import { RideInfo, RideInfoBody } from 'src/app/models/Ride';
+import { RideInfo, RideInfoBody, RidePaginated } from 'src/app/models/Ride';
 import { PageUsers, User } from 'src/app/models/User';
 
 @Injectable({
@@ -67,7 +67,7 @@ export class UserService {
 
   }
 
-  createRemark(userId: number, message: string): Observable<Remark>{
+  createRemark(userId: number, message: Remark): Observable<Remark>{
     return this.http.post<Remark>(environment.apiHost + "api/user/" + userId + "/note", message);
   }
   getRemarks(userId: number, page: number, size: number): Observable<PageRemark>{
@@ -77,16 +77,34 @@ export class UserService {
     return this.http.get<PageRemark>(environment.apiHost + "api/user/" + userId + "/note",
     {params:params});
   }
-  resetPassword(resetPasswordDTO: any, userId: number) {
-    this.http.put<String>(environment.apiHost+'user/' + userId + '/resetPassword', resetPasswordDTO);
+  resetPassword(resetPasswordDTO: any, userId: number): Observable<string> {
+    return this.http.put<string>(environment.apiHost+'api/user/' + userId + '/resetPassword', resetPasswordDTO);
   }
 
   resetPasswordLink(userId: number) {
-    return this.http.get<String>(environment.apiHost+'user/' + userId + '/resetPassword');
+    return this.http.get<string>(environment.apiHost+'api/user/' + userId + '/resetPassword');
+  }
+  
+  findByEmail(email: string): Observable<User> {
+    let params = new HttpParams();
+    params = params.append('email', email);
+    return this.http.get<User>(environment.apiHost + 'api/user/email', { params: params });
   }
 
-  findByEmail(email: any): Observable<any>{
-    return this.http.get<User>(environment.apiHost+'user/email?email=' + email);
+  getRides(userId: number, page:number, size:number, sort:string, from:string, to:string): Observable<RidePaginated>{
+    let params = new HttpParams();
+    params = params.append('page', page);
+    params = params.append('size', size);
+    params = params.append('sort', sort);
+    if(from !== null)
+      params = params.append('from', from);
+    if(to !== null)
+      params = params.append('to', to);
+    return this.http.get<RidePaginated>(environment.apiHost + 'api/user/' + userId + '/ride',
+    {params: params});
   }
 
+  getTotalNumberOfRidesForUser(id: number): Observable<number>{
+    return this.http.get<number>(environment.apiHost + "api/user/" + id + '/number-of-rides');
+  }
 }

@@ -1,0 +1,67 @@
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>
+        <span><img src="assets/img/history.png" class="history_icon"></span>
+        <span class="timing">{{ride.startTime | date : "dd.MM.yyyy. HH:mm" : "UTC"}}</span>
+        <span class="timing"> - </span>
+        <span class="timing">{{ride.endTime | date : "dd.MM.yyyy. HH:mm" : "UTC"}}<span *ngIf="!isFinished">(estimated)</span>
+        </span>
+        <br/>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <span class="rideText">{{ride.locations.at(0).departure.address}}</span> -
+        <span class="rideText">{{ride.locations.at(ride.locations.length-1).destination.address}}</span>
+      </mat-card-subtitle>
+      <img mat-card-sm-image class="vehicle_img" src="assets/img/van.png" alt="vehicle" *ngIf="ride.vehicleType === 'VAN'">
+      <img mat-card-sm-image class="vehicle_img" src="assets/img/luxury.png" alt="vehicle" *ngIf="ride.vehicleType === 'LUXURY'">
+      <img mat-card-sm-image class="vehicle_img" src="assets/img/standard.png" alt="vehicle" *ngIf="ride.vehicleType ==='STANDARD'">
+      <img mat-card-sm-image class="transport_img" src="assets/img/baby_transport.png" alt="vehicle" *ngIf="ride.babyTransport">
+      <img mat-card-sm-image class="vehicle_img" src="assets/img/pet_transport.png" alt="vehicle" *ngIf="ride.petTransport">
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content>
+
+    <table>
+      <tr>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Start station:  </td>
+        <td colspan="3">{{ride.locations.at(0).departure.address}}</td>
+      </tr>
+      <tr>
+        <td>End station: </td>
+        <td colspan="3">{{ride.locations.at(ride.locations.length-1).destination.address}}</td>
+      </tr>
+      <tr>
+        <td>Passengers:</td>
+        <td>{{ride.passengers.length}}</td>
+      </tr>
+      <tr>
+        <td>Price:</td>
+        <td>{{ride.totalCost}}</td>
+        <td >
+
+          <span class="d-flex justify-content-between align-items-center ratingBar" *ngIf="isFinished" >
+            <div id = "ratings" class="ratings">
+              <i class="fa fa-star" *ngIf="rating < 1"></i>
+              <i class="fa fa-star rating-color" *ngIf="rating >= 1" ></i>
+              <i class="fa fa-star rating-color" *ngIf="rating >= 2"></i>
+              <i class="fa fa-star" *ngIf="rating < 2"></i>
+              <i class="fa fa-star rating-color" *ngIf="rating >= 3"></i>
+              <i class="fa fa-star" *ngIf="rating < 3"></i>
+              <i class="fa fa-star rating-color" *ngIf="rating >= 4"></i>
+              <i class="fa fa-star" *ngIf="rating < 4"></i>
+              <i class="fa fa-star rating-color" *ngIf="rating >= 5"></i>
+              <i class="fa fa-star" *ngIf="rating < 5"></i>
+            </div>
+          </span>
+        </td>
+      </tr>
+    </table>
+
+  </mat-card-content>
+</mat-card>
+

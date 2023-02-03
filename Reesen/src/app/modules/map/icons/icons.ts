@@ -15,3 +15,19 @@ export const redCar = L.icon({
     iconAnchor: [ 15, 30],
     popupAnchor: [-3, -76]
 });
+
+export const carMyRide = L.icon({
+    iconUrl: '../../../assets/img/car-current-ride.png',
+
+    iconSize: [30, 30],
+    iconAnchor: [ 15, 30],
+    popupAnchor: [-3, -76]
+});
+
+export const carPanic = L.icon({
+    iconUrl: '../../../assets/img/car-panic.png',
+
+    iconSize: [50, 50],
+    iconAnchor: [ 15, 30],
+    popupAnchor: [-3, -76]
+});

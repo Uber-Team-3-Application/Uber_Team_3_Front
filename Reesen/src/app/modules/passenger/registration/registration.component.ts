@@ -1,4 +1,3 @@
-import { verifyHostBindings } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -25,10 +24,10 @@ export class RegistrationComponent {
   });
   hasError: boolean;
   email: EmailInfo;
-  avatarBase64: string = "";
+  avatarBase64 = "";
 
   constructor(private passengerService: PassengerService, private userService: UserService, private router: Router){
-    
+
   }
 
   get password() { return this.registerForm.get('password'); }
@@ -43,7 +42,7 @@ export class RegistrationComponent {
     console.log(this.registerForm)
      if(this.registerForm.valid){
       this.hasError = false;
-      alert("Succesfully registrated!");
+      alert("Successfully registered!");
       const passenger: Passenger = {
         name : this.registerForm.value.name,
         surname : this.registerForm.value.surname,
@@ -55,13 +54,13 @@ export class RegistrationComponent {
         active : false
       };
       const htmlString = `<html><head><style>
-    
+
     .btn{
         color:white;
         margin-top: 7px;
         width: 32%;
         margin-left: 34%;
-        background-color:#48786d; 
+        background-color:#48786d;
         padding:6px;
         border-radius: 8px;
         border: 1px transparent;
@@ -83,9 +82,9 @@ export class RegistrationComponent {
 
     .center{
       width: 50%; /* Define the width of the element */
-      margin: auto; 
+      margin: auto;
     }
-    
+
     .lbl{
         text-align: center;
         color:#48786d;
@@ -117,15 +116,13 @@ export class RegistrationComponent {
       </html>`;
       this.passengerService.save(passenger).subscribe((pass: any) => {
        console.log(pass);
-       //this.passengerService.activatePassenger(pass.id).subscribe((html: any) => {
-        const html = 'mNBGYIOLmnbvsdghKMNbasvdi'
+       this.passengerService.activatePassenger(pass.id).subscribe((html: any) => {
         console.log(html);
 
-      // });
       const emailInfo: EmailInfo = {
-        to: "karolinatrambolina@gmail.com",
+        to: this.registerForm.value.email,
         subject:"Reesen - Account activation",
-        message: htmlString.replace('{{activationHtml}}', "http://localhost:4200/activationPage?token=")
+        message: htmlString.replace('{{activationHtml}}', "http://localhost:4200/activationPage?url=")
       };
       this.userService.sendEmail(emailInfo)
         .subscribe(
@@ -133,6 +130,7 @@ export class RegistrationComponent {
         );
         this.router.navigate(['/activation'])
       });
+    });
      }else{
       this.hasError = true;
       alert("ne valja")

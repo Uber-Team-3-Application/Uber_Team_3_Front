@@ -11,6 +11,15 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { EditUserProfileComponent } from './edit-user-profile/edit-user-profile.component';
 import { EditDriverVehicleComponent } from './edit-driver-vehicle/edit-driver-vehicle.component';
 import { EditRequestsComponent } from './edit-requests/edit-requests.component';
+import { UserRideHistoryComponent } from './user-ride-history/user-ride-history.component';
+import { UserRideInfoComponent } from './user-ride-info/user-ride-info.component';
+import { ReportsComponent } from './reports/reports.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { GraphsModule } from '../graphs/graphs.module';
+import { PanicNotificationComponent } from './panic-notification/panic-notification.component';
+import { PanicPageAdminComponent } from './panic-page-admin/panic-page-admin.component';
+import { PanicPressedComponent } from './panic-pressed/panic-pressed.component';
+import { MapModule } from '../map/map.module';
 
 @NgModule({
   declarations: [
@@ -21,15 +30,25 @@ import { EditRequestsComponent } from './edit-requests/edit-requests.component';
     UserDetailsComponent,
     EditUserProfileComponent,
     EditDriverVehicleComponent,
-    EditRequestsComponent
+    EditRequestsComponent,
+    UserRideHistoryComponent,
+    UserRideInfoComponent,
+    ReportsComponent,
+    PanicNotificationComponent,
+    PanicPageAdminComponent,
+    PanicPressedComponent
+
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     NgxPaginationModule,
-    AppRoutingModule
+    AppRoutingModule,
+    GraphsModule,
+    NgxChartsModule,
+    MapModule
   ],
-  exports: [ DriverRegistrationComponent, UsersInfoComponent]
+  exports: [ DriverRegistrationComponent, UsersInfoComponent, ReportsComponent, PanicPageAdminComponent, PanicPressedComponent]
 })
 export class AdminModule { }

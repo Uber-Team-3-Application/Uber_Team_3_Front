@@ -11,10 +11,15 @@ import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { DriverModule } from './modules/driver/driver.module';
 import { UserModule } from './modules/unregistered-user/user.module';
-import {Interceptor} from './modules/auth/interceptor/interceptor'
+import {Interceptor} from './modules/auth/interceptor/interceptor';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { A11yModule } from '@angular/cdk/a11y';
+import {LeafletModule} from "@asymmetrik/ngx-leaflet";
+
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -28,8 +33,10 @@ import {Interceptor} from './modules/auth/interceptor/interceptor'
     AuthModule,
     DriverModule,
     UserModule,
-
-
+    MatTableModule,
+    MatSortModule,
+    A11yModule,
+    LeafletModule
   ],
   providers: [
     {  provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },],

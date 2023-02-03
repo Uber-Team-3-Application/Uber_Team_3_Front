@@ -1,0 +1,82 @@
+<section class="reports mt-5 reesen-green-text-color" *ngIf="hasLoaded">
+
+    <div class="row">
+        <div class="col-md-4 col-12 text-center">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Select Date Range:</h2>
+                    </div>
+                    
+                    <div class="col-12">
+                        <div class="col-12 my-3">
+                            <label for="startDate">Start date:</label>
+                        </div>
+                        <input type="date" id="endDate" name="startDate"
+                            value="2022-10-10" [(ngModel)]="startDate" (change)="setSelectedStartDate()">
+                    </div>
+                    <div class="col-12 my-3">
+                        <label for="endDate">End date:</label>
+                    </div>
+                    <div class="col-12">
+                        
+                        <input type="date" id="startDate" name="endDate"
+                            value="2023-07-22"  [(ngModel)]="endDate" (change)="setSelectedEndDate()">
+                    </div>
+                        <div class="col-12 my-4">
+                            <div class="row">
+                                <div class="col-2">
+
+                                </div>
+                                <div class="col-2 pt-2">
+                                    For:
+                                </div>
+                                <div class="col-4">
+                                    <select name="sort" id="select"
+                                     [(ngModel)]="selectedUser" class="dropdown-drivers">
+                                    <option >All</option>
+                                    <option *ngFor="let driver of drivers">{{driver.id}} {{driver.email}}</option>
+        
+                                </select> 
+                                </div>
+                            </div>
+                        
+                        </div>
+                    <div class="col-12">
+                        <button type="button" class="reesen-button confirmation-button mt-5" (click)="generateReports()">Generate</button>
+                    </div>
+                    <div class="col-12">
+                        <button type="button" class="reesen-button confirmation-button mt-5" (click)="resetData()">RESET</button>
+                    </div>
+                </div>
+
+        </div>
+        <div class="col-md-8 col-12 text-center border-left" *ngIf="reportsGenerated">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2>Rides Per Day</h2>
+                    </div>
+                    <div class="col-12">
+                        <app-rides-per-day [startDate]="startDate" [endDate]="endDate" [role]="role" [typeOfReport]="typeRidesPerDay" [driverId]="driverId"></app-rides-per-day>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2>Spent/Earned per day</h2>
+                    </div>
+                    <div class="col-12">
+                        <app-rides-per-day [startDate]="startDate" [endDate]="endDate" [role]="role" [typeOfReport]="typeEarnedPerDay" [driverId]="driverId"></app-rides-per-day>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2>Kilometers per day</h2>
+                    </div>
+                    <div class="col-12">
+                        <app-rides-per-day [startDate]="startDate" [endDate]="endDate" [role]="role" [typeOfReport]="typeKilometersPerDay" [driverId]="driverId"></app-rides-per-day>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+</section>

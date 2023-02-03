@@ -16,7 +16,10 @@ export class UserDetailsComponent implements OnInit{
   role: string;
   user: User;
   numId: number;
-  constructor(private route: ActivatedRoute, 
+  hasLoaded = false;
+
+
+  constructor(private route: ActivatedRoute,
     private passengerService: PassengerService,
     private driverService: DriverService,
     private router: Router,
@@ -35,12 +38,12 @@ export class UserDetailsComponent implements OnInit{
   getDriver(id:number): void{
     this.driverService.get(id)
         .subscribe(
-          (driver) => {this.user = driver; 
+          (driver) => {this.user = driver;
             console.log(this.user);
 
             this.userService.getUserIsBlocked(this.numId)
                 .subscribe(
-                (blocked) =>{ this.user.blocked = blocked; console.log(blocked);}
+                (blocked) =>{ this.user.blocked = blocked; console.log(blocked); this.hasLoaded = true;}
                 )
           }
         );
@@ -52,21 +55,24 @@ export class UserDetailsComponent implements OnInit{
           (passenger) => {this.user = passenger;console.log(this.user);
             this.userService.getUserIsBlocked(this.numId)
                 .subscribe(
-                (blocked) =>{ this.user.blocked = blocked; console.log(blocked);}
+                (blocked) =>{ this.user.blocked = blocked; console.log(blocked); this.hasLoaded = true;}
                 )
-          
+
           }
         );
   }
 
+  showUserRideHistory():void{
+    this.router.navigate(['users/' + this.id + '/' + this.role + '/ride-history']);
+  }
 
-  editUserProfile():void{ 
+  editUserProfile():void{
     this.router.navigate(['users/' + this.id + '/' + this.role + '/edit']);
   }
 
   editVehicleInfo():void{
     this.router.navigate(['users/' + this.id  + '/' + this.role + '/edit-vehicle']);
-     
+
   }
 
   goBack():void{

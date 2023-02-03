@@ -1,0 +1,57 @@
+
+<div  class="overlay" *ngIf="isCardLoaded">
+  <h2 align="center">Current ride</h2>
+
+  <h3 *ngIf="role === 'PASSENGER' && !isRideStarted" align="center">
+    <br/>Waiting for driver to arive...
+  </h3>
+
+  <div class="row first">
+    <div class="col-md-2 stop-watch" *ngIf="isRideStarted">
+      <div class="stop-watch">
+        <div class="display">{{displayTimer}}</div>
+      </div>
+    </div>
+    <div class="col-md-10"></div>
+  </div>
+
+  <div class="row" *ngIf = "!isRideStarted && role==='DRIVER'">
+    <div class="col-md-12" align="center">
+      <button class="startRidebtn" (click)="startRide()">START RIDE</button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf = "role === 'DRIVER' && isRideStarted">
+    <div class="col-md-6" align="right">
+    <button class="startRidebtn" (click)="finishRide()">FINISH RIDE</button>
+    </div>
+    <div class="col-md-6" align="left">
+      <button class="startRidebtn" (click)="toggleTimer()">STOP</button></div>
+  </div>
+
+  <br/>
+  <div class="row">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-2" *ngIf="isRideStarted">
+      <img src="assets/img/panic_girl.png">
+    </div>
+
+    <div class="col-md-6 m-3" align="center" *ngIf="isRideStarted">
+      <p>Something wrong? Please contact us!</p>
+            <form
+            id="panic"
+          [formGroup]="panicForm"
+          (ngSubmit)="sendPanic()">
+              <div class="form-group" *ngIf="!isNotePressed" >
+                <label for="inputNote"></label>
+                <input type="text" formControlName="inputNote" class="form-control" id="inputNote" aria-describedby="emailHelp" placeholder="What's wrong ?">
+                <small id="emailHelp" class="form-text text-muted">We'll do our best to solve the problem as soon as possible</small>
+                <br/>
+                <button type="submit" class="panicBtn">PANIC</button>
+              </div>
+            </form>
+    </div>
+  </div>
+
+</div>

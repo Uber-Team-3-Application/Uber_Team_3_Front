@@ -1,22 +1,44 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
 import { Passenger } from 'src/app/models/Passenger';
+import { Ride, RidePaginated } from 'src/app/models/Ride';
 @Injectable({
   providedIn: 'root'
 })
 export class PassengerService {
 
-  constructor(private http: HttpClient) { }
-    
-  activatePassenger(id: number): Observable<any> {
-    console.log(id)
-    return this.http.get<any>(environment.apiHost+'api/passenger/activate/' + id);
+  getRidesOfPassenger(id: number, sort?:string, from?:string, to?:string, page?:number, size?:number) : Observable<RidePaginated> {
+
+    let params = new HttpParams();
+
+    if (sort != undefined)
+      params = params.append("sort", sort);
+
+    if (from != undefined) {
+      params = params.append("from", from);
+      params = params.append("to", to);
+    }
+
+    if (page != undefined) {
+      params = params.append('page', page);
+      params = params.append('size', size);
+    }
+     return this.http.get<RidePaginated>(environment.apiHost + "api/passenger/" + id + "/ride", {
+      params: params
+    });
   }
 
-  activatePassengerAccount(id: number): Observable<any>{
-    return this.http.get<String>(environment.apiHost+'api/passenger/activate/account' + id);
+  constructor(private http: HttpClient) { }
+    
+  activatePassenger(id: number): Observable<string> {
+    return this.http.get<string>(environment.apiHost+'api/passenger/activate/' + id, {responseType: 'text' as 'json'});
+  }
+
+  activateAccount(url: string): Observable<string> {
+    const params = new HttpParams().set('url', url);
+    return this.http.get<string>(environment.apiHost+'api/passenger/activate/account', { params });
   }
 
   findByEmail(email: string): Observable<Passenger> {
@@ -28,15 +50,19 @@ export class PassengerService {
   }
 
   getAll():Observable<Passenger[]>{
-    return this.http.get<Passenger[]>(environment.apiHost + '/api/passenger');
+    return this.http.get<Passenger[]>(environment.apiHost + 'api/passenger');
   }
 
-  save(newPassenger: any) : Observable<any> {
-      return this.http.post<string>(environment.apiHost + "api/passenger", newPassenger)
+  save(newPassenger: any) : Observable<Passenger> {
+      return this.http.post<Passenger>(environment.apiHost + "api/passenger", newPassenger)
     }
 
   edit(passenger: Passenger, id:number): Observable<Passenger>{
     return this.http.put<Passenger>(environment.apiHost + "api/passenger/" + id, passenger)
+  }
+
+  getRides(passengerId: number): Observable<Ride[]> {
+    return this.http.get<Ride[]>(environment.apiHost + "api/passenger/" + passengerId + "/ride")
   }
 
 }

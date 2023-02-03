@@ -1,0 +1,62 @@
+img {
+  width: 76%;
+}
+ p {
+   font-size: 22px;
+   font-style: italic;
+ }
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  margin-top: +10px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  margin-right: 0;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+ button {
+   margin-top: +5px;
+   margin-right: 0;
+   background-color: #578979;
+   border: 2px solid #578979;
+   border-radius: 10px;
+   color: white;
+ }
+
+.name {
+  font-weight: bolder;
+  margin-right: +5px;
+}
+
+.btn {
+  width: +15px;
+}
+
+#error {
+  color: red;
+  font-size: 12px;
+}
+
+
+
+.add-document{
+  width: 80%;
+  height: auto;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  margin: 20px auto;
+  background-color: #578979;
+  font-size: 16px;
+  color: white;
+  font-weight: 600;
+  border: 2px solid #578979;
+  border-radius: 6px;
+}
+
+.add-document button {
+  border: 2px solid white;
+
+}

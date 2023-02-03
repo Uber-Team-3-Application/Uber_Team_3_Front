@@ -16,6 +16,7 @@ export class PassengerProfileEditPasswordComponent {
     newPassword: new FormControl('', [Validators.required, Validators.minLength(4)]),
     repeatNewPassword: new FormControl('', [Validators.required, Validators.minLength(4)]),
   });
+  hasError = false;
 
   constructor(private router: Router,
               private userService: UserService,
@@ -23,7 +24,6 @@ export class PassengerProfileEditPasswordComponent {
 
   }
 
-  hasError:boolean = false;
   
   edit():void{
     if(this.editPasswordForm.valid){

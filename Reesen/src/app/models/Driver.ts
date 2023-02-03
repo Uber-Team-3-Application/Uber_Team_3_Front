@@ -11,6 +11,15 @@ export interface Driver{
     blocked?:boolean;
 }
 
+export interface WorkingHours{
+    id?:number;
+    start?:Date;
+    end?:Date;
+}
+export interface PaginatedDriver{
+    totalCount: number;
+    results:Driver[];
+}
 export interface DriverActivityDTO{
     active:boolean;
 }
@@ -37,3 +46,4 @@ export interface DriverEditVehicleRequest{
     vtype:string;
 
 }
+

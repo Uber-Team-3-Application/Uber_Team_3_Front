@@ -18,8 +18,9 @@ export class EditUserProfileComponent implements OnInit{
   id: string;
   role: string;
   user: User;
-  avatarBase64: string = "";
+  avatarBase64 = "";
   numId: number;
+  hasLoaded = false;
   constructor(private route: ActivatedRoute, 
     private passengerService: PassengerService,
     private driverService: DriverService,
@@ -39,6 +40,7 @@ export class EditUserProfileComponent implements OnInit{
     remarks: Remark[];
 
     ngOnInit(): void {
+      this.hasLoaded = false;
       this.id = this.route.snapshot.paramMap.get('id');
       this.role = this.route.snapshot.paramMap.get('role');
       this.numId = +this.id;
@@ -53,7 +55,7 @@ export class EditUserProfileComponent implements OnInit{
             (res) => {this.user = res;
               this.userService.getUserIsBlocked(this.numId)
                 .subscribe(
-                (blocked) =>{ this.user.blocked = blocked; console.log(blocked);}
+                (blocked) =>{ this.user.blocked = blocked; console.log(blocked); this.hasLoaded = true;}
                 )
             }
           )
@@ -64,7 +66,7 @@ export class EditUserProfileComponent implements OnInit{
             (res) => {this.user = res;
               this.userService.getUserIsBlocked(this.numId)
                 .subscribe(
-                (blocked) =>{ this.user.blocked = blocked; console.log(blocked);}
+                (blocked) =>{ this.user.blocked = blocked; console.log(blocked);this.hasLoaded = true;}
                 )
             }
           )
@@ -173,16 +175,21 @@ export class EditUserProfileComponent implements OnInit{
     }
 
     addNote():void {
-      let noteInput = document.getElementById("addNote") as HTMLInputElement;
-      let value = noteInput.value;
+      const noteInput = document.getElementById("addNote") as HTMLInputElement;
+      const value = noteInput.value;
       if(value.trim().length < 3) return;
       const newNote: Remark ={
-        message: value,
-        date: new Date(),
+        message: value
       }
-      this.remarks.push(newNote);
-      this.userService.createRemark(this.numId, value)
-          .subscribe();
+      this.userService.createRemark(this.numId, newNote)
+          .subscribe(
+            {
+              next:(result) =>{
+                this.remarks.push(result);
+              },
+              error:(error) =>{console.log(error);}
+            }
+          );
       noteInput.value = "";
     }
 

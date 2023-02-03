@@ -1,0 +1,22 @@
+.rating{
+    border: 6px solid #578979;
+}
+
+input[type="text"]{
+    width: 80%;
+    padding: 20px;
+    margin-top: 10px;
+}
+.star-size{
+    font-size: 30px;
+}
+.rating-bar{
+    margin-left: 42%;
+}
+.text-bold{
+    font-weight: bolder;
+    letter-spacing: 3px;
+}
+.text-size-big{
+    font-size: 20px;
+}

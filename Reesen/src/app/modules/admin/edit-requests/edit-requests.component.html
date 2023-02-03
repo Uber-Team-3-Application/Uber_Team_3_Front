@@ -10,7 +10,7 @@
     </div>
 
     <div class="profile-requests text-center table-responsive" *ngIf="profileClicked">
-        <div *ngIf="profileRequests.length == 0">No requests to show!</div>
+        <div *ngIf="profileRequests.length === 0">No requests to show!</div>
         <table class="table table-hover table-properties table-bordered overflow-auto" id="userTable" *ngIf="profileRequests.length > 0">
             <thead class="thead-properties">
             <tr>
@@ -50,7 +50,7 @@
         </table>
     </div>
     <div class="vehicle-requests text-center table-responsive" *ngIf="vehicleClicked">
-        <div *ngIf="vehicleRequests.length == 0">No requests to show!</div>
+        <div *ngIf="vehicleRequests.length === 0">No requests to show!</div>
         <table class="table table-hover table-properties table-bordered" id="userTable" *ngIf="vehicleRequests.length > 0">
             <thead class="thead-properties">
             <tr>

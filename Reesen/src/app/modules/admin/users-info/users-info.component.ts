@@ -12,58 +12,60 @@ import { DriverService } from '../../driver/services/driver.service';
 export class UsersInfoComponent implements OnInit{
 
   users: User[];
-  selectedShowNumber: number = 3;
+  selectedShowNumber = 3;
   tableSizes = [3, 5, 15, 25, 50];
   search: string;
-  totalEntries: number = 0;
-  selectedPage: number = 1;
-  page:number = 1;
-  sortDirection: number = -1;
-  totalRequests: number = 0;
+  totalEntries = 0;
+  selectedPage = 1;
+  page = 1;
+  sortDirection = -1;
+  totalRequests = 0;
+  hasLoaded = false;
   constructor(private userService: UserService, private router: Router,
               private driverService: DriverService){
-    
+
   }
 
   ngOnInit(): void {
-    
+    this.hasLoaded = false;
+
     this.fetchUsers(this.selectedPage);
     this.userService.getTotalNumberOfUsers()
-          .subscribe(
-            (total) => {this.totalEntries = total;}
-          );
+      .subscribe(
+        (total) => {this.totalEntries = total;}
+      );
     this.driverService.getTotalEditRequests()
-        .subscribe(
-          (total) =>{this.totalRequests = total;}
-        )
+      .subscribe(
+        (total) =>{this.totalRequests = total;}
+      )
   }
 
   fetchUsers(selPage: number): void{
     this.userService.getUsers(selPage - 1, this.selectedShowNumber)
-        .subscribe(
-          users => {this.users = users.results; console.log(this.users)}
-        );
+      .subscribe(
+        users => {this.users = users.results; console.log(this.users);this.hasLoaded = true;}
+      );
   }
 
   onSearchChange(): void{
-    var input, filter, table, tr, td, i, txtValue;
+    let input, filter, table, tr;
     input = document.getElementById("search");
     filter = input.value.toUpperCase();
     table = document.getElementById("userTable");
     tr = table.getElementsByTagName("tr");
 
-  // Loop through all table rows, and hide those who don't match the search query
+    // Loop through all table rows, and hide those who don't match the search query
     for (let i = 0; i < this.users.length; i++) {
-      
-        if (this.userContains(this.users[i], filter)) {
-            tr[i + 1].style.display = "";
-          } 
-          else {
-            tr[i + 1].style.display = "none";
-          }
+
+      if (this.userContains(this.users[i], filter)) {
+        tr[i + 1].style.display = "";
+      }
+      else {
+        tr[i + 1].style.display = "none";
+      }
     }
-    
-  
+
+
   }
   userContains(user: User, text: string): boolean{
 
@@ -94,9 +96,9 @@ export class UsersInfoComponent implements OnInit{
   changeTotalUsersPerPage(): void{
     console.log(this.selectedShowNumber);
     this.userService.getUsers(0, this.selectedShowNumber)
-    .subscribe(
-      (users) => {this.users = users.results; console.log(this.users)}
-    );
+      .subscribe(
+        (users) => {this.users = users.results; console.log(this.users)}
+      );
 
   }
 
@@ -106,7 +108,7 @@ export class UsersInfoComponent implements OnInit{
 
   sortTable(column: number) : void {
     this.sortDirection = this.sortDirection * (-1);
-    var table, rows, switching, i, x, y, shouldSwitch;
+    let table, rows, switching, i, x, y, shouldSwitch;
     table = document.getElementById("userTable");
     switching = true;
     /*Make a loop that will continue until
@@ -147,7 +149,7 @@ export class UsersInfoComponent implements OnInit{
       }
     }
   }
-  
+
 
   showDriverEditRequests(): void {
     if(this.totalRequests == 0) {alert("No requests to show!");return;}

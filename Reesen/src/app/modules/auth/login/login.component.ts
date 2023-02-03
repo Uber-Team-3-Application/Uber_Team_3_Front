@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmailInfo } from 'src/app/models/Email';
-import { Passenger } from 'src/app/models/Passenger';
 import { AuthenticationService } from 'src/app/modules/auth/authentication.service';
 import { UserService } from '../../unregistered-user/user.service';
 @Component({
@@ -13,15 +12,18 @@ import { UserService } from '../../unregistered-user/user.service';
 })
 export class LoginComponent{
     loginForm = new FormGroup(
-      { 
+      {
         email: new FormControl('', [Validators.required, Validators.minLength(4)]),
         password: new FormControl('', [Validators.required, Validators.minLength(4)])
       }
     );
-    hasError:boolean = false;
+    hasError = false;
     email: EmailInfo;
+    resetCode : string;
 
-    constructor(private router:Router, private authenticationService: AuthenticationService, private userService: UserService){}
+    constructor(private router:Router,
+      private authenticationService: AuthenticationService,
+      private userService: UserService){}
 
     login(){
       if(!this.loginForm.valid) {this.hasError = true; return;}
@@ -47,19 +49,22 @@ export class LoginComponent{
         }
 
       });
-      
+
     }
 
     sendEmailReset(){
       alert("Mail sent!");
-      const htmlString = `<html><head><style>
-    
+      this.userService.findByEmail(this.loginForm.value.email).subscribe((user) => {
+       this.userService.resetPasswordLink(user.id).subscribe((code:string) => {
+        this.resetCode = code;
+         const htmlString = `<html><head><style>
+
     .btn{
         color:white;
         margin-top: 7px;
         width: 32%;
         margin-left: 34%;
-        background-color:#48786d; 
+        background-color:#48786d;
         padding:6px;
         border-radius: 8px;
         border: 1px transparent;
@@ -81,9 +86,9 @@ export class LoginComponent{
 
     .center{
       width: 50%; /* Define the width of the element */
-      margin: auto; 
+      margin: auto;
     }
-    
+
     .lbl{
         text-align: center;
         color:#48786d;
@@ -105,22 +110,18 @@ export class LoginComponent{
     </head>
     <img src="https://www.pngall.com/wp-content/uploads/2/Envelope-PNG-Free-Download.png" style="width:20%;margin-left: 40%;;">
     <div class="container">
-            <h1 class="text-center lbl">Verify your email</h1>
+            <h1 class="text-center lbl">Reset your password</h1>
             <p class="line center"></p><br>
-            <p class="text-center lbl2">Thanks for signing up for the Reesen app. Please click Confirm button for account activation to start ordering rides!</p>
-            <a href='{{activationHtml}}' target="_blank" ><button class="btn">confirm email</button></a>
+            <p class="text-center lbl2">This is a code for reset your password!</p>
+            <p class="text-center lbl2">${this.resetCode}</p>
             <br><br><br>
             <p class="text-center lbl">This email was sent to you by Reesen Inc. You are receiving this email because you registred on our website. If this wasn't you, please ignore this mail.</p>
       </div>
       </html>`;
-      this.userService.findByEmail(this.loginForm.value.email).subscribe((user: any) => {
-       console.log(user);
-       this.userService.resetPasswordLink(user.id).subscribe((token: any) => {
-        console.log(token);
         const emailInfo: EmailInfo = {
-          to: "karolinatrambolina@gmail.com",
+          to: this.loginForm.value.email,
           subject:"Reesen - Password Reset",
-          message: htmlString.replace('{{activationHtml}}', "http://localhost:4200/resetPassword?token=" + token)
+          message: htmlString
         };
         this.userService.sendEmail(emailInfo)
           .subscribe(
@@ -128,6 +129,7 @@ export class LoginComponent{
           );
        });
       });
+      this.router.navigate(['/resetPassword'])
     }
-  
+
 }

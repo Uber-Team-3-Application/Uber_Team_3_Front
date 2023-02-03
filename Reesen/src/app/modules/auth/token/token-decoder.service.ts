@@ -12,5 +12,4 @@ export class TokenDecoderService {
       return null;
     }
   }
-  constructor() { }
 }

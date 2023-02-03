@@ -1,0 +1,85 @@
+<ngx-charts-bar-vertical *ngIf="hasLoaded && typeOfReport==='RIDES_PER_DAY'" class="my-3"
+[view]="view"
+[results]="reportData"
+[gradient]="gradient"
+[xAxis]="showXAxis"
+[yAxis]="showYAxis"
+[legend]="showLegend"
+[showXAxisLabel]="showXAxisLabel"
+[showYAxisLabel]="showYAxisLabel"
+[xAxisLabel]="'Date'"
+[yAxisLabel]="'Total'">
+</ngx-charts-bar-vertical>
+
+<ngx-charts-pie-chart *ngIf="hasLoaded && typeOfReport==='MONEY_EARNED_PER_DAY'" class="my-3"
+  [results]="reportData"
+  [legend]="true"
+  [view]="view"
+  [labels]="true" >
+</ngx-charts-pie-chart>
+
+<ngx-charts-bar-vertical *ngIf="hasLoaded && typeOfReport==='KILOMETERS_PER_DAY'" class="my-3"
+[view]="view"
+[results]="reportData"
+[gradient]="gradient"
+[xAxis]="showXAxis"
+[yAxis]="showYAxis"
+[legend]="showLegend"
+[showXAxisLabel]="showXAxisLabel"
+[showYAxisLabel]="showYAxisLabel"
+[xAxisLabel]="'Date'"
+[yAxisLabel]="'Total'">
+</ngx-charts-bar-vertical>
+
+
+
+<div *ngIf="typeOfReport==='RIDES_PER_DAY'" class="my-2">
+    <div class="row my-2">
+        <div class="col-6">
+            Total rides in time period: {{sum}}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-6">Average rides per day: {{average}}</div>
+    </div>
+    <div class="row">
+        <div class="col-6 full-line">
+
+        </div>
+    </div>
+</div>
+
+<div *ngIf="typeOfReport==='MONEY_EARNED_PER_DAY'" class="my-2">
+    <div class="row my-2">
+        <div class="col-6">
+            Total money spent/earned: {{sum}}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-6">Average money spent/earned per day: {{average}}</div>
+    </div>
+    <div class="row">
+        <div class="col-6 full-line">
+
+        </div>
+    </div>
+</div>
+
+<div *ngIf="typeOfReport==='KILOMETERS_PER_DAY'" class="my-2">
+    <div class="row my-2">
+        <div class="col-6">
+            Total kilometers: {{sum}}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-6">Average kilometers per day: {{average}}</div>
+    </div>
+    <div class="row">
+        <div class="col-6 full-line">
+
+        </div>
+    </div>
+</div>

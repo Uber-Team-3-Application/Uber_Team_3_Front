@@ -20,7 +20,7 @@ export class PassengerProfileEditComponent implements OnInit{
       
   });
   hasError: boolean;
-  avatarBase64: string = "";
+  avatarBase64 = "";
   passenger:Passenger = {
     name: '',
     surname: '',

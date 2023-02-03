@@ -2,27 +2,114 @@ import {Location, Route} from "./Location";
 import {Driver} from "./Driver";
 import {Passenger} from "./Passenger";
 import {Rejection} from "./Rejection";
+import {User, UserRestrict} from "./User";
+
+export interface mRide {
+  id: number;
+  routeJSON: string;
+  rideStatus: number;
+  vehicle: mVehicle;
+}
+
+export interface mVehicle {
+  id: number;
+  licensePlateNumber: string;
+  latitude: number;
+  longitude: number;
+}
+
+export interface RideWithVehicle{
+  rideId:number;
+  vehicleId:number;
+  latitude:number;
+  longitude:number;
+  address:string;
+
+}
 
 export interface Ride {
-  id:number,
-  startTime:string,
-  endTime: string,
-  totalCost : number,
-  driver : Driver,
-  passengers : Passenger[],
-  estimatedTimeInMinutes: number,
-  vehicleType : string,
-  babyTransport : boolean,
-  petTransport :boolean,
-  rejection?: Rejection,
+  status: string;
+  id:number;
+  startTime:string;
+  endTime: string;
+  totalCost : number;
+  driver : UserRestrict;
+  passengers : UserRestrict[];
+  estimatedTimeInMinutes: number;
+  vehicleType : string;
+  babyTransport : boolean;
+  petTransport :boolean;
+  rejection?: Rejection;
+  locations: Route[];
+  reviews?: Review[];
+  scheduledTime?:Date;
+}
+
+export interface CreateFavoriteRide {
+  favoriteName: string;
+  passengers : UserRestrict[];
+  vehicleType : string;
+  babyTransport : boolean;
+  petTransport :boolean;
   locations: Route[];
 }
 
+export interface FavoriteRide {
+  id: number;
+  favoriteName: string;
+  passengers : UserRestrict[];
+  vehicleType : string;
+  babyTransport : boolean;
+  petTransport :boolean;
+  locations: Route[];
+}
+
+export interface Review{
+  id?:number;
+  vehicleReview: SingleReview;
+  driverReview: SingleReview;
+}
+export interface SingleReview{
+  id?: number;
+  rating: number;
+  comment: string;
+  passenger: User;
+}
+
+export interface ReviewDTO{
+  id?:number;
+  rating:number;
+  comment:string;
+  passenger:UserRestrict;
+}
+
+export interface RideSimulationDTO {
+  id: number;
+  routeJSON: string;
+  rideStatus: number;
+  vehicle: VehicleSimulationDTO;
+}
+export interface VehicleSimulationDTO{
+  id: number;
+  licensePlateNumber: string;
+  latitude: number;
+  longitude: number;
+}
+
 export interface RideInfoBody{
-    locations: Location[],
+    locations: Route[],
     vehicleType: string,
     babyTransport: boolean,
     petTransport: boolean,
+}
+
+export interface CreateRideDTO{
+  passengers: UserRestrict[],
+  locations: Route[]
+  vehicleType: string,
+  babyTransport: boolean,
+  petTransport: boolean,
+  scheduledTime: Date;
 }
 
 export interface RideInfo{
@@ -33,5 +120,82 @@ export interface RideInfo{
 
 export interface RidePaginated {
   totalCount : number;
-  results : Ride[]
+  results : Ride[];
+
+
 }
+
+//=====SORTERS=====//
+
+export const sortRideByPriceAscending = (a: Ride, b: Ride) => {
+  if (a.totalCost > b.totalCost)
+    return 1;
+  if (a.totalCost < b.totalCost)
+    return -1;
+  return 0;
+}
+
+export const sortRideByPriceDescending = (a: Ride, b: Ride) => {
+  if (a.totalCost > b.totalCost)
+    return -1;
+  if (a.totalCost < b.totalCost)
+    return 1;
+  return 0;
+}
+
+export const sortRideByDateAscending = (a: Ride, b: Ride) => {
+  if (a.startTime > b.startTime)
+    return 1;
+  if (a.startTime < b.startTime)
+    return -1;
+  return 0;
+}
+
+export const sortRideByDateDescending = (a: Ride, b: Ride) => {
+  if (a.startTime > b.startTime)
+    return -1;
+  if (a.startTime < b.startTime)
+    return 1;
+  return 0;
+
+}
+
+export const sortRideByStartStationAscending = (a: Ride, b: Ride) => {
+  if (a.locations.at(0).departure.address > b.locations.at(0).departure.address)
+    return 1;
+  if (a.locations.at(0).departure.address < b.locations.at(0).departure.address)
+    return -1;
+  return 0;
+
+}
+
+
+export const sortRideByStartStationDescending = (a: Ride, b: Ride) => {
+  if (a.locations.at(0).departure.address > b.locations.at(0).departure.address)
+    return -1;
+  if (a.locations.at(0).departure.address < b.locations.at(0).departure.address)
+    return 1;
+  return 0;
+
+}
+
+export const sortRideByEndStationAscending = (a: Ride, b:Ride) => {
+  if (a.locations.at(a.locations.length-1).destination.address >
+    b.locations.at(b.locations.length-1).destination.address)
+    return 1;
+  if (a.locations.at(a.locations.length-1).destination.address <
+    b.locations.at(b.locations.length-1).destination.address)
+    return -1;
+  return 0;
+}
+
+export const sortRideByEndStationDescending = (a: Ride, b:Ride) => {
+  if (a.locations.at(a.locations.length-1).destination.address >
+    b.locations.at(b.locations.length-1).destination.address)
+    return -1;
+  if (a.locations.at(a.locations.length-1).destination.address <
+    b.locations.at(b.locations.length-1).destination.address)
+    return 1;
+  return 0;
+}
+

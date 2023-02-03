@@ -10,7 +10,11 @@ import { PassengerNavbarComponent } from './navbar/passenger-navbar/passenger-na
 import { AdminNavbarComponent } from './navbar/admin-navbar/admin-navbar.component';
 import { UnregisteredUserNavbarComponent } from './navbar/unregistered-user-navbar/unregistered-user-navbar.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-import { FilterRideSidebarComponent } from './filter-ride-sidebar/filter-ride-sidebar.component';
+import { RideMapComponent } from './ride-map/ride-map.component';
+import { UserCardComponent } from './user-card/user-card.component';
+import {MatCardModule} from "@angular/material/card";
+import { AdminModule } from '../admin/admin.module';
+
 
 
 
@@ -23,15 +27,17 @@ import { FilterRideSidebarComponent } from './filter-ride-sidebar/filter-ride-si
     PassengerNavbarComponent,
     AdminNavbarComponent,
     UnregisteredUserNavbarComponent,
-    FilterRideSidebarComponent,
+    RideMapComponent,
+    UserCardComponent,
   ],
-  imports: [
-    CommonModule,
-    AppRoutingModule,
-    MapModule,
-    MatSlideToggleModule
-
-  ],
-    exports: [AboutComponent, HomeComponent, NavbarComponent, MatSlideToggleModule, FilterRideSidebarComponent]
+    imports: [
+        CommonModule,
+        AppRoutingModule,
+        MapModule,
+        MatSlideToggleModule,
+        MatCardModule,
+        AdminModule
+    ],
+    exports: [AboutComponent, HomeComponent, NavbarComponent, MatSlideToggleModule, RideMapComponent, UserCardComponent]
 })
 export class LayoutModule { }
