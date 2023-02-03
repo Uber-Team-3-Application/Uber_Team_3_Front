@@ -33,10 +33,10 @@ export class RateRideComponent implements OnInit{
   leaveReview(): void{
     if(this.reviewForm.valid){
       this.hasError = false;
-      let driverRating = +this.reviewForm.value.driverRating;
-      let vehicleRating = +this.reviewForm.value.vehicleRating;
-      let driverComment = this.reviewForm.value.driverComment;
-      let vehicleComment = this.reviewForm.value.vehicleComment;
+      const driverRating = +this.reviewForm.value.driverRating;
+      const vehicleRating = +this.reviewForm.value.vehicleRating;
+      const driverComment = this.reviewForm.value.driverComment;
+      const vehicleComment = this.reviewForm.value.vehicleComment;
       this.reviewService.leaveReviewForDriver(this.rideId, driverRating, driverComment).subscribe({
         next:(result) =>{
           console.log(result);

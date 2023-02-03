@@ -9,7 +9,7 @@
   <div class="row first">
     <div class="col-md-2 stop-watch" *ngIf="isRideStarted">
       <div class="stop-watch">
-        <div class="display">{{format(mm)}}:{{format(ss)}}:{{format(ms)}}</div>
+        <div class="display">{{displayTimer}}</div>
       </div>
     </div>
     <div class="col-md-10"></div>
@@ -26,7 +26,7 @@
     <button class="startRidebtn" (click)="finishRide()">FINISH RIDE</button>
     </div>
     <div class="col-md-6" align="left">
-      <button class="startRidebtn" (click)="clickHandler()">STOP</button></div>
+      <button class="startRidebtn" (click)="toggleTimer()">STOP</button></div>
   </div>
 
   <br/>
@@ -53,6 +53,5 @@
             </form>
     </div>
   </div>
-
 
 </div>

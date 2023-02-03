@@ -40,7 +40,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   selectedVehicleName = '';
   waitingForRide = false;
   scheduledTime = null;
-  
+
 
   splitPassengers = [];
   isFormValid = true;
@@ -86,7 +86,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
   initializeWebSocketSimulationConnection(){
     let ws = new SockJS(this.simulationEndpoint);
-    
+
     this.stompClientSimulation = myStomp.over(ws);
     this.stompClientSimulation.debug = null;
     let that = this;
@@ -103,7 +103,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         return;
       }
 
-      
+
 
       if(this.panicPressed !== null){
         vehicle.setIcon(carPanic);
@@ -116,7 +116,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         vehicle.setIcon(redCar);
       }
       vehicle.setLatLng([newLocation.longitude, newLocation.latitude]);
-      
+
     });
     this.stompClientSimulation.subscribe('/topic/map-updates-regular', (message: {body: string}) =>{
       const newLocation = JSON.parse(message.body);
@@ -124,7 +124,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
       vehicle.setIcon(greenCar);
       vehicle.setLatLng([newLocation.latitude, newLocation.longitude]);
-      
+
     });
 
   }
@@ -141,9 +141,9 @@ export class MapComponent implements AfterViewInit, OnDestroy {
                 console.log(error);
             }
           });
-      
+
       });
-      
+
     }
     this.setAdminSockets();
 
@@ -151,7 +151,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     if (this.role === 'DRIVER') {
       this.setDriverSockets();
 
-     
+
     } else if (this.role === 'PASSENGER') {
       this.setPassengerSockets();
     }
@@ -212,7 +212,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
             console.log(error);
         }
       });
-  
+
   });
     this.stompClient.subscribe('/topic/passenger/ride/' + this.id, (message: { body: string; }) => {
       console.log(message);
@@ -293,19 +293,19 @@ export class MapComponent implements AfterViewInit, OnDestroy {
             console.log(error);
         }
       });
-  
+
   });
     this.stompClient.subscribe('/topic/driver/ride/' + this.id, (message: { body: string; }) => {
       console.log(message);
       this.rideService.setRideEnded(false);
 
       this.rideService.setRideStatus(false);
-      this.acceptRide = JSON.parse(message.body); 
+      this.acceptRide = JSON.parse(message.body);
       this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
       this.acceptNotification = true;
     });
     this.stompClient.subscribe('/topic/driver/start-ride/' + this.id, (message: { body: string; }) => {
-      let ride = JSON.parse(message.body);  
+      let ride = JSON.parse(message.body);
       this.rideService.setRideEnded(false);
 
       this.rideService.setRideStarted(true);
@@ -353,7 +353,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
       this.stompClient.subscribe('/topic/admin/end-ride/' + this.id, (message: { body: string; }) => {
         let ride = JSON.parse(message.body);
-        
+
         this.rideService.setRideEnded(true);
         console.log(message.body);
         this.vehicleService.get(ride.driver.id).subscribe({
@@ -361,7 +361,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
             this.vehicles[result.id].setIcon(greenCar);
             this.rideService.setActiveRide(false);
             this.rideService.setRideAccepted(false);
-            
+
             this.rideService.setRideStarted(false);
 
           },
@@ -426,7 +426,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           }
         });
       }
-    }); 
+    });
     this.rideService.rideEndedValue$.subscribe((value) =>{
       this.rideEnded = value;
     })
@@ -434,9 +434,9 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       if(value === true){
         if (this.currentRoute != null) {
           this.map.removeControl(this.currentRoute);
-        };
+        }
         const route = L.Routing.control({
-          waypoints: [L.latLng(this.acceptRide.locations[0].departure.latitude, this.acceptRide.locations[0].departure.longitude), 
+          waypoints: [L.latLng(this.acceptRide.locations[0].departure.latitude, this.acceptRide.locations[0].departure.longitude),
           L.latLng(this.acceptRide.locations[0].destination.latitude, this.acceptRide.locations[0].destination.longitude)],
           show: false,
           routeWhileDragging: true,
@@ -461,7 +461,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
             this.map.removeControl(this.currentRoute);
           };
           const route = L.Routing.control({
-            waypoints: [L.latLng(this.acceptRide.locations[0].departure.latitude, this.acceptRide.locations[0].departure.longitude), 
+            waypoints: [L.latLng(this.acceptRide.locations[0].departure.latitude, this.acceptRide.locations[0].departure.longitude),
             L.latLng(this.acceptRide.locations[0].destination.latitude, this.acceptRide.locations[0].destination.longitude)],
             show: false,
             routeWhileDragging: true,
@@ -498,7 +498,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     // get all vehicles not in an active ride currently
     // then simulate their pins
-  
+
     this.rideService.getAllActiveRidesWithIds().subscribe({
       next:(result) =>{
         console.log(result);
@@ -518,17 +518,17 @@ export class MapComponent implements AfterViewInit, OnDestroy {
                           (locations) => {
                             this.vehicleLocations = locations;
                             for(const location of this.vehicleLocations){
-                              
+
                               if(location.available === true){
 
-                                const vehicleMarker = L.marker([location.latitude, location.longitude], 
+                                const vehicleMarker = L.marker([location.latitude, location.longitude],
                                   {icon:greenCar}).addTo(this.map);
                                 this.vehicles[location.id] = vehicleMarker;
                               }else{
                                 const vehicleMarker = L.marker([location.latitude, location.longitude], {icon:redCar}).addTo(this.map);
                                 this.vehicles[location.id] = vehicleMarker;
                               }
-                              
+
                             }
                           }
                         );
