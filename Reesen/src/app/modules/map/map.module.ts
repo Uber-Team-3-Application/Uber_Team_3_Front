@@ -8,6 +8,8 @@ import { AcceptRideComponent } from './accept-ride/accept-ride.component';
 import { CurrentRideComponent } from './driver-current-ride/current-ride.component';
 import { RateRideComponent } from './rate-ride/rate-ride.component';
 import { BarRatingModule } from 'ngx-bar-rating';
+import { MatCardModule } from '@angular/material/card';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { BarRatingModule } from 'ngx-bar-rating';
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BarRatingModule
+    BarRatingModule,
+    MatCardModule,
+    MatSidenavModule
   ],
     exports: [MapComponent, CurrentRideComponent]
 })

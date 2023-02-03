@@ -81,6 +81,10 @@ export class RideService {
     return this.http.post<FavoriteRide>(environment.apiHost + "api/ride/favorites", fav);
   }
 
+  getFavoriteRides(): Observable<FavoriteRide[]> {
+    return this.http.get<FavoriteRide[]>(environment.apiHost + "api/ride/favorites");
+  }
+
   getActiveRide(): Observable<Ride> {
     return null;
   }

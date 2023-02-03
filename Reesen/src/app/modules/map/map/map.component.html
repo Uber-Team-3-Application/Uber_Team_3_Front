@@ -1,183 +1,255 @@
 <div class="map-container">
-    <div class="map-frame">
-      <div id="map"></div>
+  <div class="map-frame">
+    <div id="map"></div>
   </div>
 </div>
 
 <app-driver-current-ride *ngIf="rideAccepted" [role]="role" [id]="id" [ride]="acceptRide"></app-driver-current-ride>
 
 <div *ngIf="!isOnlyMap && !rideAccepted">
-<div class="alert ride-info-popup p-3" role="alert" *ngIf="rideAssumption.estimatedCost !== 0 && !waitingForRide && !rideAccepted">
-  <div class="d-flex flex-row-reverse">
-    <button class="modified-button-cancel my-button" (click)="rideAssumption.estimatedCost=0">X</button>
-  </div>
-  <div class="row">
-    <h2 class="text-center my-3 text-dark">Ride Information:</h2>
-    <div class="ride-info-info text-left">
-      <div class="col-12 p-2 mx-3 text-dark">
+  <div class="alert ride-info-popup p-3" role="alert"
+    *ngIf="rideAssumption.estimatedCost !== 0 && !waitingForRide && !rideAccepted">
+    <div class="d-flex flex-row-reverse">
+      <button class="modified-button-cancel my-button" (click)="rideAssumption.estimatedCost=0">X</button>
+    </div>
+    <div class="row">
+      <h2 class="text-center my-3 text-dark">Ride Information:</h2>
+      <div class="ride-info-info text-left">
+        <div class="col-12 p-2 mx-3 text-dark">
           <strong>Start Station:</strong> {{this.getRideForm.value.departure}}
-      </div>
-      <div class="col-12 p-2 mx-3 text-dark">
-        <strong>End Station:</strong> {{this.getRideForm.value.destination}}
-      </div>
-      <div class="col-12 p-2 mx-3 text-dark">
-        <strong>Vehicle Type:</strong> {{selectedVehicleName}}
-      </div>
-      <div class="col-12 p-2 mx-3 text-dark">
-        <strong>Estimated Travel Time:</strong> {{rideAssumption.estimatedTimeInMinutes}} <strong> min</strong>
-      </div>
-      <div class="col-12 p-2 mx-3 text-dark">
-        <strong>Total Cost:</strong> {{rideAssumption.estimatedCost}} <strong> (RSD)</strong>
-      </div>
+        </div>
+        <div class="col-12 p-2 mx-3 text-dark">
+          <strong>End Station:</strong> {{this.getRideForm.value.destination}}
+        </div>
+        <div class="col-12 p-2 mx-3 text-dark">
+          <strong>Vehicle Type:</strong> {{selectedVehicleName}}
+        </div>
+        <div class="col-12 p-2 mx-3 text-dark">
+          <strong>Estimated Travel Time:</strong> {{rideAssumption.estimatedTimeInMinutes}} <strong> min</strong>
+        </div>
+        <div class="col-12 p-2 mx-3 text-dark">
+          <strong>Total Cost:</strong> {{rideAssumption.estimatedCost}} <strong> (RSD)</strong>
+        </div>
 
-      <div class="col-12 p-2 mx-3 text-dark">
-        <p><strong>Baby Transport:</strong> {{this.getRideForm.value.babyTransport}} </p>
-        <p><strong>Pet Transport:</strong> {{this.getRideForm.value.petTransport}} </p>
-      </div>
-      <div class="col-12 p-2 mx-3 text-dark text-center" *ngIf="role==='PASSENGER'">
-        <h2>Passengers:</h2>
-        <div class="row">
-          <div class="col-12">
-            You
+        <div class="col-12 p-2 mx-3 text-dark">
+          <p><strong>Baby Transport:</strong> {{this.getRideForm.value.babyTransport}} </p>
+          <p><strong>Pet Transport:</strong> {{this.getRideForm.value.petTransport}} </p>
+        </div>
+        <div class="col-12 p-2 mx-3 text-dark text-center" *ngIf="role==='PASSENGER'">
+          <h2>Passengers:</h2>
+          <div class="row">
+            <div class="col-12">
+              You
+            </div>
+          </div>
+          <div class="row" *ngFor="let pass of splitPassengers">
+            <div class="col-12">
+              {{pass}}
+            </div>
           </div>
         </div>
-        <div class="row"
-        *ngFor="let pass of splitPassengers">
-        <div class="col-12">
-          {{pass}}
+        <div class="col-12 p-2 mx-3 text-dark text-center" *ngIf="role==='PASSENGER'">
+          <button type="button" class="ride-button my-button" (click)="confirmRideOrder()">Confirm</button>
         </div>
       </div>
-      </div>
-      <div class="col-12 p-2 mx-3 text-dark text-center" *ngIf="role==='PASSENGER'">
-        <button type="button" class="ride-button my-button" (click)="confirmRideOrder()">Confirm</button>
-      </div>
     </div>
   </div>
-</div>
 
 
-<app-accept-ride [acceptRide]="acceptRide" [role]="role" *ngIf="acceptNotification && role==='DRIVER' && !rideDeclined  && !waitingForRide"></app-accept-ride>
+  <app-accept-ride [acceptRide]="acceptRide" [role]="role"
+    *ngIf="acceptNotification && role==='DRIVER' && !rideDeclined  && !waitingForRide"></app-accept-ride>
 
-<div *ngIf="!showGetRide && !waitingForRide && !rideAccepted && role!=='DRIVER'" class="overlay">
-  <span><button class="ride-button my-button" type="button" (click)="openGetRide()">
-    <span *ngIf="role!=='PASSENGER'">Get Ride Info</span>
-    <span *ngIf="role==='PASSENGER'">Order A Ride</span>
-  </button></span>
-  <span><button class="ride-button my-button mx-3" type="button" (click)="clearMap()"> Clear Map</button></span>
-</div>
-
-<div *ngIf="showGetRide" class="ride-information p-5">
-  <form
-    ride
-    [formGroup]="getRideForm"
-    class="ride-information-form"
-
-  >
-  <div class="d-flex flex-row-reverse">
-    <span><button class="button-cancel my-button" (click)="closeRideInfo()">X</button></span>
+  <div *ngIf="!showGetRide && !waitingForRide && !rideAccepted && role!=='DRIVER'" class="overlay">
+    <span><button class="ride-button my-button" type="button" (click)="openGetRide()">
+        <span *ngIf="role!=='PASSENGER'">Get Ride Info</span>
+        <span *ngIf="role==='PASSENGER'">Order A Ride</span>
+      </button></span>
+    <span><button class="ride-button my-button mx-3" type="button" (click)="clearMap()"> Clear Map</button></span>
   </div>
-    <div class="row text-center form-group p-3">
-      <div class="col-12">
-        <label for="departure" >From</label>
-      </div>
 
-      <div class="col-12">
-        <input type="text" class="form-control" placeholder="Radnicka 3, Novi Sad" name="departure" formControlName="departure" id="departure">
+  <div *ngIf="showGetRide" class="ride-information p-5">
+    <form ride [formGroup]="getRideForm" class="ride-information-form">
+      <div class="d-flex flex-row-reverse">
+        <span><button class="button-cancel my-button" (click)="closeRideInfo()">X</button></span>
       </div>
-    </div>
-    <div class="row text-center form-group p-3">
-      <div class="col-12">
-        <label for="destination" >To</label>
-      </div>
-
-      <div class="col-12">
-        <input type="text" class="form-control" placeholder="Laze Teleckog 12, Novi Sad" name="destination" formControlName="destination" id="destination">
-
-      </div>
-    </div>
-    <div class="row text-center form-group p-3">
-      <div class="col-12">
-        <img src="../../../assets/img/plus.png" alt="" class="open-vehicle-type" (click)="openVehicleTypeComponent()"><span>Select vehicle type</span>
-      </div>
-    </div>
-    <div class="text-center alert-primary p-3" role="alert" *ngIf="typeSelected">
-        <h2 class="succesfully-selected-type-text">Succesfully selected type: {{selectedVehicleName}} </h2>
-    </div>
-    <div class="row text-center form-group vehicle-type" *ngIf="showVehicleType">
+      <div class="row text-center form-group p-3">
+        <div class="row text-center form-group p-3">
+          <div class="col-12">
+            <img src="../../../assets/img/plus.png" alt="" class="open-vehicle-type"
+              (click)="openFavoriteRides()"><span>Choose from favorite rides</span>
+          </div>
+        </div>
+        <div class="row text-center form-group vehicle-type" *ngIf="showFavoriteRides">
           <!--TODO NG FOR KROZ TIPOVE IZ BAZE I ONDA SE KREIRAJU DIVOVI-->
-            <button class="vehicle-type-item p-3" type="button" (click)="selectVehicleType(type)" *ngFor="let type of vehicleTypes">
+          <button class="vehicle-type-item p-3" type="button" (click)="selectFavoriteRide(ride)"
+            *ngFor="let ride of favoriteRides">
+            <div class="row">
+              <mat-card class="example-card">
+                <mat-card-header>
+                  <mat-card-title-group>
+                    <mat-card-title>
+                      <span><img src="assets/img/history.png" class="history_icon"></span>
+                      <br />
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                      <span class="rideText text-center">{{ride.favoriteName}}</span>
+                      <span class="rideText"></span>
+                    </mat-card-subtitle>
+                    <img mat-card-sm-image class="vehicle_img" src="assets/img/van.png" alt="vehicle"
+                      *ngIf="ride.vehicleType === 'VAN'">
+                    <img mat-card-sm-image class="vehicle_img" src="assets/img/luxury.png" alt="vehicle"
+                      *ngIf="ride.vehicleType === 'LUXURY'">
+                    <img mat-card-sm-image class="vehicle_img" src="assets/img/standard.png" alt="vehicle"
+                      *ngIf="ride.vehicleType ==='STANDARD'">
+                    <img mat-card-sm-image class="transport_img" src="assets/img/baby_transport.png" alt="vehicle"
+                      *ngIf="ride.babyTransport">
+                    <img mat-card-sm-image class="vehicle_img" src="assets/img/pet_transport.png" alt="vehicle"
+                      *ngIf="ride.petTransport">
+                  </mat-card-title-group>
+                </mat-card-header>
+                <mat-card-content>
+
+                  <table>
+                    <tr>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Start station: </td>
+                      <td colspan="3">{{ride.locations[0].departure.address}}</td>
+                    </tr>
+                    <tr>
+                      <td>End station: </td>
+                      <td colspan="3">{{ride.locations[0].destination.address}}</td>
+                    </tr>
+                    <tr>
+                      <td>Passengers:</td>
+                      <td>
+                        <div class="col-12" *ngFor="let pass of ride.passengers">
+                          {{pass.email}}
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+
+                </mat-card-content>
+              </mat-card>
+
+            </div>
+          </button>
+
+
+        </div>
+        <div class="col-12">
+          <label for="departure">From</label>
+        </div>
+
+        <div class="col-12">
+          <input type="text" class="form-control" placeholder="Radnicka 3, Novi Sad" name="departure"
+            formControlName="departure" id="departure">
+        </div>
+      </div>
+      <div class="row text-center form-group p-3">
+        <div class="col-12">
+          <label for="destination">To</label>
+        </div>
+
+        <div class="col-12">
+          <input type="text" class="form-control" placeholder="Laze Teleckog 12, Novi Sad" name="destination"
+            formControlName="destination" id="destination">
+
+        </div>
+      </div>
+      <div class="row text-center form-group p-3">
+        <div class="col-12">
+          <img src="../../../assets/img/plus.png" alt="" class="open-vehicle-type"
+            (click)="openVehicleTypeComponent()"><span>Select vehicle type</span>
+        </div>
+      </div>
+      <div class="text-center alert-primary p-3" role="alert" *ngIf="typeSelected">
+        <h2 class="succesfully-selected-type-text">Succesfully selected type: {{selectedVehicleName}} </h2>
+      </div>
+      <div class="row text-center form-group vehicle-type" *ngIf="showVehicleType">
+        <!--TODO NG FOR KROZ TIPOVE IZ BAZE I ONDA SE KREIRAJU DIVOVI-->
+        <button class="vehicle-type-item p-3" type="button" (click)="selectVehicleType(type)"
+          *ngFor="let type of vehicleTypes">
+          <div class="row">
+            <div class="col-12 py-3">
               <div class="row">
-                <div class="col-12 py-3">
-                  <div class="row">
-                    <div class="col-6">
-                      <span>Type</span>
-                    </div>
-                    <div class="col-6">
-                      <span>{{type.name}}</span>
-                    </div>
-                  </div>
-
+                <div class="col-6">
+                  <span>Type</span>
                 </div>
-                <div class="col-12 py-2">
-                  <div class="row">
-                    <div class="col-6">
-                      <span class="text-left ml-auto">Price per km</span>
-                    </div>
-                    <div class="col-6">
-                      <span>{{type.pricePerKm}} (RSD)</span>
-                    </div>
-                  </div>
-
+                <div class="col-6">
+                  <span>{{type.name}}</span>
                 </div>
-
               </div>
-            </button>
 
+            </div>
+            <div class="col-12 py-2">
+              <div class="row">
+                <div class="col-6">
+                  <span class="text-left ml-auto">Price per km</span>
+                </div>
+                <div class="col-6">
+                  <span>{{type.pricePerKm}} (RSD)</span>
+                </div>
+              </div>
 
-    </div>
+            </div>
 
-    <div class="row text-center form-group passengers" *ngIf="role==='PASSENGER'">
-      <label for="passengers">Enter passenger email addresses with , inbetween</label>
-      <input type="text" class="form-control" placeholder="e1@mail.com, e2@mail.com" name="passengers" formControlName="passengers" id="passengers">
-    </div>
-    <div class="row p-3 text-center">
-      <div class="col-6">
-        <input type="checkbox" class="form-check-input" id="babyTransport" name="babyTransport" formControlName="babyTransport">
-        <label for="babyTransport" class="form-check-label px-3">Baby transport</label>
+          </div>
+        </button>
+
 
       </div>
-      <div class="col-6">
-        <input type="checkbox" class="form-check-input" id="petTransport" name="petTransport" formControlName="petTransport">
-        <label for="petTransport" class="form-check-label px-3">Pet transport</label>
-      </div>
-      <div class="col-6" *ngIf="role==='PASSENGER'">
-        <input type="checkbox" class="form-check-input" id="schedule" name="schedule" formControlName="schedule" (click)="showDateTimePicker()">
-        <label for="schedule" class="form-check-label px-3">Schedule for later:</label>
-      </div>
-      <div class="col-6" id="scheduledTime" *ngIf="showDateTime">
-        <input type="datetime-local" class="form-control" id="scheduledTime" name="scheduledTime" formControlName="scheduledTime">
-      </div>
-    </div>
 
-    <div class="alert alert-danger" role="alert" *ngIf="!isFormValid">
-      <p>Please enter valid data, and select a Vehicle type!</p>
-    </div>
-    <div class="row text-center">
+      <div class="row text-center form-group passengers" *ngIf="role==='PASSENGER'">
+        <label for="passengers">Enter passenger email addresses with , inbetween</label>
+        <input type="text" class="form-control" placeholder="e1@mail.com, e2@mail.com" name="passengers"
+          formControlName="passengers" id="passengers">
+      </div>
+      <div class="row p-3 text-center">
+        <div class="col-6">
+          <input type="checkbox" class="form-check-input" id="babyTransport" name="babyTransport"
+            formControlName="babyTransport">
+          <label for="babyTransport" class="form-check-label px-3">Baby transport</label>
+
+        </div>
+        <div class="col-6">
+          <input type="checkbox" class="form-check-input" id="petTransport" name="petTransport"
+            formControlName="petTransport">
+          <label for="petTransport" class="form-check-label px-3">Pet transport</label>
+        </div>
+        <div class="col-6" *ngIf="role==='PASSENGER'">
+          <input type="checkbox" class="form-check-input" id="schedule" name="schedule" formControlName="schedule"
+            (click)="showDateTimePicker()">
+          <label for="schedule" class="form-check-label px-3">Schedule for later:</label>
+        </div>
+        <div class="col-6" id="scheduledTime" *ngIf="showDateTime">
+          <input type="datetime-local" class="form-control" id="scheduledTime" name="scheduledTime"
+            formControlName="scheduledTime">
+        </div>
+      </div>
+
+      <div class="alert alert-danger" role="alert" *ngIf="!isFormValid">
+        <p>Please enter valid data, and select a Vehicle type!</p>
+      </div>
+      <div class="row text-center">
         <span><button class="my-button ride-button" type="submit" (click)="getRide()">
-          <span *ngIf="role!=='PASSENGER'">Get Ride Info</span>
-          <span *ngIf="role==='PASSENGER'">Order A Ride</span>
-        </button></span>
+            <span *ngIf="role!=='PASSENGER'">Get Ride Info</span>
+            <span *ngIf="role==='PASSENGER'">Order A Ride</span>
+          </button></span>
 
 
-    </div>
-  </form>
-</div>
+      </div>
+    </form>
+  </div>
 
-<div *ngIf="waitingForRide && !rideAccepted">
-  <h1 class="text-center">waiting For Ride</h1>
-</div>
+  <div *ngIf="waitingForRide && !rideAccepted">
+    <h1 class="text-center">waiting For Ride</h1>
+  </div>
 
-<div *ngIf="rideAccepted">
-  <h2 class="text-center">Ride accepted! Your ride will be there in: {{this.acceptRide.estimatedTimeInMinutes}} minutes</h2> 
-</div>
+  <div *ngIf="rideAccepted">
+    <h2 class="text-center">Ride accepted! Your ride will be there in: {{this.acceptRide.estimatedTimeInMinutes}}
+      minutes</h2>
+  </div>
 </div>

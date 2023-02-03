@@ -8,7 +8,7 @@ import { VehicleType } from 'src/app/models/Vehicle';
 import { Location, Route, VehicleLocationWithAvailibility } from 'src/app/models/Location';
 import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
 import { UserService } from '../../unregistered-user/user.service';
-import { RideInfo, RideInfoBody, CreateRideDTO, RideSimulationDTO, VehicleSimulationDTO, Ride } from 'src/app/models/Ride';
+import { RideInfo, RideInfoBody, CreateRideDTO, RideSimulationDTO, VehicleSimulationDTO, Ride, FavoriteRide } from 'src/app/models/Ride';
 import { UserRestrict } from 'src/app/models/User';
 import { greenCar, redCar, carMyRide, carPanic } from '../icons/icons';
 import { TokenDecoderService } from '../../auth/token/token-decoder.service';
@@ -41,6 +41,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   waitingForRide = false;
   scheduledTime = null;
 
+  showFavoriteRides = false;
+  favoriteRides: FavoriteRide[];
 
   splitPassengers = [];
   isFormValid = true;
@@ -496,6 +498,11 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         (vehicleTypes) => (this.vehicleTypes = vehicleTypes)
       );
 
+    this.rideService.getFavoriteRides()
+    .subscribe(
+      (rides) => (this.favoriteRides = rides)
+    );
+
     // get all vehicles not in an active ride currently
     // then simulate their pins
 
@@ -791,4 +798,31 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   }
 
+  openFavoriteRides(){
+    this.showFavoriteRides = !this.showFavoriteRides;
+  }
+
+  selectFavoriteRide(favRide: FavoriteRide){
+    let passengersEmails = "";
+    favRide.passengers.forEach(element => {
+      if(element.id != this.id)
+        passengersEmails += element.email + ",";
+    });
+    passengersEmails = passengersEmails.slice(0, -1);
+    this.showFavoriteRides = false;
+    this.getRideForm.patchValue({
+      departure: favRide.locations[0].departure.address,
+      destination: favRide.locations[0].destination.address,
+      passengers: passengersEmails,
+      babyTransport: favRide.babyTransport,
+      petTransport: favRide.petTransport,
+      scheduled: false,
+      scheduledTime: new Date()
+    });
+    
+    this.vehicleTypes.forEach(element => {
+      if(element.name===favRide.vehicleType)
+        this.selectVehicleType(element);
+    });
+  }
 }
