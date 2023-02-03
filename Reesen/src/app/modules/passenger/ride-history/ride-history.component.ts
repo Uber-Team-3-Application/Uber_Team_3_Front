@@ -23,6 +23,7 @@ export class RideHistoryComponent implements OnInit, OnDestroy{
   selectedPage: number = 1;
   kindsOfSort : string = "timeOfStart,desc";
   sorting : number = 4; // default
+  hasLoaded = false;
 
   constructor(private passengerService : PassengerService, private tokenDecoder: TokenDecoderService,
               private reviewService : ReviewService,
@@ -32,15 +33,14 @@ export class RideHistoryComponent implements OnInit, OnDestroy{
   showSideBar = false;
   passengersRides : RidePaginated;
   smartTable : TableRideContent[] = new Array<TableRideContent>;
-  hasLoaded: boolean = true;
 
 
   ngOnInit() : void {
-
+    this.hasLoaded = false;
     this.fetchRides(this.selectedPage);
     const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
     this.passengerService.getRidesOfPassenger(tokenInfo.id).subscribe(
-      (res : RidePaginated) => {this.totalEntries = res.totalCount})
+      (res : RidePaginated) => {this.totalEntries = res.totalCount; this.hasLoaded = true;})
 
 
   }

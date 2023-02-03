@@ -20,6 +20,7 @@ import { RideDetailComponent } from './ride-detail/ride-detail.component';
 import { PassengerInfoComponent } from './passenger-info/passenger-info.component';
 import { PassengersRideComponent } from './pasnegers-ride/passengers-ride.component';
 import { PassengerReportsComponent } from './passenger-reports/passenger-reports.component';
+import { PassengersInfoComponent } from './passengers-info/passenger-info.component';
 
 
 
@@ -34,6 +35,7 @@ import { PassengerReportsComponent } from './passenger-reports/passenger-reports
     RideCardHistoryComponent,
     RideDetailComponent,
     PassengerInfoComponent,
+    PassengersInfoComponent,
     PassengersRideComponent,
     PassengerReportsComponent
   ],
@@ -48,7 +50,7 @@ import { PassengerReportsComponent } from './passenger-reports/passenger-reports
     NgxPaginationModule,
     MapModule,
     GraphsModule,
-    FormsModule,
+    FormsModule
   ],
   exports: [RegistrationComponent, PassengerProfileComponent,
     PassengerProfileEditComponent, ActivationComponent, PassengerProfileEditPasswordComponent, RideHistoryComponent]
