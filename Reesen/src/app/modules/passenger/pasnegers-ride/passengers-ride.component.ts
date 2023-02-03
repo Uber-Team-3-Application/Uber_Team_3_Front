@@ -202,7 +202,7 @@ export class PassengersRideComponent implements AfterViewInit {
         this.role = this.decodedToken.role[0]['authority'];
 
         const passengers = [];
-        for (let passenger of this.ride.passengers) {
+        for (const passenger of this.ride.passengers) {
           if (passenger.id !== this.id)
             passengers.push(passenger);
         }
@@ -217,6 +217,7 @@ export class PassengersRideComponent implements AfterViewInit {
         }
         this.rideService.orderARide(createRideDTO).subscribe({
           next: (result) => {
+            document.getElementsByClassName("mapica").item(0).remove();
             this.router.navigate(['/home'])
           },
           error: (error) => {
