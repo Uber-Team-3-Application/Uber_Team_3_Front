@@ -95,6 +95,7 @@ export class PassengersRideComponent implements AfterViewInit, OnDestroy {
     this.driverService.get(this.ride.driver.id)
       .subscribe(
         {
+          
           next: (result) => { this.driver = result; },
           error: (error) => { console.log(error); }
         }

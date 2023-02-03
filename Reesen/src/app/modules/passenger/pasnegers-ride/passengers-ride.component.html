@@ -83,6 +83,29 @@
         </div>
         <div class="row"><br /></div>
         <div class="row">
+          <h4>Driver:</h4>
+        </div>
+        <div class="row my-2 mb-2">
+          <div class="col-12">
+            <div class="user-card">
+              <div class="row">
+                <div class="col-8 user-card-name ">
+                  {{driver.name}} {{driver.surname}}
+                </div>
+                <div class="col-4 user-card-avatar">
+                  <img src="assets/img/avatar.png" alt="passenger-avatar" class="rounded-circle user-card-avatar-image"
+                    *ngIf="driver.profilePicture === 'profilna'">
+                  <img [src]="driver.profilePicture" alt="passenger-avatar"
+                    class="rounded-circle user-card-avatar-image" *ngIf="driver.profilePicture !== 'profilna'">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+          
+
+        <div class="row"><br /></div>
+        <div class="row">
           <h4>Passengers:</h4>
         </div>
 
