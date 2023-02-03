@@ -11,6 +11,9 @@ import { TokenDecoderService } from '../../auth/token/token-decoder.service';
   styleUrls: ['./driver-account.component.css']
 })
 export class DriverAccountComponent implements OnInit{
+
+   hasLoaded : boolean;
+
     driver:Driver = {
       name: '',
       surname: '',
@@ -43,7 +46,7 @@ export class DriverAccountComponent implements OnInit{
 
       this.vehicleService.get(tokenInfo.id)
       .subscribe(
-        (vehicle) => {this.vehicle = vehicle;console.log(vehicle)}
+        (vehicle) => {this.vehicle = vehicle; this.hasLoaded = true;}
       );
     }
 

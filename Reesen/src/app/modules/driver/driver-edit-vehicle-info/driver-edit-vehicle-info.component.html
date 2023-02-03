@@ -1,4 +1,4 @@
-<section class="edit-vehicle">
+<section class="edit-vehicle" *ngIf="hasLoaded">
     <div class="text-center">
         <h1>Edit Vehicle Information</h1>
     </div>
@@ -14,10 +14,10 @@
     <div class="form-group">
 
         <label for="model">Model</label>
-        <input type="text" 
-        class="form-control" 
-        id="model" 
-        name="model" 
+        <input type="text"
+        class="form-control"
+        id="model"
+        name="model"
         formControlName="model"
          placeholder="Audi A3"
          [(ngModel)]="vehicle.model">
@@ -26,9 +26,9 @@
     <div class="form-group">
 
         <label for="type">Type</label>
-        <select class="form-select" 
-        id="type" 
-        name="type" 
+        <select class="form-select"
+        id="type"
+        name="type"
         formControlName="type"
         [(ngModel)]="vehicle.vehicleType">
             <option>STANDARD</option>
@@ -41,11 +41,11 @@
     <div class="form-group">
 
         <label for="registration">Registration Number</label>
-        <input type="text" 
-        class="form-control" 
-        id="registration" 
-        name="registration" 
-        formControlName="registration" 
+        <input type="text"
+        class="form-control"
+        id="registration"
+        name="registration"
+        formControlName="registration"
         placeholder="SM666CF"
         [(ngModel)]="vehicle.licenseNumber">
     </div>
@@ -53,9 +53,9 @@
     <div class="form-group">
 
         <label for="numberOfSeats">Number of Seats</label>
-        <select class="form-select" 
-        id="numberOfSeats" 
-        name="numberOfSeats" 
+        <select class="form-select"
+        id="numberOfSeats"
+        name="numberOfSeats"
         formControlName="numberOfSeats"
         [(ngModel)]="vehicle.passengerSeats">
            <option>1</option>
@@ -67,9 +67,9 @@
     </div>
 
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" 
-        value="" id="babyTransport" 
-        name="babyTransport" 
+        <input class="form-check-input" type="checkbox"
+        value="" id="babyTransport"
+        name="babyTransport"
         formControlName="babyTransport" [(ngModel)]="vehicle.babyTransport">
 
         <label class="form-check-label" for="babyTransport">
@@ -78,9 +78,9 @@
     </div>
 
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" 
-        value="" id="petTransport" 
-        name="petTransport" 
+        <input class="form-check-input" type="checkbox"
+        value="" id="petTransport"
+        name="petTransport"
         formControlName="petTransport" [(ngModel)]="vehicle.petTransport">
 
         <label class="form-check-label" for="petTransport">

@@ -1,4 +1,4 @@
-<section class="text-center bold-text">
+<section class="text-center bold-text" *ngIf="hasLoaded">
 <h2>Basic Information</h2>
 
 <div class="row pt-5">
@@ -37,13 +37,13 @@
         <div class="col-6">Model</div>
         <div class="col-6">Type</div>
     </div>
-    
+
     <div class="row pt-2">
-    
+
         <div class="col-7 text-underline" id="vehicleModel">{{vehicle.model}}</div>
         <div class="col-3 text-underline" id="vehileType">{{vehicle.vehicleType}}</div>
     </div>
-    
+
     <div class="row pt-4">
 
         <div class="col-6">Registration Number</div>
@@ -51,7 +51,7 @@
     </div>
 
     <div class="row pt-2">
-    
+
         <div class="col-7 text-underline" id="registrationNumber">{{vehicle.licenseNumber}}</div>
         <div class="col-3 text-underline" id="numberOfSeats">{{vehicle.passengerSeats}}</div>
     </div>

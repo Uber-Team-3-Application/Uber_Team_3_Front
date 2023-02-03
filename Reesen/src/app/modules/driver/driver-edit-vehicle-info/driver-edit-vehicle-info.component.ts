@@ -23,9 +23,10 @@ export class DriverEditVehicleInfoComponent implements OnInit{
   });
   vehicle: Vehicle;
   hasError = false;
+  hasLoaded = false;
 
-  constructor(private driverService: DriverService, 
-    private router: Router, 
+  constructor(private driverService: DriverService,
+    private router: Router,
     private tokenDecoder: TokenDecoderService,
     private vehicleService: VehicleService){
 
@@ -34,7 +35,10 @@ export class DriverEditVehicleInfoComponent implements OnInit{
     const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
     this.driverService.getDriversVehicle(tokenInfo.id)
     .subscribe(
-      (vehicle) => {this.vehicle = vehicle}
+      (vehicle) => {
+        this.vehicle = vehicle
+        this.hasLoaded = true;
+      }
     );
   }
 
