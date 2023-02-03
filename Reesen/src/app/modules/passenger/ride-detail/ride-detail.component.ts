@@ -29,8 +29,8 @@ export class RideDetailComponent implements OnInit{
   ride : Ride;
   passengers = new Array<Passenger>;
   reviews = new Array<Review>;
-  ratings : number = 4;
-  hasLoaded : boolean = false;
+  ratings  = 4;
+  hasLoaded  = false;
   userId: number;
   rideId: number;
   userRole: string;

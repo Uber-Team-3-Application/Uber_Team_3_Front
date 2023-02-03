@@ -19,12 +19,12 @@ export class DriverRideHistoryComponent implements OnInit, OnDestroy{
   minDate = "2022-05-02T01:30" ; // default
   maxDate = "2023-02-08T01:30"; // default
 
-  page:number = 1;
-  totalEntries: number = 0;
-  selectedShowNumber: number = 4;
-  selectedPage: number = 1;
-  kindsOfSort : string = "timeOfStart,desc";
-  sorting : number = 4; // default
+  page = 1;
+  totalEntries = 0;
+  selectedShowNumber = 4;
+  selectedPage = 1;
+  kindsOfSort  = "timeOfStart,desc";
+  sorting  = 4; // default
 
   constructor(private driverService : DriverService, private tokenDecoder: TokenDecoderService,
               private reviewService : ReviewService,
@@ -34,7 +34,7 @@ export class DriverRideHistoryComponent implements OnInit, OnDestroy{
   showSideBar = false;
   driversRides : RidePaginated;
   smartTable : TableRideContent[] = new Array<TableRideContent>;
-  hasLoaded: boolean = true;
+  hasLoaded = true;
 
 
   ngOnInit() : void {
@@ -79,7 +79,7 @@ export class DriverRideHistoryComponent implements OnInit, OnDestroy{
   }
 
   setRatingsOfRide() {
-    for (let ride of this.driversRides.results) {
+    for (const ride of this.driversRides.results) {
       this.reviewService.getReviewsForTheSpecificRide(ride.id).subscribe(
         res => {
            ride.reviews = res;
@@ -94,7 +94,7 @@ export class DriverRideHistoryComponent implements OnInit, OnDestroy{
   }
 
 
-  onTableDataChange(event: any) {
+  onTableDataChange(event) {
     this.page = event;
     this.fetchRides(this.page);
   }

@@ -49,6 +49,7 @@ const routes: Routes = [
   {path:'activationPage', component:ActivationpageComponent},
   {path:'activation', component:ActivationComponent},
   {path:'home', component:HomeComponent},
+  {path: 'home/:rideId', component:HomeComponent},
   {path: 'current_ride/:rideId/:rideRole', component: CurrentRideComponent},
   {path:'passenger_profile', component:PassengerProfileComponent},
   {path:'passenger_profile-edit', component:PassengerProfileEditComponent},

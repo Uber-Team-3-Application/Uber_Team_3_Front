@@ -1,22 +1,24 @@
-import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { MapService } from '../../map/map.service';
 import * as L from 'leaflet';
 import { PassengerService } from "../passenger.service";
 import { Passenger } from "../../../models/Passenger";
-import { Review, Ride, CreateFavoriteRide } from "../../../models/Ride";
+import {Review, Ride, CreateFavoriteRide, CreateRideDTO} from "../../../models/Ride";
 import { RideService } from "../../services/ride.service";
 import { DriverService } from '../../driver/services/driver.service';
 import { ReviewService } from '../../driver/services/review.service';
 import { Driver } from 'src/app/models/Driver';
+import {TokenDecoderService} from "../../auth/token/token-decoder.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-passengers-ride',
   templateUrl: './passengers-ride.component.html',
   styleUrls: ['./passengers-ride.component.css']
 })
-export class PassengersRideComponent implements AfterViewInit, OnDestroy {
+export class PassengersRideComponent implements AfterViewInit {
   constructor(private route: ActivatedRoute,
     private driverService: DriverService,
     private rideService: RideService,
@@ -24,6 +26,7 @@ export class PassengersRideComponent implements AfterViewInit, OnDestroy {
     private reviewService: ReviewService,
     private mapService: MapService,
     private changeDetectorRef: ChangeDetectorRef,
+    private tokenDecoder: TokenDecoderService,
     private passengerService: PassengerService,
     private reviewSerice: ReviewService) {
   }
@@ -31,20 +34,24 @@ export class PassengersRideComponent implements AfterViewInit, OnDestroy {
   ride: Ride;
   passengers = new Array<Passenger>;
   reviews = new Array<Review>;
-  ratings: number = 4;
-  hasLoaded: boolean = false;
+  ratings = 4;
+  hasLoaded = false;
   userId: number;
   rideId: number;
   driver: Driver;
   userRole: string;
   map!: L.Map;
-  showRate: boolean = false;
+  showRate = false;
 
   departureRideInfo = '';
   destinationRideInfo = '';
   isOnlyMap = true;
   favoriteRideName:string;
-  openFavBox: boolean = false;
+  openFavBox = false;
+  decodedToken = null;
+  role = '';
+  id = 0;
+
 
 
   ngAfterViewInit(): void {
@@ -140,10 +147,10 @@ export class PassengersRideComponent implements AfterViewInit, OnDestroy {
 
   private setRatings(): void {
 
-    let reviews: Review[] = this.reviews;
+    const reviews: Review[] = this.reviews;
     if (reviews.length === 0) {
       this.ratings = 0;
-      var threeDaysAgo = new Date();
+      const threeDaysAgo = new Date();
       threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
 
       if (new Date(this.ride.endTime) > threeDaysAgo) {
@@ -153,12 +160,12 @@ export class PassengersRideComponent implements AfterViewInit, OnDestroy {
       }
     }
     this.showRate = false;
-    let totalNumberOfReviews: number = reviews.length * 2;
-    let totalReviewScore: number = 0;
+    const totalNumberOfReviews: number = reviews.length * 2;
+    let totalReviewScore = 0;
     for (let j = 0; j < reviews.length; j++) {
 
-      let vehicleReview = reviews[j].vehicleReview;
-      let driverReview = reviews[j].driverReview;
+      const vehicleReview = reviews[j].vehicleReview;
+      const driverReview = reviews[j].driverReview;
       totalReviewScore += vehicleReview.rating;
       totalReviewScore += driverReview.rating;
     }
@@ -169,16 +176,56 @@ export class PassengersRideComponent implements AfterViewInit, OnDestroy {
     this.router.navigate(['/passenger_ride-history']);
   }
 
-  ngOnDestroy(): void {
 
-  }
 
 
   openBox() {
     this.openFavBox = true;
   }
 
+  // Ride{id=null, timeOfStart=null, timeOfEnd=null, totalPrice=0.0, driver=null, passengers=[com.reesen.Reesen.model.Passenger@629eb0db, com.reesen.Reesen.model.Passenger@3cd82201], estimatedTime=0.0, review=null, status=REJECTED, deduction=null, isPanicPressed=false, isBabyAccessible=false, isPetAccessible=true, vehicleType=STANDARD, locations=[Route(id=5, departure=Location(id=9, address=Cara Dušana Silnog 64, Veternik, latitude=45.2607023, longitude=19.7611797), destination=Location(id=10, address=Jevrejska 2, Novi Sad, latitude=45.25409, longitude=19.84176), mileage=0.0)]}
+
+
   orderRide() {
+    const tokenObservable = new Observable(subscriber => {
+      subscriber.next(this.tokenDecoder.getDecodedAccesToken());
+
+      window.addEventListener('storage', (event) => {
+        subscriber.next(this.tokenDecoder.getDecodedAccesToken());
+      });
+    });
+    tokenObservable.subscribe(token => {
+      if (token !== null) {
+        this.decodedToken = token;
+        this.id = +this.decodedToken.id;
+
+        this.role = this.decodedToken.role[0]['authority'];
+
+        const passengers = [];
+        for (let passenger of this.ride.passengers) {
+          if (passenger.id !== this.id)
+            passengers.push(passenger);
+        }
+
+        const createRideDTO: CreateRideDTO = {
+          passengers: passengers,
+          babyTransport: this.ride.babyTransport,
+          petTransport: this.ride.petTransport,
+          locations: this.ride.locations,
+          vehicleType: this.ride.vehicleType,
+          scheduledTime: this.ride.scheduledTime
+        }
+        this.rideService.orderARide(createRideDTO).subscribe({
+          next: (result) => {
+            this.router.navigate(['/home'])
+          },
+          error: (error) => {
+            console.log(error);
+            alert('Cannot create ride. You already have one in progress.');
+          }
+        })
+      }
+    });
 
   }
 

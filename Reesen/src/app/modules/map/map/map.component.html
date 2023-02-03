@@ -8,7 +8,7 @@
 
 <div *ngIf="!isOnlyMap && !rideAccepted">
   <div class="alert ride-info-popup p-3" role="alert"
-    *ngIf="rideAssumption.estimatedCost !== 0 && !waitingForRide && !rideAccepted">
+       *ngIf="rideAssumption.estimatedCost !== 0 && !waitingForRide && !rideAccepted">
     <div class="d-flex flex-row-reverse">
       <button class="modified-button-cancel my-button" (click)="rideAssumption.estimatedCost=0">X</button>
     </div>
@@ -57,7 +57,7 @@
 
 
   <app-accept-ride [acceptRide]="acceptRide" [role]="role"
-    *ngIf="acceptNotification && role==='DRIVER' && !rideDeclined  && !waitingForRide"></app-accept-ride>
+                   *ngIf="acceptNotification && role==='DRIVER' && !rideDeclined  && !waitingForRide"></app-accept-ride>
 
   <div *ngIf="!showGetRide && !waitingForRide && !rideAccepted && role!=='DRIVER'" class="overlay">
     <span><button class="ride-button my-button" type="button" (click)="openGetRide()">
@@ -76,13 +76,13 @@
         <div class="row text-center form-group p-3">
           <div class="col-12">
             <img src="../../../assets/img/plus.png" alt="" class="open-vehicle-type"
-              (click)="openFavoriteRides()"><span>Choose from favorite rides</span>
+                 (click)="openFavoriteRides()"><span>Choose from favorite rides</span>
           </div>
         </div>
         <div class="row text-center form-group vehicle-type" *ngIf="showFavoriteRides">
           <!--TODO NG FOR KROZ TIPOVE IZ BAZE I ONDA SE KREIRAJU DIVOVI-->
           <button class="vehicle-type-item p-3" type="button" (click)="selectFavoriteRide(ride)"
-            *ngFor="let ride of favoriteRides">
+                  *ngFor="let ride of favoriteRides">
             <div class="row">
               <mat-card class="example-card">
                 <mat-card-header>
@@ -96,15 +96,15 @@
                       <span class="rideText"></span>
                     </mat-card-subtitle>
                     <img mat-card-sm-image class="vehicle_img" src="assets/img/van.png" alt="vehicle"
-                      *ngIf="ride.vehicleType === 'VAN'">
+                         *ngIf="ride.vehicleType === 'VAN'">
                     <img mat-card-sm-image class="vehicle_img" src="assets/img/luxury.png" alt="vehicle"
-                      *ngIf="ride.vehicleType === 'LUXURY'">
+                         *ngIf="ride.vehicleType === 'LUXURY'">
                     <img mat-card-sm-image class="vehicle_img" src="assets/img/standard.png" alt="vehicle"
-                      *ngIf="ride.vehicleType ==='STANDARD'">
+                         *ngIf="ride.vehicleType ==='STANDARD'">
                     <img mat-card-sm-image class="transport_img" src="assets/img/baby_transport.png" alt="vehicle"
-                      *ngIf="ride.babyTransport">
+                         *ngIf="ride.babyTransport">
                     <img mat-card-sm-image class="vehicle_img" src="assets/img/pet_transport.png" alt="vehicle"
-                      *ngIf="ride.petTransport">
+                         *ngIf="ride.petTransport">
                   </mat-card-title-group>
                 </mat-card-header>
                 <mat-card-content>
@@ -145,7 +145,7 @@
 
         <div class="col-12">
           <input type="text" class="form-control" placeholder="Radnicka 3, Novi Sad" name="departure"
-            formControlName="departure" id="departure">
+                 formControlName="departure" id="departure">
         </div>
       </div>
       <div class="row text-center form-group p-3">
@@ -155,14 +155,14 @@
 
         <div class="col-12">
           <input type="text" class="form-control" placeholder="Laze Teleckog 12, Novi Sad" name="destination"
-            formControlName="destination" id="destination">
+                 formControlName="destination" id="destination">
 
         </div>
       </div>
       <div class="row text-center form-group p-3">
         <div class="col-12">
           <img src="../../../assets/img/plus.png" alt="" class="open-vehicle-type"
-            (click)="openVehicleTypeComponent()"><span>Select vehicle type</span>
+               (click)="openVehicleTypeComponent()"><span>Select vehicle type</span>
         </div>
       </div>
       <div class="text-center alert-primary p-3" role="alert" *ngIf="typeSelected">
@@ -171,7 +171,7 @@
       <div class="row text-center form-group vehicle-type" *ngIf="showVehicleType">
         <!--TODO NG FOR KROZ TIPOVE IZ BAZE I ONDA SE KREIRAJU DIVOVI-->
         <button class="vehicle-type-item p-3" type="button" (click)="selectVehicleType(type)"
-          *ngFor="let type of vehicleTypes">
+                *ngFor="let type of vehicleTypes">
           <div class="row">
             <div class="col-12 py-3">
               <div class="row">
@@ -205,28 +205,28 @@
       <div class="row text-center form-group passengers" *ngIf="role==='PASSENGER'">
         <label for="passengers">Enter passenger email addresses with , inbetween</label>
         <input type="text" class="form-control" placeholder="e1@mail.com, e2@mail.com" name="passengers"
-          formControlName="passengers" id="passengers">
+               formControlName="passengers" id="passengers">
       </div>
       <div class="row p-3 text-center">
         <div class="col-6">
           <input type="checkbox" class="form-check-input" id="babyTransport" name="babyTransport"
-            formControlName="babyTransport">
+                 formControlName="babyTransport">
           <label for="babyTransport" class="form-check-label px-3">Baby transport</label>
 
         </div>
         <div class="col-6">
           <input type="checkbox" class="form-check-input" id="petTransport" name="petTransport"
-            formControlName="petTransport">
+                 formControlName="petTransport">
           <label for="petTransport" class="form-check-label px-3">Pet transport</label>
         </div>
         <div class="col-6" *ngIf="role==='PASSENGER'">
           <input type="checkbox" class="form-check-input" id="schedule" name="schedule" formControlName="schedule"
-            (click)="showDateTimePicker()">
+                 (click)="showDateTimePicker()">
           <label for="schedule" class="form-check-label px-3">Schedule for later:</label>
         </div>
         <div class="col-6" id="scheduledTime" *ngIf="showDateTime">
           <input type="datetime-local" class="form-control" id="scheduledTime" name="scheduledTime"
-            formControlName="scheduledTime">
+                 formControlName="scheduledTime">
         </div>
       </div>
 

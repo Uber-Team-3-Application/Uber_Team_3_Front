@@ -1,5 +1,5 @@
 import { AfterViewInit, OnDestroy, Component, Input } from '@angular/core';
-import { Observable, scheduled } from 'rxjs'
+import { Observable } from 'rxjs'
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
@@ -9,6 +9,7 @@ import { Location, Route, VehicleLocationWithAvailibility } from 'src/app/models
 import { VehicleService } from 'src/app/modules/driver/services/vehicle.service';
 import { UserService } from '../../unregistered-user/user.service';
 import { RideInfo, RideInfoBody, CreateRideDTO, RideSimulationDTO, VehicleSimulationDTO, Ride, FavoriteRide } from 'src/app/models/Ride';
+
 import { UserRestrict } from 'src/app/models/User';
 import { greenCar, redCar, carMyRide, carPanic } from '../icons/icons';
 import { TokenDecoderService } from '../../auth/token/token-decoder.service';
@@ -75,6 +76,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   acceptNotification = false;
   acceptRide: Ride;
 
+
+
   initializeWebSocketConnection() {
     let ws = new SockJS(this.socketEndpoint);
     //this.stompClient = Stomp.Stomp.over(ws);
@@ -104,8 +107,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         vehicle.setIcon(greenCar);
         return;
       }
-
-
 
       if(this.panicPressed !== null){
         vehicle.setIcon(carPanic);
@@ -198,8 +199,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         console.log('LOGOUT');
       }
     });
-
-
 
   }
 
@@ -461,7 +460,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       if(this.rideAccepted == true){
           if (this.currentRoute != null) {
             this.map.removeControl(this.currentRoute);
-          };
+          }
           const route = L.Routing.control({
             waypoints: [L.latLng(this.acceptRide.locations[0].departure.latitude, this.acceptRide.locations[0].departure.longitude),
             L.latLng(this.acceptRide.locations[0].destination.latitude, this.acceptRide.locations[0].destination.longitude)],
@@ -666,9 +665,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   openGetRide(): void {
-
     this.showGetRide = true;
-
   }
 
   clearMap(): void {
@@ -819,7 +816,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       scheduled: false,
       scheduledTime: new Date()
     });
-    
+
     this.vehicleTypes.forEach(element => {
       if(element.name===favRide.vehicleType)
         this.selectVehicleType(element);

@@ -28,7 +28,7 @@ export class DriversRideComponent implements OnInit{
   rideId: number;
   userRole: string;
   map!: L.Map;
-  params : any;
+  params;
 
   constructor(private route: ActivatedRoute,
               private driverService : DriverService,
@@ -105,6 +105,7 @@ export class DriversRideComponent implements OnInit{
     if(reviews.length === 0)
     {
       this.ratings = 0;
+      this.setPassengers();
       return;
     }
     const totalNumberOfReviews: number = reviews.length  * 2;
@@ -123,61 +124,4 @@ export class DriversRideComponent implements OnInit{
   goBack():void{
     this.router.navigate(['driverRideHistory']);
   }
-
-  //  initMap() : boolean{
-  //
-  //   L.Marker.prototype.options.icon = L.icon({
-  //     iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
-  //   });
-  //
-  //     this.map = L.map('map', {
-  //       center: [45.249101856630546, 19.848034],
-  //       zoom: 16,
-  //     });
-  //
-  //   const tiles = L.tileLayer(
-  //     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  //     {
-  //       maxZoom: 18,
-  //       minZoom: 3,
-  //       attribution:
-  //         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  //     }
-  //   );
-  //   tiles.addTo(this.map);
-  //
-  //   let departure;
-  //   let destination;
-  //   this.mapService
-  //     .search(this.ride.locations.at(0).departure.address)
-  //     .subscribe(
-  //       {
-  //         next: (result) =>{
-  //           departure = result[0];
-  //         },
-  //         error: (error) =>{console.log(error);}
-  //       }
-  //     );
-  //
-  //   this.mapService
-  //     .search(this.ride.locations.at(this.ride.locations.length - 1).destination.address)
-  //     .subscribe(
-  //       {
-  //         next: (result) =>{
-  //           destination = result[0];
-  //           if(departure){
-  //             L.Routing.control({
-  //               waypoints: [L.latLng(departure.lat, departure.lon), L.latLng(destination.lat, destination.lon)],
-  //               show: false,
-  //             }).addTo(this.map);
-  //
-  //             const bounds = L.latLngBounds([departure, destination]);
-  //             this.map.fitBounds(bounds);
-  //           }
-  //         },
-  //         error: (error) => {console.log(error);}
-  //       }
-  //     );
-  //   return true;
-  // }
 }
