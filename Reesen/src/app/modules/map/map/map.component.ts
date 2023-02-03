@@ -235,7 +235,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
             }
           });
 
-        } else if (this.acceptRide.status === "REJECTED") {
+        } else if (this.acceptRide.status === "REJECTED" || this.acceptRide.status == "CANCELED") {
           alert('Your ride was rejected');
           this.clearMap();
           this.rideAssumption.estimatedCost = 0;

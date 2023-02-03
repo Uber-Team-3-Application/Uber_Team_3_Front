@@ -73,7 +73,7 @@
         <span><button class="button-cancel my-button" (click)="closeRideInfo()">X</button></span>
       </div>
       <div class="row text-center form-group p-3">
-        <div class="row text-center form-group p-3">
+        <div class="row text-center form-group p-3" *ngIf="role==='PASSENGER'">
           <div class="col-12">
             <img src="../../../assets/img/plus.png" alt="" class="open-vehicle-type"
                  (click)="openFavoriteRides()"><span>Choose from favorite rides</span>
