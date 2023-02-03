@@ -13,6 +13,7 @@ export class DriverProfileComponent implements OnInit{
     firstName = "Pera";
     lastName = "Peric";
     driver:Driver;
+    hasLoadedDriver: boolean;
 
     ngOnInit():void{
       this.selectedView = "ACCOUNT";
@@ -26,7 +27,9 @@ export class DriverProfileComponent implements OnInit{
 
       this.driverService.get(tokenInfo.id)
       .subscribe(
-        (driver) => (this.driver = driver)
+        (driver) => {
+          this.driver = driver;
+          this.hasLoadedDriver = true;}
       );
     }
 

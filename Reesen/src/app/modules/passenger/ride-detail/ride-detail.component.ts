@@ -38,13 +38,15 @@ export class RideDetailComponent implements OnInit{
 
 
   ngOnInit() : void {
+    this.hasLoaded = false;
     this.route.params.subscribe((params) => {
       this.rideService.get(params["rideId"]).subscribe((ride)=>
       {
         this.ride = ride;
-        this.reviews = this.ride.reviews;
+        this.reviews = this.ride.reviews; 
         this.setRatings();
         this.setPassengers();
+        
       })
 
     })
@@ -62,6 +64,7 @@ export class RideDetailComponent implements OnInit{
                 this.hasLoaded = true;
                 this.changeDetectorRef.detectChanges();
                 this.initMap();
+                this.hasLoaded = true;
               }
 
             },

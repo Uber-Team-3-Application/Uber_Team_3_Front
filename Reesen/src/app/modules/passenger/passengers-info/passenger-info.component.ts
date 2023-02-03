@@ -17,6 +17,7 @@ export class PassengersInfoComponent {
   rideId : string;
   user: User;
   numId: number;
+  hasLoaded = false;
 
   constructor(private route: ActivatedRoute,
               private passengerService: PassengerService,
@@ -25,11 +26,11 @@ export class PassengersInfoComponent {
               private userService: UserService){}
 
   ngOnInit(): void {
+    this.hasLoaded = false;
     this.id = this.route.snapshot.paramMap.get('id');
     this.rideId = this.route.snapshot.paramMap.get('rideId');
     this.numId = +this.id;
     this.getPassenger( this.numId);
-
   }
 
 
@@ -39,7 +40,7 @@ export class PassengersInfoComponent {
         (passenger) => {this.user = passenger;console.log(this.user);
           this.userService.getUserIsBlocked(this.numId)
             .subscribe(
-              (blocked) =>{ this.user.blocked = blocked; console.log(blocked);}
+              (blocked) =>{ this.user.blocked = blocked; this.hasLoaded = true;}
             )
 
         }

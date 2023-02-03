@@ -50,7 +50,7 @@ export class DriverService {
     const driverActivityDTO: DriverActivityDTO = {
       active:isActive
     };
-    return this.http.post(environment.apiHost + 'api/driver/'+ driverId + '/activity', driverActivityDTO);
+    return this.http.post<string>(environment.apiHost + 'api/driver/'+ driverId + '/activity', driverActivityDTO);
   }
 
   edit(driver: Driver, id:number): Observable<Driver>{
@@ -111,7 +111,7 @@ export class DriverService {
   }
   finishShift(workingHourId: number, date:Date): Observable<WorkingHours>{
     return this.http.put<WorkingHours>(environment.apiHost + "api/driver/working-hour/" + workingHourId, {end: date});
-    
+
   }
 
   getRidesOfSpecificDriver(id: number, sort?:string, from?:string, to?:string, page?:number, size?:number) : Observable<RidePaginated> {

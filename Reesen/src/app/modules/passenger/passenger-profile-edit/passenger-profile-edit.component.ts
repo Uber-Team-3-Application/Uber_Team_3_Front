@@ -19,6 +19,7 @@ export class PassengerProfileEditComponent implements OnInit{
     surname: new FormControl('', [Validators.required, Validators.minLength(3)])
       
   });
+  hasLoaded = false;
   hasError: boolean;
   avatarBase64 = "";
   passenger:Passenger = {
@@ -36,11 +37,12 @@ export class PassengerProfileEditComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.hasLoaded = false;
     const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
     
     this.passengerService.get(tokenInfo.id)
     .subscribe(
-      (passenger) => {this.passenger = passenger; console.log(this.passenger.password)}
+      (passenger) => {this.passenger = passenger; this.hasLoaded = true;}
     );
 
   }

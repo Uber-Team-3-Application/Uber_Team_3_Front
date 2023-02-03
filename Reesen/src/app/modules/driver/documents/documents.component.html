@@ -1,4 +1,5 @@
 
+<section *ngIf="hasLoaded">
 <div *ngFor="let doc of documents">
 <p>{{doc.name}}</p>
 <img [src]="doc.documentImage" alt="avatar" *ngIf="doc.documentImage !== 'dozvola'">
@@ -61,3 +62,4 @@
 </section>
 
 
+</section>

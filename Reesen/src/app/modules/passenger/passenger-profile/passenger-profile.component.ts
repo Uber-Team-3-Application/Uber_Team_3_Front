@@ -8,6 +8,8 @@ import { PassengerService } from '../passenger.service';
   templateUrl: './passenger-profile.component.html',
   styleUrls: ['./passenger-profile.component.css']
 })
+
+
 export class PassengerProfileComponent implements OnInit {
   passenger:Passenger = {
     name: '',
@@ -20,16 +22,17 @@ export class PassengerProfileComponent implements OnInit {
     active: true
   };
   
-
+  hasLoaded = false;
   constructor(private passengerService:PassengerService, private tokenDecoder: TokenDecoderService){
 
   }
 
   ngOnInit():void{
+    this.hasLoaded = false;
     const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
     this.passengerService.get(tokenInfo.id).
     subscribe(
-      (passenger) =>(this.passenger = passenger)
+      (passenger) => {this.passenger = passenger; this.hasLoaded = true;}
       );
 
   }

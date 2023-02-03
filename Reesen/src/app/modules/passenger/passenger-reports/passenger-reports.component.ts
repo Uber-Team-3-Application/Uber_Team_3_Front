@@ -17,16 +17,18 @@ export class PassengerReportsComponent {
   typeRidesPerDay = "RIDES_PER_DAY";
   typeEarnedPerDay = "MONEY_EARNED_PER_DAY";
   typeKilometersPerDay = "KILOMETERS_PER_DAY";
+  hasLoaded = false;
 
   constructor(private tokenDecoder: TokenDecoderService) {
   }
 
   ngOnInit(): void {
+    this.hasLoaded = false;
     const decoder = this.tokenDecoder.getDecodedAccesToken();
     this.passengerId = decoder.id;
     this.startDate = new Date();
     this.endDate = new Date();
-
+    this.hasLoaded = true;
   }
   setSelectedStartDate(): void{
     this.startDateSelected = true;

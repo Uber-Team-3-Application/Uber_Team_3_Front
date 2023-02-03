@@ -12,8 +12,9 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class DocumentsComponent implements OnInit{
   documents : Document[];
   avatarBase64 = "";
-  state : boolean = false;
-  hasError : boolean = false;
+  state  = false;
+  hasError  = false;
+  hasLoaded : boolean;
   newDocumentForm = new FormGroup({
     nameOfDocument : new FormControl('', [Validators.required, Validators.maxLength(30)])
   });
@@ -28,7 +29,7 @@ export class DocumentsComponent implements OnInit{
   private setDocuments() {
     const tokenInfo = this.tokenDecoder.getDecodedAccesToken();
     this.driverService.getDocuments(tokenInfo.id).subscribe(
-      (res) => {this.documents = res;}
+      (res) => {this.documents = res; this.hasLoaded = true;}
     )
   }
 
