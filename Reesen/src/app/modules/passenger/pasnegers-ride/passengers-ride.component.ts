@@ -102,6 +102,7 @@ export class PassengersRideComponent implements AfterViewInit {
     this.driverService.get(this.ride.driver.id)
       .subscribe(
         {
+          
           next: (result) => { this.driver = result; },
           error: (error) => { console.log(error); }
         }
