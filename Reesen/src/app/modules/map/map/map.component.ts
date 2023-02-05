@@ -223,6 +223,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       else {
         this.acceptRide = JSON.parse(message.body);
         if (this.acceptRide.status === "ACCEPTED") {
+          this.rideService.setPanicPressed(null);
+
           this.rideService.setRideEnded(false);
           this.rideAccepted = true;
           this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
@@ -237,6 +239,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
         } else if (this.acceptRide.status === "REJECTED" || this.acceptRide.status == "CANCELED") {
           alert('Your ride was rejected');
+          this.rideService.setPanicPressed(null);
+
           this.clearMap();
           this.rideAssumption.estimatedCost = 0;
           this.rideAssumption.estimatedTimeInMinutes = 0;
@@ -251,6 +255,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       let ride = JSON.parse(message.body);
       this.rideService.setRideStarted(true);
       this.rideService.setRideEnded(false);
+      this.rideService.setPanicPressed(null);
+
 
       this.vehicleService.simulateRide(ride.id).subscribe({
         next: (result) => {
@@ -299,7 +305,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.stompClient.subscribe('/topic/driver/ride/' + this.id, (message: { body: string; }) => {
       console.log(message);
       this.rideService.setRideEnded(false);
-
+      this.rideService.setPanicPressed(null);
       this.rideService.setRideStatus(false);
       this.acceptRide = JSON.parse(message.body);
       this.acceptRide.estimatedTimeInMinutes = Math.round(this.acceptRide.estimatedTimeInMinutes * 100) / 100;
@@ -308,7 +314,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.stompClient.subscribe('/topic/driver/start-ride/' + this.id, (message: { body: string; }) => {
       let ride = JSON.parse(message.body);
       this.rideService.setRideEnded(false);
-
+      this.rideService.setPanicPressed(null);
       this.rideService.setRideStarted(true);
       this.vehicleService.simulateRide(ride.id).subscribe({
         next: (result) => {
