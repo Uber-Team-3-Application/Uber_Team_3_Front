@@ -14,6 +14,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  // VELJA ->
+
   getRideAssumption(rideInfoBody: RideInfoBody):Observable<RideInfo>{
     return this.http.post<RideInfo>(environment.apiHost + "api/unregisteredUser/", rideInfoBody);
   }
@@ -36,6 +38,8 @@ export class UserService {
       params:params
     });
   }
+
+
   getUsersByRole(page:number, size:number, role: string): Observable<PageUsers>{
     let params = new HttpParams();
     params = params.append('page', page);
@@ -54,6 +58,11 @@ export class UserService {
     return this.http.get<number>(environment.apiHost + "api/user/number-of-users");
   }
 
+    // VELJA DOVDE
+
+
+    // VUGA ->
+
   blockUser(id: number): Observable<void>{
     return this.http.put<void>(environment.apiHost + "api/user/" + id + "/block", null);
   }
@@ -66,6 +75,7 @@ export class UserService {
     return this.http.get<boolean>(environment.apiHost + "api/user/" + id + "/is-blocked");
 
   }
+
 
   createRemark(userId: number, message: Remark): Observable<Remark>{
     return this.http.post<Remark>(environment.apiHost + "api/user/" + userId + "/note", message);
@@ -80,6 +90,10 @@ export class UserService {
   resetPassword(resetPasswordDTO: any, userId: number): Observable<string> {
     return this.http.put<string>(environment.apiHost+'api/user/' + userId + '/resetPassword', resetPasswordDTO);
   }
+
+  // VUGA DOVDE
+
+  //JELENA ->
 
   resetPasswordLink(userId: number) {
     return this.http.get<string>(environment.apiHost+'api/user/' + userId + '/resetPassword');
@@ -107,4 +121,5 @@ export class UserService {
   getTotalNumberOfRidesForUser(id: number): Observable<number>{
     return this.http.get<number>(environment.apiHost + "api/user/" + id + '/number-of-rides');
   }
+  // JELENA DOVDE
 }
