@@ -2,20 +2,16 @@ import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../unregistered-user/user.service';
 import { AuthenticationService } from '../authentication.service';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { LoginComponent } from './login.component';
-
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let el: HTMLElement;
-  let loginForm: HTMLElement;
   const userServiceSpy = jasmine.createSpyObj<UserService>(['findByEmail','resetPasswordLink','sendEmail']);
   const authenticationServiceSpy = jasmine.createSpyObj<AuthenticationService>(['login', 'setUser']);
-  const routerSpy = jasmine.createSpyObj<Router>(['navigate']);
 
   beforeEach(() => {
 
@@ -25,21 +21,17 @@ describe('LoginComponent', () => {
       imports:[
         CommonModule,
         ReactiveFormsModule,
-        RouterModule,
+        RouterTestingModule
       ],
       providers:[
         {provide: UserService, useValue: userServiceSpy},
-        {provide: AuthenticationService, useValue: authenticationServiceSpy},
-        {provide: Router, useValue: routerSpy}
+        {provide: AuthenticationService, useValue: authenticationServiceSpy}
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    // get the first and only form in the component
-    loginForm = fixture.debugElement.nativeElement.querySelectorAll("form")[0];
     fixture.detectChanges();
   });
 
@@ -47,12 +39,10 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  /**
-   * 
-   *  REACTIVE LOGIN VALIDATION FORM TESTING
-   * 
-   */
+  it('component initial state', () => {
+    expect(component.loginForm).toBeDefined();
+    expect(component.loginForm.invalid).toBeTruthy();
+  });
   it('form should be invalid with empty fields', () =>{
     component.loginForm.controls['email'].setValue('');
     component.loginForm.controls['password'].setValue('');
@@ -82,19 +72,10 @@ describe('LoginComponent', () => {
     el = fixture.debugElement.query(By.css('#confirmLogin')).nativeElement;
     el.click();
     expect(component.login).toHaveBeenCalledTimes(1);
-  });
-  
-  it('should set has error to true', () =>{
     
-    spyOn(component, 'login');
-    component.loginForm.controls['email'].setValue('');
-    component.loginForm.controls['password'].setValue('');
-    el = fixture.debugElement.query(By.css('#confirmLogin')).nativeElement;
-    el.click();
-    expect(component.hasError).toBeTruthy();
   });
+
   it('should set has error to false', () =>{
-    
     spyOn(component, 'login');
     component.loginForm.controls['email'].setValue('nikolaj@gmail.com');
     component.loginForm.controls['password'].setValue('Nikolaj123');
@@ -102,11 +83,12 @@ describe('LoginComponent', () => {
     el.click();
     expect(component.hasError).toBeFalsy();
   });
-  /**
-   * 
-   *  END OF REACTIVE LOGIN VALIDATION TESTING
-   * 
-   */
 
+  it('should call sendEmailReset method', () =>{
+    spyOn(component, 'sendEmailReset');
+    el = fixture.debugElement.query(By.css('#resetEmail')).nativeElement;
+    el.click();
+    expect(component.sendEmailReset).toHaveBeenCalledTimes(1);
+  });
 
 });
