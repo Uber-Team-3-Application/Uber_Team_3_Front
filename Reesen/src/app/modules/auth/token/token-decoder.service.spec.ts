@@ -13,7 +13,7 @@ describe('TokenDecoderService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return the decoded access token', () => {
+  it('should return the decoded access token with role ADMIN', () => {
     const testToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XX0.ScQ_gN-hbxll68NU0pZPIFN-8zvgWzBvwjKlhRlYAK8';
     localStorage.setItem('user', testToken);
 

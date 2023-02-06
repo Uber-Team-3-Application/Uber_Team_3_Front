@@ -26,12 +26,12 @@ describe('AuthenticationService', () => {
 
   it('login should return an Observable of type Token', () =>{
     const credentials = {
-      username: 'marko@gmail.com',
+      email: 'marko@gmail.com',
       password: 'Marko123'
     };
     const token = {
-      access_token: ' access_token',
-      refresh_token: 'refresh_token'
+      access_token: ' eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XX0.ScQ_gN-hbxll68NU0pZPIFN-8zvgWzBvwjKlhRlYAK8',
+      refresh_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XX0.ScQ_gN-hbxll68NU0pZPIFN-8zvgWzBvwjKlhRlYAK8'
     };
     service.login(credentials).subscribe(
       result =>{
@@ -46,7 +46,7 @@ describe('AuthenticationService', () => {
     );
     expect(request.request.method).toEqual('POST');
     request.flush(token);
-
+     
   });
 
   it('logout should return an Observable of type String', () =>{
@@ -64,7 +64,7 @@ describe('AuthenticationService', () => {
   });
 
   it('should return true if user is logged in', () => {
-    localStorage.setItem('user', 'token');
+    localStorage.setItem('user', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XX0.ScQ_gN-hbxll68NU0pZPIFN-8zvgWzBvwjKlhRlYAK8');
     expect(service.isLoggedIn()).toBeTruthy();
   });
 
@@ -72,8 +72,9 @@ describe('AuthenticationService', () => {
     localStorage.removeItem('user');
     expect(service.isLoggedIn()).toBeFalsy();
   });
+
   it('should return the role of the logged in user', () => {
-    localStorage.setItem('user', 'token');
+    localStorage.setItem('user', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XX0.ScQ_gN-hbxll68NU0pZPIFN-8zvgWzBvwjKlhRlYAK8');
     const role = 'ADMIN';
     const helper = new JwtHelperService();
     spyOn(helper, 'decodeToken').and.returnValue({ role: [{ authority: role }] });
