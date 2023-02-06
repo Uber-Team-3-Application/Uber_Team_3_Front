@@ -13,7 +13,7 @@ fdescribe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let el: HTMLElement;
-
+  let loginForm: HTMLElement;
   const userServiceSpy = jasmine.createSpyObj<UserService>(['findByEmail','resetPasswordLink','sendEmail']);
   const authenticationServiceSpy = jasmine.createSpyObj<AuthenticationService>(['login', 'setUser']);
   const routerSpy = jasmine.createSpyObj<Router>(['navigate']);
@@ -39,6 +39,8 @@ fdescribe('LoginComponent', () => {
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+    // get the first and only form in the component
+    loginForm = fixture.debugElement.nativeElement.querySelectorAll("form")[0];
     fixture.detectChanges();
   });
 
@@ -52,9 +54,21 @@ fdescribe('LoginComponent', () => {
    *  REACTIVE LOGIN VALIDATION FORM TESTING
    * 
    */
-  it('form should be invalid', () =>{
+  it('form should be invalid with empty fields', () =>{
     component.loginForm.controls['email'].setValue('');
     component.loginForm.controls['password'].setValue('');
+    expect(component.loginForm.valid).toBeFalsy();
+
+  });
+  it('form should be invalid wrong email format', () =>{
+    component.loginForm.controls['email'].setValue('nikolajgmail.com');
+    component.loginForm.controls['password'].setValue('Nikolaj123');
+    expect(component.loginForm.valid).toBeFalsy();
+
+  });
+  it('form should be invalid password length', () =>{
+    component.loginForm.controls['email'].setValue('nikolajgmail.com');
+    component.loginForm.controls['password'].setValue('1234');
     expect(component.loginForm.valid).toBeFalsy();
 
   });
