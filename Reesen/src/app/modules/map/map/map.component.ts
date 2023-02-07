@@ -620,7 +620,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     console.log(rideInfo)
     this.userService.getRideAssumption(rideInfo)
       .subscribe(
-        (info) => { this.rideAssumption = info; }
+        (info) => { this.rideAssumption = info; console.log(info) }
       );
 
   }

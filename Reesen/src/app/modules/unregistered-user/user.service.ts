@@ -30,6 +30,7 @@ export class UserService {
         old_password: oldPassword
       });
   }
+
   getUsers(page: number, size:number): Observable<PageUsers>{
     let params = new HttpParams();
     params = params.append('page', page);
@@ -98,7 +99,7 @@ export class UserService {
   resetPasswordLink(userId: number) {
     return this.http.get<string>(environment.apiHost+'api/user/' + userId + '/resetPassword');
   }
-  
+
   findByEmail(email: string): Observable<User> {
     let params = new HttpParams();
     params = params.append('email', email);
