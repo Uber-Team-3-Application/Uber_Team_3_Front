@@ -219,6 +219,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       console.log(message);
       if (message.body === "You have a scheduled ride!") {
         alert("You have a scheduled ride!");
+      } else if (message.body === "No suitable driver found!") {
+        alert("No suitable driver found!");
       }
       else {
         this.acceptRide = JSON.parse(message.body);
