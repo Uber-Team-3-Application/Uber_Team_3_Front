@@ -8,6 +8,7 @@ import {EmailInfo} from "../../models/Email";
 import { HttpClient } from '@angular/common/http';
 import {of} from "rxjs";
 import {PageUsers} from "../../models/User";
+import { User } from 'src/app/models/User';
 
 describe('UserService', () => {
   let userService: UserService;
@@ -198,6 +199,7 @@ describe('UserService', () => {
     expect(req.request.method).toBe('GET');
     req.flush(isBlocked);
   });
+
   it('should call the get user is blocked and return true', () => {
     const userId = 1;
     const isBlocked = true;
@@ -210,4 +212,93 @@ describe('UserService', () => {
   });
 
 
+  it('should reset password link', () => {
+    const userId = 1;
+    const passwordLink = 'http://api.example.com/api/user/1/resetPassword';
+
+    userService.resetPasswordLink(userId).subscribe(res => {
+      expect(res).toEqual(passwordLink);
+    });
+
+    const req = httpMock.expectOne(environment.apiHost + 'api/user/' + userId + '/resetPassword');
+    expect(req.request.method).toBe('GET');
+    req.flush(passwordLink);
+  });
+
+  it('should find a user by email', () => {
+    const expectedUser: User = {
+      id: 1,
+      name: 'John',
+      surname: 'Doe',
+      email: 'johndoe@example.com',
+      address: '123 Main St',
+      isConfirmedEmail: true,
+      amountOfMoney: 0
+    };
+
+    userService.findByEmail('johndoe@example.com').subscribe(user => {
+      expect(user).toEqual(expectedUser);
+    });
+
+    const req = httpMock.expectOne(`${environment.apiHost}api/user/email?email=johndoe@example.com`);
+    expect(req.request.method).toEqual('GET');
+    req.flush(expectedUser);
+  });
+
+  
+  it('should return a paginated list of rides for a given user', () => {
+    const userId = 2;
+    const page = 1;
+    const size = 1;
+    const sort = 'asc';
+    const from = '2022-01-01';
+    const to = '2022-12-31';
+
+    userService.getRides(userId, page, size, sort, from, to).subscribe(rides => {
+      expect(rides).toBeTruthy();
+      expect(rides.totalCount).toEqual(1);
+      expect(rides.results.length).toEqual(1);
+    });
+
+    const req = httpMock.expectOne(
+      `${environment.apiHost}api/user/${userId}/ride?page=${page}&size=${size}&sort=${sort}&from=${from}&to=${to}`
+    );
+    expect(req.request.method).toEqual('GET');
+
+    req.flush({
+      totalCount: 1,
+      results: [
+        {
+          status: 'completed',
+          id: 1,
+          startTime: '2022-01-01T12:00:00',
+          endTime: '2022-01-01T12:30:00',
+          totalCost: 15,
+          driver: { id: 1, name: 'John Doe' },
+          passengers: [{ id: 2, name: 'Jane Doe' }],
+          estimatedTimeInMinutes: 30,
+          vehicleType: 'STANDARD',
+          babyTransport: false,
+          petTransport: false,
+          locations: [{ lat: 37.7749, lng: -122.4194 }],
+          reviews: [{ id: 1, rating: 5, comment: 'Great ride!' }],
+          scheduledTime: '2022-01-01T12:00:00'
+        }
+      ]
+    });
+  });
+
+  it('should get total number of rides for a user', () => {
+    const userId = 3;
+    const numberOfRides = 3;
+
+    userService.getTotalNumberOfRidesForUser(userId).subscribe(res => {
+      expect(res).toEqual(numberOfRides);
+    });
+
+    const req = httpMock.expectOne(environment.apiHost + 'api/user/' + userId + '/number-of-rides');
+    expect(req.request.method).toBe('GET');
+    req.flush(numberOfRides);
+  });
+  
 });
