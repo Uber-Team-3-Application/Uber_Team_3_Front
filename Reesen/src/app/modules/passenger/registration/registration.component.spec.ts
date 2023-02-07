@@ -53,9 +53,6 @@ describe('RegistrationComponent', () => {
     component.registerForm.controls.password.setValue('password');
     component.registerForm.controls.repeatedPassword.setValue('password');
     component.register();
-    // expect(passengerService.save).toHaveBeenCalledWith(passenger);
-    // expect(passengerService.activatePassenger).toHaveBeenCalled();
-    //expect(userService.sendEmail).toHaveBeenCalled();
   });
 
   it('should set hasError to true when passwords do not match', () => {
