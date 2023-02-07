@@ -9,6 +9,8 @@ import { Ride, RidePaginated } from 'src/app/models/Ride';
 })
 export class PassengerService {
 
+
+  // JELENA
   getRidesOfPassenger(id: number, sort?:string, from?:string, to?:string, page?:number, size?:number) : Observable<RidePaginated> {
 
     let params = new HttpParams();
@@ -49,6 +51,11 @@ export class PassengerService {
     return this.http.get<Passenger>(environment.apiHost+'api/passenger/' + passengerId);
   }
 
+  // JELENA DOVDE
+
+
+  //VELJA 
+
   getAll():Observable<Passenger[]>{
     return this.http.get<Passenger[]>(environment.apiHost + 'api/passenger');
   }
@@ -65,4 +72,5 @@ export class PassengerService {
     return this.http.get<Ride[]>(environment.apiHost + "api/passenger/" + passengerId + "/ride")
   }
 
+  // VELJA DOVDE
 }

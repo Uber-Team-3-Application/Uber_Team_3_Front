@@ -13,8 +13,8 @@ import { UserService } from '../../unregistered-user/user.service';
 export class LoginComponent{
     loginForm = new FormGroup(
       {
-        email: new FormControl('', [Validators.required, Validators.minLength(4)]),
-        password: new FormControl('', [Validators.required, Validators.minLength(4)])
+        email: new FormControl('', [Validators.required, Validators.minLength(4), Validators.email]),
+        password: new FormControl('', [Validators.required, Validators.minLength(8)])
       }
     );
     hasError = false;
